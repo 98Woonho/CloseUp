@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {text-decoration: none;}
+ul {
+    list-style: none;
+}
+
+/*  전체적인 부분 */
+body {
+    margin: 120px 0;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+body::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0; right: 0; bottom: 0; left: 0;
+}
+/* 정규식 경고문구 */
+.error p {
+    display: none;
+}
+
+.login-con {
+    position: relative;
+    z-index: 2;
+}
+
+/* 로그인 타이틀 부분 */
+h2 {
+    font-size: 35px;
+    font-weight: normal;
+    color: #000000;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* 입력받는 부분 */
+.user-input-con {
+    width: 400px;
+    position: relative;
+    margin-top: 15px;
+}
+.user-input-con:first-child {
+    margin-top: 0;
+}
+.user-input-con input{
+    width: 100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px;
+    color: #000;
+    outline: none;
+}
+.user-input-con label {
+    position: absolute;
+    left: 10px;
+    top: 18px;
+    font-size: 18px;
+    color: #999;
+    transition: top .5s ease;
+}
+.user-input-con input:focus + label,
+.user-input-con input:valid + label { /* :valid 유효성 검사 */
+    top: -2px;
+    font-size: 15px;
+    font-weight: normal;
+    color: black;
+}
+
+
+/* 자동 로그인 */
+.auto-login {
+    margin-top: 15px;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+    margin: 20px 0 10px ;
+}
+.login-btn button {
+    width: 100%;
+    height: 50px;
+    background-color: rgba(224, 223, 223, 0.28);
+    color: #3d3d3d;
+    font-size: 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.login-btn button:hover {
+    border: 1px solid #999999;
+    color: #000000;
+    background-color: #fff;
+}
+
+/* 다른 페이지로 이동 (아이디/비밀번호 찾기, 회원가입) */
+.other-page {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.other-page ul {display: inline-flex;}
+.other-page li {
+    padding: 0 10px;
+}
+.other-page a{
+    color: black;
+}
+.other-page a:hover{
+    font-weight: bold;
+    color: #3d3d3d;
+}
+
+
+
+.side-bar{
+    position: absolute;
+    bottom: 110px;
+    display: flex;
+    width: 37%;
+    border-bottom: 1px solid #3d3d3d;
+}
+.left-bar {
+    left: 0;
+}
+.right-bar {
+    right: 0;
+}
+
+/* 다른 로그인 페이지로 이동 */
+.other-login {
+    margin: 30px 0;
+    text-align: center;
+}
+.other-login ul {
+    margin: 15px 0;
+    display: inline-flex;
+}
+
+.login-ikon {
+    height: 70px;
+    width: 70px;
+}
+.login-ikon * {
+    width: 100%;
+    height: 100%;
+}

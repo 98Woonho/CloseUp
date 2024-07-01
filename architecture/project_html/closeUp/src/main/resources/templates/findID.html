@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+</head>
+<body>
+    <main>
+        <section id="findSec">
+            <section class="titleSec">
+                <h2>아이디 찾기</h2>
+            </section>
+
+<!--            상단의 아이디 찾기 | 비밀번호 찾기 부분은 없는 미완성 -->
+            <section class="findIdFormSec">
+                <form action="/" method="">
+                    <div class="user-input-con">
+                        <input type="text" name="name" id="userName" required>
+                        <label for="userName">이름</label>
+                    </div>
+                    <div id="user-input-con">
+                        <input type="text" name="phoneNum" id="userPhoneNum" required>
+                        <label for="userPhoneNum">휴대폰 번호</label>
+                    </div>
+                </form>
+            </section>
+            <section class="other-page">
+                <ul>
+                    <li><a href="">비밀번호 찾기</a></li>
+                </ul>
+            </section>
+
+            <!--오류 메세지 부분-->
+            <div class="error-id error">
+<!--                <p id="blank">공백이 포함되었습니다.</p>-->
+<!--                <p class="reg-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>-->
+                <p><span>이름</span>또는<span>휴대폰 번호</span>가 틀렸습니다.</p>
+            </div>
+
+            <section id="find-btn">
+              <button type="submit" class="findId">확인</button>
+            </section>
+            <section class="registLinkSec">
+                <p>아직 회원이 아니신가요?<a href="">회원가입</a></p>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

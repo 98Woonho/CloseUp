@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅기록</title>
+</head>
+<body>
+<script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+    <main>
+        <!-- 내용 전체 -->
+        <section id="chatRecordSec">
+            <!-- 채팅내용 관련 -->
+            <section id="chattingSec">
+                <!-- 채팅 목록 -->
+                <section id="chatListSec">
+                    <h3>채팅 내역</h3>
+                    <input type="text" placeholder="검색">
+                    <section id="chatList">
+                        <ul>
+                            <li>
+                                <img src="" alt="">
+                                <div>
+                                    <b>obba</b>
+                                    <p>Will head to the Help Center...</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="" alt="">
+                                <div>
+                                    <b>obba</b>
+                                    <p>Will head to the Help Center...</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="" alt="">
+                                <div>
+                                    <b>obba</b>
+                                    <p>Will head to the Help Center...</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="" alt="">
+                                <div>
+                                    <b>obba</b>
+                                    <p>Will head to the Help Center...</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+                <!-- 채팅 내용 -->
+                <section id="chatViewSec">
+                    <section id="chatViewTop">
+                        <!-- 전문가를 선택했을 때 -->
+                        <div class="selected">
+                            <div>
+                                <i class="fa-solid fa-chevron-left"></i>
+                                <a href="#">이전</a>
+                            </div>
+                            <div>
+                                <img src="#" alt="대화상대의프로필이미지">
+                                <div>
+                                    <b>oboa</b>
+                                    <p>채팅 일자 :<span>00/00/00</span></p>
+                                </div>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-x"></i>
+                            </div>
+                        </div>
+                        <!-- 선택한 전문가가 없을 때, -->
+                        <div class="nonSelected">
+                            <div>
+                                <p>좌측의 목록에서 전문가를 선택해주세요.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="chatMsgSec">
+                        <!-- 채팅 내용이 있을 때, -->
+                        <div class="selected">
+                            <div class="chat user1">
+                                <div class="chatMsg">No honestly I’m thinking of a career pivot</div>
+                            </div>
+                            <div class="chat user1">
+                                <div class="chatMsg">This is the main chat template</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">Oh?</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">Cool</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">How does it work?</div>
+                            </div>
+                            <div class="chat user1">
+                                <div class="chatMsg">Simple</div>
+                            </div>
+                            <div class="chat user1">
+                                <div class="chatMsg">You just edit any text to type in the conversation you want to show, and delete any bubbles you don’t want to use</div>
+                            </div>
+                            <div class="chat user1">
+                                <div class="chatMsg">Boom</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">Hmmm</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">I think I get it</div>
+                            </div>
+                            <div class="chat user2">
+                                <div class="chatMsg">Will head to the Help Center if I have more questions tho</div>
+                            </div>
+                        </div>
+                        <!-- 채팅 내용이 없을 때, -->
+                        <div class="nonSelected">
+                            <div>
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <p>채팅 내용을 찾을 수 없습니다.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="selected">
+                            <input type="text" placeholder="종료된 대화입니다." disabled>
+                            <div>
+                                <i class="fa-regular fa-face-smile"></i>
+                                <i class="fa-regular fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="nonSelected">
+                            <input type="text" placeholder="선택된 채팅이 없습니다." disabled>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <!-- 대화 상대 정보 -->
+            <section id="InfoSec">
+                <!-- 선택된 대화 상대가 있을 때 -->
+                <div class="selected">
+                    <section id='profileSec'>
+                        <div id="profile_img">
+                            <img src="#" alt="대화상대의프로필이미지">
+                            <p>oboa</p>
+                        </div>
+                        <section id="category">
+                            <a href="">Design</a>
+                            <a href="">web</a>
+                            <a href="">Front-End</a>
+                        </section>
+                    </section>
+                    <button><a href="#">프로필 보기</a></button>
+                    <section>
+                        <!-- 지도 API들어갈 div -->
+                        <span>전문가의 위치</span>
+                        <div id="map"></div>
+                        <div id="mapAddr">
+                            <p>대구광역시 달구벌대로 618번길 21</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="nonselected">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p>정보를 찾을 수 없습니다.</p>
+
+                </div>
+            </section>
+
+        </section>
+    </main>
+</body>
+</html>

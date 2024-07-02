@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../../static/css/user/register.css" th:href="@{/css/user/register.css}">
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<main>
+    <section class="register_sec">
+        <section class="title_sec">
+            <p>회원가입</p>
+        </section>
+        <!-- css를 위한 div-->
+        <div id="registerCon">
+            <!-- 입력받는 부분 -->
+            <section>
+                <form action="" id="inputCon">
+                    <div class="user_input_con">
+                        <input type="text" name="id" id="userId" placeholder="아이디" required>
+                        <label for="userId"></label>
+                    </div>
+
+                    <div class="user_input_con">
+                        <input type="password" name="pw" id="userPw1" placeholder="비밀번호" required>
+                        <label for="userPw1"></label>
+                    </div>
+
+                    <div class="user_input_con">
+                        <input type="password" name="checkPw" id="userPw2" placeholder="비밀번호 확인" required>
+                        <label for="userPw2"></label>
+                    </div>
+                    <div class="user_input_con" id="userPhoneCon">
+                        <!-- JS로 재 설정 하기 (onfocus, onblur)-->
+                        <input type="text" id="userPhone" placeholder="휴대폰 번호" onfocus="this.placeholder = 'ex) 010-1234-5678'" onblur="this.placeholder = '휴대폰 번호'" required>
+                        <label for="userPhone"></label>
+
+                        <button type="button">인증번호 전송</button>
+                    </div>
+                    <div class="user_input_con" id="userPhoneChkCon">
+                        <input type="text" id="userPhoneChk" placeholder="인증 번호" required>
+                        <label for="userPhoneChk"></label>
+                        <button type="button">인증번호 확인</button>
+                    </div>
+                </form>
+            </section>
+            <div class="error_input error">
+                <!-- 오류 메세지 부분 JS로 display: block 주기-->
+                <p id="blank">공백이 포함되었습니다.</p>
+            </div>
+            <!-- 하단 버튼 부분 -->
+            <div>
+                <button type="submit" class="register_btn">회원가입</button>
+            </div>
+
+
+            <section class="login_link_sec">
+                <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+            </section>
+
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

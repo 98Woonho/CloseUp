@@ -9,6 +9,21 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+    /* 페이지 색상 */
+
+    --color--lighter-gray: #E4E4E7;
+    --color-light-gray: #C0C0C0;
+    --color-medium-gray: #71717A;
+    --color-dark-gray: #2c2c2c;
+
+    --color-lighter-bluegray: #F8FAFC;
+    --color-medium-blue: #2563EB;
+    /* 메인 색상 네이비*/
+    --color-main-navy: #152C4F;
+    --color-navy-blur: rgba(21, 44, 79, 0.9);
+
+    --color-error-red: #D93F21;
 }
 
 body {
@@ -63,7 +78,7 @@ header ul {
     gap: 2.5rem;
 }
 
-main {
+body {
     background-color: #F8FAFC;
 }
 

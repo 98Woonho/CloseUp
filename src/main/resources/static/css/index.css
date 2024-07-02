@@ -1,0 +1,121 @@
+main {
+    position: relative;
+}
+
+main .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 0;
+}
+
+main .content-container h1 {
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+
+main .content-container > p {
+    color: #667085;
+}
+
+.fixed-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.fixed-btn-container button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.fixed-btn-container button:not(:last-child) {
+    background-color: #D0D2D8;
+}
+
+.fixed-btn-container button:not(:last-child) img {
+    width: 25px;
+}
+
+.fixed-btn-container button:last-child {
+    background-color: #152C4F;
+}
+
+.fixed-btn-container button:last-child img {
+    width: 35px;
+}
+
+.search-container {
+    border: 1px solid #D0D5DD;
+    border-radius: 10px;
+    padding: 0.15rem 1rem;
+    margin: 3.5rem 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-container input {
+    width: 400px;
+    border: none;
+    padding: 1rem;
+    background-color: inherit;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
+.category-container {
+    margin-bottom: 3.5rem;
+    width: 500px;
+    text-align: center;
+    line-height: 180%;
+}
+
+.category-container button {
+    border-radius: 20px;
+    padding: 0.15rem 0.75rem;
+}
+
+.sort-container {
+    width: 100%;
+}
+
+.sort-container ul {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+
+.sort-container ul li {
+    padding: 0.75rem 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sort-container ul li:hover {
+    border-bottom: 2px solid black;
+}
+
+.profile-container {
+    margin-top: 2rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.profile {
+    text-align: center;
+    height: 300px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #666;
+}

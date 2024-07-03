@@ -107,14 +107,13 @@
     margin: 8px 0;
     width: 100%;
     height: 72px;
-    color: var(--color-main-navy);
-    background-color: var(--color-light-blue);
+    color: #ffffff;
+    background-color: var(--color-navy-blur);
     border-radius: 9px;
     font-weight: bolder;
     font-size: 16px;
 }
 .find_Btn:hover {
-    color: var(--color-light-blue);
     background: var(--color-main-navy);
 }
 

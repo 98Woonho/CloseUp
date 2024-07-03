@@ -12,9 +12,6 @@
     margin-top: 48px;
 }
 
-
-
-
 /* 아이디찾기 타이틀 제외 section */
 #newPwCon {
     margin-top: 48px;
@@ -28,6 +25,7 @@
 
 /* 변경 완료 메세지 */
 .success_msg_sec {
+    margin-bottom: 48px;
     width: 100%;
     height: 168px;
     border: 1px solid var(--color-lighter-gray);

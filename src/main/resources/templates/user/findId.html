@@ -5,15 +5,15 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>비밀번호 찾기</title>
+    <title>아이디 찾기</title>
     <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/findPW.css" th:href="@{/css/user/findPW.css}">
+    <link rel="stylesheet" href="../../static/css/user/findId.css" th:href="@{/css/user/findId.css}">
 </head>
 <body>
     <main>
         <section class="find_sec">
             <section class="title_sec">
-                <p>비밀번호 찾기</p>
+                <p>아이디 찾기</p>
             </section>
             <!-- css를 위한 div-->
             <div id="navFormCon">
@@ -34,8 +34,8 @@
                                 <label for="userName"></label>
                             </div>
                             <div class="user_input_con">
-                                <input type="text" name="id" id="userId" placeholder="아이디" required>
-                                <label for="userId"></label>
+                                <input type="text" name="phoneNum" id="userPhoneNum" placeholder="휴대폰 번호" required>
+                                <label for="userPhoneNum"></label>
                             </div>
                         </form>
                     </section>
@@ -48,10 +48,11 @@
                     <!--오류 메세지 부분-->
                     <div class="error">
                         <p id="blank"><span>공백</span>이 포함되었습니다.</p>
-                        <p><span>이름</span>또는<span>아이디</span>가 틀렸습니다.</p>
+                        <p><span>이름 </span>또는 <span>휴대폰 번호</span>가 틀렸습니다.</p>
                     </div>
+
                     <section>
-                        <button type="submit" class="find_Btn">확인</button>
+                      <button type="submit" class="find_Btn">확인</button>
                     </section>
                     <section class="register_link_sec">
                         <p>아직 회원이 아니신가요? <a href="register.html">회원가입</a></p>

@@ -1,26 +1,61 @@
-/* 로그인 전체 section */
-.login_sec {
+.find_sec {
     margin: 132px auto;
     width: 520px;
 }
-
-/* 로그인 타이틀 */
-.login_sec .title_sec {
+/* 아이디찾기 타이틀 */
+.find_sec .title_sec {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
 }
-
-/* 로그인 타이틀 제외 section */
-#loginCon {
+#navFormCon {
     margin-top: 48px;
+}
+
+
+/* nav태그 부분 (아이디 찾기/ 비밀번호 찾기) */
+#findNavSec ul {
+    display: flex;
+    width: 100%;
+    top: 24px;
+}
+#findNavSec ul > li {
+    width: 50%;
+    height: 72px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+}
+#findNavSec ul > li:first-child {
+    background-color: var(--color-main-navy);
+}
+#findNavSec ul > li:first-child a {
+    color: white;
+}
+#findNavSec ul > li:hover {
+    background-color: var(--color-main-navy);
+}
+
+#findNavSec ul > li a{
+    color: var(--color-medium-gray);
+}
+#findNavSec ul > li a:hover{
+    color: white;
+}
+
+
+/* 아이디찾기 타이틀 제외 section */
+#findCon {
+    position: relative;
     padding: 32px 40px;
-    /*position: absolute;*/
+    top: -16px;
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
+    z-index: 1;
 }
-
 .user_input_con input{
     margin-bottom: 24px;
     padding: 24px 16px;
@@ -33,38 +68,27 @@
 .user_input_con:last-child input{
     margin-bottom: 16px;
 }
-
 /* placeholder 글자 색 변경 */
 .user_input_con input::placeholder{
     color: var(--color-light-gray);
 }
 
 
-/* one_line_align(한줄정렬) : css 같은 줄 배치를 위한 div태그 */
-.one_line_align {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
 /* 다른 페이지로 이동하는 태그 */
 .other_page li {
-    display: inline;
-}
-.other_page li:after {
-    content: " |";
-}
-.other_page li:last-child:after {
-    content: none;
+    text-align: center;
+    font-size: 14px;
 }
 .other_page li:hover {
     text-decoration: underline;
     text-decoration-thickness: from-font;
 }
 
+
 /* 오류 메세지 */
 .error {
-    height: 56px;
-    padding-top: 24px;
+    height: 80px;
+    padding-top: 48px;
 }
 .error p{
     display: none;
@@ -73,47 +97,31 @@
     text-align: center;
 }
 .error span {
-    text-decoration: underline;
+    font-weight: bolder;
     text-decoration-thickness: from-font;
 }
 
+
 /* 로그인 버튼 */
-.login_btn {
+.find_Btn {
     margin: 8px 0;
     width: 100%;
     height: 72px;
-    color: #ffffff;
-    background-color: var(--color-main-navy);
+    color: var(--color-main-navy);
+    background-color: var(--color-light-blue);
     border-radius: 9px;
     font-weight: bolder;
     font-size: 16px;
 }
-.login_btn:hover {
-    color: var(--color-main-navy);
-    background: var(--color-light-blue);
-}
-
-
-/* 소셜 로그인 */
-.other_login_ikon {
-    margin-bottom: 8px;
-    width: 100%;
-    height: 72px;
-    text-align: center;
-    align-content: center;
-    border-radius: 9px;
-    font-weight: bold;
-    color: var(--color-main-navy);
-    background-color: var(--color-light-blue);
-}
-.other_login_ikon:hover {
-    border: 1px solid var(--color-light-gray);
+.find_Btn:hover {
     color: var(--color-light-blue);
+    background: var(--color-main-navy);
 }
+
 
 /* 회원가입으로 이동 */
 .register_link_sec p{
-    margin-top: 16px;
+    margin-top: 40px;
     color: var(--color-medium-gray);
     text-align: center;
     font-size: 14px;

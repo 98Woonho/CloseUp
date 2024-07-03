@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 성공</title>
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" href="../../static/css/user/registerSuccess.css" th:href="@{/css/user/registerSuccess.css}">
+</head>
+<body>
+    <main>
+        <section class="find_sec">
+            <section class="title_sec">
+                <p>아이디 찾기</p>
+            </section>
+            <!-- css를 위한 div-->
+            <div id="navFormCon">
+                <!-- css를 위한 div-->
+                <div id="newPwCon">
+                    <section class="success_msg_sec">
+                        <p>회원가입이 되었습니다.</p>
+                        <p><a href="login.html">로그인</a>을 통해 다양한 전문가와 소통을 시작해 주세요.</p>
+                        <p>:)</p>
+                    </section>
+                    <section class="other_page">
+                        <ul>
+                            <li><a href="login.html">로그인</a></li>
+                        </ul>
+                    </section>
+
+                    <!--오류 메세지 부분-->
+                    <div class="error">
+<!--                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>-->
+                        <p>입력한 비밀번호가 <span>서로 일치</span>하지 않습니다.</p>
+                    </div>
+                    <section>
+                        <button type="submit" class="find_Btn">로그인</button>
+                        <button type="submit" class="find_Btn">홈으로</button>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

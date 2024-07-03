@@ -1,9 +1,5 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-}
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 
 * {
     box-sizing: border-box;
@@ -12,12 +8,13 @@
 
     /* 페이지 색상 */
 
-    --color--lighter-gray: #E4E4E7;
+    --color-lighter-gray: #E4E4E7;
     --color-light-gray: #C0C0C0;
     --color-medium-gray: #71717A;
     --color-dark-gray: #2c2c2c;
 
     --color-lighter-bluegray: #F8FAFC;
+    --color-light-blue: #EDF2F8;
     --color-medium-blue: #2563EB;
     /* 메인 색상 네이비*/
     --color-main-navy: #152C4F;
@@ -27,7 +24,7 @@
 }
 
 body {
-    font-family: 'Pretendard-Regular';
+    font-family: Pretendard;
 }
 
 ul, li {

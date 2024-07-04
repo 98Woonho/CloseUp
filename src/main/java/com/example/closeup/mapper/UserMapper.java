@@ -8,7 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
     /**************회원가입***************/
-    @Insert("INSERT INTO `user` " +
-            "VALUES (#{id}, #{pw}, #{phone}, #{carrier})")
     void insertUser(UserDto user);
 }

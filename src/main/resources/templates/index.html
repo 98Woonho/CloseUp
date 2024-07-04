@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CloseUp</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css">
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/common.css">
+
+</head>
+<body>
+
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
+<main>
+    <div class="fixed-btn-container">
+        <button>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADTUlEQVR4nO2a/WtOYRjHP4wxw2aSKMS8DaGIElLKH4DGzOYn5SWNyMuI+E2iRfwkWVqIhkXyMpGXKHkfm9cotlh+MbaRTXd9T53WeR7P9jznOfep51OnVtd9rvt7P+d+ue7rGqRIkSJZDAeWAPuAc8BT4B3QqMf8/QSoVJt8YBiWMBrYA7wA2iM8P/REsj8DdgO5QQxgDnAZ+OsSZH7tg0AhMB3I8XgvR7blwCF9Ned94+sSMCsZA8hVZ07n74FtwMg4fI4CSoEPLr9VcfqMSDdgPfBTHdVpPXRPYB/GVwHwWn00AesS6J++wBk5b9YX6IF/9AS2Ay3q8xSQGa9TM6fvy6H5pSaRPCYDb9T3PSC7q476AY/k6CaQRfLJBm5Jw0PNjk6Rpl3JOLgKZBAcfYBqabkobTGzQy+a7bE/wZMFPJemrbG+NAX4rUNsDPYwTrtma6xr9bpGvgb7KJG2K/9rOE8Na3zeYuPZml9J49xoDSvVyIQZtlIsjaejbXVmbXwF0rGXXoqmWyNtRPka6THs57i0LvYylsm4FPtZJq0HvIzOoZOH/UyU1mtexjoZbV4fDr2ltRYPGoBfhIdmoN7LUK/QOSy0AF+8DDX6XCZIC/XUqpbRxDShXux7ZSzCfgqjbb8LZTyK/ZRL6yIvY6Yu/N8VBti8Phq12M0t1pOKEASNK6TxZLRG04A2HY62hvG1Gsjs/zU+r4bmEmMbG6TN5BNiyvw16ZQfjz3kSVOLtt+YWKuRm+T0AIIn23Vgb+5sirTcldMK8rTPlAaj5UJX0rTprtPeZPoGEsyXuC0ND+JJnWYoKeakTE1JIFlMBd6q7zuJyHSaLe+wHJo7/Rb8JR3Y6UpiVyQiie2mQI5NcsIPzLlVpBKdU+la5VeRx5mriS7fmRTtJ/lvUw1yBD5HnEci2EtVTlsJzAAGe8Rsg2Qr1nSt6VB6qwJm4jNOyW2Bx5RwMjBeT7MO2Ej2x8Auv0ptHRkC/AE+dkjrjwVuSFCDynHmwDoB3AVe6gr9TXPf1FvO6u5jQvChJJkyiV3tmiL7le1rVz7WpnDGkwkSbKbHRgWVzgCccDrivcAW0nQYec1tUxKbT0go0Y3xs/5DwcQ6m0KSjUxBkPwDzwIGrMKmHgUAAAAASUVORK5CYII=">
+        </button>
+        <button>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADH0lEQVR4nO2az29MURTHr+m0RFrdSJXwB0hU0padpAtRTQU7UT9CLCqWbQWL2pFItKNi1T3Kwoo/wE6qJRIWCKuqEmHRIn5/5GTOJHeeN/XMvDd9d9xP8jKT+958z7lz7zn33DtjjMfj8Xg8Ho/H4/F4kgdYBnQCB4EBveR9h9wztQrQCowBs5RG7l0C1pgaG/FTwEeiswCcdH5GACuAiZAOzmn7KJDT99IW5LpoGIdHfiLQoWmgG8iEPJ8BdgIPQ74E92YC+WlvIyNdF+FzWc0VNkPGJYAWYN7qwGgZGpcDOaHVuALFIzgdZeRLzAQ7HHLGodiftRzvrkCrx9J55UQuALZYTr8OS3j/oCWJ8Y2l12HSDnDAcngiBr2blt5+k3bIFzAFLsagN+LUagAMWQ6PxKAnxVKBQZN2gL7/PQQ6LYfnYkiCby29duPgMthTgVavpTPjxDIo6Ja2gBQzWVNeIfSokmoyTaXwWBkaVwKlsFtnBBQvh2htn4048nbnhQHjGuRzgWxlCYRDzyLb4d7AtBeuOhP7JQ5Egl8CWt7e0C1yTpc6O9sXuObsgUhgJgxpHEdlXg9L3Rz5MCSJ6WjLrq4UM1r5tZhahfyMaNeKsXAs3qdttTPiHo/nD4AGYCuwD+gHTuvVr21yr8HUEkAbcB6YAr5GWALlmfvAOWCTcRGgHjgGPKFyHgNHy9lQLQnAIeBlic78Ap4Ct4Bx4IJe49r2TJ8J44WcN5q0AqwD7oQ4vqD1/G6gOYJOM7BHy+Cw6vE2sNakCWAH8CHg6DtNcI0V6DYCZ1TL5j2w3aQB4AjwzXLup259G2O00aSaom0ny8Nx2SgL4EQgZqWW70rQXpfasHPK8aTsLQqwC/huOSMZf4NJGIn/wG+GP4C9SdstAtgc+MfHVJQEFxfAKmDSsi++tFXLeFZ/8S0g29v1VTFe7Mdq4Lnlh5wk1VfD8LBl9IvMhsSNlvZlI/DZ8mc4aYMZ4JNl8GyiBqP5NBgIhUzSBifV2L2qTLm/+1MH3FWfHlTD4Epgm7yalAAs1yWyaal98Xg8Ho/H4zGu8BtwmuJ4q1SwHwAAAABJRU5ErkJggg==">
+        </button>
+    </div>
+    <div class="content-container">
+        <h1>모든 IT 전문가를 찾는 방법</h1>
+        <p>내 주변 000명의 IT 전문가와 만나보세요.</p>
+        <div class="search-container">
+            <button>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA9klEQVR4nL3UTSvFQRiG8Z/XjtixYCWJHRv5JlIslZedDgvZyFKSLUXYONkhliSrg+R8JJqa5Wn+Mzpc67trep65Z/gnprCPRzRxi02MlIp6cIgXLGAUfRjHOj6xkivrQgM7iUwN19jOEa7hKCPXiyfMpULdaGEw52TM4C4VmMeZMt7jCtqyjLoyGrENbVnCljJuMJ0a+bxQ+IGB1KV8YShTNov7qtAqjgtqE6aqLHYo7W4iU4uX0YxTZT29A7xiEWPoxwQ24lqe8Y3LXGlgEnt4wFsscajVcJRc/UZatZ7Tv5CedFoaJBdRGlbUEYI0yIo/3yx+AGd+K3bJmkjeAAAAAElFTkSuQmCC">
+            </button>
+            <input type="text" placeholder="어떤 IT 전문가를 찾으세요?   ex) 웹개발, 백엔드, ...">
+        </div>
+        <div class="category-container">
+            <button style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+            <button style="background-color:#FDF4C7; color: #FF9900;">Design</button>
+            <button style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+            <button style="background-color:#98ffb0; color: #0C9059;">Python</button>
+            <button style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+            <button style="background-color:#E9D2FF; color: #6941C6;">Back-End</button>
+            <button style="background-color:#C5CDFE; color: darkblue;">APP</button>
+            <button style="background-color:#E7F0DC; color: #729762;">SpringBoot</button>
+            <button style="background-color:#a1e7ff; color: #174fa3;">React</button>
+            <button style="background-color:#ffd3eb; color: #930346;">MySQL</button>
+            <button style="background-color:#ffcca9; color: #8a5930;">Node.js</button>
+        </div>
+        <div class="sort-container">
+            <ul>
+                <li>인기 순</li>
+                <li>최근 순</li>
+                <li>날짜 순</li>
+            </ul>
+        </div>
+        <div class="profile-container">
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+            <div class="profile">프로필</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <a class="logo" href="/">
+        <img src="https://fontmeme.com/permalink/240702/4e102425bebd6f493cbad8015d29556d.png" alt="berry-pearl-font" border="0">
+    </a>
+    <p>&copy; 2024 CloseUp All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

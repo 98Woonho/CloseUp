@@ -4,7 +4,7 @@ templates 하위 파일, 폴더명 - 카멜 케이스
 
 java 하위 클래스, 인터페이스 - 파스칼 케이스
 
-html class - 스네이크 케이스
+html class - 단어마다 '-'로 연결
 html id - 카멜 케이스
 
 js 변수명 - 카멜 케이스

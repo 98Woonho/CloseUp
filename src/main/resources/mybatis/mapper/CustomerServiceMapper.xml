@@ -4,9 +4,14 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.closeup.mapper.UserMapper">
 
-
-    <insert id="insertUser">
+    <insert id="insertUser"  parameterType="com.example.closeup.dto.UserDto">
         INSERT INTO `user`
-        VALUES (#{id}, #{pw}, #{phone}, #{carrier}
+        VALUES (#{id}, #{pw}, #{phone}, #{carrier})
     </insert>
+
+    <select id="selectUserById" resultType="com.example.closeup.dto.UserDto">
+        SELECT  * FROM `user`
+        WHERE `id` = #{id}
+    </select>
+
 </mapper>

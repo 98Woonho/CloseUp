@@ -7,62 +7,70 @@
     <meta charset="UTF-8">
     <title>로그인</title>
 
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" href="../../static/css/user/login.css" th:href="@{/css/user/login.css}">
 </head>
 <body>
     <main>
-        <section class="loginSec">
-            <section class="titleSec">
-                <h2>로그인<img src=""></h2>
+        <section class="login_sec">
+            <section class="title_sec">
+                <p>로그인</p>
             </section>
-            <!-- 입력받는 부분 -->
-            <section class="loginFormSec">
-                <form action="#" method="" id="input-con" autocomplete="off">
-                    <div class="user-input-con">
-                        <input type="text" name="id" id="userId" required>
-                        <label for="userId">ID</label>
-                    </div>
-                    <div class="user-input-con">
-                    <input type="password" name="pw" id="userPw" required>
-                        <label for="userPw">PW</label>
-                        <div class="error-pw error">
+            <!-- css를 위한 div-->
+            <div id="loginCon">
+                <!-- 입력받는 부분 -->
+                <section>
+                    <form action="#" method="">
+                        <div class="user_input_con">
+                            <input type="text" name="id" id="userId" placeholder="아이디" required>
+                            <label for="userId"></label>
                         </div>
-
-                    </div>
-                    <div class="auto-login">
-                        <input type="checkbox" id="remember-id" checked>
-                        <label for="remember-id">아이디 자동 저장</label>
-                        <div class="other-page">
+                        <div class="user_input_con">
+                        <input type="password" name="pw" id="userPw" placeholder="비밀번호" required>
+                            <label for="userPw"></label>
+                        </div>
+                    </form>
+                    <!-- one_line_align(한줄정렬) : css 같은 줄 배치를 위한 div태그 -->
+                    <div class="one_line_align">
+                        <div class="auto_login">
+                            <input type="checkbox" id="rememberId">
+                            <label for="rememberId">아이디 자동 저장</label>
+                        </div>
+                        <div class="other_page">
                             <ul>
-                                <li><a href="findID.html">아이디 찾기</a></li>
+                                <li><a href="findId.html">아이디 찾기</a></li>
                                 <li><a href="findPW.html">비밀번호 찾기</a></li>
                             </ul>
                         </div>
                     </div>
-<!--                    오류 메세지 부분-->
-                    <div class="error-id error">
-    <!--                    <p id="blank">공백이 포함되었습니다.</p>-->
-    <!--                    <p class="reg-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>-->
-                        <p><span>아이디</span>또는<span>비밀번호</span>가 틀렸습니다.</p>
+                    <div class="error_input error">
+                        <!-- 오류 메세지 부분 JS로 display: block 주기-->
+                        <p id="blank">공백이 포함되었습니다.</p>
+                        <p class="reg-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>
+                        <p>* <span>아이디</span>또는<span>비밀번호</span>가 틀렸습니다.</p>
                     </div>
-                    <div class="login-btn">
-                        <button type="submit" class="login">로그인</button>
+                    <div>
+                        <button type="submit" class="login_btn">로그인</button>
                     </div>
-                </form>
-            </section>
-            <section class="other-login">
-                <p>다른 로그인</p>
-                <ul>
-                    <div class="login-ikon">
-                        <li><a href=""><img src="../../static/imgs/네이버%20AI-04.png" alt="네이버로 로그인"></a></li>
-                    </div>
-                    <div class="login-ikon">
-                        <li><a href=""><img src="../../static/imgs/카카오톡%20LOGO-04.png" alt="카카오로 로그인"></a></li>
-                    </div>
-                </ul>
-            </section>
-            <section class="registLinkSec">
-                <p>아직 회원이 아니신가요?<a href="register.html">회원가입</a></p>
-            </section>
+                </section>
+                <section class="other-login_sec">
+                    <ul>
+                        <li>
+                            <div class="other_login_ikon">
+                                <a href=""><img src="#" alt="(네이버로고)">네이버 로그인</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="other_login_ikon">
+                                <a href=""><img src="#" alt="(카카오로고)">카카오 로그인</a>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <section class="register_link_sec">
+                    <p>아직 회원이 아니신가요? <a href="#">회원가입</a></p>
+                </section>
+            </div>
         </section>
     </main>
 </body>

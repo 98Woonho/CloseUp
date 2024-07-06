@@ -1,0 +1,62 @@
+input, button{
+    display: block;
+    width: 440px;
+    height: 72px;
+    border-radius: 10px;
+    padding: 15px;
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+#modify-section{
+    max-width: 1104px;
+    margin: 0 auto;
+    height: 100vh;
+}
+.modify-container{
+    position: relative;
+    top: 150px;
+    margin: 0 auto;
+    width: 520px;
+    height: 400px;
+    text-align: center;
+}
+.modify-title{
+    margin-bottom: 20px;
+}
+.modify-container > form{
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px darkgray;
+}
+#id-input{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.modify-container input{
+    margin: 0 auto;
+}
+.modify-container input{
+    margin-bottom: 16px;
+}
+#addr-container{
+    display: flex;
+}
+#addr-input{
+    width: 290px;
+    margin-right: 15px;
+}
+#addr-container > div{
+    align-content: center;
+    width: 135px;
+    height: 72px;
+    background-color: midnightblue;
+    border-radius: 10px;
+}
+#addr-container > div > a{
+    color: white;
+}
+.modify-container button{
+    background-color: midnightblue;
+    color: white;
+}

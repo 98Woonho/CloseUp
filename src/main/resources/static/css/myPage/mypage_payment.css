@@ -79,6 +79,9 @@
     color: var(--color-medium-gray);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+#theadRow > th{
+    background-color: #f8f8f8;
+}
 #theadRow > th:nth-child(2){
     text-align: left;
 }

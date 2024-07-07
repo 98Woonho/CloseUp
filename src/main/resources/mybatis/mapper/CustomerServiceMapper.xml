@@ -6,12 +6,28 @@
 
     <insert id="insertUser"  parameterType="com.example.closeup.dto.UserDto">
         INSERT INTO `user`
-        VALUES (#{id}, #{pw}, #{phone}, #{carrier})
+        VALUES (#{id}, #{password}, #{phone}, #{carrier})
     </insert>
 
     <select id="selectUserById" resultType="com.example.closeup.dto.UserDto">
         SELECT  * FROM `user`
         WHERE `id` = #{id}
     </select>
+
+    <select id="selectUserByNameAndPhone" resultType="com.example.closeup.dto.UserDto">
+        SELECT * FROM `user`
+        WHERE name = #{name} AND phone = #{phone}
+    </select>
+
+    <select id="selectUserByNameAndId" resultType="com.example.closeup.dto.UserDto">
+        SELECT * FROM `user`
+        WHERE name = #{name} AND id = #{id}
+    </select>
+
+    <update id="updatePassword">
+        UPDATE `user`
+        SET password = #{newPassword}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

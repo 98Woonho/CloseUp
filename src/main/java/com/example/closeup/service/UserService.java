@@ -14,11 +14,25 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void createUser(UserDto user){
+    public boolean createUser(UserDto user){
 
-        String encodedPassword = passwordEncoder.encode(user.getPw());
-        user.setPw(encodedPassword);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userMapper.insertUser(user);
+        return true;
+    }
+
+    public UserDto findUserByNameAndPhone(String name, String phone) {
+        return userMapper.selectUserByNameAndPhone(name, phone);
+    }
+
+    public UserDto findUserByNameAndId(String name, String id) {
+        return userMapper.selectUserByNameAndId(name, id);
+    }
+
+    public boolean resetPassword(String id, String newPassword) {
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        return userMapper.updatePassword(id, encodedPassword) > 0;
     }
 }
+

@@ -5,10 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+<!--    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>-->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <link rel="stylesheet" href="/static/css/regist.css" th:href="@{/css/regist.css}">
-    <script src="../static/js/regist.js" th:src="@{/js/regist.js}" defer></script>
+    <script src="/static/js/regist.js" th:src="@{/js/regist.js}" defer></script>
+
 </head>
 <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+
 <body>
 <main>
     <form action="/user/regist" id="inputCon" method="post" enctype="multipart/form-data" >
@@ -29,7 +33,7 @@
                 </div>
 
                 <div class="user-input-con">
-                    <input type="password" name="pw" id="userPw1" required>
+                    <input type="password" name="password" id="userPw1" required>
                     <label for="userPw1">비밀번호</label>
                     <div class="check-pw1 error">
                         <p>20자 이내의 비밀번호를 입력해주세요.</p>
@@ -59,7 +63,7 @@
                     <input type="text" id="userPhone" name="phone" required>
                     <label for="userPhone">휴대폰 번호</label>
 
-                    <button>인증번호 전송</button>
+                    <button type="button">인증번호 전송</button>
                 </div>
                 <div class="user-input-con" id="userPhoneChkCon">
                     <input type="text" id="userPhoneChk" required>

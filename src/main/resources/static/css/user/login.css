@@ -18,7 +18,7 @@
     /*position: absolute;*/
     border-radius: 20px;
     background-color: #fff;
-    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--box-shadow);
 }
 
 .user_input_con input{

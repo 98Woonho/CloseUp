@@ -21,6 +21,9 @@
     --color-navy-blur: rgba(21, 44, 79, 0.9);
 
     --color-error-red: #D93F21;
+
+    /* box-shadow 통일 */
+    --box-shadow : 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
 }
 
 body {

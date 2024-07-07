@@ -8,9 +8,11 @@
 </head>
 <body>
     <main>
-        <section id="modify-section">
+        <section id="modifySection">
             <div class="modify-container">
-                <h1 class="modify-title">회원 정보 수정</h1>
+                <section id="titleSec">
+                    <p>회원 정보 수정</p>
+                </section>
                 <form action="">
                     <input id="id-input" type="text" placeholder="회원 아이디" disabled>
                     <input type="password" placeholder="변경 후 비밀번호">
@@ -19,9 +21,7 @@
                     <input type="text" placeholder="휴대전화 번호">
                     <div id="addr-container">
                         <input id="addr-input" type="text" placeholder="주소">
-                        <div>
-                            <a href="#">주소 검색</a>
-                        </div>
+                        <button id="addr-btn">주소검색</button>
                     </div>
                     <input type="text" placeholder="상세 주소">
                     <button type="submit">변경 완료</button>

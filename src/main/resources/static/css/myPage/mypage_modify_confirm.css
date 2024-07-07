@@ -5,7 +5,7 @@ input, button{
     border-radius: 10px;
     padding: 15px;
 }
-#modify-section{
+#modifySection{
     max-width: 1104px;
     margin: 0 auto;
     height: 100vh;
@@ -18,7 +18,9 @@ input, button{
     height: 400px;
     text-align: center;
 }
-.modify-title{
+#titleSec{
+    font-size: 40px;
+    font-weight: lighter;
     margin-bottom: 20px;
 }
 .modify-input-container{
@@ -26,13 +28,17 @@ input, button{
     height: 266px;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 5px 5px 10px darkgray;
+    box-shadow: var(--box-shaodw);
 }
 .modify-input-container > input{
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
 }
 .modify-input-container > button{
-    background-color: midnightblue;
-    color: white;
+    background-color: var(--color-main-navy);
+    color: var(--color-lighter-bluegray);
+}
+.modify-input-container > button:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
 }

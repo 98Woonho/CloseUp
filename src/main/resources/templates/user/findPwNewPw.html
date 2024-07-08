@@ -5,15 +5,15 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>비밀번호 찾기</title>
+    <title>새 비밀번호 입력</title>
     <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/findPW.css" th:href="@{/css/user/findPW.css}">
+    <link rel="stylesheet" href="../../static/css/user/findPwNewPw.css" th:href="@{/css/user/findPwNewPw.css}">
 </head>
 <body>
     <main>
         <section class="find-sec">
             <section class="title-sec">
-                <p>비밀번호 찾기</p>
+                <p>새로운 비밀번호</p>
             </section>
             <!-- css를 위한 div-->
             <div id="navFormCon">
@@ -30,12 +30,12 @@
                     <section>
                         <form action="#">
                             <div class="user-input-con">
-                                <input type="text" name="name" id="userName" placeholder="이름" required>
-                                <label for="userName"></label>
+                                <input type="password" name="newPw" id="userNewPw" placeholder="새 비밀번호" required>
+                                <label for="userNewPw"></label>
                             </div>
                             <div class="user-input-con">
-                                <input type="text" name="id" id="userId" placeholder="아이디" required>
-                                <label for="userId"></label>
+                                <input type="password" name="newPwChk" id="userNewPwChk" placeholder="새 비밀번호 확인" required>
+                                <label for="userNewPwChk"></label>
                             </div>
                         </form>
                     </section>
@@ -47,8 +47,8 @@
 
                     <!--오류 메세지 부분-->
                     <div class="error">
-                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>
-                        <p><span>이름</span>또는<span>아이디</span>가 틀렸습니다.</p>
+                        <p id="blank">공백이 포함되었습니다.</p>
+                        <p>입력한 비밀번호가 <span>서로 일치</span>하지 않습니다.</p>
                     </div>
                     <section>
                         <button type="submit" class="find-Btn">확인</button>

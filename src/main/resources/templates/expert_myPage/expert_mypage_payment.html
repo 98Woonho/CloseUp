@@ -2,66 +2,79 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>PAYMENT PAGE</title>
+    <title>마이페이지 | 결제 내역 페이지</title>
+    <link rel="stylesheet" href="../../static/css/common.css">
 </head>
 <body>
-    <main>
-        <section>
-            <h1 class="paymentTitle">결제 내역 페이지</h1>
-            <div id="paymentHeaderCon">
-                <h3 class="tableTitle">결제 내역</h3>
-                <div class="selectCon">
-                    <label>
-                        <select>
-                            <option>최신순</option>
-                            <option>오래된순</option>
-                        </select>
-                    </label>
-                    <button class="deleteBtn">삭제</button>
+<main>
+    <section id="manageSection">
+        <div>
+            <section id="titleSec">
+                <p>결제 내역 페이지</p>
+            </section>
+            <div id="manageContainer">
+                <div id="headerContainer">
+                    <div class="select-con">
+                        <label>
+                            <select>
+                                <option>최신순</option>
+                                <option>오래된순</option>
+                            </select>
+                        </label>
+                        <button class="delete-btn">삭제</button>
+                    </div>
                 </div>
-            </div>
-            <table id="paymentTable">
-                <thead id="paymentThead">
-                    <tr>
+                <table id="manageTable">
+                    <colgroup>
+                        <col class="check-box">
+                        <col class="title">
+                        <col class="date">
+                        <col class="price">
+                        <col class="writer">
+                    </colgroup>
+                    <thead id="manageThead">
+                    <tr id="theadRow">
                         <th><input type="checkbox"></th>
                         <th>서비스명</th>
                         <th>날짜</th>
                         <th>금액</th>
                         <th>전문가</th>
                     </tr>
-                </thead>
-                <tbody id="paymentTbody">
-                    <tr class="paymentRow">
+                    </thead>
+                    <tbody id="manageTbody">
+                    <tr class="manage-row">
                         <td><input type="checkbox"></td>
                         <td>홈페이지 전문 제작</td>
                         <td>Jun 21, 2024</td>
                         <td>880,000원</td>
                         <td>주식회사드림위드컴퍼니</td>
                     </tr>
-                    <tr class="paymentRow">
+                    <tr class="manage-row">
                         <td><input type="checkbox"></td>
                         <td>홈페이지 전문 제작</td>
                         <td>Jun 21, 2024</td>
                         <td>880,000원</td>
                         <td>주식회사드림위드컴퍼니</td>
                     </tr>
-                    <tr class="paymentRow">
+                    <tr class="manage-row">
                         <td><input type="checkbox"></td>
                         <td>홈페이지 전문 제작</td>
                         <td>Jun 21, 2024</td>
                         <td>880,000원</td>
                         <td>주식회사드림위드컴퍼니</td>
                     </tr>
-                    <tr class="paymentRow">
+                    <tr class="manage-row">
                         <td><input type="checkbox"></td>
                         <td>홈페이지 전문 제작</td>
                         <td>Jun 21, 2024</td>
                         <td>880,000원</td>
                         <td>주식회사드림위드컴퍼니</td>
                     </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
 </body>
 </html>

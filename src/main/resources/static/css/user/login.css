@@ -1,11 +1,11 @@
 /* 로그인 전체 section */
-.login_sec {
+.login-sec {
     margin: 132px auto;
     width: 520px;
 }
 
 /* 로그인 타이틀 */
-.login_sec .title_sec {
+.login-sec .title-sec {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
@@ -21,7 +21,7 @@
     box-shadow: var(--box-shadow);
 }
 
-.user_input_con input{
+.user-input-con input{
     margin-bottom: 24px;
     padding: 24px 16px;
     width: 100%;
@@ -30,33 +30,33 @@
     border-radius: 9px;
     font-size: 16px;
 }
-.user_input_con:last-child input{
+.user-input-con:last-child input{
     margin-bottom: 16px;
 }
 
 /* placeholder 글자 색 변경 */
-.user_input_con input::placeholder{
+.user-input-con input::placeholder{
     color: var(--color-light-gray);
 }
 
 
-/* one_line_align(한줄정렬) : css 같은 줄 배치를 위한 div태그 */
-.one_line_align {
+/* one-line-align(한줄정렬) : css 같은 줄 배치를 위한 div태그 */
+.one-line-align {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 /* 다른 페이지로 이동하는 태그 */
-.other_page li {
+.other-page li {
     display: inline;
 }
-.other_page li:after {
+.other-page li:after {
     content: " |";
 }
-.other_page li:last-child:after {
+.other-page li:last-child:after {
     content: none;
 }
-.other_page li:hover {
+.other-page li:hover {
     text-decoration: underline;
     text-decoration-thickness: from-font;
 }
@@ -73,12 +73,11 @@
     text-align: center;
 }
 .error span {
-    text-decoration: underline;
-    text-decoration-thickness: from-font;
+    font-weight: bold;
 }
 
 /* 로그인 버튼 */
-.login_btn {
+.login-btn {
     margin: 8px 0;
     width: 100%;
     height: 72px;
@@ -88,14 +87,14 @@
     font-weight: bolder;
     font-size: 16px;
 }
-.login_btn:hover {
+.login-btn:hover {
     color: var(--color-main-navy);
     background: var(--color-light-blue);
 }
 
 
 /* 소셜 로그인 */
-.other_login_ikon {
+.other-login-ikon {
     margin-bottom: 8px;
     width: 100%;
     height: 72px;
@@ -106,20 +105,20 @@
     color: var(--color-main-navy);
     background-color: var(--color-light-blue);
 }
-.other_login_ikon:hover {
+.other-login-ikon:hover {
     border: 1px solid var(--color-light-gray);
     color: var(--color-light-blue);
 }
 
 /* 회원가입으로 이동 */
-.register_link_sec p{
+.register-link-sec p{
     margin-top: 16px;
     color: var(--color-medium-gray);
     text-align: center;
     font-size: 14px;
     font-weight: lighter;
 }
-.register_link_sec a{
+.register-link-sec a{
     font-weight: bold;
     color: var(--color-medium-blue);
 }

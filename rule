@@ -1,13 +1,14 @@
 [ 네이밍 규칙 ]
 
-templates 하위 파일, 폴더명 - 카멜 케이스
+templates 하위 파일, 폴더명 - 카멜 케이스 ( ex.templatesFileName )
 
-java 하위 클래스, 인터페이스 - 파스칼 케이스
+java 하위 클래스, 인터페이스 - 파스칼 케이스 ( ex. JavaClass )
 
-html class - 단어마다 '-'로 연결
-html id - 카멜 케이스
 
-js 변수명 - 카멜 케이스
+html class - 케밥 케이스 (ex. html-class )
+html id - 카멜 케이스 (ex. htmlId )
+
+js 변수명 - 카멜 케이스 (ex. jsName )
 
 css 없는 태그들은 class, id 붙이지 말기
 

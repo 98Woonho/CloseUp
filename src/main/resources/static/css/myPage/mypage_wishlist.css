@@ -1,0 +1,73 @@
+#wishlistSec{
+    max-width: 1104px;
+    margin: 0 auto;
+    height: 100vh;
+}
+#wishlistSec > div{
+    width: 1040px;
+    margin: 0 auto;
+    position: relative;
+    top: 150px;
+}
+#titleSec{
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+.wish-lies{
+    margin-bottom: 30px;
+}
+.wish-lies > div{
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    width: 1040px;
+    height: 250px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+.heart-con{
+    width: 100px;
+}
+.heart-con i{
+    font-size: 55px;
+    color: var(--color-error-red);
+}
+.header-con{
+    width: 190px;
+    height: 190px;
+    margin-right: 40px;
+}
+.header-con img{
+    width: 190px;
+    height: 160px;
+}
+.category-con > button{
+    height: 20px;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+.content-sec{
+    display: flex;
+}
+.title-con{
+    width: 220px;
+    height: 190px;
+    margin-right: 40px;
+}
+.writer-con{
+    margin-bottom: 30px;
+}
+.title{
+    font-size: 30px;
+    font-weight: bold;
+}
+.content-con{
+    height: 190px;
+    align-content: center;
+}
+.content-con p{
+    color: var(--color-medium-gray);
+}

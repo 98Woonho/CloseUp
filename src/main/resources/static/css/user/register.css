@@ -1,10 +1,10 @@
 /* 회원가입 전체 section */
-.register_sec {
+.register-sec {
     margin: 132px auto;
     width: 520px;
 }
 /* 회원가입 타이틀 */
-.register_sec .title_sec {
+.register-sec .title-sec {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
@@ -18,12 +18,12 @@
     background-color: #fff;
     box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
 }
-.user_input_con{
+.user-input-con{
     display: flex;
     position: relative;
 }
 
-.user_input_con input{
+.user-input-con input{
     padding: 24px 16px;
     margin-bottom: 16px;
     flex: 1;
@@ -34,12 +34,12 @@
 }
 
 /* placeholder 글자 색 변경 */
-.user_input_con input::placeholder{
+.user-input-con input::placeholder{
     color: var(--color-light-gray);
 }
 
 /* 인증번호 괸련 버튼 */
-.user_input_con button{
+.user-input-con button{
     display: inline-block;
     margin-left: 8px;
     width: 132px;
@@ -50,7 +50,7 @@
     font-weight: bolder;
     font-size: 16px;
 }
-.user_input_con button:hover{
+.user-input-con button:hover{
     background-color: var(--color-navy-blur);
 
 }
@@ -73,7 +73,7 @@
 }
 
 /* 회원가입 버튼 */
-.register_btn {
+.register-btn {
     margin: 8px 0;
     width: 100%;
     height: 72px;
@@ -83,20 +83,20 @@
     font-weight: bolder;
     font-size: 16px;
 }
-.register_btn:hover {
+.register-btn:hover {
     color: var(--color-light-blue);
     background: var(--color-main-navy);
 }
 
 /* 로그인으로 이동 */
-.login_link_sec p{
+.login-link-sec p{
     margin-top: 16px;
     color: var(--color-medium-gray);
     text-align: center;
     font-size: 14px;
     font-weight: lighter;
 }
-.login_link_sec a{
+.login-link-sec a{
     font-weight: bold;
     color: var(--color-medium-blue);
 }

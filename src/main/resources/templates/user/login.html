@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
 
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/login.css" th:href="@{/css/user/login.css}">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/user/login.css">
+
+    <script defer src="/js/user/login.js"></script>
 </head>
 <body>
     <main>
@@ -20,7 +21,7 @@
             <div id="loginCon">
                 <!-- 입력받는 부분 -->
                 <section>
-                    <form action="#" method="">
+                    <form id="loginForm">
                         <div class="user-input-con">
                             <input type="text" name="id" id="userId" placeholder="아이디" required>
                             <label for="userId"></label>
@@ -45,9 +46,9 @@
                     </div>
                     <div class="error-input error">
                         <!-- 오류 메세지 부분 JS로 display: block 주기-->
-                        <p id="blank">공백이 포함되었습니다.</p>
-                        <p class="reg-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>
-                        <p>* <span>아이디</span>또는<span>비밀번호</span>가 틀렸습니다.</p>
+                        <p class="err-msg">공백이 포함되었습니다.</p>
+                        <p class="err-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>
+                        <p class="err-msg">아이디 또는 비밀번호가 틀렸습니다.</p>
                     </div>
                     <div>
                         <button type="submit" class="login-btn">로그인</button>

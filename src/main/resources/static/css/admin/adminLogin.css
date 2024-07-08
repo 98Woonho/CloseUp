@@ -1,17 +1,14 @@
-/* 로그인 전체 section */
 .login-sec {
     margin: 132px auto;
     width: 520px;
 }
 
-/* 로그인 타이틀 */
 .login-sec .title-sec {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
 }
 
-/* 로그인 타이틀 제외 section */
 #loginCon {
     margin-top: 48px;
     padding: 32px 40px;
@@ -20,6 +17,7 @@
     background-color: #fff;
     box-shadow: var(--box-shadow);
 }
+
 
 .user-input-con input{
     margin-bottom: 24px;
@@ -40,27 +38,6 @@
 }
 
 
-/* one-line-align(한줄정렬) : css 같은 줄 배치를 위한 div태그 */
-.one-line-align {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-/* 다른 페이지로 이동하는 태그 */
-.other-page li {
-    display: inline;
-}
-.other-page li:after {
-    content: " |";
-}
-.other-page li:last-child:after {
-    content: none;
-}
-.other-page li:hover {
-    text-decoration: underline;
-    text-decoration-thickness: from-font;
-}
-
 /* 오류 메세지 */
 .error {
     height: 56px;
@@ -75,6 +52,7 @@
 .error span {
     font-weight: bold;
 }
+
 
 /* 로그인 버튼 */
 .login-btn {
@@ -93,32 +71,15 @@
 }
 
 
-/* 소셜 로그인 */
-.other-login-ikon {
-    margin-bottom: 8px;
-    width: 100%;
-    height: 72px;
-    text-align: center;
-    align-content: center;
-    border-radius: 9px;
-    font-weight: bold;
-    color: var(--color-main-navy);
-    background-color: var(--color-light-blue);
-}
-.other-login-ikon:hover {
-    border: 1px solid var(--color-light-gray);
-    color: var(--color-light-blue);
-}
-
-/* 회원가입으로 이동 */
-.register-link-sec p{
+/* 일반 로그인으로 이동 */
+.login-link-sec p{
     margin-top: 16px;
     color: var(--color-medium-gray);
     text-align: center;
     font-size: 14px;
     font-weight: lighter;
 }
-.register-link-sec a{
+.login-link-sec a{
     font-weight: bold;
     color: var(--color-medium-blue);
 }

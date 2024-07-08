@@ -1,0 +1,105 @@
+#manageSection{
+    max-width: 1104px;
+    margin: 0 auto;
+    height: 100vh;
+}
+#manageSection > div{
+    position: relative;
+    top: 150px;
+    width: 1040px;
+    margin: 0 auto;
+}
+#titleSec{
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+#manageContainer{
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+#headerContainer{
+    padding: 30px;
+}
+.select-con{
+    display: flex;
+    justify-content: space-between;
+}
+.select-con label{
+    margin-right: 20px;
+}
+.select-con select{
+    padding-left: 10px;
+    width: 120px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.select-con button{
+    margin-left: 10px;
+    width: 70px;
+    height: 40px;
+    color: white;
+    background-color: var(--color-main-navy);
+    border-radius: 10px;
+}
+.select-con button:hover{
+    background-color: var(--color-light-blue);
+    color: var(--color-main-navy);
+}
+/***********************************************/
+#manageTable{
+    width: 1040px;
+    border-collapse: collapse;
+}
+#manageTable colgroup > .check-box{
+    width: 80px;
+}
+#manageTable colgroup > .title{
+    width: 400px;
+}
+#manageTable colgroup > .date{
+    width: 176px;
+}
+#manageTable colgroup > .category{
+    width: 176px;
+}
+#manageTable colgroup > .writer{
+    width: 176px;
+}
+#manageTable input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+    align-self: center;
+}
+#theadRow{
+    height: 44px;
+    color: var(--color-medium-gray);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+#theadRow > th{
+    background-color: #f8f8f8;
+}
+#theadRow > th:nth-child(2){
+    text-align: left;
+}
+#manageTbody{
+    text-align: center;
+}
+.manage-row{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.manage-row:last-child{
+    border: none;
+}
+.manage-row{
+    height: 72px;
+}
+.manage-row > td:nth-child(2){
+    text-align: left;
+}
+#theadRow > th:not(:first-child), .manage-row > td:not(:first-child){
+    padding-right: 20px;
+}

@@ -6,6 +6,8 @@
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../static/css/common.css">
     <link rel="stylesheet" href="../../../static/css/myPage/expert/expert_mypage_modify_info_1.css">
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+
 </head>
 <body>
     <main>
@@ -49,13 +51,23 @@
                                 <div class="tags"><p>Python</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
                                 <div class="tags"><p>JavaScript</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
                             </div>
-                            <div class="textarea-container">
+                            <div class="select-container">
                                 <label>
-                                    <textarea></textarea>
+                                    <select>
+                                        <option selected>보유 기술</option>
+                                        <option>JAVA</option>
+                                        <option>Python</option>
+                                        <option>JavaScript</option>
+                                        <option>C</option>
+                                        <option>C++</option>
+                                        <option>React</option>
+                                        <option>MySQL</option>
+                                        <option>MariaDB</option>
+                                        <option>Flutter</option>
+                                        <option>Kotlin</option>
+                                        <option>Swift</option>
+                                    </select>
                                 </label>
-                                <div class="input-btn-container">
-                                    <button class="input-btn">입력</button>
-                                </div>
                             </div>
                         </div>
                         <div class="info-container">
@@ -93,20 +105,67 @@
 
                     <!-- 포트폴리오 관리 -->
                     <section id="portfolioSection">
-                        <div>
-                            <p class="sub-title">포트폴리오</p>
+                        <div id="portfolioContainer">
+                            <div id="titleContainer">
+                                <p class="sub-title">포트폴리오</p>
+                                <button id="portfolioWriteBtn" type="button">작성하기</button>
+                            </div>
                             <!-- 포트폴리오 클릭하면 수정 페이지로 이동 -->
-                            <ul>
-                                <li>
-                                    <div>
-                                        <img src="#" alt="#">
+                            <div class="embla">
+                                <div class="embla__viewport">
+                                    <div class="embla__container">
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a href="#">포트폴리오 제목</a>
-                                        <a href="#">포트폴리오 간단한 설명</a>
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+                                <div class="embla-btn-container">
+                                    <button type="button" class="embla__prev"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <button type="button" class="embla__next"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -119,5 +178,23 @@
             </div>
         </section>
     </main>
+
+    <!-- 캐러셀 -->
+    <script type="text/javascript">
+        // Grab wrapper nodes
+        const rootNode = document.querySelector('.embla');
+        const viewportNode = rootNode.querySelector('.embla__viewport');
+
+        // Grab button nodes
+        const prevButtonNode = rootNode.querySelector('.embla__prev');
+        const nextButtonNode = rootNode.querySelector('.embla__next');
+
+        // Initialize the carousel
+        const embla = EmblaCarousel(viewportNode);
+
+        // Add click listeners
+        prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+        nextButtonNode.addEventListener('click', embla.scrollNext, false);
+    </script>
 </body>
 </html>

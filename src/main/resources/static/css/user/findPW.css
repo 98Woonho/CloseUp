@@ -34,15 +34,13 @@
 #findNavSec ul > li:last-child a {
     color: white;
 }
-#findNavSec ul > li:hover {
+#findNavSec ul > li:hover , #findNavSec ul > li:hover a{
     background-color: var(--color-main-navy);
+    color: white;
 }
 
 #findNavSec ul > li a{
     color: var(--color-medium-gray);
-}
-#findNavSec ul > li a:hover{
-    color: white;
 }
 
 
@@ -97,12 +95,10 @@
     text-align: center;
 }
 .error span {
-    text-decoration: underline;
-    text-decoration-thickness: from-font;
+    font-weight: bold;
 }
 
 
-/* 로그인 버튼 */
 .find-Btn {
     margin: 8px 0;
     width: 100%;

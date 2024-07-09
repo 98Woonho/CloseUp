@@ -73,8 +73,7 @@
     text-align: center;
 }
 .error span {
-    text-decoration: underline;
-    text-decoration-thickness: from-font;
+    font-weight: bold;
 }
 
 /* 로그인 버튼 */

@@ -1,9 +1,9 @@
-.find_sec {
+.find-sec {
     margin: 132px auto;
     width: 520px;
 }
 /* 아이디찾기 타이틀 */
-.find_sec .title_sec {
+.find-sec .title-sec {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
@@ -56,7 +56,7 @@
     box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
     z-index: 1;
 }
-.user_input_con input{
+.user-input-con input{
     margin-bottom: 24px;
     padding: 24px 16px;
     width: 100%;
@@ -65,21 +65,21 @@
     border-radius: 9px;
     font-size: 16px;
 }
-.user_input_con:last-child input{
+.user-input-con:last-child input{
     margin-bottom: 16px;
 }
 /* placeholder 글자 색 변경 */
-.user_input_con input::placeholder{
+.user-input-con input::placeholder{
     color: var(--color-light-gray);
 }
 
 
 /* 다른 페이지로 이동하는 태그 */
-.other_page li {
+.other-page li {
     text-align: center;
     font-size: 14px;
 }
-.other_page li:hover {
+.other-page li:hover {
     text-decoration: underline;
     text-decoration-thickness: from-font;
 }
@@ -103,7 +103,7 @@
 
 
 /* 로그인 버튼 */
-.find_Btn {
+.find-Btn {
     margin: 8px 0;
     width: 100%;
     height: 72px;
@@ -113,20 +113,20 @@
     font-weight: bolder;
     font-size: 16px;
 }
-.find_Btn:hover {
+.find-Btn:hover {
     background: var(--color-main-navy);
 }
 
 
 /* 회원가입으로 이동 */
-.register_link_sec p{
+.register-link-sec p{
     margin-top: 40px;
     color: var(--color-medium-gray);
     text-align: center;
     font-size: 14px;
     font-weight: lighter;
 }
-.register_link_sec a{
+.register-link-sec a{
     font-weight: bold;
     color: var(--color-medium-blue);
 }

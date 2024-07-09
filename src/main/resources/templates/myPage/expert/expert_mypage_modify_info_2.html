@@ -2,36 +2,43 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>마이페이지 | 전문가 포트폴리오 작성 페이</title>
 </head>
 <body>
     <main>
-        <form action="" method="POST">
-            <div>
-                <label for="title">
-                    <input type="text" id="title" placeholder="제목을 입력하세요.">
-                </label>
-            </div>
-            <section>
-                <span>파일 첨부</span>
-                <div>
-                    <label for="files">
-                        첨부할 파일을 여기로 이동해주세요<input type="file" id="files">
-                    </label>
-                </div>
-            </section>
-            <div>
-                <span>내용 작성</span>
-                <label>
-                    <textarea placeholder="내용을 작성하세요."></textarea>
-                </label>
-            </div>
-        </form>
+        <section id="modifySection">
+            <div class="modify-container">
+                <section id="titleSec">
+                    <p>포트폴리오 작성 페이지</p>
+                </section>
+                <form action="" method="POST">
+                    <div>
+                        <label for="title">
+                            <input type="text" id="title" placeholder="제목을 입력하세요.">
+                        </label>
+                    </div>
+                    <section>
+                        <span>파일 첨부</span>
+                        <div>
+                            <label for="files">
+                                첨부할 파일을 여기로 이동해주세요<input type="file" id="files">
+                            </label>
+                        </div>
+                    </section>
+                    <div>
+                        <span>내용 작성</span>
+                        <label>
+                            <textarea placeholder="내용을 작성하세요."></textarea>
+                        </label>
+                    </div>
+                </form>
 
-        <section>
-            <button>삭제</button>
-            <button>수정 취소</button>
-            <button>수정 완료</button>
+                <section>
+                    <button>삭제</button>
+                    <button>수정 취소</button>
+                    <button>수정 완료</button>
+                </section>
+            </div>
         </section>
     </main>
 </body>

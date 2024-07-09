@@ -1,6 +1,6 @@
 /* input 입력값 정규식 */
 // 아이디 정규 표현식 공식(대/소문자영어, 숫자, 공백X, 5~15자 이내)
-const CK_id = /^[a-zA-Z][0-9]{5,15}$/;
+const CK_id = /^[a-zA-Z0-9]{5,15}$/;
 // 공백 확인 정규 표현식
 const CK_space = /\s/g;
 // 비밀번호 정규 표현식 공식
@@ -29,28 +29,31 @@ loginBtn.addEventListener('click', function(e) {
         errMsg.style.display = 'none';
     })
 
-    if (loginForm['id'].value === '') {
-        errMsgs[1].style.display = 'block';
-        return;
-    }
-
-    if (!RegExp(loginForm['id'].value).test(CK_space)) {
+    if (CK_space.test(loginForm['id'].value)) {
         errMsgs[0].style.display = 'block';
+        loginForm['id'].focus();
+        loginForm['id'].select();
         return;
     }
 
-    if (!RegExp(loginForm['id'].value).test(CK_id)) {
+    if (!CK_id.test(loginForm['id'].value)) {
         errMsgs[1].style.display = 'block';
+        loginForm['id'].focus();
+        loginForm['id'].select();
         return;
     }
 
-    if (!RegExp(loginForm['pw'].value).test(CK_space) || loginForm['pw'].value === '') {
+    if (CK_space.test(loginForm['pw'].value)) {
         errMsgs[0].style.display = 'block';
+        loginForm['pw'].focus();
+        loginForm['pw'].select();
         return;
     }
 
-    if (!RegExp(loginForm['pw'].value).test(CK_pw)) {
-        errMsgs[2].style.display = 'block';
+    if (!CK_pw.test(loginForm['pw'].value)) {
+        errMsgs[1].style.display = 'block';
+        loginForm['pw'].focus();
+        loginForm['pw'].select();
         return;
     }
 })

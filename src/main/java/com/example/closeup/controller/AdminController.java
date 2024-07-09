@@ -12,10 +12,8 @@ public class AdminController {
 
     @GetMapping("login")
     public String getLogin() {
-        return "admin/admin_login";
+        return "admin/adminLogin";
     }
-
-    // admin_main은 무슨 페이지?
 
     @GetMapping("users")
     public String getUsers() {

@@ -1,7 +1,7 @@
 package com.example.closeup.service;
 
 import com.example.closeup.domain.dto.UserDto;
-import com.example.closeup.mapper.UserMapper;
+import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -26,18 +26,18 @@
                     </nav>
                 </section>
                 <!-- css를 위한 div-->
+                <form action="/user/findPwNewPw" method="post" enctype="multipart/form-data">
                 <div id="findCon">
                     <section>
-                        <form action="#">
+                        <input type="hidden" name="id" th:value="${userId}">
                             <div class="user-input-con">
-                                <input type="password" name="newPw" id="userNewPw" placeholder="새 비밀번호" required>
+                                <input type="password" name="password" id="userNewPw" placeholder="새 비밀번호" required>
                                 <label for="userNewPw"></label>
                             </div>
                             <div class="user-input-con">
                                 <input type="password" name="newPwChk" id="userNewPwChk" placeholder="새 비밀번호 확인" required>
                                 <label for="userNewPwChk"></label>
                             </div>
-                        </form>
                     </section>
                     <section class="other-page">
                         <ul>
@@ -57,6 +57,7 @@
                         <p>아직 회원이 아니신가요? <a href="register.html">회원가입</a></p>
                     </section>
                 </div>
+                </form>
             </div>
         </section>
     </main>

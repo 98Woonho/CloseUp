@@ -14,17 +14,17 @@
             <p>회원가입</p>
         </section>
         <!-- css를 위한 div-->
+        <form action="/user/register" id="inputCon" method="post" enctype="multipart/form-data">
         <div id="registerCon">
             <!-- 입력받는 부분 -->
             <section>
-                <form action="" id="inputCon">
                     <div class="user-input-con">
                         <input type="text" name="id" id="userId" placeholder="아이디" required>
                         <label for="userId"></label>
                     </div>
 
                     <div class="user-input-con">
-                        <input type="password" name="pw" id="userPw1" placeholder="비밀번호" required>
+                        <input type="password" name="password" id="userPw1" placeholder="비밀번호" required>
                         <label for="userPw1"></label>
                     </div>
 
@@ -34,7 +34,7 @@
                     </div>
                     <div class="user-input-con" id="userPhoneCon">
                         <!-- JS로 재 설정 하기 (onfocus, onblur)-->
-                        <input type="text" id="userPhone" placeholder="휴대폰 번호" onfocus="this.placeholder = 'ex) 010-1234-5678'" onblur="this.placeholder = '휴대폰 번호'" required>
+                        <input type="text" id="userPhone" name="phone" placeholder="휴대폰 번호" onfocus="this.placeholder = 'ex) 010-1234-5678'" onblur="this.placeholder = '휴대폰 번호'" required>
                         <label for="userPhone"></label>
 
                         <button type="button">인증번호 전송</button>
@@ -44,7 +44,6 @@
                         <label for="userPhoneChk"></label>
                         <button type="button">인증번호 확인</button>
                     </div>
-                </form>
             </section>
             <div class="error-input error">
                 <!-- 오류 메세지 부분 JS로 display: block 주기-->
@@ -59,8 +58,8 @@
             <section class="login-link-sec">
                 <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
             </section>
-
         </div>
+        </form>
     </section>
 </main>
 

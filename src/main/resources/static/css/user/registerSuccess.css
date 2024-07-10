@@ -40,6 +40,39 @@
     font-weight: bolder;
 }
 
+
+
+
+/* 다른 페이지로 이동하는 태그 */
+.other-page li {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+.other-page li:hover {
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+}
+
+
+/* 오류 메세지 */
+.error {
+    height: 56px;
+    padding-top: 48px;
+}
+.error p{
+    display: none;
+    color: var(--color-error-red);
+    font-size: 14px;
+    text-align: center;
+    bottom: 0;
+}
+.error span {
+    font-weight: bolder;
+    text-decoration-thickness: from-font;
+}
+
+
 /* 하단 버튼 */
 .find-Btn {
     margin: 8px 0;

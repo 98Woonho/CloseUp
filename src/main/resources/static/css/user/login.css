@@ -66,12 +66,18 @@
     height: 56px;
     padding-top: 24px;
 }
-.error p{
+
+.error p {
     display: none;
     color: var(--color-error-red);
     font-size: 14px;
     text-align: center;
 }
+
+.error .err-msg {
+    display: block;
+}
+
 .error span {
     font-weight: bold;
 }

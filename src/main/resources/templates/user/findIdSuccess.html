@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>새 비밀번호 생성</title>
     <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/findIdSuccess.css" th:href="@{/css/user/findIdSuccess.css}">
+    <link rel="stylesheet" href="../../static/css/user/findIdSuccess.css" th:href="@{/css/user/findIdSuccess.css}">
 </head>
 <body>
 <main>
@@ -38,20 +38,20 @@
                     </ul>
                 </section>
 
-                <!--오류 메세지 부분-->
-                <div class="error">
-                    <!--                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>-->
-                    <p>입력한 비밀번호가 <span>서로 일치</span>하지 않습니다.</p>
+                    <!--오류 메세지 부분-->
+                    <div class="error">
+<!--                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>-->
+                        <p>입력한 비밀번호가 <span>서로 일치</span>하지 않습니다.</p>
+                    </div>
+                    <section>
+                        <button type="submit" class="find-Btn">확인</button>
+                    </section>
+                    <section class="register-link-sec">
+                        <p>아직 회원이 아니신가요? <a href="register.html">회원가입</a></p>
+                    </section>
                 </div>
-                <section>
-                    <button type="submit" class="find-Btn">확인</button>
-                </section>
-                <section class="register-link-sec">
-                    <p>아직 회원이 아니신가요? <a href="register.html">회원가입</a></p>
-                </section>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 </body>
 </html>

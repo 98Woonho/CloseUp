@@ -1,0 +1,31 @@
+@import "../common.css";
+
+#headerSec {
+    display: flex;
+    width: 100vw;
+    height: 104px;
+    align-items: center;
+    background-image: url(../../image/CloseUp-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+    background-color: #fff;
+    
+}
+#navSec {
+    padding: 0 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_nav li {
+    display: inline;
+}
+
+/* */
+nav > ul > li:hover {
+    font-weight: bolder;
+    cursor: pointer;
+}

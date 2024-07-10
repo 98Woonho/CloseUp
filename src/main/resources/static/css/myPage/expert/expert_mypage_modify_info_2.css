@@ -1,0 +1,102 @@
+#modifySection{
+    max-width: 1104px;
+    margin: 0 auto;
+    height: 100vh;
+}
+.modify-container{
+    position: relative;
+    top: 150px;
+    margin: 0 auto;
+    width: 800px;
+}
+#titleSec{
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+    text-align: left;
+}
+/************************************/
+.modify-container > form{
+    padding: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 40px;
+}
+#titleInputContainer{
+    margin-bottom: 20px;
+}
+#titleInputContainer input{
+    width: 100%;
+    height: 72px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+/*************************************/
+.desc-container{
+    margin-bottom: 10px;
+    color: var(--color-medium-gray);
+}
+#fileSection{
+    margin-bottom: 20px;
+}
+#fileInputContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 110px;
+    color: var(--color-medium-gray);
+    background-color: var(--color-lighter-bluegray);
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+#fileInputContainer > input[type="file"]{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#fileInputContainer i{
+    font-size: 20px;
+}
+#fileInputContainer > p{
+    cursor: default;
+}
+/*************************************/
+#writeContainer textarea{
+    width: 100%;
+    height: 500px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    resize: none;
+}
+/*************************************/
+#btnSec{
+    display: flex;
+    justify-content: space-between;
+}
+#btnSec > button{
+    flex: 1;
+    height: 72px;
+    padding: 15px;
+    background-color: var(--color-main-navy);
+    color: white;
+    border-radius: 20px;
+}
+#btnSec > button:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
+}
+#btnSec > button:not(:last-child){
+    margin-right: 20px;
+}

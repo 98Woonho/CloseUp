@@ -1,0 +1,93 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    /* 페이지 색상 */
+
+    --color-lighter-gray: #E4E4E7;
+    --color-light-gray: #C0C0C0;
+    --color-medium-gray: #71717A;
+    --color-dark-gray: #2c2c2c;
+
+    --color-lighter-bluegray: #F8FAFC;
+    --color-light-blue: #EDF2F8;
+    --color-medium-blue: #2563EB;
+    /* 메인 색상 네이비*/
+    --color-main-navy: #152C4F;
+    --color-navy-blur: rgba(21, 44, 79, 0.9);
+
+    --color-error-red: #D93F21;
+
+    /* box-shadow 통일 */
+    --box-shadow : 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
+}
+
+body {
+    font-family: Pretendard;
+}
+
+ul, li {
+    list-style: none;
+}
+
+button {
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+header {
+    height: 100px;
+}
+
+.content-container {
+    max-width: 1104px;
+    margin: 0 auto;
+}
+
+header .content-container {
+    position: relative;
+    max-width: 1700px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+body {
+    background-color: #F8FAFC;
+}
+
+footer {
+    height: 150px;
+    background-color: #dcdcdc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

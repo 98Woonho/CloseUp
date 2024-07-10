@@ -37,9 +37,8 @@ public class UserController {
     }
 
     //아이디 찾기
-    @GetMapping("/findID")
-    public String getFindID() {
-        return "user/findId";
+    @GetMapping("findId")
+    public void getFindId() {
     }
 
     // portOne 엑세스 토큰 받기
@@ -184,14 +183,13 @@ public class UserController {
     }
 
     /***************** 회원가입 *******************/
-    @GetMapping("/regist")
-    public void getUserRegist() {
-        System.out.println("get");
+    @GetMapping("regist")
+    public void getRegist() {
     }
 
 
-    @PostMapping("/regist")
-    public String postUserRegist(
+    @PostMapping("regist")
+    public String postRegist(
             UserDto user,
             RedirectAttributes redirectAttributes) {
         System.out.println("post_user_regist" + user);

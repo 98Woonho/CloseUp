@@ -1,5 +1,6 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.domain.dto.UserDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ import java.util.Map;
 public class UserController {
 
     @GetMapping("login")
-    public void getLogin() {
-
+    public void getLogin(@RequestParam(value="error", required = false) boolean error, Model model) {
+        model.addAttribute("error", error);
     }
 
     // portOne 엑세스 토큰 받기

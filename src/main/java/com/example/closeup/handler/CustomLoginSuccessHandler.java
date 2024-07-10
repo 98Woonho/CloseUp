@@ -21,6 +21,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler  
         collection.forEach( (role)->{
             String role_str =  role.getAuthority();
 
+
             try {
 //                if (role_str.equals("ROLE_USER")) {
 //                    response.sendRedirect("/user");
@@ -30,7 +31,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler  
 //                    response.sendRedirect("/admin");
 //                }
                 response.sendRedirect("/");
-            }catch(Exception e){
+            } catch(Exception e){
 //                e.printStackTrace();
             }
 

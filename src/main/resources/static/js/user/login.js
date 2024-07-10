@@ -18,11 +18,9 @@ const CK_pw = /^[A-Za-z\\d`~!@#$%^&*()-_=+]{8,20}$/;
 */
 
 const loginForm = document.getElementById('loginForm');
-const loginBtn = document.querySelector('.login-btn');
 const errMsgs = document.querySelectorAll('.err-msg');
 
-// 로그인 버튼 클릭
-loginBtn.addEventListener('click', function(e) {
+loginForm.onsubmit = (e) => {
     e.preventDefault();
 
     errMsgs.forEach(errMsg => {
@@ -56,4 +54,6 @@ loginBtn.addEventListener('click', function(e) {
         loginForm['pw'].select();
         return;
     }
-})
+
+    loginForm.submit();
+}

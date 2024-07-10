@@ -45,9 +45,9 @@
                     </div>
                     <div class="error-input error">
                         <!-- 오류 메세지 부분 JS로 display: block 주기-->
-                        <p>공백이 포함되었습니다.</p>
-                        <p>대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>
-                        <p th:if="${error == true}" class="err-msg">아이디 또는 비밀번호가 틀렸습니다.</p>
+                        <p class="err-msg">공백이 포함되었습니다.</p>
+                        <p class="err-msg">대/소문자 영어, 숫자를 포함한 5-15자이내로 입력해주세요.</p>
+                        <p th:if="${error == true}" class="err-msg err-failure">아이디 또는 비밀번호가 틀렸습니다.</p>
                     </div>
                     <div>
                         <button type="submit" class="login-btn">로그인</button>

@@ -160,8 +160,6 @@
 .embla-btn-container > button:hover{
     background-color: rgba(0, 0, 0, 0.2);
 }
-.embla__next{
-}
 /************************************/
 #btnSec{
     display: flex;

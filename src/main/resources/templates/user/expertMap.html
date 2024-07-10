@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>주변전문가</title>
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/css/user/expertMap.css">
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
 </head>
-<script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
 <body>
     <main>
-        <section>
+        <section id="mapSec">
             <section id="currentLoca">
                 <div>
                     <i class="fa-solid fa-location-crosshairs"></i>
@@ -18,33 +21,108 @@
                     <p>대구광역시 달구벌대로 618번길 21</p>
                 </div>
             </section>
-            <section>
-                <div id="expertMap"></div>
-                <div id="MapOnMarker"></div>
+            <section id="map">
+                <div id="expertMap">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130713_50%2Fgisafirst_13736775080071cQBX_PNG%2F%25C6%25C4%25BF%25F6%25C6%25F7%25C0%25CE%25C6%25AE-ppt_%25B9%25E8%25BF%25EC%25B1%25E2_46-11.png&type=sc960_832" alt="">
+                </div>
+                <div id="mapOnMarker"></div>
                 <section id="expertInfoListSec">
-                    <div class="expertInfo">
-                        <img src="" alt="">
-                        <div>
-                            <b>드림위드컴퍼니</b>
-                            <p>홈페이지 전문 제작회사 드림위드 컴퍼니</p>
+                    <div class="embla">
+                        <div class="embla__viewport">
+                            <div class="embla__container">
+                                <div class="embla__slide">
+                                    <div class="img-container">
+                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                    </div>
+                                    <div class="title-container">
+                                        <a class="service-title" href="#">서비스명</a>
+                                        <a class="service-desc" href="#">서비스 설명</a>
+                                    </div>
+                                    <div class="rate-container">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                                <div class="embla__slide">
+                                    <div class="img-container">
+                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                    </div>
+                                    <div class="title-container">
+                                        <a class="service-title" href="#">서비스명</a>
+                                        <a class="service-desc" href="#">서비스 설명</a>
+                                    </div>
+                                    <div class="rate-container">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                                <div class="embla__slide">
+                                    <div class="img-container">
+                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                    </div>
+                                    <div class="title-container">
+                                        <a class="service-title" href="#">서비스명</a>
+                                        <a class="service-desc" href="#">서비스 설명</a>
+                                    </div>
+                                    <div class="rate-container">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                                <div class="embla__slide">
+                                    <div class="img-container">
+                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                    </div>
+                                    <div class="title-container">
+                                        <a class="service-title" href="#">서비스명</a>
+                                        <a class="service-desc" href="#">서비스 설명</a>
+                                    </div>
+                                    <div class="rate-container">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                                <div class="embla__slide">
+                                    <div class="img-container">
+                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                    </div>
+                                    <div class="title-container">
+                                        <a class="service-title" href="#">서비스명</a>
+                                        <a class="service-desc" href="#">서비스 설명</a>
+                                    </div>
+                                    <div class="rate-container">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <i class="fa-solid fa-star"></i>
-                            <span>5.0 </span>(<span>123</span>)
+                        <div class="embla-btn-container">
+                            <button type="button" class="embla__prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button type="button" class="embla__next"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
-                    <section id="listArrow">
-                        <div>
-                            <i class="fa-solid fa-caret-left"></i>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-caret-right"></i>
-                        </div>
-                    </section>
                 </section>
             </section>
         </section>
     </main>
 
+    <!-- 캐러셀 -->
+    <script type="text/javascript">
+        // Grab wrapper nodes
+        const rootNode = document.querySelector('.embla');
+        const viewportNode = rootNode.querySelector('.embla__viewport');
+
+        // Grab button nodes
+        const prevButtonNode = rootNode.querySelector('.embla__prev');
+        const nextButtonNode = rootNode.querySelector('.embla__next');
+
+        // Initialize the carousel
+        const embla = EmblaCarousel(viewportNode);
+
+        // Add click listeners
+        prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+        nextButtonNode.addEventListener('click', embla.scrollNext, false);
+    </script>
 </body>
 </html>

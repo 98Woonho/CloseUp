@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="col-6">
+        <h1>[[${room.name}]]</h1>
+    </div>
+    <div>
+        <div id="msgArea" class="col"></div>
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <input type="text" id="msg" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6"></div>
+</div>
+
+<script>
+    var roomName = '[[${room.name}]]';
+    var roomId = '[[${room.roomId}]]';
+    var username = '이운호';
+
+    const msgArea = document.getElementById('msgArea');
+    const sendBtn = document.getElementById('button-send');
+
+    console.log(roomName + ", " + roomId + ", " + username);
+
+    var sockJs = new SockJS("/stomp/chat");
+    //1. SockJS를 내부에 들고있는 stomp를 내어줌
+    var stomp = Stomp.over(sockJs);
+
+    //2. connection이 맺어지면 실행
+    stomp.connect({}, function (){
+        console.log("STOMP Connection")
+
+        //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+        stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+            var content = JSON.parse(chat.body);
+
+            var message = content.message;
+            var writer = content.writer;
+            var str = '';
+
+            if(writer === username){
+                const div = document.createElement('div');
+                div.innerText = `${writer} : ${message}`;
+                // str = "<div class='col-6'>";
+                // str += "<div class='alert alert-secondary'>";
+                // str += "<b>" + writer + " : " + message + "</b>";
+                // str += "</div></div>";
+                msgArea.append(div);
+            }
+            else{
+                const div = document.createElement('div');
+                div.innerText = message;
+                // str = "<div class='col-6'>";
+                // str += "<div class='alert alert-secondary'>";
+                // str += "<b>" + writer + " : " + message + "</b>";
+                // str += "</div></div>";
+                msgArea.append(div);
+            }
+
+            msgArea.append(str);
+        });
+
+        //3. send(path, header, message)로 메세지를 보낼 수 있음
+        stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+    });
+
+    sendBtn.addEventListener("click", function(e) {
+        var msg = document.getElementById("msg");
+
+        console.log(username + ":" + msg.value);
+        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
+        msg.value = '';
+    });
+</script>
+
+</body>
+</html>

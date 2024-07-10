@@ -10,33 +10,33 @@
     <link rel="stylesheet" href="../../static/css/user/findIdSuccess.css" th:href="@{/css/user/findIdSuccess.css}">
 </head>
 <body>
-    <main>
-        <section class="find-sec">
-            <section class="title-sec">
-                <p>아이디 찾기</p>
+<main>
+    <section class="find-sec">
+        <section class="title-sec">
+            <p>아이디 찾기</p>
+        </section>
+        <!-- css를 위한 div-->
+        <div id="navFormCon">
+            <section id="findNavSec">
+                <nav>
+                    <ul>
+                        <li><a href="findId.html">아이디 찾기</a></li>
+                        <li><a href="findPW.html">비밀번호 찾기</a></li>
+                    </ul>
+                </nav>
             </section>
             <!-- css를 위한 div-->
-            <div id="navFormCon">
-                <section id="findNavSec">
-                    <nav>
-                        <ul>
-                            <li><a href="findId.html">아이디 찾기</a></li>
-                            <li><a href="findPW.html">비밀번호 찾기</a></li>
-                        </ul>
-                    </nav>
+            <div id="newPwCon">
+                <section class="success-msg-sec">
+                    <p>입력하신 정보의 아이디는</p>
+                    <p><span th:text="${foundId}">abc1234</span></p>
+                    <p>입니다.</p>
                 </section>
-                <!-- css를 위한 div-->
-                <div id="newPwCon">
-                    <section class="success-msg-sec">
-                        <p>입력하신 정보의 아이디는</p>
-                        <p><span>abc1234</span></p>
-                        <p>입니다.</p>
-                    </section>
-                    <section class="other-page">
-                        <ul>
-                            <li><a href="login.html">로그인</a></li>
-                        </ul>
-                    </section>
+                <section class="other-page">
+                    <ul>
+                        <li><a href="login.html">로그인</a></li>
+                    </ul>
+                </section>
 
                     <!--오류 메세지 부분-->
                     <div class="error">

@@ -183,8 +183,8 @@ public class UserController {
     }
 
     /***************** 회원가입 *******************/
-    @GetMapping("regist")
-    public void getRegist() {
+    @GetMapping("register")
+    public void getRegister() {
     }
 
 

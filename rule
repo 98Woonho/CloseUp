@@ -10,7 +10,18 @@ html id - 카멜 케이스 (ex. htmlId )
 
 js 변수명 - 카멜 케이스 (ex. jsName )
 
-css 없는 태그들은 class, id 붙이지 말기
+css, js에서 사용하지 않는 태그들은 class, id 붙이지 말기
+
+
+controller 메서드명 - 요청방식 + url명
+
+ex1 ) @GetMapping("login")
+      public void getLogin() {}
+
+ex2 ) @PostMapping("login")
+      public void postLogin() {}
+
+
 
 
 // 2024-07-01 이운호 - 네이밍 규칙 준수한 페이지 html, css, js 금방 올려드리겠습니다. 각자 화면 구현 할 때 참고하시면 될 거 같아요~

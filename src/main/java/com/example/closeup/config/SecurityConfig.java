@@ -49,19 +49,6 @@ public class SecurityConfig {
                 }
         );
 
-        //SESSION INVALIDATE..
-        http.sessionManagement(
-                httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
-        );
-
-//        //OAUTH2-CLIENT
-//        http.oauth2Login((oauth2)->{
-//            oauth2.loginPage("/user/loginForm");
-//            oauth2.successHandler(oauth2JwtLoginSuccessHandler());
-//        });
 
         return http.build();
     }
@@ -81,13 +68,12 @@ public class SecurityConfig {
     public CustomLogoutSuccessHandler customLogoutSuccessHandler(){
         return new CustomLogoutSuccessHandler();
     }
-    //CUSTOMLOGOUTHANDLER BEAN
+
     @Bean
     public CustomLogoutHandler customLogoutHandler(){
         return new CustomLogoutHandler();
     }
 
-    //CUSTOMLOGINSUCCESSHANDLER BEAN
     @Bean
     public CustomLoginSuccessHandler customLoginSuccessHandler(){
         return new CustomLoginSuccessHandler();

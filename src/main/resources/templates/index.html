@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -20,6 +20,7 @@
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
 <main>
+    <span th:text="${#authentication.Principal}"></span>
     <div class="fixed-btn-container">
         <button>
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADTUlEQVR4nO2a/WtOYRjHP4wxw2aSKMS8DaGIElLKH4DGzOYn5SWNyMuI+E2iRfwkWVqIhkXyMpGXKHkfm9cotlh+MbaRTXd9T53WeR7P9jznOfep51OnVtd9rvt7P+d+ue7rGqRIkSJZDAeWAPuAc8BT4B3QqMf8/QSoVJt8YBiWMBrYA7wA2iM8P/REsj8DdgO5QQxgDnAZ+OsSZH7tg0AhMB3I8XgvR7blwCF9Ned94+sSMCsZA8hVZ07n74FtwMg4fI4CSoEPLr9VcfqMSDdgPfBTHdVpPXRPYB/GVwHwWn00AesS6J++wBk5b9YX6IF/9AS2Ay3q8xSQGa9TM6fvy6H5pSaRPCYDb9T3PSC7q476AY/k6CaQRfLJBm5Jw0PNjk6Rpl3JOLgKZBAcfYBqabkobTGzQy+a7bE/wZMFPJemrbG+NAX4rUNsDPYwTrtma6xr9bpGvgb7KJG2K/9rOE8Na3zeYuPZml9J49xoDSvVyIQZtlIsjaejbXVmbXwF0rGXXoqmWyNtRPka6THs57i0LvYylsm4FPtZJq0HvIzOoZOH/UyU1mtexjoZbV4fDr2ltRYPGoBfhIdmoN7LUK/QOSy0AF+8DDX6XCZIC/XUqpbRxDShXux7ZSzCfgqjbb8LZTyK/ZRL6yIvY6Yu/N8VBti8Phq12M0t1pOKEASNK6TxZLRG04A2HY62hvG1Gsjs/zU+r4bmEmMbG6TN5BNiyvw16ZQfjz3kSVOLtt+YWKuRm+T0AIIn23Vgb+5sirTcldMK8rTPlAaj5UJX0rTprtPeZPoGEsyXuC0ND+JJnWYoKeakTE1JIFlMBd6q7zuJyHSaLe+wHJo7/Rb8JR3Y6UpiVyQiie2mQI5NcsIPzLlVpBKdU+la5VeRx5mriS7fmRTtJ/lvUw1yBD5HnEci2EtVTlsJzAAGe8Rsg2Qr1nSt6VB6qwJm4jNOyW2Bx5RwMjBeT7MO2Ej2x8Auv0ptHRkC/AE+dkjrjwVuSFCDynHmwDoB3AVe6gr9TXPf1FvO6u5jQvChJJkyiV3tmiL7le1rVz7WpnDGkwkSbKbHRgWVzgCccDrivcAW0nQYec1tUxKbT0go0Y3xs/5DwcQ6m0KSjUxBkPwDzwIGrMKmHgUAAAAASUVORK5CYII=">

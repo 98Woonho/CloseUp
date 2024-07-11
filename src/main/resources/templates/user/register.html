@@ -17,14 +17,17 @@
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
 <main>
-    <section class="register-sec">
-        <section class="title-sec">
-            <p>회원가입</p>
-        </section>
-        <!-- css를 위한 div-->
-        <div id="registerCon">
-            <!-- 입력받는 부분 -->
-            <section>
+    <div class="content-container">
+        <th:block th:unless="${cert}">
+            <h1 class="title">본인인증</h1>
+
+        </th:block>
+        <th:block th:if="${cert}">
+
+            <h1 class="title">회원가입</h1>
+            <!-- css를 위한 div-->
+            <div id="registerCon">
+                <!-- 입력받는 부분 -->
                 <form id="registerForm">
                     <button id="certificationBtn">본인인증</button>
                     <div class="user-input-con">
@@ -53,23 +56,24 @@
                     </div>
                     <button type="submit" class="register-btn">회원가입</button>
                 </form>
-            </section>
-            <div class="error-input error">
-                <!-- 오류 메세지 부분 JS로 display: block 주기-->
-                <p id="blank">공백이 포함되었습니다.</p>
-            </div>
-            <!-- 하단 버튼 부분 -->
-            <div>
+                <div class="error-input error">
+                    <!-- 오류 메세지 부분 JS로 display: block 주기-->
+                    <p id="blank">공백이 포함되었습니다.</p>
+                </div>
+                <!-- 하단 버튼 부분 -->
+                <div>
+
+                </div>
+
+
+                <section class="login-link-sec">
+                    <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+                </section>
 
             </div>
+        </th:block>
 
-
-            <section class="login-link-sec">
-                <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
-            </section>
-
-        </div>
-    </section>
+    </div>
 </main>
 
 </body>

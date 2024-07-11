@@ -101,8 +101,8 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public void getRegister() {
-
+    public void getRegister(@RequestParam(value = "cert", required = false) boolean cert, Model model) {
+        model.addAttribute("cert", cert);
     }
 
     // portOne 엑세스 토큰 받기
@@ -170,7 +170,7 @@ public class UserController {
 
         System.out.println(response.getBody().getResponse());
 
-
+        return null;
     }
 
     //인증 객체

@@ -77,8 +77,7 @@ confirmIdDupBtn.addEventListener('click', function(e) {
 })
 
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
+// 회원가입 form 제출
 registerForm.onsubmit = (e) => {
     e.preventDefault();
 

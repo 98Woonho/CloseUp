@@ -1,7 +1,7 @@
 package com.example.closeup.handler;
 
 
-import com.example.closeup.dto.UserDto;
+import com.example.closeup.domain.dto.UserDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         Object principal = authentication.getPrincipal();
 
         if(principal instanceof UserDto){
-            response.sendRedirect("/main");
+            response.sendRedirect("/");
             return;
         }
         //로그인 안했다고 재판다. 세션을 초기화.

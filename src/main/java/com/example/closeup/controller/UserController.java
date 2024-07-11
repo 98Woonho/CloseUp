@@ -31,14 +31,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
         model.addAttribute("error", error);
     }
 
+
     //아이디 찾기
-    @GetMapping("findId")
-    public void getFindId() {
+    @GetMapping("/findId")
+    public String getFindID() {
+        return "user/findId";
+    }
+
+    @PostMapping("/findId")
+    public String postFindID(@RequestParam("name") String name,
+                             @RequestParam("phone") String phone,
+                             Model model) {
+        UserDto user = userService.findUserByNameAndPhone(name, phone);
+
+        if (user != null) {
+            model.addAttribute("foundId", user.getId());
+            return "user/findIdSuccess";
+        } else {
+            model.addAttribute("error", "이름 또는 휴대폰번호가 틀렸습니다.");
+            return "user/findId";
+        }
     }
 
     // portOne 엑세스 토큰 받기
@@ -72,20 +89,7 @@ public class UserController {
         public int expired_at;
     }
 
-    @PostMapping("/findID")
-    public String postFindID(@RequestParam("name") String name,
-                             @RequestParam("phone") String phone,
-                             Model model) {
-        UserDto user = userService.findUserByNameAndPhone(name, phone);
 
-        if (user != null) {
-            model.addAttribute("foundId", user.getId());
-            return "user/findIdSuccess";
-        } else {
-            model.addAttribute("error", "이름 또는 휴대폰번호가 틀렸습니다.");
-            return "user/findId";
-        }
-    }
 
     @Data
     private static class PortOneTokenResponse {
@@ -95,6 +99,7 @@ public class UserController {
     }
 
     //비밀번호 찾기
+
     @GetMapping("/findPW")
     public String getFindPW() {
         return "user/findPW";
@@ -103,29 +108,35 @@ public class UserController {
     @PostMapping("/findPW")
     public String postFindPW(@RequestParam String name,
                              @RequestParam String id,
-                             Model model) {
+                             Model model)
+    {
         UserDto user = userService.findUserByNameAndId(name, id);
         if (user != null) {
             model.addAttribute("userId", user.getId());
-            return "user/findPW_newPW";
+            return "user/findPwNewPw";
         } else {
             model.addAttribute("error", "이름 또는 아이디가 틀렸습니다.");
             return "user/findPW";
         }
     }
 
-    @PostMapping("/findPW_newPW")
-    public String resetPassword(@RequestParam String id,
-                                @RequestParam String newPassword,
-                                RedirectAttributes redirectAttributes) {
+    @PostMapping("/findPwNewPw")
+    public String resetPassword(@RequestParam("id") String id,
+                                @RequestParam("password") String newPassword,
+                                RedirectAttributes redirectAttributes)
+    {
         boolean result = userService.resetPassword(id, newPassword);
         if (result) {
             redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
-            return "redirect:/user/login";
+            return "redirect:/user/findPwSuccess";
         } else {
             redirectAttributes.addFlashAttribute("error", "비밀번호 변경에 실패했습니다.");
             return "redirect:/user/findPW";
         }
+    }
+    @GetMapping("/findPwSuccess")
+    public void getFindPWSuccess() {
+
     }
 
     @PostMapping(value = "certification/{imp_uid}")
@@ -183,19 +194,20 @@ public class UserController {
     }
 
     /***************** 회원가입 *******************/
-    @GetMapping("register")
-    public void getRegister() {
+    @GetMapping("/register")
+    public void getUserRegister(){
+        System.out.println("get");
     }
 
-
-    @PostMapping("regist")
-    public String postRegist(
+    @PostMapping("/register")
+    public String postUserRegister(
             UserDto user,
-            RedirectAttributes redirectAttributes) {
-        System.out.println("post_user_regist" + user);
+            RedirectAttributes redirectAttributes
+    ){
+
+        System.out.println("post_user_register" + user);
         boolean result = userService.createUser(user);
-        user.setPhone(user.getPhone().replace("-", ""));
-        if (result) {
+        if(result){
             return "redirect:/user/login";
         }
         redirectAttributes.addFlashAttribute("certErrorMsg", "본인인증이 완료되지 않았습니다.");
@@ -203,15 +215,7 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
-
-
-    //    // portOne 엑세스 토큰 받기
+//    // portOne 엑세스 토큰 받기
 //    @GetMapping("token")
 //    public String AccessToken(){
 //        String url = "https://api.iamport.kr/users/getToken";

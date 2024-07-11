@@ -16,62 +16,55 @@
 
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
-<main>
+<main id="main" data-step="1">
     <div class="content-container">
-        <th:block th:unless="${cert}">
+        <div class="step-container" data-step="1">
             <h1 class="title">본인인증</h1>
-
-        </th:block>
-        <th:block th:if="${cert}">
-
+            <div class="cert-container">
+                <p>회원가입을 위해 본인인증이 필요합니다.</p>
+                <button type="button" id="certBtn">
+                    <p>본인인증</p>
+                    <div class="app-container">
+                        <img src="/imgs/app_KAKAO.png" alt="" />
+                        <img src="/imgs/app_KAKAOBANK.png" alt="" />
+                        <img src="/imgs/app_PASS.png" alt="" />
+                        <img src="/imgs/app_PAYCO.png" alt="" />
+                        <img src="/imgs/app_TOSS.png" alt="" />
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="step-container" data-step="2">
             <h1 class="title">회원가입</h1>
             <!-- css를 위한 div-->
             <div id="registerCon">
                 <!-- 입력받는 부분 -->
                 <form id="registerForm">
-                    <button id="certificationBtn">본인인증</button>
                     <div class="user-input-con">
                         <input type="text" name="id" id="userId" placeholder="아이디">
-                        <label for="userId"></label>
+                        <button id="confirmIdDupBtn">중복 확인</button>
                     </div>
 
                     <div class="user-input-con">
-                        <input type="password" name="pw" id="userPw1" placeholder="비밀번호">
-                        <label for="userPw1"></label>
+                        <input type="password" name="password" id="userPw1" placeholder="비밀번호 (숫자/문자/영문자를 포함한 8-15자리)">
                     </div>
 
                     <div class="user-input-con">
-                        <input type="password" name="checkPw" id="userPw2" placeholder="비밀번호 확인">
-                        <label for="userPw2"></label>
+                        <input readonly type="text" name="name" placeholder="이름">
                     </div>
 
                     <div class="user-input-con">
-                        <input disabled type="text" name="name" placeholder="이름">
-                        <label for="userPw2"></label>
+                        <input readonly type="text" name="phone" placeholder="휴대폰 번호">
                     </div>
-
-                    <div class="user-input-con">
-                        <input disabled type="text" name="phone" placeholder="휴대폰 번호">
-                        <label for="userPw2"></label>
-                    </div>
-                    <button type="submit" class="register-btn">회원가입</button>
+                    <button class="register-btn">회원가입</button>
                 </form>
-                <div class="error-input error">
-                    <!-- 오류 메세지 부분 JS로 display: block 주기-->
-                    <p id="blank">공백이 포함되었습니다.</p>
-                </div>
-                <!-- 하단 버튼 부분 -->
-                <div>
-
-                </div>
-
 
                 <section class="login-link-sec">
                     <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
                 </section>
 
             </div>
-        </th:block>
+        </div>
 
     </div>
 </main>

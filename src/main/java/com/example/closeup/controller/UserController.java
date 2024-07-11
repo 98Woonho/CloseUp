@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -30,6 +31,17 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("confirmIdDup")
+    public ResponseEntity<String> getConfirmIdDup(@RequestParam("id") String id) {
+        UserDto userDto = userService.findUserById(id);
+
+        if (userDto != null) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다. 다른 아이디를 입력해 주세요.", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("사용 가능한 아이디입니다.", HttpStatus.OK);
+    }
 
     @GetMapping("/login")
     public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
@@ -100,9 +112,16 @@ public class UserController {
     }
 
 
-    @GetMapping("/register")
-    public void getRegister(@RequestParam(value = "cert", required = false) boolean cert, Model model) {
-        model.addAttribute("cert", cert);
+    @GetMapping("register")
+    public void getRegister() {
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<String> postRegister(UserDto userDto) {
+        System.out.println(userDto);
+        userService.register(userDto);
+
+        return ResponseEntity.ok("회원가입이 성공적으로 완료 되었습니다.");
     }
 
     // portOne 엑세스 토큰 받기
@@ -143,34 +162,49 @@ public class UserController {
         public TokenResponse response;
     }
 
-    @GetMapping("auth/{imp_uid}")
-    public @ResponseBody ResponseEntity<String> postCertification(@PathVariable("imp_uid") String impUid) {
-        System.out.println(impUid);
-
+    // 포트원 통합인증
+    @GetMapping("cert/{imp_uid}")
+    public @ResponseBody ResponseEntity<Map<String, String>> postCertification(@PathVariable("imp_uid") String impUid) {
         String accessToken = AccessToken(); // 엑세스 토큰 가져오기
 
         String url = "https://api.iamport.kr/certifications/"+impUid;
 
-        //header
+        // header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         headers.add("Authorization","Bearer "+ accessToken);
 
-        //params
+        // params
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-        //Entity
+        // Entity
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
-        //request
+        // request
         RestTemplate rt = new RestTemplate();
 
-        //response
+        // response
         ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET,entity,PortOneAuthInfoResponse.class);
 
-        System.out.println(response.getBody().getResponse());
+        // 통합인증 응답에서 name, phone 가져오기
+        String name = response.getBody().getResponse().name;
+        String phone = response.getBody().getResponse().phone;
 
-        return null;
+        // name, phone으로 가입된 유저 조회
+        UserDto user = userService.findUserByNameAndPhone(name, phone);
+
+        Map <String, String> responseBody = new HashMap<>();
+
+        // 이미 가입된 유저가 있을 때
+        if (user != null) {
+            responseBody.put("msg", "이미 해당 정보로 가입이 되어 있습니다. 로그인 화면으로 이동합니다.");
+            return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+        }
+
+        responseBody.put("name", name);
+        responseBody.put("phone", phone);
+
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     //인증 객체

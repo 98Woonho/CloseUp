@@ -1,6 +1,14 @@
-const certificationBtn = document.getElementById('certificationBtn');
+const certBtn = document.getElementById('certBtn');
+const main = document.getElementById('main');
+const registerForm = document.getElementById('registerForm');
+const confirmIdDupBtn = document.getElementById('confirmIdDupBtn');
 
-certificationBtn.addEventListener('click', function(e) {
+// 정규식
+const CK_id = /^[a-zA-Z0-9]{5,15}$/;
+const CK_pw = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+// 통합인증 버튼
+certBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
     IMP.init('imp82217082');
@@ -13,67 +21,95 @@ certificationBtn.addEventListener('click', function(e) {
         function (res) {
             if (res.success) {
                 // 통합인증 정보 가져오기
-                axios.get(`/user/auth/${res.imp_uid}`)
+                axios.get(`/user/cert/${res.imp_uid}`)
                     .then(res => {
-                        const { name, phone } = res.data.response;
-
-                        console.log(name);
-                        console.log(phone);
+                        if (res.status === 200) {
+                            main.dataset.step = '2';
+                            registerForm['name'].value = res.data.name;
+                            registerForm['phone'].value = res.data.phone;
+                        }
                     })
                     .catch(err => {
-                        console.log(err);
+                        if (err.status === 409) {
+                            alert(res.data.msg);
+                            location.href = '/user/login';
+                        } else {
+                            alert('알 수 없는 이유로 본인인증에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');
+                        }
+
+
                     })
-
-                // // 통합인증 정보로 가입되어 있는 유저 찾기
-                // axios.get(`/user?name=${name}&birthday=${birthday}&phone=${phone}`)
-                //     .then(res => {
-                //         // 가입되어 있는 유저가 없으면 회원가입 페이지로 이동
-                //         if (res.data.length === 0) {
-                //             const state = {
-                //                 certificationInfo: {
-                //                     name: name,
-                //                     birthday: birthday,
-                //                     phone: phone
-                //                 }
-                //             }
-                //             navigate('/user/join', { state });
-                //             // 가입되어 있는 유저가 있으면 문구 출력 후 로그인 페이지로 이동
-                //         } else {
-                //             const state = {
-                //                 isJoinPage: true
-                //             }
-                //
-                //             alert('이미 해당 정보로 계정이 존재 합니다. 로그인 화면으로 이동합니다.');
-                //             navigate('/user/login', { state });
-                //         }
-                //     })
-                //     .catch(err => {
-                //         console.log(err);
-                //     })
-                //
-                //
-
             } else {
-                alert('인증에 실패하였습니다. 에러 내용: ' + res.error_msg);
+                alert('인증에 실패하였습니다.\n사유 : ' + res.error_msg);
             }
         }
     )
 });
 
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-const registerForm = document.getElementById('registerForm');
-
-registerForm.onsubmit = (e) => {
+// 아이디 중복 확인 버튼
+confirmIdDupBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    const CK_space = /\s/g;
-    const CK_id = /^[a-zA-Z0-9]{5,15}$/;
-    const CK_pw = /^[A-Za-z\\d`~!@#$%^&*()-_=+]{8,20}$/;
+    if (registerForm['id'].value === '') {
+        alert('아이디를 입력해 주세요.');
+        return;
+    }
 
     if (!CK_id.test(registerForm['id'].value)) {
         alert('올바른 아이디를 입력해 주세요.');
         return;
     }
+
+    e.preventDefault();
+
+    axios.get(`/user/confirmIdDup?id=${registerForm['id'].value}`)
+        .then(res => {
+            alert(res.data);
+        })
+        .catch(err => {
+            if (err.response.status === 409) {
+                alert(err.response.data);
+            } else {
+                alert('알 수 없는 이유로 중복 확인에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');
+            }
+        })
+})
+
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+registerForm.onsubmit = (e) => {
+    e.preventDefault();
+
+    if (registerForm['id'].value === '') {
+        alert('아이디를 입력해 주세요.');
+        return;
+    }
+
+    if (!CK_id.test(registerForm['id'].value)) {
+        alert('올바른 아이디를 입력해 주세요.');
+        return;
+    }
+
+    if (registerForm['password'].value === '') {
+        alert('비밀번호를 입력해 주세요.');
+        return;
+    }
+
+    if (!CK_pw.test(registerForm['password'].value)) {
+        alert('올바른 비밀번호를 입력해 주세요.');
+        return;
+    }
+
+    const formData = new FormData(registerForm);
+
+    axios.post('/user/register', formData)
+        .then(res => {
+            alert(res.data);
+            location.href = '/user/login';
+        })
+        .catch(err => {
+            alert('알 수 없는 이유로 회원가입에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');
+        })
 }

@@ -19,16 +19,16 @@ public class AdminController {
 
     @GetMapping("users")
     public String getUsers() {
-        return "admin/admin_manage_member";
+        return "member";
     }
 
     @GetMapping("posts")
     public String getPosts() {
-        return "admin/admin_manage_post";
+        return "post";
     }
 
     @GetMapping("reviews")
     public String getReviews() {
-        return "admin/admin_manage_review";
+        return "review";
     }
 }

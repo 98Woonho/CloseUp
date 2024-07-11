@@ -1,0 +1,153 @@
+#totalCon {
+    display: flex;
+    margin: 32px auto;
+    width: 1440px;
+}
+
+.manage-sec > div{
+    position: relative;
+    z-index: 99;
+    padding: 10px;
+    background-color: white;
+}
+
+.main-nav-sec {
+    position: absolute;
+    top: 48px;
+    left: -54px;
+    z-index: 1;
+}
+
+.main-nav-sec > nav > ul > li {
+    width: 104px;
+    border-radius: 9px 0 0 9px ;
+    margin-bottom: 16px;
+    padding: 10px 0;
+    text-align: center;
+    background-color: var(--color-light-blue);
+    box-shadow: var(--box-shadow-hard);
+}
+.main-nav-sec > nav > ul > li:hover , .main-nav-sec > nav > ul > li:hover a{
+    transform: translateX(-30px);
+    transition-duration: .2s;
+    transition-delay: .3s;
+    background-color: var(--color-main-navy);
+    color: white;
+}
+
+.manage-sec {
+    position: relative;
+    width: 1440px;
+    height: 100vh;
+    margin: 0px auto;
+    border-radius: 48px;
+    box-shadow: var(--box-shadow-hard);
+    background-color: #fff;
+    z-index: 99;
+}
+
+.manage-sec > div {
+    position: relative;
+    height: 100%;
+    padding: 52px 40px;
+    display: flex;
+    border-radius: 50px;
+}
+
+
+
+
+/* 내부 서브 사이드 바 */
+.sub-nav-sec {
+    padding-right: 40px;
+    border-right: 2px solid var(--color-lighter-gray);
+}
+
+.sub-nav-sec > nav > ul > li {
+    margin-bottom: 40px;
+    font-weight: lighter;
+}
+.sub-nav-sec > nav > ul > li:hover {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.logo-sec {
+    margin-bottom: 80px;
+}
+/* 로고 이미지 */
+
+.logo-sec > div {
+    width: 152px;
+    height: 80px;
+    background-image: url(../../../image/CloseUp-navy-admin-removebg.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 180%;
+}
+.manage-view-sec {
+    width: 100%;
+    padding-left: 24px;
+}
+
+.title-sec > #mainTitle {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.title-sec > #mainTitle > button {
+    position: relative;
+    padding: 8px;
+    font-size: 24px;
+}
+
+.title-sec > #mainTitle > button > div{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    background-color: var(--color-error-red);
+}
+
+#subTilte {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+#searchInputSec {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+#searchInputSec > div {
+    display: flex;
+    flex-direction: column;
+}
+#searchInputSec > div > input {
+    width: 264px;
+    margin-top: 16px;
+    padding: 16px 24px;
+    border-radius: 4px;
+    border-color: var(--color-lighter-gray);
+}
+
+table {
+    width: 100%;
+}
+td {
+    text-align: center;
+}
+
+
+/******************************************/
+#searchViewSec {
+    max-height: 504px;
+    overflow: scroll;
+}
+/******************************************/

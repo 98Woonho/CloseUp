@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 관리 페이지</title>
+
+    <link rel="stylesheet" href="../../../static/css/common.css">
+    <link rel="stylesheet" href="../../../static/css/admin/manage/manage.css">
+
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <!-- css를 위한 div -->
+        <div id="totalCon">
+            <!-- 메인 메뉴 사이드바 -->
+            <section class="manage-sec">
+                <aside class="main-nav-sec">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="#">회원</a>
+                            </li>
+                            <li>
+                                <a href="#">게시글</a>
+                            </li>
+                            <li>
+                                <a href="#">리뷰</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+                <div>
+                    <!-- 내부 서브 사이드바 -->
+                    <aside class="sub-nav-sec">
+                        <section class="logo-sec">
+                            <!-- 로고 이미지 -->
+                            <div></div>
+                        </section>
+                        <nav>
+                            <ul>
+                                <li><a href="#"><i class="fa-solid fa-list-ul"></i>전체</a></li>
+                                <li><a href="#">일반 등록 사용자</a></li>
+                                <li><a href="#">전문 등록 사용자</a></li>
+                                <li><a href="#">관리자</a></li>
+                                <li><a href="#"><i class="fa-solid fa-gear"></i>설정</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    <section class="manage-view-sec">
+                        <!-- 메인 타이틀 -->
+                        <section class="title-sec">
+                            <div id="mainTitle">
+                                <p>회원 관리</p>
+                                <button>
+                                    <div id="alertMark"></div>
+                                    <i class="fa-regular fa-bell"></i>
+                                </button>
+                            </div>
+                            <!-- 서브 타이틀 -->
+                            <div id="subTilte">
+                                <p><span>전체</span> 회원 정보</p>
+                            </div>
+                        </section>
+                        <!-- 검색 -->
+                        <section id="searchInputSec">
+                            <div>
+                                <label for="userName">회원 이름</label>
+                                <input type="text" id="userName" placeholder="이름 입력">
+                            </div>
+                            <div>
+                                <label for="userId">아이디</label>
+                                <input type="text" id="userId" placeholder="아이디 입력">
+                            </div>
+                            <div>
+                                <label for="joinDate">가입 날짜</label>
+                                <input type="text" id="joinDate" placeholder="날짜 입력">
+                            </div>
+                            <div>
+                                <label for="userPhone">휴대폰 번호</label>
+                                <input type="text" id="userPhone" placeholder="휴대폰 번호 입력">
+                            </div>
+                        </section>
+                        <!-- 검색 결과 테이블 -->
+                        <section id="searchViewSec">
+                            <table>
+                                <colgroup>
+                                    <col class="select">
+                                    <col class="id">
+                                    <col class="name">
+                                    <col class="phone-num">
+                                    <col class="join-date">
+                                    <col class="add-expert">
+                                    <col class="favorites-count">
+                                    <col class="modify-delete-btn">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><input type="radio"><b>전체 선택</b></th>
+                                    <th><b>아이디</b></th>
+                                    <th><b>이름</b></th>
+                                    <th><b>휴대폰 번호</b></th>
+                                    <th><b>가입 날짜</b></th>
+                                    <th><b>전문가 등록 여부</b></th>
+                                    <th><b>즐겨찾기 수</b></th>
+                                    <th>
+                                        <b>수정 | 삭제</b>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="radio"></td>
+                                        <td><span>아이디</span></td>
+                                        <td><span>이름</span></td>
+                                        <td><span>휴대폰 번호</span></td>
+                                        <td><span>가입 날짜</span></td>
+                                        <td><span>전문가 등록 여부</span></td>
+                                        <td><span>즐겨찾기 수</span></td>
+                                        <td>
+                                            <input type="button" id="modifyBtn" value="수정">
+                                            <input type="button" id="deleteBtn" value="삭제">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

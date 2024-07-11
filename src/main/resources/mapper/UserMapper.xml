@@ -3,8 +3,8 @@
 <mapper namespace="com.example.closeup.domain.mapper.UserMapper">
 
     <insert id="insertUser"  parameterType="com.example.closeup.domain.dto.UserDto">
-        INSERT INTO user (id, password, phone, role, name)
-        VALUES (#{id}, #{password}, #{phone}, NULL, NULL)
+        INSERT INTO user (id, password, phone, role, name, is_suspended)
+        VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended})
     </insert>
 
 
@@ -18,8 +18,7 @@
         WHERE name = #{name} AND id = #{id}
     </select>
     <select id="selectUserById" resultType="com.example.closeup.domain.dto.UserDto">
-        SELECT *
-        FROM user
+        SELECT * FROM `user`
         WHERE id = #{id}
     </select>
 

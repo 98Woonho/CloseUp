@@ -1,29 +1,76 @@
-/* 회원가입 전체 section */
-.register-sec {
+main .content-container {
     margin: 132px auto;
-    width: 520px;
+    height: 85vh;
 }
-/* 회원가입 타이틀 */
-.register-sec .title-sec {
+
+.step-container {
+    display: none;
+
+    flex-direction: column;
+}
+
+main[data-step="1"] .step-container[data-step="1"],
+main[data-step="2"] .step-container[data-step="2"] {
+    display: flex;
+}
+
+.cert-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10rem;
+}
+
+.cert-container > p {
+    font-size: 1.3rem;
+}
+
+#certBtn {
+    display: block;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    background-color: #2278be;
+}
+
+.app-container {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1rem;
+}
+
+#certBtn p {
+    font-size: 1.1rem;
+    color: rgb(238, 238, 238);
+}
+
+.app-container img {
+    width: 35px;
+    border-radius: 10px;
+}
+
+.title {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
 }
-/* 회원가입 타이틀 제외 section */
+
 #registerCon {
-    margin-top: 48px;
+    width: 520px;
+    margin: 48px auto;
     padding: 32px 40px;
-    /*position: absolute;*/
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
 }
-.user-input-con{
+
+.user-input-con {
     display: flex;
     position: relative;
 }
 
-.user-input-con input{
+.user-input-con input {
     padding: 24px 16px;
     margin-bottom: 16px;
     flex: 1;
@@ -31,6 +78,10 @@
     border: 1px solid var(--color-lighter-gray);
     border-radius: 9px;
     font-size: 16px;
+}
+
+.user-input-con input[readonly] {
+    pointer-events: none;
 }
 
 /* placeholder 글자 색 변경 */

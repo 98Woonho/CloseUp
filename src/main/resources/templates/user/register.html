@@ -3,64 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/register.css" th:href="@{/css/user/register.css}">
-    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/user/register.css">
+
+    <script defer src="/js/user/register.js"></script>
+
 </head>
 <body>
-<main>
-    <section class="register-sec">
-        <section class="title-sec">
-            <p>회원가입</p>
-        </section>
-        <!-- css를 위한 div-->
-        <form action="/user/register" id="inputCon" method="post" enctype="multipart/form-data">
-        <div id="registerCon">
-            <!-- 입력받는 부분 -->
-            <section>
-                    <div class="user-input-con">
-                        <input type="text" name="id" id="userId" placeholder="아이디" required>
-                        <label for="userId"></label>
-                    </div>
 
-                    <div class="user-input-con">
-                        <input type="password" name="password" id="userPw1" placeholder="비밀번호" required>
-                        <label for="userPw1"></label>
-                    </div>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
-                    <div class="user-input-con">
-                        <input type="password" name="checkPw" id="userPw2" placeholder="비밀번호 확인" required>
-                        <label for="userPw2"></label>
+<main id="main" data-step="1">
+    <div class="content-container">
+        <div class="step-container" data-step="1">
+            <h1 class="title">본인인증</h1>
+            <div class="cert-container">
+                <p>회원가입을 위해 본인인증이 필요합니다.</p>
+                <button type="button" id="certBtn">
+                    <p>본인인증</p>
+                    <div class="app-container">
+                        <img src="/imgs/app_KAKAO.png" alt="" />
+                        <img src="/imgs/app_KAKAOBANK.png" alt="" />
+                        <img src="/imgs/app_PASS.png" alt="" />
+                        <img src="/imgs/app_PAYCO.png" alt="" />
+                        <img src="/imgs/app_TOSS.png" alt="" />
                     </div>
-                    <div class="user-input-con" id="userPhoneCon">
-                        <!-- JS로 재 설정 하기 (onfocus, onblur)-->
-                        <input type="text" id="userPhone" name="phone" placeholder="휴대폰 번호" onfocus="this.placeholder = 'ex) 010-1234-5678'" onblur="this.placeholder = '휴대폰 번호'" required>
-                        <label for="userPhone"></label>
-
-                        <button type="button">인증번호 전송</button>
-                    </div>
-                    <div class="user-input-con" id="userPhoneChkCon">
-                        <input type="text" id="userPhoneChk" placeholder="인증 번호" required>
-                        <label for="userPhoneChk"></label>
-                        <button type="button">인증번호 확인</button>
-                    </div>
-            </section>
-            <div class="error-input error">
-                <!-- 오류 메세지 부분 JS로 display: block 주기-->
-                <p id="blank">공백이 포함되었습니다.</p>
+                </button>
             </div>
-            <!-- 하단 버튼 부분 -->
-            <div>
-                <button type="submit" class="register-btn">회원가입</button>
-            </div>
-
-
-            <section class="login-link-sec">
-                <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
-            </section>
         </div>
-        </form>
-    </section>
+        <div class="step-container" data-step="2">
+            <h1 class="title">회원가입</h1>
+            <!-- css를 위한 div-->
+            <div id="registerCon">
+                <!-- 입력받는 부분 -->
+                <form id="registerForm">
+                    <div class="user-input-con">
+                        <input type="text" name="id" id="userId" placeholder="아이디">
+                        <button id="confirmIdDupBtn">중복 확인</button>
+                    </div>
+
+                    <div class="user-input-con">
+                        <input type="password" name="password" id="userPw1" placeholder="비밀번호 (숫자/문자/영문자를 포함한 8-15자리)">
+                    </div>
+
+                    <div class="user-input-con">
+                        <input readonly type="text" name="name" placeholder="이름">
+                    </div>
+
+                    <div class="user-input-con">
+                        <input readonly type="text" name="phone" placeholder="휴대폰 번호">
+                    </div>
+                    <button class="register-btn">회원가입</button>
+                </form>
+
+                <section class="login-link-sec">
+                    <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+                </section>
+
+            </div>
+        </div>
+
+    </div>
 </main>
 
 </body>

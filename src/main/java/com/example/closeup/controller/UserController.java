@@ -118,7 +118,6 @@ public class UserController {
 
     @PostMapping("register")
     public ResponseEntity<String> postRegister(UserDto userDto) {
-        System.out.println(userDto);
         userService.register(userDto);
 
         return ResponseEntity.ok("회원가입이 성공적으로 완료 되었습니다.");

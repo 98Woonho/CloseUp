@@ -5,13 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+<!--    <script src="../../static/js/login.js" th:src="@{/js/login.js}"></script>-->
 
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/user/login.css">
 
-    <script defer src="/js/user/login.js"></script>
+<!--    <script defer src="/js/user/login.js"></script>-->
 </head>
 <body>
+
 <main>
     <section class="login-sec">
         <section class="title-sec">
@@ -21,7 +23,7 @@
         <div id="loginCon">
             <!-- 입력받는 부분 -->
             <section>
-                <form id="loginForm">
+                <form id="loginForm" method="post" action="/user/login">
                     <div class="user-input-con">
                         <input type="text" name="id" id="userId" placeholder="아이디" required>
                         <label for="userId"></label>
@@ -38,8 +40,8 @@
                         </div>
                         <div class="other-page">
                             <ul>
-                                <li><a href="findId.html">아이디 찾기</a></li>
-                                <li><a href="findPW.html">비밀번호 찾기</a></li>
+                                <li><a href="/user/findId">아이디 찾기</a></li>
+                                <li><a href="/user/findPW">비밀번호 찾기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -69,10 +71,11 @@
                 </ul>
             </section>
             <section class="register-link-sec">
-                <p>아직 회원이 아니신가요? <a href="#">회원가입</a></p>
+                <p>아직 회원이 아니신가요? <a href="/user/register">회원가입</a></p>
             </section>
         </div>
     </section>
 </main>
+
 </body>
 </html>

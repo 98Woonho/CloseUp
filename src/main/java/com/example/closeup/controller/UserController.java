@@ -58,46 +58,6 @@ public class UserController {
         }
     }
 
-    // portOne 엑세스 토큰 받기
-    @GetMapping("token")
-    public String AccessToken() {
-        String url = "https://api.iamport.kr/users/getToken";
-        // HEADER
-        HttpHeaders headers = new HttpHeaders();
-
-        // PARAM
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_key", "7582034642764268");
-        params.add("imp_secret", "JxMwheK2PKBrxFxOifDLwwZvdyzjwDERKj4TzStgSZ06Wmg3oQp7h3WjK3nOfdjXsSXF0ZNgCbBWyPrV");
-
-        // Entity
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-
-        // REQUEST
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<PortOneTokenResponse> response = rt.exchange(url, HttpMethod.POST, entity, PortOneTokenResponse.class);
-
-        //RESPONSE
-        return response.getBody().getResponse().getAccess_token();
-    }
-
-    //access토큰 객체
-    @Data
-    private static class TokenResponse {
-        public String access_token;
-        public int now;
-        public int expired_at;
-    }
-
-
-
-    @Data
-    private static class PortOneTokenResponse {
-        public int code;
-        public Object message;
-        public TokenResponse response;
-    }
-
     //비밀번호 찾기
 
     @GetMapping("/findPW")
@@ -139,16 +99,62 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "certification/{imp_uid}")
-    public @ResponseBody PortOneAuthInfoResponse postCertification(@PathVariable("imp_uid") String imp_uid) {
+
+    @GetMapping("/register")
+    public void getRegister() {
+
+    }
+
+    // portOne 엑세스 토큰 받기
+    @GetMapping("token")
+    public String AccessToken(){
+        String url = "https://api.iamport.kr/users/getToken";
+        // HEADER
+        HttpHeaders headers = new HttpHeaders();
+
+        // PARAM
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("imp_key", "7582034642764268");
+        params.add("imp_secret", "JxMwheK2PKBrxFxOifDLwwZvdyzjwDERKj4TzStgSZ06Wmg3oQp7h3WjK3nOfdjXsSXF0ZNgCbBWyPrV");
+
+        // Entity
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+
+        // REQUEST
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<PortOneTokenResponse> response = rt.exchange(url, HttpMethod.POST, entity, PortOneTokenResponse.class);
+
+        //RESPONSE
+        return response.getBody().getResponse().getAccess_token();
+    }
+
+    //access토큰 객체
+    @Data
+    private static class TokenResponse{
+        public String access_token;
+        public int now;
+        public int expired_at;
+    }
+
+    @Data
+    private static class PortOneTokenResponse{
+        public int code;
+        public Object message;
+        public TokenResponse response;
+    }
+
+    @GetMapping("auth/{imp_uid}")
+    public @ResponseBody ResponseEntity<String> postCertification(@PathVariable("imp_uid") String impUid) {
+        System.out.println(impUid);
+
         String accessToken = AccessToken(); // 엑세스 토큰 가져오기
 
-        String url = "https://api.iamport.kr/certifications/" + imp_uid;
+        String url = "https://api.iamport.kr/certifications/"+impUid;
 
         //header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Authorization","Bearer "+ accessToken);
 
         //params
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -160,14 +166,16 @@ public class UserController {
         RestTemplate rt = new RestTemplate();
 
         //response
-        ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET, entity, PortOneAuthInfoResponse.class);
+        ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET,entity,PortOneAuthInfoResponse.class);
 
-        return response.getBody();
+        System.out.println(response.getBody().getResponse());
+
+
     }
 
     //인증 객체
     @Data
-    private static class AuthInfoResponse {
+    private static class AuthInfoResponse{
         public int birth;
         public String birthday;
         public boolean certified;
@@ -187,124 +195,9 @@ public class UserController {
     }
 
     @Data
-    private static class PortOneAuthInfoResponse {
+    private static class PortOneAuthInfoResponse{
         public int code;
         public Object message;
         public AuthInfoResponse response;
     }
-
-    /***************** 회원가입 *******************/
-    @GetMapping("/register")
-    public void getUserRegister(){
-        System.out.println("get");
-    }
-
-    @PostMapping("/register")
-    public String postUserRegister(
-            UserDto user,
-            RedirectAttributes redirectAttributes
-    ){
-
-        System.out.println("post_user_register" + user);
-        boolean result = userService.createUser(user);
-        if(result){
-            return "redirect:/user/login";
-        }
-        redirectAttributes.addFlashAttribute("certErrorMsg", "본인인증이 완료되지 않았습니다.");
-        return "redirect:/user/register";
-    }
-
-
-//    // portOne 엑세스 토큰 받기
-//    @GetMapping("token")
-//    public String AccessToken(){
-//        String url = "https://api.iamport.kr/users/getToken";
-//        // HEADER
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        // PARAM
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//        params.add("imp_key", "7582034642764268");
-//        params.add("imp_secret", "JxMwheK2PKBrxFxOifDLwwZvdyzjwDERKj4TzStgSZ06Wmg3oQp7h3WjK3nOfdjXsSXF0ZNgCbBWyPrV");
-//
-//        // Entity
-//        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-//
-//        // REQUEST
-//        RestTemplate rt = new RestTemplate();
-//        ResponseEntity<PortOneTokenResponse> response = rt.exchange(url, HttpMethod.POST, entity, PortOneTokenResponse.class);
-//
-//        //RESPONSE
-//        return response.getBody().getResponse().getAccess_token();
-//    }
-//
-//    //access토큰 객체
-//    @Data
-//    private static class TokenResponse{
-//        public String access_token;
-//        public int now;
-//        public int expired_at;
-//    }
-//
-//    @Data
-//    private static class PortOneTokenResponse{
-//        public int code;
-//        public Object message;
-//        public TokenResponse response;
-//    }
-//
-//
-//    @PostMapping(value = "certification/{imp_uid}")
-//    public @ResponseBody PortOneAuthInfoResponse postCertification(@PathVariable("imp_uid")String imp_uid){
-//        String accessToken = AccessToken(); // 엑세스 토큰 가져오기
-//
-//        String url = "https://api.iamport.kr/certifications/"+imp_uid;
-//
-//        //header
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Type", "application/json");
-//        headers.add("Authorization","Bearer "+ accessToken);
-//
-//        //params
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//
-//        //Entity
-//        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-//
-//        //request
-//        RestTemplate rt = new RestTemplate();
-//
-//        //response
-//        ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET,entity,PortOneAuthInfoResponse.class);
-//
-//        return response.getBody();
-//    }
-//
-//    //인증 객체
-//    @Data
-//    private static class AuthInfoResponse{
-//        public int birth;
-//        public String birthday;
-//        public boolean certified;
-//        public int certified_at;
-//        public boolean foreigner;
-//        public Object foreigner_v2;
-//        public Object gender;
-//        public String imp_uid;
-//        public String merchant_uid;
-//        public String name;
-//        public String origin;
-//        public String pg_provider;
-//        public String pg_tid;
-//        public String phone;
-//        public Object unique_in_site;
-//        public String unique_key;
-//    }
-//
-//    @Data
-//    private static class PortOneAuthInfoResponse{
-//        public int code;
-//        public Object message;
-//        public AuthInfoResponse response;
-//    }
 }

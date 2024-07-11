@@ -1,42 +1,64 @@
-const userPhoneInput = document.getElementById('userPhone');
-const [certificationBtn, verificationBtn, registerBtn] =document.querySelectorAll('button')
-// console.log(certificationBtn)
-// 포커스 이벤트 처리
-userPhoneInput.onfocus  = ()=> {
-    this.placeholder = 'ex) 010-1234-5678';
-};
+const certificationBtn = document.getElementById('certificationBtn');
 
-// 블러 이벤트 처리
-userPhoneInput.onblur = ()=> {
-    if (this.value === '') {
-        this.placeholder = '';
-    }
-};
+certificationBtn.addEventListener('click', function(e) {
+    e.preventDefault();
 
-//      //생략 가능
-// IMP.init("imp88732243"); // 예: imp00000000
-//
-// certificationBtn.onclick= () => {
-// IMP.certification(
-//     {
-//         pg: "danal.A010002002",
-//         // merchant_uid: "unique_merchant_id_" + new Date().getTime()
-//
-//     },
-//     function (rsp) {
-//         // callback
-//         if (rsp.success) {
-//             console.log(rsp)
-//             // 인증 성공 시 로직
-//         } else {
-//             console.log(rsp)
-//             // 인증 실패 시 로직
-//         }
-//     },
-// );
-// }
+    IMP.init('imp82217082');
 
+    IMP.certification(
+        {
+            pg: 'inicis_unified',
+            merchant_uid: `mid_${new Date().getTime()}`,
+        },
+        function (res) {
+            if (res.success) {
+                // 통합인증 정보 가져오기
+                axios.get(`/user/auth/${res.imp_uid}`)
+                    .then(res => {
+                        const { name, phone } = res.data.response;
 
+                        console.log(name);
+                        console.log(phone);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+
+                // // 통합인증 정보로 가입되어 있는 유저 찾기
+                // axios.get(`/user?name=${name}&birthday=${birthday}&phone=${phone}`)
+                //     .then(res => {
+                //         // 가입되어 있는 유저가 없으면 회원가입 페이지로 이동
+                //         if (res.data.length === 0) {
+                //             const state = {
+                //                 certificationInfo: {
+                //                     name: name,
+                //                     birthday: birthday,
+                //                     phone: phone
+                //                 }
+                //             }
+                //             navigate('/user/join', { state });
+                //             // 가입되어 있는 유저가 있으면 문구 출력 후 로그인 페이지로 이동
+                //         } else {
+                //             const state = {
+                //                 isJoinPage: true
+                //             }
+                //
+                //             alert('이미 해당 정보로 계정이 존재 합니다. 로그인 화면으로 이동합니다.');
+                //             navigate('/user/login', { state });
+                //         }
+                //     })
+                //     .catch(err => {
+                //         console.log(err);
+                //     })
+                //
+                //
+
+            } else {
+                alert('인증에 실패하였습니다. 에러 내용: ' + res.error_msg);
+            }
+        }
+    )
+});
 
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

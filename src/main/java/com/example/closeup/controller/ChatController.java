@@ -1,12 +1,15 @@
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ChatMessageDto;
 import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("chat")
 @Log4j2
 public class ChatController {

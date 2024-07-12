@@ -32,12 +32,10 @@
 
 <script>
     var id = '[[${chatRoomDto.id}]]';
-    var username = '[[${#authentication.Principal.userDto.name}]]';
+    var userId = '[[${#authentication.Principal.userDto.id}]]';
 
     const msgArea = document.getElementById('msgArea');
     const sendBtn = document.getElementById('button-send');
-
-    console.log(" + roomId + ", " + username");
 
     var sockJs = new SockJS("/stomp/chat");
     //1. SockJS를 내부에 들고있는 stomp를 내어줌
@@ -48,15 +46,22 @@
 
         //4. subscribe(path, callback)으로 메세지를 받을 수 있음
         stomp.subscribe("/sub/chat/room/" + id, function (chat) {
-            var content = JSON.parse(chat.body);
+            var message = JSON.parse(chat.body);
 
-            var message = content.message;
-            var writer = content.writer;
+            /**
+             * 2024-07-12 채팅
+             * ROLE_USER / ROLE_EXPERT 구분 필요
+             * DB 저장 구분 필요
+             **/
+            console.log(message);
+
+            var content = message.content;
+            var writer = message.userId;
             var str = '';
 
-            if(writer === username){
+            if(writer === userId){
                 const div = document.createElement('div');
-                div.innerText = `${message}`;
+                div.innerText = `${content}`;
                 // str = "<div class='col-6'>";
                 // str += "<div class='alert alert-secondary'>";
                 // str += "<b>" + writer + " : " + message + "</b>";
@@ -65,7 +70,7 @@
             }
             else{
                 const div = document.createElement('div');
-                div.innerText = `${message}`;
+                div.innerText = `${content}`;
                 // str = "<div class='col-6'>";
                 // str += "<div class='alert alert-secondary'>";
                 // str += "<b>" + writer + " : " + message + "</b>";
@@ -77,14 +82,13 @@
         });
 
         //3. send(path, header, message)로 메세지를 보낼 수 있음
-        stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: id, writer: username}))
+        stomp.send('/pub/chat/enter', {}, JSON.stringify({chatRoomId: id, userId: userId}))
     });
 
-    sendBtn.addEventListener("click", function (e) {
+    sendBtn.addEventListener("click", function () {
         var msg = document.getElementById("msg");
 
-        console.log(username + ":" + msg.value);
-        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: id, message: msg.value, writer: username}));
+        stomp.send('/pub/chat/message', {}, JSON.stringify({chatRoomId: id, content: msg.value, userId: userId}));
         msg.value = '';
     });
 </script>

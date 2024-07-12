@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -42,11 +42,17 @@
         </ul>
 
         <ul>
-            <li>
+            <li sec:authorize="isAnonymous()">
                 <a href="/user/login">로그인</a>
             </li>
-            <li>
+            <li sec:authorize="isAnonymous()">
                 <a href="/user/register">회원가입</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <span th:text="${#authentication.Principal.userDto.name}"></span>님
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/logout">로그아웃</a>
             </li>
         </ul>
     </div>

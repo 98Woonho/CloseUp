@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
     @GetMapping("chats")
     public String getChats(Model model) {
-        return "myPage/chat_record";
+        return "chatRecord";
     }
 }

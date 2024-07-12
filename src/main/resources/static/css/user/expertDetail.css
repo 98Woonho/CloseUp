@@ -1,0 +1,150 @@
+#detailSection{
+    position: relative;
+    top: 150px;
+    width: 1104px;
+    margin: 0 auto;
+    padding: 32px;
+}
+#expertProfileSec{
+    display: flex;
+    flex: 1;
+    height: 224px;
+    align-items: center;
+    padding: 0 32px;
+    background-color: var(--color-lighter-gray);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+}
+#profileImgContainer{
+    width: 120px;
+    height: 120px;
+    margin-right: 24px;
+}
+#profileImgContainer img{
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+    border-radius: 16px;
+}
+#profileInfoContainer{
+    display: flex;
+    flex: 1;
+}
+#profileNameContainer{
+    flex: 1;
+    height: 120px;
+    align-content: center;
+}
+#profileNameContainer a{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
+#profileNameContainer i{
+    color: orange;
+}
+#heartContainer{
+    width: 40px;
+    height: 120px;
+    font-size: 40px;
+}
+/*************** 전문가 소개 ***************/
+#bodySec{
+    display: flex;
+}
+#expertInfoSec{
+    width: 704px;
+    padding: 16px 24px;
+    margin-right: 24px;
+}
+#contentNav{
+    margin: 12px 0;
+    height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+#contentNav ul{
+    display: flex;
+}
+#contentNav li{
+    height: 40px;
+    margin-right: 16px;
+    color: var(--color-medium-gray);
+    font-size: 20px;
+    font-weight: bold;
+}
+#contentNav a{
+    color: var(--color-medium-gray);
+}
+#contentNav li[active]{
+    border-bottom: 2px solid black;
+}
+#contentNav li[active] a{
+    color: black;
+}
+/*************** 전문가 소개 > 전문가 정보 ***************/
+#introSec{
+    margin-bottom: 24px;
+}
+.nav-title{
+    display: block;
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.sub-title{
+    display: block;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.desc-container{
+    margin-bottom: 20px;
+}
+.desc-container:last-child{
+    margin-bottom: 0;
+}
+/*************** 캐러셀 ***************/
+.embla{
+    position: relative;
+    overflow: hidden;
+}
+.embla__container{
+    display: flex;
+}
+.embla__slide{
+    width: 240px;
+    height: 300px;
+}
+.embla__slide:not(:last-child){
+    margin-right: 20px;
+}
+.img-container img{
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+}
+.title-container > a{
+    display: block;
+}
+.portfolio-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+.embla-btn-container{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    top: 150px;
+    justify-content: space-between;
+}
+.embla-btn-container > button{
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+}
+.embla-btn-container > button:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/*************** 전문가 상담하기 aside ***************/

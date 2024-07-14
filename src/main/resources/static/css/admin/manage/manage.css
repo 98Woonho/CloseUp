@@ -25,7 +25,7 @@
     padding: 10px 0;
     text-align: center;
     background-color: var(--color-light-blue);
-    box-shadow: var(--box-shadow-hard);
+    box-shadow: var(--box-shadow);
 }
 .main-nav-sec > nav > ul > li:hover , .main-nav-sec > nav > ul > li:hover a{
     transform: translateX(-30px);
@@ -41,7 +41,7 @@
     height: 100vh;
     margin: 0px auto;
     border-radius: 48px;
-    box-shadow: var(--box-shadow-hard);
+    box-shadow: var(--box-shadow);
     background-color: #fff;
     z-index: 99;
 }
@@ -80,7 +80,7 @@
 .logo-sec > div {
     width: 152px;
     height: 80px;
-    background-image: url(../../../image/CloseUp-navy-admin-removebg.png);
+    background-image: url(../../../imgs/CloseUp-navy-admin-removebg.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: auto 180%;

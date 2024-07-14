@@ -6,10 +6,19 @@
 
 .headerSec {
     padding: 0 40px;
-    display: flex;
     text-align: center;
 }
 
+.titleCon {
+    padding-top: 48px ;
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+    text-align: center;
+}
+.searchCon input{
+    width: 480px;
+}
 
 /* 사이드 메뉴 */
 .bodySec {

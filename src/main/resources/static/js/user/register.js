@@ -30,8 +30,8 @@ certBtn.addEventListener('click', function(e) {
                         }
                     })
                     .catch(err => {
-                        if (err.status === 409) {
-                            alert(res.data.msg);
+                        if (err.response.status === 409) {
+                            alert(err.response.data.msg);
                             location.href = '/user/login';
                         } else {
                             alert('알 수 없는 이유로 본인인증에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');

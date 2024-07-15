@@ -41,14 +41,14 @@ loginForm.onsubmit = (e) => {
         return;
     }
 
-    if (CK_space.test(loginForm['pw'].value)) {
+    if (CK_space.test(loginForm['password'].value)) {
         errMsgs[0].style.display = 'block';
         loginForm['pw'].focus();
         loginForm['pw'].select();
         return;
     }
 
-    if (!CK_pw.test(loginForm['pw'].value)) {
+    if (!CK_pw.test(loginForm['password'].value)) {
         errMsgs[1].style.display = 'block';
         loginForm['pw'].focus();
         loginForm['pw'].select();

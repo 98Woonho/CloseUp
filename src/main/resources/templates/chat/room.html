@@ -7,17 +7,78 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+
+    <link rel="stylesheet" href="/css/chat/room.css">
+    <link rel="stylesheet" href="/css/common.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script defer src="/js/chat/room.js"></script>
 </head>
 <body>
 
+<input type="hidden" id="chatRoomId" th:value="${chatRoomDto.id}">
+<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
+
 <div class="container">
-    <div class="col-6">
-        <h1 th:text="${chatRoomDto.id}"></h1>
-    </div>
     <div>
-        <div id="msgArea" class="col"></div>
+        <!-- 채팅 내용 -->
+        <section id="chatViewSec">
+            <section id="chatViewTop">
+                <!-- 전문가를 선택했을 때 -->
+                <div class="selected">
+                    <div>
+                        <div class="side-btn-container">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <a href="#">이전</a>
+                        </div>
+                        <div id="topProfileContainer">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
+                            <div id="topProfileInfo">
+                                <div id="topProfileName"><b>oboa</b></div>
+                                <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
+                            </div>
+                        </div>
+                        <div class="side-btn-container">
+                            <i class="fa-solid fa-x"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- 선택한 전문가가 없을 때, -->
+                <div class="non-selected">
+                    <div>
+                        <p>좌측의 목록에서 전문가를 선택해주세요.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="chatMsgSec">
+                <th:block th:if="${chatMessageDtoList.size() != 0}">
+                        <div th:each="chatMessageDto : ${chatMessageDtoList}" class="chat" th:classappend="${#authentication.Principal.userDto.id == chatMessageDto.userId} ? 'user1' : 'user2'">
+                            <div class="chat-msg" th:text="${chatMessageDto.content}"></div>
+                        </div>
+                </th:block>
+            </section>
+            <section id="chatInputSec">
+                <div class="selected">
+                    <label for="chatInput">
+                        <input type="text" id="chatInput" placeholder="종료된 대화입니다." disabled>
+                        <i class="fa-regular fa-face-smile"></i>
+                        <i class="fa-regular fa-image"></i>
+                    </label>
+                </div>
+                <div class="non-selected">
+                    <div>
+                        <label for="chatInputNon">
+                            <input type="text" id="chatInputNon" placeholder="선택된 채팅이 없습니다." disabled>
+                            <i class="fa-regular fa-face-smile"></i>
+                            <i class="fa-regular fa-image"></i>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </section>
         <div class="col-6">
             <div class="input-group mb-3">
                 <input type="text" id="msg" class="form-control">
@@ -29,69 +90,6 @@
     </div>
     <div class="col-6"></div>
 </div>
-
-<script>
-    var id = '[[${chatRoomDto.id}]]';
-    var userId = '[[${#authentication.Principal.userDto.id}]]';
-
-    const msgArea = document.getElementById('msgArea');
-    const sendBtn = document.getElementById('button-send');
-
-    var sockJs = new SockJS("/stomp/chat");
-    //1. SockJS를 내부에 들고있는 stomp를 내어줌
-    var stomp = Stomp.over(sockJs);
-
-    //2. connection이 맺어지면 실행
-    stomp.connect({}, function (){
-
-        //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-        stomp.subscribe("/sub/chat/room/" + id, function (chat) {
-            var message = JSON.parse(chat.body);
-
-            /**
-             * 2024-07-12 채팅
-             * ROLE_USER / ROLE_EXPERT 구분 필요
-             * DB 저장 구분 필요
-             **/
-            console.log(message);
-
-            var content = message.content;
-            var writer = message.userId;
-            var str = '';
-
-            if(writer === userId){
-                const div = document.createElement('div');
-                div.innerText = `${content}`;
-                // str = "<div class='col-6'>";
-                // str += "<div class='alert alert-secondary'>";
-                // str += "<b>" + writer + " : " + message + "</b>";
-                // str += "</div></div>";
-                msgArea.append(div);
-            }
-            else{
-                const div = document.createElement('div');
-                div.innerText = `${content}`;
-                // str = "<div class='col-6'>";
-                // str += "<div class='alert alert-secondary'>";
-                // str += "<b>" + writer + " : " + message + "</b>";
-                // str += "</div></div>";
-                msgArea.append(div);
-            }
-
-            msgArea.append(str);
-        });
-
-        //3. send(path, header, message)로 메세지를 보낼 수 있음
-        stomp.send('/pub/chat/enter', {}, JSON.stringify({chatRoomId: id, userId: userId}))
-    });
-
-    sendBtn.addEventListener("click", function () {
-        var msg = document.getElementById("msg");
-
-        stomp.send('/pub/chat/message', {}, JSON.stringify({chatRoomId: id, content: msg.value, userId: userId}));
-        msg.value = '';
-    });
-</script>
 
 </body>
 </html>

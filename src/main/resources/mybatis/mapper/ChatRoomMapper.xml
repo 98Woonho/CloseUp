@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.closeup.domain.mapper.ChatMapper">
+<mapper namespace="com.example.closeup.domain.mapper.ChatRoomMapper">
 
     <select id="selectChatRoomDtoListByUserId">
         SELECT *
@@ -14,8 +14,12 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insertChatRoom">
-        INSERT INTO `chat_room`
-        VALUES (null, #{userId}, null)
+    <insert id="insertChatRoom"
+            parameterType="com.example.closeup.domain.dto.ChatRoomDto"
+            useGeneratedKeys="true"
+            keyColumn="id"
+            keyProperty="id">
+        INSERT INTO `chat_room` (`user_id`, `expert_user_id`)
+        VALUES (#{userId}, null)
     </insert>
 </mapper>

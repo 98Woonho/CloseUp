@@ -185,7 +185,7 @@ DROP TABLE IF EXISTS `chat_message`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat_message` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `chat_room` varchar(255) NOT NULL,
+  `chat_room_id` bigint NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `expert_user_id` varchar(255) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
@@ -194,7 +194,8 @@ CREATE TABLE `chat_message` (
   KEY `FK-user-id-chat_message-user_id` (`user_id`),
   KEY `FK-expert-user_id-chat_message-expert_user_id` (`expert_user_id`),
   CONSTRAINT `FK-expert-user_id-chat_message-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-chat_message-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK-user-id-chat_message-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK-chat_room-id-chat_message-chat_room_id` FOREIGN KEY (`chat_room_id`) REFERENCES `chat_room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

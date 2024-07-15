@@ -20,12 +20,111 @@
     justify-content: space-between;
 }
 
-.header-nav li {
+#clickedFind {
+    width: 216px;
+    height: 32px;
+    padding: 4px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+}
+#clickedFind > svg {
+    float: left;
+}
+
+#clickedFind > input{
+    float: left;
+    height: 24px;
+    margin-left: 4px;
+    border: none;
+}
+
+
+.headerNav li {
     display: inline;
 }
 
-/* */
-nav > ul > li:hover {
-    font-weight: bolder;
+.headerNav > ul > li:hover {
+    font-weight: bold;
     cursor: pointer;
 }
+.headerNav > ul > li:hover:last-child {
+    font-weight: normal;
+}
+
+
+/* 계정 전환 토글 스위치 */
+#accountToggleCon {
+    display: flex;
+
+}
+
+#accountToggleCon > label {
+    display: block;
+    position: relative;
+    width: 32px;
+    height: 20px;
+    background: var(--color-lighter-gray);
+    border-radius: 60px;
+    transition: background 0.4s;
+}
+#accountToggleCon > label::after {
+    content: "";
+    position: absolute;
+    left: 2.5px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-color: #fff;
+    transform: translateY(-50%);
+    box-shadow: 1px 3px 4px rgba(0,0,0,0.1);
+    transition: all 0.4s;
+}
+#accountToggleCon > label::before {
+    /*content: "일반";*/
+    /*font-size: 16px;*/
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.4s;
+}
+#toggleSwitch {
+    display: none;
+}
+ #toggleSwitch:checked + label {
+     background:var(--color-medium-blue);
+ }
+
+#toggleSwitch:checked + label::after {
+    left: calc(100%  - 17.5px);
+}
+
+
+/*#toggleSwitch:checked + label::before {*/
+/*    content: "전문";*/
+/*    color: #000;*/
+/*}*/
+/*#toggleSwitch {*/
+/*    position: relative;*/
+/*    width: 32px;*/
+/*    height: 20px;*/
+/*    padding: 2px;*/
+/*    background: var(--color-medium-blue);*/
+/*    border-radius: 120px;*/
+/*}*/
+
+/*#toggleSwitch > #switchBall{*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*    position: absolute;*/
+/*    background-color: #fff;*/
+/*    border-radius: 100px;*/
+/*}*/
+/*#toggleSwitch > #switchBall:hover{*/
+/*    cursor: pointer;*/
+/*}*/
+
+
+
+

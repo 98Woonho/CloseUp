@@ -3,64 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
+    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
+    <link rel="stylesheet" href="../../../static/css/board/community/communityWrite.css">
 </head>
 <body>
     <main>
         <section id="commuWriteSec">
-            <section class="headerSec">
-                <div class="titleCon">
-                    <h1 class="commuTitle">게시물 작성하기</h1>
-                </div>
-                <div class="searchCon">
-                    <input class="searchInput" type="text">
-                    <label class="filterLabel">
-                        <select>
-                            <option>제목</option>
-                            <option>작성자</option>
-                            <option>내용</option>
-                        </select>
-                    </label>
+            <section class="header-sec">
+                <div class="title-con">
+                    <p class="commuTitle">게시물 작성하기</p>
                 </div>
             </section>
-            <form action="" method="POST">
-                <section class="postWriteSec">
-                    <div class="writeHeaderCon">
-                        <label class="writeCategoryLabel">
-                            <select>
-                                <option selected>카테고리 선택</option>
-                                <option>자유 게시판</option>
-                                <option>추천 게시판</option>
-                                <option>후기 게시판</option>
-                                <option>질문 게시판</option>
-                            </select>
-                        </label>
-                        <div class="titleCon">
-                            <label for="title"></label>
-                            <input type="text" id="title" placeholder="제목을 입력하세요.">
+            <section id="writeContentSec">
+
+                <form action="" method="POST">
+                    <section class="post-write-sec">
+                        <div class="write-header-con">
+                            <label class="writeCategoryLabel">
+                                <select>
+                                    <option selected>카테고리 선택</option>
+                                    <option disabled>-- 통합 커뮤니티 --</option>
+                                    <option>자유 게시판</option>
+                                    <option>전문가 추천 게시판</option>
+                                    <option>전문가의 후기 게시판</option>
+                                    <option>간단한 질문 게시판</option>
+                                    <option disabled>-- 전문가 커뮤니티 --</option>
+                                    <option>전문가 자유 게시판</option>
+                                </select>
+                            </label>
+                            <div class="title-con">
+                                <label for="title"></label>
+                                <input type="text" id="title" placeholder="제목을 입력하세요.">
+                            </div>
                         </div>
-                        <section class="fileInputSec">
-                            <span class="description">파일 첨부</span>
-                            <div class="fileInputCon">
-                                <label for="files">
-                                    첨부할 파일을 여기로 이동해주세요<input type="file" id="files">
-                                </label>
+                        <section id="fileSection">
+                            <div class="desc-container">
+                                <span>파일 첨부</span>
+                            </div>
+                            <div id="fileInputContainer">
+                                <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <label for="files">첨부할 파일을 선택 해주세요 :)</label>
+                                <p>Max size : 5GB</p>
+                                <input type="file" id="files">
                             </div>
                         </section>
-                    </div>
-                </section>
+                    </section>
+                    <section id="writeContainer">
+                        <div class="desc-container">
+                            <span>내용</span>
+                        </div>
+                        <label>
+                            <textarea placeholder="내용을 작성하세요." maxlength="1500"></textarea>
+                        </label>
+                    </section>
 
-                <section class="textareaSec">
-                    <span class="description">내용</span>
-                    <label>
-                        <textarea placeholder="내용을 작성하세요."></textarea>
-                    </label>
-                </section>
 
-                <section class="writeBtnSec">
-                    <button type="button">취소</button>
-                    <button type="submit">확인</button>
-                </section>
-            </form>
+                    <section class="writeBtnSec">
+                        <button type="button">취소</button>
+                        <button type="submit">확인</button>
+                    </section>
+                </form>
+            </section>
 
         </section>
     </main>

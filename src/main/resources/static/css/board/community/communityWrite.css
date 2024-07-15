@@ -1,40 +1,50 @@
-#modifySection{
+@import "../../common.css";
+
+#commuWriteSec {
     width: 1104px;
-    margin: 0 auto;
-    height: 100vh;
+    margin: 48px auto;
 }
-.modify-container{
-    position: relative;
-    top: 150px;
-    margin: 0 auto;
-    width: 800px;
-}
-#titleSec{
+.header-sec .title-con {
+    color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
-    margin-bottom: 20px;
-    text-align: left;
+
 }
-/************************************/
-.modify-container > form{
+
+#writeContentSec {
     padding: 40px;
-    background-color: white;
+    margin-top: 24px;
     border-radius: 20px;
     box-shadow: var(--box-shadow);
-    margin-bottom: 40px;
+    background-color: #fff;
 }
-#titleInputContainer{
-    margin-bottom: 20px;
+
+.write-header-con {
+    margin-bottom: 16px;
 }
-#titleInputContainer input{
+
+
+
+
+.writeCategoryLabel > select {
+    width: 360px;
+    height: 40px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+}
+
+.title-con > input {
     width: 100%;
-    height: 72px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    height: 48px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
 }
-/*************************************/
+
+
+
+
 .desc-container{
     margin-bottom: 10px;
     color: var(--color-medium-gray);
@@ -71,32 +81,34 @@
 #fileInputContainer > p{
     cursor: default;
 }
-/*************************************/
+
+
 #writeContainer textarea{
     width: 100%;
-    height: 500px;
+    min-height: 200px;
+    max-height: 500px;
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    resize: none;
+    overflow: scroll;
 }
-/*************************************/
-#btnSec{
+
+
+.writeBtnSec {
+    margin-top: 16px;
     display: flex;
     justify-content: space-between;
 }
-#btnSec > button{
-    flex: 1;
-    height: 72px;
-    padding: 15px;
+
+.writeBtnSec > button{
+    width: 488px;
+    height: 64px;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 8px;
+    background-color: var(--color-light-blue);
+}
+.writeBtnSec > button:hover {
+    border: 1px solid var(--color-light-gray);
     background-color: var(--color-main-navy);
     color: white;
-    border-radius: 20px;
-}
-#btnSec > button:hover{
-    background-color: var(--color-lighter-bluegray);
-    color: var(--color-main-navy);
-}
-#btnSec > button:not(:last-child){
-    margin-right: 20px;
 }

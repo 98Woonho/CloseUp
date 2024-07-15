@@ -27,7 +27,7 @@ public class StompChatController {
 
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto chatMessageDto){
-        System.out.println(chatMessageDto);
+        System.out.println("message() chatMessageDto : " + chatMessageDto);
         LocalDateTime date = LocalDateTime.now();
         chatMessageDto.setWrittenAt(date);
         template.convertAndSend("/sub/chat/room/" + chatMessageDto.getChatRoomId(), chatMessageDto);

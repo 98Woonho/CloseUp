@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ChatController {
     private ChatService chatService;
 
     // 채팅 목록 조회
-    @GetMapping(value = "/list")
+    @GetMapping(value = "list")
     public void getRooms(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
@@ -41,7 +42,7 @@ public class ChatController {
     }
 
     //채팅방 개설
-    @PostMapping(value = "/room")
+    @PostMapping(value = "room")
     public String postRoom(ChatRoomDto chatRoomDto){
         chatService.createRoom(chatRoomDto);
 
@@ -49,10 +50,15 @@ public class ChatController {
     }
 
     //채팅방 조회
-    @GetMapping("/room")
+    @GetMapping("room")
     public void getRoom(@RequestParam("id") Long id, Model model) {
         ChatRoomDto chatRoomDto = chatService.getChatRoomDto(id);
 
         model.addAttribute("chatRoomDto", chatRoomDto);
+    }
+
+    @PostMapping("message")
+    public void postMessage(ChatMessageDto chatMessageDto) {
+        System.out.println("postMessage() chateMessageDto : " + chatMessageDto);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.closeup.domain.dto;
+package com.example.closeup.domain.dto.community;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.example.closeup.domain.dto;
+package com.example.closeup.domain.dto.community;
 
 
 import lombok.AllArgsConstructor;
@@ -19,6 +19,7 @@ public class ArticleDto {
     private String title;
     private String content;
     private Integer view;
+    private Integer likeCount;
     private LocalDateTime writtenAt;
     private LocalDateTime modifiedAt;
 

@@ -7,6 +7,7 @@
     <title>COMMUNITY PAGE</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../static/css/board/community/community.css" th:href="@{/css/board/community/community.css}">
+    <script src="../../../static/js/board/community/communityPost.js" th:src="@{js/board/community/communityPost.js}" defer></script>
 </head>
 <body>
     <main>
@@ -54,21 +55,30 @@
                         </div>
                     </div>
                     <section id="likeCommentSec">
-                        <form action="/board/community/communityPost/${article.id}" method="post">
                         <div id="btnCon">
-                            <button id="likeBtn"><i class="fa-regular fa-thumbs-up"></i></button><span>좋아요</span><span class="likeCount"><!-- 좋아요 수 --></span>
-                            <i class="fa-regular fa-comment-dots"></i><span>댓글</span><span class="commentCount"><!-- 댓글 수 --></span>
+                            <button id="likeBtn" th:attr="data-article-id=${article.id}">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <span>좋아요</span>
+                            <span class="likeCount"  th:text="${article.likeCount}"><!-- 좋아요 수 --></span>
+                            <i class="fa-regular fa-comment-dots"></i>
+                            <span>댓글</span>
+                            <span class="commentCount" th:text="${#lists.size(comments)}">
+                                <!-- 댓글 수 -->
+                            </span>
                         </div>
                         <div id="commentInputCon">
+                            <form action="/board/community/communityPost/${article.id}" method="post">
                             <input type="text" name="content" placeholder="댓글을 남겨보세요.">
                             <input type="hidden" name="articleId" th:value="${article.id}">
+                            </form>
                         </div>
                         <div class="commentsCon">
                             <ul class="commentList">
-                                <li class="commentCon">
+                                <li class="commentCon" th:each="comment : ${comments}">
                                     <div class="commentHeaderCon">
-                                        <a class="commentWriter" href="#" th:text="comment.userId" >댓글 작성자</a>
-<!--                                        <span class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd')}">2024. 06. 26</span>-->
+                                        <a class="commentWriter" href="#" th:text="${comment.userId}" >댓글 작성자</a>
+                                        <span class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd HH:mm')}">2024. 06. 26</span>
                                     </div>
                                     <div class="commentContent">
                                         <p th:text="${comment.content}">팬입니다.
@@ -82,8 +92,14 @@
                                         <a class="commentWriter" href="#">댓글 작성자</a>
                                         <div class="commentWriteDate">2024. 06. 26</div>
                                         <div class="commentBtnCon">
-                                            <button><i class="fa-regular fa-thumbs-up"></i><span>좋아요</span></button>
-                                            <button><i class="fa-regular fa-comment-dots"></i><span>댓글 달기</span></button>
+                                            <button>
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                                <span>좋아요</span>
+                                            </button>
+                                            <button>
+                                                <i class="fa-regular fa-comment-dots"></i>
+                                                <span>댓글 달기</span>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="commentContent">
@@ -94,29 +110,28 @@
                                             근황 궁금했는데 여기서 뵙게 되네요.
                                             응원하겠습니다.</p>
                                         <div class="comment-reply">
-                                            <ul>
-                                                <li>
-                                                    <div class="commentHeaderCon">
-                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png" alt="#"/>
-                                                        <div>
-                                                            <a class="commentWriter" href="#">댓글 작성자</a>
-                                                            <div class="commentWriteDate">2024. 06. 26</div>
-                                                            <div class="commentBtnCon">
-                                                                <button><i class="fa-regular fa-thumbs-up"></i><span>좋아요</span></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="commentContent">
-                                                        <p>대 댓글입니다 :).</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
+<!--                                            <ul>-->
+<!--                                                <li th:each="comment : ${comments}">-->
+<!--                                                    <div class="commentHeaderCon">-->
+<!--                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png" alt="#"/>-->
+<!--                                                        <div>-->
+<!--                                                            <a class="commentWriter" href="#"  th:text="${comment.userId}" >댓글 작성자</a>-->
+<!--                                                            <div class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd HH:mm')}">2024. 06. 26</div>-->
+<!--                                                            <div class="commentBtnCon">-->
+<!--                                                                <button><i class="fa-regular fa-thumbs-up"></i><span>좋아요</span></button>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="commentContent">-->
+<!--                                                        <p th:text="${comment.content}">대 댓글입니다 :).</p>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        </form>
                     </section>
                 </section>
             </section>

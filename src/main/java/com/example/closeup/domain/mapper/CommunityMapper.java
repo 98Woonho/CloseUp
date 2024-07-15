@@ -1,22 +1,25 @@
 package com.example.closeup.domain.mapper;
 
 
-import com.example.closeup.domain.dto.ArticleDto;
-import com.example.closeup.domain.dto.CommentDto;
+import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.BoardDto;
+import com.example.closeup.domain.dto.community.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface CommunityMapper {
-/**********communityMain 목록 표시***********/
-    List<ArticleDto> selectAllArticles();
-    /**********communityWrite 게시글 작성***********/
+      List<ArticleDto> selectArticles(String boardCode);
+    List<BoardDto> selectAllBoards();
     void insertArticle(ArticleDto articleDto);
-    /**********communityPost 게시글 확인***********/
     ArticleDto selectArticleById(Integer id);
-    /***************댓글 작성*********************/
+    void incrementViewCount(Integer id);
     void insertComment(CommentDto commentDto);
-    /***************댓글 목록*********************/
-   List<CommentDto>selectCommentsByArticleId(Integer articleId);
+    List<CommentDto> selectCommentsByArticleId(Integer articleId);
+//    List<ArticleFileDto> selectFilesByArticleId(Integer articleId);
+    boolean checkLikeExists(Integer articleId, String userId);
+    void deleteLike(Integer articleId, String userId);
+    void insertLike(Integer articleId, String userId);
+    int selectLikeCount(Integer articleId);
 }

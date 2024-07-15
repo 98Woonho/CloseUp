@@ -27,13 +27,15 @@
             <section class="body-sec">
                 <aside>
                     <div>
-                        <a class="" href="#">통합 커뮤니티</a>
+                        <a class="" href="#" th:href="@{/board/community/communityMain}">통합 커뮤니티</a>
                     </div>
                     <ul>
-                        <li><a href="#">자유 게시판</a></li>
-                        <li><a href="#">전문가 추천 게시판</a></li>
-                        <li><a href="#">전문가의 후기 게시판</a></li>
-                        <li><a href="#">간단한 질문 게시판</a></li>
+                        <li th:each="board : ${boards}">
+                            <a th:href="@{/board/community/communityMain(boardCode=${board.code})}" th:text="${board.name}">자유 게시판</a>
+                        </li>
+<!--                        <li><a href="#">전문가 추천 게시판</a></li>-->
+<!--                        <li><a href="#">전문가의 후기 게시판</a></li>-->
+<!--                        <li><a href="#">간단한 질문 게시판</a></li>-->
                     </ul>
                     <div>
                         <a href="#">전문가 커뮤니티</a>
@@ -69,7 +71,7 @@
                                 <td th:text="${article.title}">게시글</td>
                                 <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">24/06/27</td>
                                 <td th:text="${article.userId}">abc123</td>
-                                <td>10</td>
+                                <td th:text="${article.likeCount}">10</td>
                                 <td th:text="${article.view}">10</td>
                             </tr>
 <!--                            <tr>-->

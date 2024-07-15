@@ -19,7 +19,7 @@
             </section>
             <section id="writeContentSec">
 
-                <form action="/board/community/communityWrite" method="POST">
+                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data">
                     <section class="post-write-sec">
                         <div class="write-header-con">
                             <label class="writeCategoryLabel" >
@@ -37,7 +37,7 @@
                             </label>
                             <div class="title-con">
                                 <label for="title"></label>
-                                <input type="text" id="title" placeholder="제목을 입력하세요.">
+                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title">
                             </div>
                         </div>
                         <section id="fileSection">

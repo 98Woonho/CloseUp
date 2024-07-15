@@ -13,10 +13,6 @@ stomp.connect({}, function () {
     stomp.subscribe("/sub/chat/room/" + chatRoomId, function (messageInfo) {
         const message = JSON.parse(messageInfo.body);
 
-        console.log(message);
-
-        console.log(userId);
-
         axios.post('/chat/message', message)
             .then(res => {
             })
@@ -33,12 +29,14 @@ stomp.connect({}, function () {
         chatMsgSec.appendChild(chat);
 
         chatMsgSec.append('');
+
+        chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
     });
 });
 
 sendBtn.addEventListener("click", function () {
     const msg = document.getElementById("msg");
 
-    stomp.send('/pub/chat/message', {}, JSON.stringify({chatRoomId: chatRoomId, content: msg.value}));
+    stomp.send('/pub/chat/message', {}, JSON.stringify({chatRoomId: chatRoomId, content: msg.value, userId: userId}));
     msg.value = '';
 });

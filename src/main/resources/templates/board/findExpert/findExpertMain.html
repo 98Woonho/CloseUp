@@ -4,150 +4,255 @@
     <meta charset="UTF-8">
     <title>전문가 찾기</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../static/css/common.css">
+    <link rel="stylesheet" href="../../../static/css/board/findExpertMain.css">
 </head>
 <body>
     <main>
-        <section id="findExpertMainSec">
-            <section class="headerSec">
-                <div class="headerCategoryCon">
-                    <a href="#">홈</a>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <a href="#">Front-end</a>
+        <section id="findExpertSec">
+            <section id="headerSec">
+                <div id="headerTitleCon">
+                    <div id="headerCategoryCon">
+                        <a href="#">홈</a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="#">Front-end</a>
+                    </div>
+                    <p id="findExpertTitle">Front-end</p>
                 </div>
-                <div class="titleCon">
-                    <h1 class="findExpertTitle">Front-end</h1>
-                </div>
-                <div class="searchCon">
-                    <input class="searchInput" type="text">
-                    <label class="filterLabel">
+                <div id="searchCon">
+                    <label for="searchInput" id="searchLabel">
+                        <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" placeholder="검색" id="searchInput">
+                    </label>
+                    <label>
                         <select>
+                            <option selected>최신순</option>
                             <option>인기순</option>
                             <option>추천순</option>
                             <option>평점순</option>
                             <option>응답순</option>
-                            <option>최신순</option>
                         </select>
                     </label>
                 </div>
             </section>
-            <section class="bodySec">
-                <div class="categoryCon">
+            <section id="bodySec">
+                <section id="categorySec">
                     <ul>
-                        <li><a href="#">Front-end</a></li>
-                        <li><a href="#">Back-end</a></li>
-                        <li><a href="#">JAVA</a></li>
-                        <li><a href="#">Python</a></li>
-                        <li><a href="#">서버 개발</a></li>
-                        <li><a href="#">앱 개발</a></li>
-                        <li><a href="#">웹 페이지</a></li>
-                        <li><a href="#">데이터베이스</a></li>
+                        <li class="category-lies" active><a href="#">Front-end</a></li>
+                        <li class="category-lies"><a href="#">Back-end</a></li>
+                        <li class="category-lies"><a href="#">JAVA</a></li>
+                        <li class="category-lies"><a href="#">Python</a></li>
+                        <li class="category-lies"><a href="#">서버 개발</a></li>
+                        <li class="category-lies"><a href="#">앱 개발</a></li>
+                        <li class="category-lies"><a href="#">웹 페이지</a></li>
+                        <li class="category-lies"><a href="#">데이터베이스</a></li>
                     </ul>
-                </div>
-                <div class="contentCon">
+                </section>
+                <section id="serviceListSec">
                     <ul id="serviceList">
-                        <li class="serviceLies">
-                            <div class="imgCon">
+                        <li class="service-lies">
+                            <div class="img-con">
                                 <!-- 서비스 이미지 -->
-                                <img src="#" alt="#">
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
                             </div>
-                            <section class="infoSec">
-                                <div class="infoIntro">
-                                    <a href="#">경력/ 한줄 소개</a>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
                                 </div>
-                                <div class="infoTitle">
+                                <div class="info-title">
                                     <a href="#">(서비스 제목)</a>
                                 </div>
-                                <div class="infoDescribe">
+                                <div class="info-desc">
                                     <a href="#">(서비스 간단 설명)</a>
                                 </div>
-                                <div class="infoCategory">
-                                    <a class="category" href="#">카테고리</a>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
                                 </div>
-                            </section>
+                            </div>
                         </li>
-                        <li class="serviceLies">
-                            <div class="imgCon">
+                        <li class="service-lies">
+                            <div class="img-con">
                                 <!-- 서비스 이미지 -->
-                                <img src="#" alt="#">
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
                             </div>
-                            <section class="infoSec">
-                                <div class="infoIntro">
-                                    <a href="#">경력/ 한줄 소개</a>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
                                 </div>
-                                <div class="infoTitle">
+                                <div class="info-title">
                                     <a href="#">(서비스 제목)</a>
                                 </div>
-                                <div class="infoDescribe">
+                                <div class="info-desc">
                                     <a href="#">(서비스 간단 설명)</a>
                                 </div>
-                                <div class="infoCategory">
-                                    <a class="category" href="#">카테고리</a>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
                                 </div>
-                            </section>
+                            </div>
                         </li>
-                        <li class="serviceLies">
-                            <div class="imgCon">
+                        <li class="service-lies">
+                            <div class="img-con">
                                 <!-- 서비스 이미지 -->
-                                <img src="#" alt="#">
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
                             </div>
-                            <section class="infoSec">
-                                <div class="infoIntro">
-                                    <a href="#">경력/ 한줄 소개</a>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
                                 </div>
-                                <div class="infoTitle">
+                                <div class="info-title">
                                     <a href="#">(서비스 제목)</a>
                                 </div>
-                                <div class="infoDescribe">
+                                <div class="info-desc">
                                     <a href="#">(서비스 간단 설명)</a>
                                 </div>
-                                <div class="infoCategory">
-                                    <a class="category" href="#">카테고리</a>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
                                 </div>
-                            </section>
+                            </div>
                         </li>
-                        <li class="serviceLies">
-                            <div class="imgCon">
+                        <li class="service-lies">
+                            <div class="img-con">
                                 <!-- 서비스 이미지 -->
-                                <img src="#" alt="#">
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
                             </div>
-                            <section class="infoSec">
-                                <div class="infoIntro">
-                                    <a href="#">경력/ 한줄 소개</a>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
                                 </div>
-                                <div class="infoTitle">
+                                <div class="info-title">
                                     <a href="#">(서비스 제목)</a>
                                 </div>
-                                <div class="infoDescribe">
+                                <div class="info-desc">
                                     <a href="#">(서비스 간단 설명)</a>
                                 </div>
-                                <div class="infoCategory">
-                                    <a class="category" href="#">카테고리</a>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
                                 </div>
-                            </section>
+                            </div>
                         </li>
-                        <li class="serviceLies">
-                            <div class="imgCon">
+                        <li class="service-lies">
+                            <div class="img-con">
                                 <!-- 서비스 이미지 -->
-                                <img src="#" alt="#">
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
                             </div>
-                            <section class="infoSec">
-                                <div class="infoIntro">
-                                    <a href="#">경력/ 한줄 소개</a>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
                                 </div>
-                                <div class="infoTitle">
+                                <div class="info-title">
                                     <a href="#">(서비스 제목)</a>
                                 </div>
-                                <div class="infoDescribe">
+                                <div class="info-desc">
                                     <a href="#">(서비스 간단 설명)</a>
                                 </div>
-                                <div class="infoCategory">
-                                    <a class="category" href="#">카테고리</a>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
                                 </div>
-                            </section>
+                            </div>
+                        </li>
+                        <li class="service-lies">
+                            <div class="img-con">
+                                <!-- 서비스 이미지 -->
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
+                            </div>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
+                                </div>
+                                <div class="info-title">
+                                    <a href="#">(서비스 제목)</a>
+                                </div>
+                                <div class="info-desc">
+                                    <a href="#">(서비스 간단 설명)</a>
+                                </div>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="service-lies">
+                            <div class="img-con">
+                                <!-- 서비스 이미지 -->
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
+                            </div>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
+                                </div>
+                                <div class="info-title">
+                                    <a href="#">(서비스 제목)</a>
+                                </div>
+                                <div class="info-desc">
+                                    <a href="#">(서비스 간단 설명)</a>
+                                </div>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="service-lies">
+                            <div class="img-con">
+                                <!-- 서비스 이미지 -->
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
+                            </div>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
+                                </div>
+                                <div class="info-title">
+                                    <a href="#">(서비스 제목)</a>
+                                </div>
+                                <div class="info-desc">
+                                    <a href="#">(서비스 간단 설명)</a>
+                                </div>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="service-lies">
+                            <div class="img-con">
+                                <!-- 서비스 이미지 -->
+                                <img src="https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2019/11/aspect-ratio-banner.jpg?w=1200&h=800&crop=1" alt="#">
+                            </div>
+                            <div class="info-con">
+                                <div class="info-writer">
+                                    <a href="#">작성자</a>
+                                </div>
+                                <div class="info-title">
+                                    <a href="#">(서비스 제목)</a>
+                                </div>
+                                <div class="info-desc">
+                                    <a href="#">(서비스 간단 설명)</a>
+                                </div>
+                                <div class="info-category">
+                                    <button type="button" style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                                    <button type="button" style="background-color:#E3F1FF; color: #167EE6;">Java</button>
+                                    <button type="button" style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+                                </div>
+                            </div>
                         </li>
                     </ul>
-                </div>
-                <nav class="paginationNav">
+                </section>
+            </section>
+            <section id="paginationSec">
+                <nav id="paginationNav">
                     <ul class="pagination">
                         <li><a href="#"><i class="fa-solid fa-caret-left"></i></a></li>
                         <li><a href="#">1</a></li>

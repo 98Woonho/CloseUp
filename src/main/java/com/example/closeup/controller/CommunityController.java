@@ -7,31 +7,40 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("community")
+@RequestMapping("board/community")
 public class CommunityController {
     @Autowired
     CommunityService communityService;
 
-
-    @GetMapping("community_write")
-    public void communityWrite(Model model) {
-
+    @GetMapping("/communityMain")
+    public String communityMain(Model model) {
+        List<ArticleDto> articles = communityService.getAllArticles();
+        model.addAttribute("articles", articles);
+        return "/board/community/communityMain";
     }
 
-
-    @PostMapping("/community_write")
-    public String communityWrite(ArticleDto articleDto) {
-        System.out.println(articleDto);
-    communityService.CommunityWrite(articleDto);
-    return "redirect:/community_main";
+    @GetMapping("/communityWrite")
+    public String communityWriteForm(Model model) {
+        model.addAttribute("articleDto", new ArticleDto());
+        return "/board/community/communityWrite";
     }
 
+    @PostMapping("/communityWrite")
+    public String communityWrite(@ModelAttribute ArticleDto articleDto) {
+        communityService.createArticle(articleDto);
+        return "redirect:/board/community/communityMain";
+    }
 
-
+    @GetMapping("/view/{id}")
+    public String communityView(@PathVariable Long id, Model model) {
+        ArticleDto article = communityService.getArticleById(id);
+        model.addAttribute("article", article);
+        return "community/view";
+    }
 }

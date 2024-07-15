@@ -11,32 +11,32 @@
                 <div class="titleCon">
                     <h1 class="commuTitle">게시물 작성하기</h1>
                 </div>
-                <div class="searchCon">
-                    <input class="searchInput" type="text">
-                    <label class="filterLabel">
-                        <select>
-                            <option>제목</option>
-                            <option>작성자</option>
-                            <option>내용</option>
-                        </select>
-                    </label>
-                </div>
+<!--                <div class="searchCon">-->
+<!--                    <input class="searchInput" type="text">-->
+<!--                    <label class="filterLabel">-->
+<!--                        <select>-->
+<!--                            <option>제목</option>-->
+<!--                            <option>작성자</option>-->
+<!--                            <option>내용</option>-->
+<!--                        </select>-->
+<!--                    </label>-->
+<!--                </div>-->
             </section>
-            <form action="" method="POST">
+            <form action="/board/community/communityWrite" method="post" th:object="${articleDto}">
                 <section class="postWriteSec">
                     <div class="writeHeaderCon">
                         <label class="writeCategoryLabel">
-                            <select>
-                                <option selected>카테고리 선택</option>
-                                <option>자유 게시판</option>
-                                <option>추천 게시판</option>
-                                <option>후기 게시판</option>
-                                <option>질문 게시판</option>
+                            <select name="boardCode">
+                                <option value="">카테고리 선택</option>
+                                <option value="free">자유 게시판</option>
+                                <option value="recommend">추천 게시판</option>
+                                <option value="review">후기 게시판</option>
+                                <option value="question">질문 게시판</option>
                             </select>
                         </label>
                         <div class="titleCon">
                             <label for="title"></label>
-                            <input type="text" id="title" placeholder="제목을 입력하세요.">
+                            <input type="text" name="title" id="title" placeholder="제목을 입력하세요.">
                         </div>
                         <section class="fileInputSec">
                             <span class="description">파일 첨부</span>
@@ -52,7 +52,7 @@
                 <section class="textareaSec">
                     <span class="description">내용</span>
                     <label>
-                        <textarea placeholder="내용을 작성하세요."></textarea>
+                        <textarea name="content" placeholder="내용을 작성하세요."></textarea>
                     </label>
                 </section>
 

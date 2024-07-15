@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
+    <link rel="stylesheet" href="../../../static/css/board/community/community.css" th:href="@{/css/board/community/community.css}">
 </head>
 <body>
     <main>
@@ -50,52 +50,7 @@
                             <span th:text="${article.title}">첫 게시글이네요 :)</span>
                         </div>
                         <div id="viewContent">
-                            <p th:text="${article.content}">안녕하세요?</p>
-                            <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는 IT 스터디 모임이에요.</p>
-                            <p>장점 1. 체계적인 학습 커리큘럼</p>
-                            <p>우리 모임의 특, 장점</p>
-                            <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                            <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                            <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                            <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                            <p>우리 곧 만나요 :)</p>
-                            <p>안녕하세요?</p>
-                            <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는 IT 스터디 모임이에요.</p>
-                            <p>장점 1. 체계적인 학습 커리큘럼</p>
-                            <p>우리 모임의 특, 장점</p>
-                            <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                            <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                            <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                            <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                            <p>우리 곧 만나요 :)</p>
-                            <p>안녕하세요?</p>
-                            <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는 IT 스터디 모임이에요.</p>
-                            <p>장점 1. 체계적인 학습 커리큘럼</p>
-                            <p>우리 모임의 특, 장점</p>
-                            <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                            <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                            <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                            <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                            <p>우리 곧 만나요 :)</p>
-                            <p>안녕하세요?</p>
-                            <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는 IT 스터디 모임이에요.</p>
-                            <p>장점 1. 체계적인 학습 커리큘럼</p>
-                            <p>우리 모임의 특, 장점</p>
-                            <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                            <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                            <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                            <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                            <p>우리 곧 만나요 :)</p>
-                            <p>안녕하세요?</p>
-                            <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는 IT 스터디 모임이에요.</p>
-                            <p>장점 1. 체계적인 학습 커리큘럼</p>
-                            <p>우리 모임의 특, 장점</p>
-                            <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                            <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                            <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                            <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                            <p>우리 곧 만나요 :)</p>
-
+                            <p th:text="${article.content}">안녕하세요</p>
                         </div>
                     </div>
                     <section id="likeCommentSec">
@@ -113,7 +68,7 @@
                                 <li class="commentCon">
                                     <div class="commentHeaderCon">
                                         <a class="commentWriter" href="#" th:text="comment.userId" >댓글 작성자</a>
-                                        <span class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd')}">2024. 06. 26</span>
+<!--                                        <span class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd')}">2024. 06. 26</span>-->
                                     </div>
                                     <div class="commentContent">
                                         <p th:text="${comment.content}">팬입니다.
@@ -142,7 +97,7 @@
                                             <ul>
                                                 <li>
                                                     <div class="commentHeaderCon">
-                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png"/>
+                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png" alt="#"/>
                                                         <div>
                                                             <a class="commentWriter" href="#">댓글 작성자</a>
                                                             <div class="commentWriteDate">2024. 06. 26</div>
@@ -153,8 +108,7 @@
                                                     </div>
                                                     <div class="commentContent">
                                                         <p>대 댓글입니다 :).</p>
-
-
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -166,6 +120,7 @@
                     </section>
                 </section>
             </section>
+        </section>
     </main>
 </body>
 </html>

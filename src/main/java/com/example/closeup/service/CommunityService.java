@@ -27,10 +27,12 @@ public class CommunityService {
     }
 
     public ArticleDto getArticleById(Integer id) {
+
         return communityMapper.selectArticleById(id);
     }
 
     public void createComment(CommentDto commentDto) {
+
         communityMapper.insertComment(commentDto);
     }
 

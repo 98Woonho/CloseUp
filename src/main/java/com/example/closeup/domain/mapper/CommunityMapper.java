@@ -17,6 +17,6 @@ public interface CommunityMapper {
     ArticleDto selectArticleById(Integer id);
     /***************댓글 작성*********************/
     void insertComment(CommentDto commentDto);
-
+    /***************댓글 목록*********************/
    List<CommentDto>selectCommentsByArticleId(Integer articleId);
 }

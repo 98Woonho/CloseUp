@@ -16,12 +16,17 @@
     </select>
 
     <insert id="insertComment" parameterType="com.example.closeup.domain.dto.CommentDto">
-        INSERT INTO comment (article_id, user_id, comment_id, content, written_at)
-        VALUES (#{articleId}, #{userId}, #{commentId}, #{content}, #{writtenAt})
+        INSERT INTO comment (article_id, user_id, comment_id, content)
+        VALUES (#{articleId}, #{userId}, #{commentId}, #{content})
     </insert>
 
     <select id="selectCommentsByArticleId" resultType="com.example.closeup.domain.dto.CommentDto">
         SELECT * FROM comment WHERE article_id = #{articleId} ORDER BY written_at DESC
     </select>
+
+<!--    <insert id="insertFile" parameterType="com.example.closeup.domain.dto.ArticleFileDto">-->
+<!--        INSERT INTO article_file (article_id, name, type, size, data, created_at)-->
+<!--        VALUES (#{articleId}, #{name}, #{type}, #{size}, #{data}, #{createdAt})-->
+<!--    </insert>-->
 
 </mapper>

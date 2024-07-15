@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
-    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
-    <link rel="stylesheet" href="../../../static/css/board/community/communityWrite.css">
+    <link rel="stylesheet" href="../../../static/css/board/community/community.css" th:href="@{/css/board/community/community.css}">
+    <link rel="stylesheet" href="../../../static/css/board/community/communityWrite.css" th:href="@{/css/board/community/communityWrite.css}">
+    <script src="../../../static/js/board/community/communityWrite.js" th:src="@{/js/board/community/communityWrite.js}" defer></script>
 </head>
 <body>
     <main>
@@ -21,16 +22,17 @@
                 <form action="/board/community/communityWrite" method="POST">
                     <section class="post-write-sec">
                         <div class="write-header-con">
-                            <label class="writeCategoryLabel">
-                                <select>
+                            <label class="writeCategoryLabel" >
+                                <select name="boardCode">
+<!--                                    js로 카테고리 선택해주세요 하기-->
                                     <option selected>카테고리 선택</option>
                                     <option disabled>-- 통합 커뮤니티 --</option>
                                     <option value="free">자유 게시판</option>
-                                    <option>전문가 추천 게시판</option>
-                                    <option>전문가의 후기 게시판</option>
+                                    <option value="expertRecommendation">전문가 추천 게시판</option>
+                                    <option value="expertReview">전문가의 후기 게시판</option>
                                     <option value="question">간단한 질문 게시판</option>
                                     <option disabled>-- 전문가 커뮤니티 --</option>
-                                    <option>전문가 자유 게시판</option>
+                                    <option value="expert">전문가 자유 게시판</option>
                                 </select>
                             </label>
                             <div class="title-con">
@@ -46,7 +48,7 @@
                                 <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                                 <label for="files">첨부할 파일을 선택 해주세요 :)</label>
                                 <p>Max size : 5GB</p>
-                                <input type="file" id="files">
+                                <input type="file" id="files" name="files" multiple>
                             </div>
                         </section>
                     </section>

@@ -1,11 +1,14 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>fragment | header</title>
+    <link rel="stylesheet" href="../static/css/header/header.css">
+
+    <script src="../static/js/header.js" defer></script>
 </head>
 <body>
 
@@ -22,40 +25,53 @@
 </th:block>
 
 <header th:fragment="header_fragment">
-    <div class="content-container">
-        <a class="logo" href="/">
-            <img src="https://fontmeme.com/permalink/240702/4e102425bebd6f493cbad8015d29556d.png" alt="berry-pearl-font" border="0">
-        </a>
-        <ul>
-            <li>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA9klEQVR4nL3UTSvFQRiG8Z/XjtixYCWJHRv5JlIslZedDgvZyFKSLUXYONkhliSrg+R8JJqa5Wn+Mzpc67trep65Z/gnprCPRzRxi02MlIp6cIgXLGAUfRjHOj6xkivrQgM7iUwN19jOEa7hKCPXiyfMpULdaGEw52TM4C4VmMeZMt7jCtqyjLoyGrENbVnCljJuMJ0a+bxQ+IGB1KV8YShTNov7qtAqjgtqE6aqLHYo7W4iU4uX0YxTZT29A7xiEWPoxwQ24lqe8Y3LXGlgEnt4wFsscajVcJRc/UZatZ7Tv5CedFoaJBdRGlbUEYI0yIo/3yx+AGd+K3bJmkjeAAAAAElFTkSuQmCC">
-            </li>
-            <li>
-                <a href="#">주변 전문가</a>
-            </li>
-            <li>
-                <a href="#">커뮤니티</a>
-            </li>
-            <li>
-                <a href="#">문의</a>
-            </li>
-        </ul>
 
-        <ul>
-            <li sec:authorize="isAnonymous()">
-                <a href="/user/login">로그인</a>
-            </li>
-            <li sec:authorize="isAnonymous()">
-                <a href="/user/register">회원가입</a>
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <span th:text="${#authentication.Principal.userDto.name}"></span>님
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <a href="/logout">로그아웃</a>
-            </li>
-        </ul>
-    </div>
+    <section id="headerSec">
+        <!-- 백그라운드 이미지로 로고 넣기-->
+        <section id="navSec">
+            <div>
+                <nav class="headerNav">
+                    <ul>
+                        <li id="findIcon">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
+                                    <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                                </svg>
+                            </div>
+                            <div id="clickedFind" style="display: none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50">
+                                    <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                                </svg>
+
+                                <input type="text" placeholder="검색">
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">주변 전문가</a>
+                        </li>
+                        <li>
+                            <a href="#">커뮤니티</a>
+                        </li>
+                        <li>
+                            <a href="#">문의</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <nav class="headerNav">
+                    <ul>
+                        <li>
+                            <a href="/user/login">로그인</a>
+                        </li>
+                        <li>
+                            <a href="/user/register">회원가입</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </section>
 </header>
 
 </body>

@@ -1,0 +1,130 @@
+.find-sec {
+    margin: 132px auto;
+    width: 520px;
+}
+/* 아이디찾기 타이틀 */
+.find-sec .title-sec {
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+}
+#navFormCon {
+    margin-top: 48px;
+}
+
+
+/* nav태그 부분 (아이디 찾기/ 비밀번호 찾기) */
+#findNavSec ul {
+    display: flex;
+    width: 100%;
+    top: 24px;
+}
+#findNavSec ul > li {
+    width: 50%;
+    height: 72px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+}
+#findNavSec ul > li:last-child {
+    background-color: var(--color-main-navy);
+}
+#findNavSec ul > li:last-child a {
+    color: white;
+}
+#findNavSec ul > li:hover , #findNavSec ul > li:hover a {
+    background-color: var(--color-main-navy);
+    color: white;
+}
+
+#findNavSec ul > li a{
+    color: var(--color-medium-gray);
+}
+
+
+/* 아이디찾기 타이틀 제외 section */
+#findCon {
+    position: relative;
+    padding: 32px 40px;
+    top: -16px;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
+    z-index: 1;
+}
+.user-input-con input{
+    margin-bottom: 24px;
+    padding: 24px 16px;
+    width: 100%;
+    height: 72px;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 9px;
+    font-size: 16px;
+}
+.user-input-con:last-child input{
+    margin-bottom: 16px;
+}
+/* placeholder 글자 색 변경 */
+.user-input-con input::placeholder{
+    color: var(--color-light-gray);
+}
+
+
+/* 다른 페이지로 이동하는 태그 */
+.other-page li {
+    text-align: center;
+    font-size: 14px;
+}
+.other-page li:hover {
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+}
+
+
+/* 오류 메세지 */
+.error {
+    height: 80px;
+    padding-top: 48px;
+}
+.error p{
+    display: none;
+    color: var(--color-error-red);
+    font-size: 14px;
+    text-align: center;
+}
+.error span {
+    font-weight: bold;
+}
+
+
+/* 로그인 버튼 */
+.find-Btn {
+    margin: 8px 0;
+    width: 100%;
+    height: 72px;
+    color: var(--color-main-navy);
+    background-color: var(--color-light-blue);
+    border-radius: 9px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.find-Btn:hover {
+    color: var(--color-light-blue);
+    background: var(--color-main-navy);
+}
+
+
+/* 회원가입으로 이동 */
+.register-link-sec p{
+    margin-top: 40px;
+    color: var(--color-medium-gray);
+    text-align: center;
+    font-size: 14px;
+    font-weight: lighter;
+}
+.register-link-sec a {
+    font-weight: bold;
+    color: var(--color-medium-blue);
+}

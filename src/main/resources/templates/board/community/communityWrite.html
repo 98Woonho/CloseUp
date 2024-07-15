@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>커뮤니티 게시물 작성</title>
+    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
+    <link rel="stylesheet" href="../../../static/css/board/community/communityWrite.css">
+</head>
+<body>
+    <main>
+        <section id="commuWriteSec">
+            <section class="header-sec">
+                <div class="title-con">
+                    <p class="commuTitle">게시물 작성하기</p>
+                </div>
+            </section>
+            <section id="writeContentSec">
+
+                <form action="" method="POST">
+                    <section class="post-write-sec">
+                        <div class="write-header-con">
+                            <label class="writeCategoryLabel">
+                                <select>
+                                    <option selected>카테고리 선택</option>
+                                    <option disabled>-- 통합 커뮤니티 --</option>
+                                    <option>자유 게시판</option>
+                                    <option>전문가 추천 게시판</option>
+                                    <option>전문가의 후기 게시판</option>
+                                    <option>간단한 질문 게시판</option>
+                                    <option disabled>-- 전문가 커뮤니티 --</option>
+                                    <option>전문가 자유 게시판</option>
+                                </select>
+                            </label>
+                            <div class="title-con">
+                                <label for="title"></label>
+                                <input type="text" id="title" placeholder="제목을 입력하세요.">
+                            </div>
+                        </div>
+                        <section id="fileSection">
+                            <div class="desc-container">
+                                <span>파일 첨부</span>
+                            </div>
+                            <div id="fileInputContainer">
+                                <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                                <label for="files">첨부할 파일을 선택 해주세요 :)</label>
+                                <p>Max size : 5GB</p>
+                                <input type="file" id="files">
+                            </div>
+                        </section>
+                    </section>
+                    <section id="writeContainer">
+                        <div class="desc-container">
+                            <span>내용</span>
+                        </div>
+                        <label>
+                            <textarea placeholder="내용을 작성하세요." maxlength="1500"></textarea>
+                        </label>
+                    </section>
+
+
+                    <section class="writeBtnSec">
+                        <button type="button">취소</button>
+                        <button type="submit">확인</button>
+                    </section>
+                </form>
+            </section>
+
+        </section>
+    </main>
+</body>
+</html>

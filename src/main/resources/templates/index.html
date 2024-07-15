@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CloseUp</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css">
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
 
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/common.css">
@@ -27,6 +27,7 @@
         </button>
     </div>
     <div class="content-container">
+<!--        <button id="testBtn">본인인증 테스트</button>-->
         <h1>모든 IT 전문가를 찾는 방법</h1>
         <p>내 주변 000명의 IT 전문가와 만나보세요.</p>
         <div class="search-container">

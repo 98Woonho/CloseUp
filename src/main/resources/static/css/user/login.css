@@ -1,0 +1,130 @@
+/* 로그인 전체 section */
+.login-sec {
+    margin: 132px auto;
+    width: 520px;
+}
+
+/* 로그인 타이틀 */
+.login-sec .title-sec {
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+/* 로그인 타이틀 제외 section */
+#loginCon {
+    margin-top: 48px;
+    padding: 32px 40px;
+    /*position: absolute;*/
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+}
+
+.user-input-con input{
+    margin-bottom: 24px;
+    padding: 24px 16px;
+    width: 100%;
+    height: 72px;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 9px;
+    font-size: 16px;
+}
+.user-input-con:last-child input{
+    margin-bottom: 16px;
+}
+
+/* placeholder 글자 색 변경 */
+.user-input-con input::placeholder{
+    color: var(--color-light-gray);
+}
+
+
+/* one-line-align(한줄정렬) : css 같은 줄 배치를 위한 div태그 */
+.one-line-align {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+/* 다른 페이지로 이동하는 태그 */
+.other-page li {
+    display: inline;
+}
+.other-page li:after {
+    content: " |";
+}
+.other-page li:last-child:after {
+    content: none;
+}
+.other-page li:hover {
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+}
+
+/* 오류 메세지 */
+.error {
+    height: 56px;
+    padding-top: 24px;
+}
+
+.error p {
+    display: none;
+    color: var(--color-error-red);
+    font-size: 14px;
+    text-align: center;
+}
+
+.error .err-failure {
+    display: block;
+}
+
+.error span {
+    font-weight: bold;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+    margin: 8px 0;
+    width: 100%;
+    height: 72px;
+    color: #ffffff;
+    background-color: var(--color-main-navy);
+    border-radius: 9px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.login-btn:hover {
+    color: var(--color-main-navy);
+    background: var(--color-light-blue);
+}
+
+
+/* 소셜 로그인 */
+.other-login-ikon {
+    margin-bottom: 8px;
+    width: 100%;
+    height: 72px;
+    text-align: center;
+    align-content: center;
+    border-radius: 9px;
+    font-weight: bold;
+    color: var(--color-main-navy);
+    background-color: var(--color-light-blue);
+}
+.other-login-ikon:hover {
+    border: 1px solid var(--color-light-gray);
+    color: var(--color-light-blue);
+}
+
+/* 회원가입으로 이동 */
+.register-link-sec p{
+    margin-top: 16px;
+    color: var(--color-medium-gray);
+    text-align: center;
+    font-size: 14px;
+    font-weight: lighter;
+}
+.register-link-sec a{
+    font-weight: bold;
+    color: var(--color-medium-blue);
+}

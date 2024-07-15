@@ -1,0 +1,102 @@
+#chatSec{
+    position: relative;
+    top: 150px;
+    width: 1104px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+#titleSec{
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+
+#manageSec{
+    padding: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background-color: white;
+}
+/************** 신청 내역 헤더 부분 ***************/
+#headerContainer{
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+}
+#headerContainer p{
+    flex: 1;
+    align-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+#headerContainer label{
+    width: 328px;
+    padding: 8px;
+    align-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: var(--color-medium-gray);
+}
+#headerContainer i{
+    margin: 0 4px;
+}
+#headerContainer input{
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+/************** 신청 내역 리스트 ***************/
+.chat-lies{
+    display: flex;
+    height: 88px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.chat-lies div{
+    align-content: center;
+}
+.chat-lies .img-container{
+    width: 128px;
+    height: 64px;
+    border: 1px solid black;
+    border-radius: 32px;
+    margin-right: 16px;
+}
+.chat-lies .img-container img{
+    width: 100%;
+    height: 100%;
+}
+.info-container{
+    flex: 1;
+    margin-right: 16px;
+}
+.user-name{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+.btn-container button{
+    width: 144px;
+    height: 48px;
+    border-radius: 12px;
+}
+.accept-btn{
+    color: var(--color-lighter-bluegray);
+    background-color: var(--color-main-navy);
+    margin-right: 24px;
+}
+.deny-btn{
+    border: 1px solid var(--color-main-navy);
+    color: var(--color-main-navy);
+    background-color: var(--color-lighter-bluegray);
+}
+.accept-btn:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
+}
+.deny-btn:hover{
+    background-color: var(--color-main-navy);
+    color: var(--color-lighter-bluegray);
+}

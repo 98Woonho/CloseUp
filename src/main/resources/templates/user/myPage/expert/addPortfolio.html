@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지 | 전문가 포트폴리오 작성 페이지</title>
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../../static/css/common.css">
+    <link rel="stylesheet" href="../../../../static/css/user/myPage/expert/addPortfolio.css">
+</head>
+<body>
+    <main>
+        <section id="modifySection">
+            <div class="modify-container">
+                <section id="titleSec">
+                    <p>포트폴리오 작성 페이지</p>
+                </section>
+                <form action="" method="POST">
+                    <div id="titleInputContainer">
+                        <label for="title">
+                            <input type="text" id="title" placeholder="제목을 입력하세요.">
+                        </label>
+                    </div>
+                    <section id="fileSection">
+                        <div class="desc-container">
+                            <span>파일 첨부</span>
+                        </div>
+                        <div id="fileInputContainer">
+                            <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                            <label for="files">첨부할 파일을 여기로 이동해주세요</label>
+                            <p>Max size : 5GB</p>
+                            <input type="file" id="files">
+                        </div>
+                    </section>
+                    <section id="writeContainer">
+                        <div class="desc-container">
+                            <span>내용 작성</span>
+                        </div>
+                        <label>
+                            <textarea placeholder="내용을 작성하세요."></textarea>
+                        </label>
+                    </section>
+                </form>
+
+                <section id="btnSec">
+                    <button>삭제</button>
+                    <button>수정 취소</button>
+                    <button>수정 완료</button>
+                </section>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

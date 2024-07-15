@@ -1,0 +1,156 @@
+main .content-container {
+    margin: 132px auto;
+    height: 85vh;
+}
+
+.step-container {
+    display: none;
+
+    flex-direction: column;
+}
+
+main[data-step="1"] .step-container[data-step="1"],
+main[data-step="2"] .step-container[data-step="2"] {
+    display: flex;
+}
+
+.cert-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10rem;
+}
+
+.cert-container > p {
+    font-size: 1.3rem;
+}
+
+#certBtn {
+    display: block;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    background-color: #2278be;
+}
+
+.app-container {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1rem;
+}
+
+#certBtn p {
+    font-size: 1.1rem;
+    color: rgb(238, 238, 238);
+}
+
+.app-container img {
+    width: 35px;
+    border-radius: 10px;
+}
+
+.title {
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+#registerCon {
+    width: 520px;
+    margin: 48px auto;
+    padding: 32px 40px;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.06), 0 10px 15px rgba(0, 0, 0, 0.03);
+}
+
+.user-input-con {
+    display: flex;
+    position: relative;
+}
+
+.user-input-con input {
+    padding: 24px 16px;
+    margin-bottom: 16px;
+    flex: 1;
+    height: 72px;
+    border: 1px solid var(--color-lighter-gray);
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+.user-input-con input[readonly] {
+    pointer-events: none;
+}
+
+/* placeholder 글자 색 변경 */
+.user-input-con input::placeholder{
+    color: var(--color-light-gray);
+}
+
+/* 인증번호 괸련 버튼 */
+.user-input-con button{
+    display: inline-block;
+    margin-left: 8px;
+    width: 132px;
+    height: 72px;
+    color: #ffffff;
+    background-color: var(--color-main-navy);
+    border-radius: 9px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.user-input-con button:hover{
+    background-color: var(--color-navy-blur);
+
+}
+
+
+/* 오류 메세지 */
+.error {
+    height: 56px;
+    padding-top: 24px;
+}
+.error p{
+    display: none;
+    color: var(--color-error-red);
+    font-size: 14px;
+    text-align: center;
+}
+.error span {
+    text-decoration: underline;
+    text-decoration-thickness: from-font;
+}
+
+/* 회원가입 버튼 */
+.register-btn {
+    margin: 8px 0;
+    width: 100%;
+    height: 72px;
+    color: var(--color-navy-blur);
+    background-color: var(--color-light-blue);
+    border-radius: 9px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.register-btn:hover {
+    color: var(--color-light-blue);
+    background: var(--color-main-navy);
+}
+
+/* 로그인으로 이동 */
+.login-link-sec p{
+    margin-top: 16px;
+    color: var(--color-medium-gray);
+    text-align: center;
+    font-size: 14px;
+    font-weight: lighter;
+}
+.login-link-sec a{
+    font-weight: bold;
+    color: var(--color-medium-blue);
+}
+
+/* 인증 번호 관련 버튼 크기 조절 */
+/* 로그인으로 이동 a 태그 색*/

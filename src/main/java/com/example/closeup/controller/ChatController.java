@@ -54,13 +54,19 @@ public class ChatController {
 
         List<ChatMessageDto> chatMessageDtoList = chatService.getChatMessageDtoList(id);
 
-        System.out.println(chatMessageDtoList);
-
         model.addAttribute("chatRoomDto", chatRoomDto);
+        model.addAttribute("chatMessageDtoList", chatMessageDtoList);
     }
 
     @PostMapping("message")
-    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
+    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto, Authentication auth) {
+        // 현재 로그인 한 유저의 아이디
+        String userId = ((PrincipalDetails) auth.getPrincipal()).getUsername();
+        chatMessageDto.setUserId(userId);
+
+        LocalDateTime date = LocalDateTime.now();
+        chatMessageDto.setWrittenAt(date);
+
         chatService.createMessage(chatMessageDto);
 
         return ResponseEntity.ok().build();

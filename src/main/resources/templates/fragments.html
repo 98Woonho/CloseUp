@@ -54,6 +54,9 @@
             <li sec:authorize="isAuthenticated()">
                 <a href="/logout">로그아웃</a>
             </li>
+            <li sec:authorize="hasRole('ROLE_EXPERT')">
+                <a href="/logout">전문가 테스트</a>
+            </li>
         </ul>
     </div>
 </header>

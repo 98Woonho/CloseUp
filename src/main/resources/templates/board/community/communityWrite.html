@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
@@ -22,7 +24,7 @@
 <!--                    </label>-->
 <!--                </div>-->
             </section>
-            <form action="/board/community/communityWrite" method="post" th:object="${articleDto}">
+            <form action="/board/community/communityWrite" method="post">
                 <section class="postWriteSec">
                     <div class="writeHeaderCon">
                         <label class="writeCategoryLabel">

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
@@ -41,6 +43,7 @@
                     <table>
                         <thead>
                             <tr>
+
                                 <td>추천수</td>
                                 <td>글 제목</td>
                                 <td>조회수</td>
@@ -49,12 +52,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>게시글</td>
-                                <td>10</td>
-                                <td>24/06/27</td>
-                                <td>abc123</td>
+                            <tr th:each="article : ${articles}">
+
+                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.id}"></a>1</td>
+                                <td th:text="${article.title}">게시글</td>
+                                <td th:text="${article.view}">10</td>
+                                <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">24/06/27</td>
+                                <td th:text="${article.userId}">abc123</td>
                             </tr>
                             <tr>
                                 <td>1</td>

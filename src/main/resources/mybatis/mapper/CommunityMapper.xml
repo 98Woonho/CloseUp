@@ -11,7 +11,17 @@
         VALUES (#{boardCode}, #{userId}, #{title}, #{content}, 0, #{writtenAt}, #{modifiedAt})
     </insert>
 
-    <select id="selectArticleById"  resultType="com.example.closeup.domain.dto.ArticleDto">
+    <select id="selectArticleById" resultType="com.example.closeup.domain.dto.ArticleDto">
         SELECT * FROM article WHERE id = #{id}
     </select>
+
+    <insert id="insertComment" parameterType="com.example.closeup.domain.dto.CommentDto">
+        INSERT INTO comment (article_id, user_id, comment_id, content, written_at)
+        VALUES (#{articleId}, #{userId}, #{commentId}, #{content}, #{writtenAt})
+    </insert>
+
+    <select id="selectCommentsByArticleId" resultType="com.example.closeup.domain.dto.CommentDto">
+        SELECT * FROM comment WHERE article_id = #{articleId} ORDER BY written_at DESC
+    </select>
+
 </mapper>

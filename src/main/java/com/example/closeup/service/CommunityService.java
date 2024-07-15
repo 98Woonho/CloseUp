@@ -2,6 +2,7 @@ package com.example.closeup.service;
 
 
 import com.example.closeup.domain.dto.ArticleDto;
+import com.example.closeup.domain.dto.CommentDto;
 import com.example.closeup.domain.mapper.CommunityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class CommunityService {
     private CommunityMapper communityMapper;
 
     public List<ArticleDto> getAllArticles() {
+
         return communityMapper.selectAllArticles();
     }
 
@@ -24,7 +26,15 @@ public class CommunityService {
         communityMapper.insertArticle(articleDto);
     }
 
-    public ArticleDto getArticleById(Long id) {
+    public ArticleDto getArticleById(Integer id) {
         return communityMapper.selectArticleById(id);
+    }
+
+    public void createComment(CommentDto commentDto) {
+        communityMapper.insertComment(commentDto);
+    }
+
+    public List<CommentDto> getCommentsByArticleId(Integer articleId) {
+        return communityMapper.selectCommentsByArticleId(articleId);
     }
 }

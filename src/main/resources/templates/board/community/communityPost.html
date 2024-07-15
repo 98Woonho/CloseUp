@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
@@ -42,38 +44,40 @@
                             <a href="#">전문가 추천 게시판</a>
                         </div>
                         <div class="postTitleCon">
-                            <h3>글 제목</h3>
+                            <h3 th:text="${article.title}">글 제목</h3>
                         </div>
                     </section>
                     <div id="postContent">
-                        <p>안녕하세요?</p>
-                        <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는
-                            IT 스터디 모임이에요.</p>
-                        <p>장점 1. 체계적인 학습 커리큘럼</p>
-                        <p>우리 모임의 특, 장점</p>
-                        <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>
-                        <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>
-                        <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>
-                        <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>
-                        <p>우리 곧 만나요 :)</p>
+                        <p th:text="${article.content}">안녕하세요?</p>
+<!--                        <p>실력있는 IT인 양성이라는 주제를 가지고, 탄탄한 실력을 쌓고, 네트워킹을 통해 인맥도 늘려갈 수 있도록 돕는-->
+<!--                            IT 스터디 모임이에요.</p>-->
+<!--                        <p>장점 1. 체계적인 학습 커리큘럼</p>-->
+<!--                        <p>우리 모임의 특, 장점</p>-->
+<!--                        <p>장점 2. 프로젝트 관리를 위한 일정관리 등을 통해 실무 업무 관리능력 향상</p>-->
+<!--                        <p>장점 3. 지속적인 스터디를 통해 효율적으로 공부하여 빠르게 성장</p>-->
+<!--                        <p>장점 4. 서로의 노하우를 공유하여 다양한 지식을 습득</p>-->
+<!--                        <p>장점 5. 네트워킹을 통해 IT 인맥 형성</p>-->
+<!--                        <p>우리 곧 만나요 :)</p>-->
                     </div>
                     <section id="likeCommentSec">
+                        <form action="/board/community/communityPost/${article.id}" method="post">
                         <div id="btnCon">
                             <button id="likeBtn"><i class="fa-regular fa-thumbs-up"></i></button><span>좋아요</span><span class="likeCount"><!-- 좋아요 수 --></span>
                             <i class="fa-regular fa-comment-dots"></i><span>댓글</span><span class="commentCount"><!-- 댓글 수 --></span>
                         </div>
                         <div id="commentInputCon">
-                            <input type="text" placeholder="댓글을 남겨보세요.">
+                            <input type="text" name="content" placeholder="댓글을 남겨보세요.">
+                            <input type="hidden" name="articleId" th:value="${article.id}">
                         </div>
                         <div class="commentsCon">
                             <ul class="commentList">
-                                <li class="commentLies">
+                                <li class="commentLies"  th:each="comment : ${comments}">
                                     <div class="commentHeaderCon">
-                                        <a class="commentWriter" href="#">댓글 작성자</a>
-                                        <span class="commentWriteDate">2024. 06. 26</span>
+                                        <a class="commentWriter" href="#" th:text="comment.userId" >댓글 작성자</a>
+                                        <span class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd')}">2024. 06. 26</span>
                                     </div>
                                     <div class="commentContent">
-                                        <p>팬입니다.
+                                        <p th:text="${comment.content}">팬입니다.
                                             근황 궁금했는데 여기서 뵙게 되네요.
                                             응원하겠습니다.</p>
                                     </div>
@@ -84,10 +88,12 @@
                                 </li>
                             </ul>
                         </div>
+                        </form>
                     </section>
                 </article>
             </section>
         </section>
+    </main>
     </main>
 </body>
 </html>

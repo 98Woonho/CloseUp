@@ -1,25 +1,18 @@
 package com.example.closeup.domain.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleDto {
+public class CommentDto {
     private Integer id;
-    private String boardCode;
+    private Integer articleId;
     private String userId;
-    private String title;
+    private String commentId;
     private String content;
-    private Integer view;
     private LocalDateTime writtenAt;
     private LocalDateTime modifiedAt;
-
 }

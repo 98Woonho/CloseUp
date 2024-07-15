@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>주변전문가</title>
+    <script src="../../static/js/map/mapMain.js" th:src="@{/js/map/mapMain.js}" defer></script>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/map/mapMain.css">
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" href="../../static/css/map/mapMain.css" th:href="@{/css/map/mapMain.css}">
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <script src="../../static/js/map/mapMain.js" defer></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e"></script>
 </head>
 
 <body>
@@ -15,18 +16,18 @@
         <section id="mapSec">
             <section id="currentLoca">
                 <div>
-                    <i class="fa-solid fa-location-crosshairs"></i>
+                    <button type="button" id="currentLocaBtn"><i class="fa-solid fa-location-crosshairs"></i></button>
                 </div>
                 <div>
                     <b>현재 위치</b>
                     <p>대구광역시 달구벌대로 618번길 21</p>
                 </div>
             </section>
-            <section id="map">
-                <div id="expertMap">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20130713_50%2Fgisafirst_13736775080071cQBX_PNG%2F%25C6%25C4%25BF%25F6%25C6%25F7%25C0%25CE%25C6%25AE-ppt_%25B9%25E8%25BF%25EC%25B1%25E2_46-11.png&type=sc960_832" alt="">
+            <section id="ExpertMap">
+                <div id="map" style="width: 1040px; height: 640px">
+
                 </div>
-                <div id="mapOnMarker"></div>
+                <div id="marker"></div>
                 <section id="expertInfoListSec">
                     <div class="embla">
                         <div class="embla__viewport">

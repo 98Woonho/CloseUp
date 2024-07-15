@@ -1,4 +1,4 @@
-/*************** 케러셀 ***************/
+// 캐러셀
 // Grab wrapper nodes
 const rootNode = document.querySelector('.embla');
 const viewportNode = rootNode.querySelector('.embla__viewport');

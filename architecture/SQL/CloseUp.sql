@@ -4,7 +4,7 @@ USE `close_up`;
 --
 -- Host: localhost    Database: close_up
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -187,11 +187,13 @@ CREATE TABLE `chat_message` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `chat_room` varchar(255) NOT NULL,
   `user_id` varchar(255) NOT NULL,
+  `expert_user_id` varchar(255) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
   `written_at` datetime DEFAULT NULL,
-  `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK-user-id-chat_message-user_id` (`user_id`),
+  KEY `FK-expert-user_id-chat_message-expert_user_id` (`expert_user_id`),
+  CONSTRAINT `FK-expert-user_id-chat_message-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK-user-id-chat_message-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -214,8 +216,14 @@ DROP TABLE IF EXISTS `chat_room`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat_room` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_id` varchar(255) NOT NULL,
+  `expert_user_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK-user-id-chat_room-user_id` (`user_id`),
+  KEY `FK-expert-user_id-chat_room-expert_user_id` (`expert_user_id`),
+  CONSTRAINT `FK-expert-user_id-chat_room-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK-user-id-chat_room-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,6 +232,7 @@ CREATE TABLE `chat_room` (
 
 LOCK TABLES `chat_room` WRITE;
 /*!40000 ALTER TABLE `chat_room` DISABLE KEYS */;
+INSERT INTO `chat_room` VALUES (1,'lkj1150',NULL),(2,'lkj1150',NULL);
 /*!40000 ALTER TABLE `chat_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,12 +401,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('lkj11150','$2a$10$loG5elL2oeH4z5Oh68urseX11PR1JzonDfabfYwTBfMzYAOpM0L96','이운호2','',NULL,NULL,NULL,'ROLE_EXPERT'),('lkj1150','$2a$10$loG5elL2oeH4z5Oh68urseX11PR1JzonDfabfYwTBfMzYAOpM0L96','이운호','01095331150',NULL,NULL,0,'ROLE_USER');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'close_up'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -408,4 +414,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-08 16:26:23
+-- Dump completed on 2024-07-12 18:22:37

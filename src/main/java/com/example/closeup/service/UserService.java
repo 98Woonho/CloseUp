@@ -38,7 +38,7 @@ public class UserService {
         return userMapper.selectUserByNameAndId(name, id);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
     public boolean resetPassword(String id, String newPassword) {
         String encodedPassword = passwordEncoder.encode(newPassword);
         return userMapper.updatePassword(id, encodedPassword) > 0;

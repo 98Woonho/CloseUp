@@ -16,15 +16,10 @@
         </ul>
     </div>
 </div>
-<form id="createRoomForm" th:action="@{/chat/room}" method="post">
+<form id="createRoomForm" action="/chat/room" method="post">
     <input type="hidden" name="userId" th:value="${#authentication.Principal.userDto.id}">
-    <button class="btn btn-secondary" id="createBtn">개설하기</button>
+    <button class="btn btn-secondary">개설하기</button>
 </form>
-
-<script>
-    const createRoomForm = document.getElementById('createRoomForm');
-    const createBtn = document.getElementById('createBtn');
-</script>
 
 </body>
 </html>

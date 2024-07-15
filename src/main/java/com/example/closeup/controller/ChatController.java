@@ -8,15 +8,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
@@ -46,19 +44,25 @@ public class ChatController {
     public String postRoom(ChatRoomDto chatRoomDto){
         chatService.createRoom(chatRoomDto);
 
-        return "redirect:/chat/list";
+        return "redirect:/chat/room?id=" + chatRoomDto.getId();
     }
 
-    //채팅방 조회
+    // 채팅방 조회
     @GetMapping("room")
     public void getRoom(@RequestParam("id") Long id, Model model) {
         ChatRoomDto chatRoomDto = chatService.getChatRoomDto(id);
+
+        List<ChatMessageDto> chatMessageDtoList = chatService.getChatMessageDtoList(id);
+
+        System.out.println(chatMessageDtoList);
 
         model.addAttribute("chatRoomDto", chatRoomDto);
     }
 
     @PostMapping("message")
-    public void postMessage(ChatMessageDto chatMessageDto) {
-        System.out.println("postMessage() chateMessageDto : " + chatMessageDto);
+    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
+        chatService.createMessage(chatMessageDto);
+
+        return ResponseEntity.ok().build();
     }
 }

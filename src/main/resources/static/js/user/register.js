@@ -36,8 +36,6 @@ certBtn.addEventListener('click', function(e) {
                         } else {
                             alert('알 수 없는 이유로 본인인증에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');
                         }
-
-
                     })
             } else {
                 alert('인증에 실패하였습니다.\n사유 : ' + res.error_msg);

@@ -16,6 +16,9 @@
 </head>
 <body>
 
+<input type="hidden" id="chatRoomId" th:value="${chatRoomDto.id}">
+<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
+
 <div class="container">
     <div>
         <div id="msgArea" class="col"></div>

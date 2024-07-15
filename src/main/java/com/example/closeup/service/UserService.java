@@ -28,12 +28,12 @@ public class UserService {
         userMapper.insertUser(user);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
     public UserDto findUserByNameAndPhone(String name, String phone) {
         return userMapper.selectUserByNameAndPhone(name, phone);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
     public UserDto findUserByNameAndId(String name, String id) {
         return userMapper.selectUserByNameAndId(name, id);
     }

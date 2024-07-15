@@ -4,90 +4,95 @@
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
 </head>
 <body>
     <main>
         <section id="commuSec">
-            <section class="headerSec">
-                <div class="titleCon">
-                    <h1 class="commuTitle">커뮤니티</h1>
+            <!-- 고정 헤더 부분 -->
+            <section class="header-sec">
+                <div class="title-con">
+                    <p class="commuTitle">커뮤니티</p>
                 </div>
-                <div class="searchCon">
-                    <input class="searchInput" type="text">
-                    <nav class="filterNav">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <i class="fa-solid fa-grip"></i>
-                        <i class="fa-regular fa-calendar"></i>
-                    </nav>
+                <div class="search-con">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
+                        <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                    </svg>
+                    <input type="text">
                 </div>
             </section>
-            <section class="bodySec">
-                <div class="categoryCon">
-                    <a class="" href="#">통합 커뮤니티</a>
+            <!-- 사이드 메뉴 영역-->
+            <section class="body-sec">
+                <aside>
+                    <div>
+                        <a class="" href="#">통합 커뮤니티</a>
+                    </div>
                     <ul>
                         <li><a href="#">자유 게시판</a></li>
                         <li><a href="#">전문가 추천 게시판</a></li>
                         <li><a href="#">전문가의 후기 게시판</a></li>
                         <li><a href="#">간단한 질문 게시판</a></li>
                     </ul>
-                    <a href="#">전문가 커뮤니티</a>
+                    <div>
+                        <a href="#">전문가 커뮤니티</a>
+                    </div>
                     <ul>
                         <li><a href="#">전문가 자유 게시판</a></li>
                     </ul>
-                </div>
-                <div class="contentCon">
+                </aside>
+                <!-- 게시글 내용이 보여지는 영역 -->
+                <div class="content-con">
                     <table>
+                        <colgroup>
+                            <col class="no">
+                            <col class="title">
+                            <col class="write-date">
+                            <col class="writer">
+                            <col class="like-count">
+                            <col class="view-count">
+                        </colgroup>
                         <thead>
                             <tr>
-                                <td>추천수</td>
-                                <td>글 제목</td>
-                                <td>조회수</td>
-                                <td>날짜</td>
-                                <td>작성자</td>
+                                <th>번호</th>
+                                <th>글 제목</th>
+                                <th>날짜</th>
+                                <th>작성자</th>
+                                <th>추천수</th>
+                                <th>조회수</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>게시글</td>
-                                <td>10</td>
+                                <td><a href="">게시글</a></td>
                                 <td>24/06/27</td>
                                 <td>abc123</td>
+                                <td>1</td>
+                                <td>10</td>
                             </tr>
                             <tr>
                                 <td>1</td>
                                 <td>게시글</td>
-                                <td>10</td>
                                 <td>24/06/27</td>
                                 <td>abc123</td>
+                                <td>1</td>
+                                <td>10</td>
                             </tr>
                             <tr>
                                 <td>1</td>
                                 <td>게시글</td>
-                                <td>10</td>
                                 <td>24/06/27</td>
                                 <td>abc123</td>
+                                <td>1</td>
+                                <td>10</td>
                             </tr>
                             <tr>
                                 <td>1</td>
                                 <td>게시글</td>
-                                <td>10</td>
                                 <td>24/06/27</td>
                                 <td>abc123</td>
-                            </tr>
-                            <tr>
                                 <td>1</td>
-                                <td>게시글</td>
                                 <td>10</td>
-                                <td>24/06/27</td>
-                                <td>abc123</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>게시글</td>
-                                <td>10</td>
-                                <td>24/06/27</td>
-                                <td>abc123</td>
                             </tr>
                         </tbody>
                     </table>

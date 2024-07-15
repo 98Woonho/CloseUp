@@ -147,7 +147,7 @@
 .embla-btn-container{
     position: absolute;
     display: flex;
-    width: 720px;
+    width: 100%;
     top: 150px;
     justify-content: space-between;
 }

@@ -7,6 +7,7 @@ const likeCountSpan = document.querySelector('.likeCount');
         xhr.open('POST', '/board/community/communityPost/' + articleId + '/like', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function() {
+            console.log('Sending request for article ID:', articleId);
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 likeCountSpan.textContent = response.likeCount;

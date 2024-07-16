@@ -1,0 +1,28 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside th:fragment="sidebar-main">
+    <div>
+        <a class="" href="#" th:href="@{/board/community/communityMain}">통합 커뮤니티</a>
+    </div>
+    <ul>
+        <li th:each="board : ${boards}" th:unless="${board.code == 'expert'}">
+            <a th:href="@{/board/community/communityMain(boardCode=${board.code})}" th:text="${board.name}">자유 게시판</a>
+        </li>
+    </ul>
+    <div>
+        <a href="#">전문가 커뮤니티</a>
+    </div>
+    <ul>
+        <li th:each="board : ${boards}" th:if="${board.code == 'expert'}">
+            <a th:href="@{/board/community/communityMain(boardCode='expert')}" th:text="${board.name}">전문가 자유 게시판</a>
+        </li>
+    </ul>
+</aside>
+</body>
+</html>

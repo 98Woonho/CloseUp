@@ -191,6 +191,10 @@
 
 }
 
+.commentCon {
+    position: relative;
+}
+
 .commentWriter , .commentWriteDate, .commentBtnCon> button {
     font-weight: lighter;
     color: var(--color-medium-gray) !important;
@@ -204,6 +208,19 @@
 .commentContent {
     font-weight: lighter;
 }
+
+.comment-delete {
+    position: absolute;
+    right: 8px;
+    bottom: 16px;
+    color: var(--color-lighter-bluegray);
+}
+
+ .commentCon:hover .comment-delete {
+     color: #000;
+     cursor: pointer;
+ }
+
  .comment-reply .commentHeaderCon {
      display: flex;
  }

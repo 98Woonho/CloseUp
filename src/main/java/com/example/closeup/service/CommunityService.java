@@ -37,6 +37,7 @@ public class CommunityService {
             return communityMapper.selectArticleById(id);
         }
 
+        @Transactional
         public void createComment(CommentDto commentDto){
             commentDto.setWrittenAt(LocalDateTime.now());
             communityMapper.insertComment(commentDto);

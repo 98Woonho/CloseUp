@@ -59,12 +59,12 @@ public class CommunityController {
         return "redirect:/board/community/communityMain";
     }
 
-    @GetMapping("/communityPost/{id}")
+    @GetMapping("/communityPost/{articleId}")
     public String communityView(
-            @PathVariable Integer id,
+            @PathVariable Integer articleId,
             Model model) {
-        ArticleDto article = communityService.getArticleById(id);
-        List<CommentDto> comments = communityService.getCommentsByArticleId(id);
+        ArticleDto article = communityService.getArticleById(articleId);
+        List<CommentDto> comments = communityService.getCommentsByArticleId(articleId);
 //        List<ArticleFileDto> files = communityService.getFilesByArticleId(id);
         model.addAttribute("article", article);
         model.addAttribute("comments", comments);
@@ -75,27 +75,34 @@ public class CommunityController {
 
 
     // 댓글 작성 처리
-    @PostMapping("/communityPost/{id}")
+    @PostMapping("/communityPost/{articleId}")
     public String communityPostComment(
-            @PathVariable("id") Integer articleId,
-            CommentDto commentDto) {
+            @PathVariable Integer articleId,
+            CommentDto commentDto,
+            Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String userId = authentication.getName();
+            commentDto.setUserId(userId);
+        } else {
+            return "redirect:/user/login";
+        }
+        commentDto.setArticleId(articleId);
         communityService.createComment(commentDto);
-        System.out.println(commentDto);
-        log.info(commentDto.toString());
-        // 댓글 작성 후 해당 게시글 상세보기 페이지로 리다이렉트
         return "redirect:/board/community/communityPost/" + articleId;
     }
 
 
-    @PostMapping("/communityPost/{id}/like")
+    @PostMapping("/communityPost/{articleId}/like")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> likeArticle(@PathVariable Integer id, Authentication authentication) {
+    public ResponseEntity<Map<String, Object>> likeArticle(
+            @PathVariable Integer articleId,
+            Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         String userId = authentication.getName();
-        boolean liked = communityService.toggleLike(id, userId);
-        int likeCount = communityService.getLikeCount(id);
+        boolean liked = communityService.toggleLike(articleId, userId);
+        int likeCount = communityService.getLikeCount(articleId);
         Map<String, Object> response = new HashMap<>();
         response.put("liked", liked);
         response.put("likeCount", likeCount);

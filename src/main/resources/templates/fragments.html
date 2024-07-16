@@ -77,7 +77,7 @@
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <a href="#">마이페이지</a>
                         </li>
-                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated() && #authentication.Principal.userDto.isAuth">
+                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <div id="accountToggleCon">
                                 <a href="">일반</a>
                                 <input type="checkbox" id="toggleSwitch">

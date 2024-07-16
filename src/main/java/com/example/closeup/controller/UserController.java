@@ -233,4 +233,6 @@ public class UserController {
         public Object message;
         public AuthInfoResponse response;
     }
+
+
 }

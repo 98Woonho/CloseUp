@@ -8,16 +8,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ChatController {
     private ChatService chatService;
 
     // 채팅 목록 조회
-    @GetMapping(value = "/list")
+    @GetMapping(value = "list")
     public void getRooms(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
@@ -41,18 +40,35 @@ public class ChatController {
     }
 
     //채팅방 개설
-    @PostMapping(value = "/room")
+    @PostMapping(value = "room")
     public String postRoom(ChatRoomDto chatRoomDto){
         chatService.createRoom(chatRoomDto);
 
-        return "redirect:/chat/list";
+        return "redirect:/chat/room?id=" + chatRoomDto.getId();
     }
 
-    //채팅방 조회
-    @GetMapping("/room")
+    // 채팅방 조회
+    @GetMapping("room")
     public void getRoom(@RequestParam("id") Long id, Model model) {
         ChatRoomDto chatRoomDto = chatService.getChatRoomDto(id);
 
+        List<ChatMessageDto> chatMessageDtoList = chatService.getChatMessageDtoList(id);
+
         model.addAttribute("chatRoomDto", chatRoomDto);
+        model.addAttribute("chatMessageDtoList", chatMessageDtoList);
+    }
+
+    @PostMapping("message")
+    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto, Authentication auth) {
+        // 현재 로그인 한 유저의 아이디
+        String userId = ((PrincipalDetails) auth.getPrincipal()).getUsername();
+        chatMessageDto.setUserId(userId);
+
+        LocalDateTime date = LocalDateTime.now();
+        chatMessageDto.setWrittenAt(date);
+
+        chatService.createMessage(chatMessageDto);
+
+        return ResponseEntity.ok().build();
     }
 }

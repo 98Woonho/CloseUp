@@ -15,22 +15,22 @@ prevButtonNode.addEventListener('click', embla.scrollPrev, false);
 nextButtonNode.addEventListener('click', embla.scrollNext, false);
 
 //////////////////// 네이버 지도 api ///////////////////////
-//지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
-var HOME_PATH = window.HOME_PATH || '.';
 // 현재 위치 버튼
 const currentLocaBtn = document.getElementById('currentLocaBtn');
+const currentAddress = document.getElementById('currentAddress');
+
 // 인포컨테이너 템플릿
 var infoTemplate = '<div class="info-template">\n' +
     '    <div class="name-con">\n' +
-    '        <p class="expert-name">전문가 아이디</p>\n' +
-    '        <p class="expert-desc">전문 분야/ 간단 설명</p>\n' +
+    '        <p th:text="${expertInformation.userId}" class="expert-name">전문가 아이디</p>\n' +
+    '        <p th:text="${expertInformation.introduction}" class="expert-desc">전문 분야/ 간단 설명</p>\n' +
     '    </div>\n' +
     '    <button type="button">프로필<br/>보기</button>\n' +
     '</div>'
 
-let zoom = 15; // 초기 줌 레벨
+let zoom = 16; // 초기 줌 레벨
 let map;
-var markers = [];
+let markers;
 
 // 내 위치 정확도 높이는 옵션
 var options = {
@@ -47,7 +47,7 @@ function loadNaverMap(lat, lng){
     map = new naver.maps.Map('map',{
         center: new naver.maps.LatLng(latLng), //좌표
         zoom: zoom, //지도의 초기 줌 레벨
-        minZoom: 6, //지도의 최소 줌 레벨
+        minZoom: 15, //지도의 최소 줌 레벨
         draggable: true,
         pinchZoom: true,
         scrollWheel: true,
@@ -77,32 +77,42 @@ function loadNaverMap(lat, lng){
         }
     });
 
-    // 내 주위 마커(일단은 랜덤)
-    for (let i = 0; i < 3; i++) {
-        var randomLat = lat + (Math.random() - 0.5) * 2 * 0.01; // 반경 1km 내의 랜덤 위도
-        var randomLng = lng + (Math.random() - 0.5) * 2 * 0.01; // 반경 1km 내의 랜덤 경도
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(randomLat, randomLng),
+    // 주소를 좌표로 변환(지오코더 사용)
+    naver.maps.Service.geocode({
+        query: '중앙대로 366'
+    }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+            return alert('잘못된 주소를 입력하셨습니다.');
+        }
+
+        var result = response.v2, // 검색 결과의 컨테이너
+            items = result.addresses; // 검색 결과의 배열
+
+        let addrLat = items[0].y;
+        let addrLng = items[0].x;
+
+        var expertMarkers = new naver.maps.Marker({
+            position: new naver.maps.LatLng(addrLat, addrLng),
             map: map,
             icon: {
-                content: '<img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width: 36px; height: 36px;"/>',
-                size: new naver.maps.Size(36, 36),
-                anchor: new naver.maps.Point(18, 18)
+                content: '<img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width: 40px; height: 40px;"/>',
+                size: new naver.maps.Size(40, 40),
+                anchor: new naver.maps.Point(20, 30)
             }
         });
 
         // 마커 클릭 시 나오는 인포컨테이너
-        (function(marker) {
+        (function(expertMarkers) {
             var infoWindow = new naver.maps.InfoWindow({
                 content: infoTemplate,
                 borderWidth: 0
             });
 
-            naver.maps.Event.addListener(marker, 'click', function() {
+            naver.maps.Event.addListener(expertMarkers, 'click', function() {
                 if (infoWindow.getMap()) {
                     infoWindow.close();
                 } else {
-                    infoWindow.open(map, marker);
+                    infoWindow.open(map, expertMarkers);
                 }
             });
 
@@ -112,16 +122,48 @@ function loadNaverMap(lat, lng){
                     infoWindow.close();
                 }
             })
-        })(marker);
+        })(expertMarkers);
 
-        markers.push(marker);
+        markers.push(expertMarkers);
+    });
 
-        // 현재 위치 클릭 시 현재 위치로 이동
-        currentLocaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            map.panTo(latLng);
-        });
-    }
+
+    // 현재 위치 클릭 시 현재 위치로 이동
+    currentLocaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        map.panTo(latLng);
+    });
+
+    // 보이는 지역만 마커 표시 함수
+    // naver.maps.Event.addListener(map, 'idle', function() {
+    //     updateMarkers(map, markers);
+    // });
+
+    // function updateMarkers(map, markers) {
+    //     var mapBounds = map.getBounds();
+    //     var marker, position;
+    //
+    //     for (var i = 0; i < markers.length; i++) {
+    //         marker = markers[i]
+    //         position = marker.getPosition();
+    //
+    //         if (mapBounds.hasLatLng(position)) {
+    //             showMarker(map, marker);
+    //         } else {
+    //             hideMarker(map, marker);
+    //         }
+    //     }
+    // }
+    //
+    // function showMarker(map, marker) {
+    //     if (marker.getMap()) return;
+    //     marker.setMap(map);
+    // }
+    //
+    // function hideMarker(map, marker) {
+    //     if (!marker.getMap()) return;
+    //     marker.setMap(null);
+    // }
 }
 
 // 내 위치 정의

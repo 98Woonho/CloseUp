@@ -8,12 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    // 지도 테스트용 (나중에 지우셔도 됨)
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/map").setViewName("map/mapMain");
-    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/"); //.setCachePeriod(60*60*24*365);

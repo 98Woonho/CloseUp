@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>주변전문가</title>
@@ -9,6 +11,7 @@
     <link rel="stylesheet" href="../../static/css/map/mapMain.css" th:href="@{/css/map/mapMain.css}">
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e&submodules=geocoder"></script>
 </head>
 
 <body>
@@ -25,9 +28,7 @@
             </section>
             <section id="ExpertMap">
                 <div id="map" style="width: 1040px; height: 640px">
-
                 </div>
-                <div id="marker"></div>
                 <section id="expertInfoListSec">
                     <div class="embla">
                         <div class="embla__viewport">

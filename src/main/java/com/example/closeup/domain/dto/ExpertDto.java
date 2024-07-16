@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    private String id;
-    private String password;
-    private String phone;
-    private String role;
-    private String name;
-    private Boolean isSuspended;
+public class ExpertDto {
+    private String userId;
+    private String introduction;
+    private String zipcode;
+    private String address;
+    private String addressDetail;
 }

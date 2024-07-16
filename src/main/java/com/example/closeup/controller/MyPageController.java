@@ -10,8 +10,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("myPage")
 public class MyPageController {
+    @GetMapping("/myPageMain")
+    public String getMyPageMain(Model model) {
+        return "user/myPage/myPageMain";
+    }
+
+    @GetMapping("/modifyUserInfo")
+    public String modify(Model model) {
+        return "user/myPage/modifyUserInfo";
+    }
+
+    @GetMapping("/modifyConfirm")
+    public String confirm(Model model) {
+        return "user/myPage/modifyConfirm";
+    }
+
     @GetMapping("chats")
     public String getChats(Model model) {
-        return "myPage/chat_record";
+        return "user/myPage/chatRecord";
+    }
+
+    @GetMapping("/wishlist")
+    public String getWishlist(Model model) {
+        return "user/myPage/wishlist";
+    }
+
+    @GetMapping("/payment")
+    public String getPayment(Model model) {
+        return "user/myPage/payment";
+    }
+
+    @GetMapping("/postmanage")
+    public String getPostManage(Model model) {
+        return "user/myPage/postmanage";
     }
 }

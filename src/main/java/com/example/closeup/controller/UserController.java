@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -106,6 +105,7 @@ public class UserController {
             return "redirect:/user/findPW";
         }
     }
+
     @GetMapping("/findPwSuccess")
     public void getFindPWSuccess() {
 
@@ -198,6 +198,9 @@ public class UserController {
         if (user != null) {
             responseBody.put("msg", "이미 해당 정보로 가입이 되어 있습니다. 로그인 화면으로 이동합니다.");
             return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+
+            // 2024-07-16 ResponseEntity<String>으로 반환방법
+//            return result == 1 ? ResponseEntity.ok("좋아요!") : ResponseEntity.status(HttpStatus.CONFLICT).body("알 수 없는 이유로 좋아요를 하지 못하였습니다. 잠시 후 다시 시도해 주세요.");
         }
 
         responseBody.put("name", name);

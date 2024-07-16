@@ -155,10 +155,13 @@
     width: 30px;
     height: 30px;
     font-size: 20px;
-    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 .embla-btn-container > button:hover{
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--color-main-navy);
+    color: var(--color-lighter-bluegray);
 }
 /************************************/
 #btnSec{

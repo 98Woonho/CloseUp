@@ -42,10 +42,13 @@ public class SecurityConfig {
 
         http.logout(
                 logout ->{
-                    logout.logoutUrl("/user/logout").permitAll(); // 로그아웃 url 지정
+                    logout.logoutUrl("/logout").permitAll(); // 로그아웃 url 지정
                     logout.logoutSuccessUrl("/"); // 로그아웃 성공시 이동할 url
                     logout.addLogoutHandler(customLogoutHandler());
                     logout.logoutSuccessHandler( customLogoutSuccessHandler() );
+
+                    logout.deleteCookies("JSESSIONID");
+                    logout.invalidateHttpSession(true);
                 }
         );
 

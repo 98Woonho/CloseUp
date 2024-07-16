@@ -44,6 +44,13 @@ certBtn.addEventListener('click', function(e) {
     )
 });
 
+registerForm['id'].addEventListener('input', function() {
+    if (confirmIdDupBtn.classList.contains('confirmed')) {
+        confirmIdDupBtn.classList.remove('confirmed');
+    }
+})
+
+
 
 // 아이디 중복 확인 버튼
 confirmIdDupBtn.addEventListener('click', function(e) {
@@ -64,6 +71,7 @@ confirmIdDupBtn.addEventListener('click', function(e) {
     axios.get(`/user/confirmIdDup?id=${registerForm['id'].value}`)
         .then(res => {
             alert(res.data);
+            confirmIdDupBtn.classList.add('confirmed');
         })
         .catch(err => {
             if (err.response.status === 409) {
@@ -86,6 +94,11 @@ registerForm.onsubmit = (e) => {
 
     if (!CK_id.test(registerForm['id'].value)) {
         alert('올바른 아이디를 입력해 주세요.');
+        return;
+    }
+
+    if (!confirmIdDupBtn.classList.contains('confirmed')) {
+        alert('아이디 중복 확인을 해주세요');
         return;
     }
 

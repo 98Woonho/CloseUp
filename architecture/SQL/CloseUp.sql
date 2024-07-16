@@ -130,30 +130,6 @@ LOCK TABLES `board` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `career`
---
-
-DROP TABLE IF EXISTS `career`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `career` (
-  `expert_user_id` varchar(255) NOT NULL,
-  `information` varchar(100) NOT NULL,
-  PRIMARY KEY (`expert_user_id`),
-  CONSTRAINT `FK-expert-user_id-career-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `career`
---
-
-LOCK TABLES `career` WRITE;
-/*!40000 ALTER TABLE `career` DISABLE KEYS */;
-/*!40000 ALTER TABLE `career` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `category`
 --
 
@@ -278,7 +254,9 @@ DROP TABLE IF EXISTS `expert`;
 CREATE TABLE `expert` (
   `user_id` varchar(255) NOT NULL,
   `introduction` longtext,
-  `region` varchar(30) DEFAULT NULL,
+  `zipcode` varchar(45) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_detail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -289,8 +267,33 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES ('test1',NULL,NULL),('test2',NULL,NULL),('test3',NULL,NULL);
+INSERT INTO `expert` VALUES ('test1',NULL,NULL,NULL,NULL),('test2',NULL,NULL,NULL,NULL),('test3',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `expert_detail`
+--
+
+DROP TABLE IF EXISTS `expert_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `expert_detail` (
+  `expert_user_id` varchar(255) NOT NULL,
+  `category` varchar(30) NOT NULL,
+  `information` varchar(255) NOT NULL,
+  PRIMARY KEY (`expert_user_id`,`category`,`information`),
+  CONSTRAINT `FK-expert-user_id-expert_detail-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `expert_detail`
+--
+
+LOCK TABLES `expert_detail` WRITE;
+/*!40000 ALTER TABLE `expert_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `expert_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -318,6 +321,36 @@ CREATE TABLE `expert_portfolio` (
 LOCK TABLES `expert_portfolio` WRITE;
 /*!40000 ALTER TABLE `expert_portfolio` DISABLE KEYS */;
 /*!40000 ALTER TABLE `expert_portfolio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `expert_portfolio_file`
+--
+
+DROP TABLE IF EXISTS `expert_portfolio_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `expert_portfolio_file` (
+  `id` bigint NOT NULL,
+  `expert_portfolio_id` bigint DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `size` int DEFAULT NULL,
+  `data` longblob,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK-expert_portfolio-id-expert_portfolio_file-expert_portfolio_id` (`expert_portfolio_id`),
+  CONSTRAINT `FK-expert_portfolio-id-expert_portfolio_file-expert_portfolio_id` FOREIGN KEY (`expert_portfolio_id`) REFERENCES `expert_portfolio` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `expert_portfolio_file`
+--
+
+LOCK TABLES `expert_portfolio_file` WRITE;
+/*!40000 ALTER TABLE `expert_portfolio_file` DISABLE KEYS */;
+/*!40000 ALTER TABLE `expert_portfolio_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -350,31 +383,6 @@ LOCK TABLES `expert_service` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `skill`
---
-
-DROP TABLE IF EXISTS `skill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `skill` (
-  `name` varchar(30) NOT NULL,
-  `expert_user_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`name`,`expert_user_id`),
-  KEY `FK-expert-user_id-skill-expert_user_id` (`expert_user_id`),
-  CONSTRAINT `FK-expert-user_id-skill-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `skill`
---
-
-LOCK TABLES `skill` WRITE;
-/*!40000 ALTER TABLE `skill` DISABLE KEYS */;
-/*!40000 ALTER TABLE `skill` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
@@ -386,11 +394,8 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `detail_address` varchar(255) DEFAULT NULL,
   `is_suspended` tinyint(1) DEFAULT NULL,
   `role` varchar(30) DEFAULT NULL,
-  `is_auth` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -401,8 +406,34 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('test1','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','이운호','01095331150',NULL,NULL,0,'ROLE_USER',NULL),('test2','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','김춘식','',NULL,NULL,NULL,'ROLE_EXPERT',1),('test3','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','곽두팔',NULL,NULL,NULL,NULL,'ROLE_ADMIN',NULL);
+INSERT INTO `user` VALUES ('test1','$2a$10$Nzv9rV2Q.o3MrJJa2Xi2JOhoQws6UA4nS5mkXNWzDbwm50.YH3.Vq','이운호','',0,'ROLE_USER'),('test2','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','박정우','',NULL,'ROLE_EXPERT'),('test3','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','이성훈',NULL,NULL,'ROLE_ADMIN'),('test4','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','길보령',NULL,NULL,'ROLE_EXPERT');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `wish`
+--
+
+DROP TABLE IF EXISTS `wish`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wish` (
+  `user_id` varchar(255) NOT NULL,
+  `expert_user_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`,`expert_user_id`),
+  KEY `FK-expert-user_id-wish-expert_user_id` (`expert_user_id`),
+  CONSTRAINT `FK-expert-user_id-wish-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`),
+  CONSTRAINT `FK-user-id-wish-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wish`
+--
+
+LOCK TABLES `wish` WRITE;
+/*!40000 ALTER TABLE `wish` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wish` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -414,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-15 17:51:50
+-- Dump completed on 2024-07-16 11:26:33

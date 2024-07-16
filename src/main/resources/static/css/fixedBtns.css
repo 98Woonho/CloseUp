@@ -1,0 +1,27 @@
+#fixedBtns {
+    position: fixed;
+    right: 144px;
+    bottom: 112px;
+}
+
+#fixedBtns nav > ul > li{
+    width: 56px;
+    height: 56px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-light-gray);
+}
+#fixedBtns nav > ul > li:hover , #fixedBtns nav > ul > li:hover > a > i {
+    background-color: var(--color-main-navy);
+    color: white;
+    cursor: pointer;
+}
+
+
+#fixedBtns nav > ul > li > a{
+    width: 100%;
+    text-align: center;
+}

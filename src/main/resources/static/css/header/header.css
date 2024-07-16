@@ -1,6 +1,6 @@
 @import "../common.css";
 
-#headerSec {
+.header-sec {
     display: flex;
     width: 100vw;
     height: 104px;
@@ -125,6 +125,20 @@
 /*    cursor: pointer;*/
 /*}*/
 
+
+/********************* adminHeader *****************/
+.admin-header-sec {
+    display: flex;
+    width: 100vw;
+    height: 104px;
+    align-items: center;
+    background-image: url(../../imgs/CloseUp-white-admin-removebg.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+    background-color: #152C4F;
+}
+/********************************************************/
 
 
 

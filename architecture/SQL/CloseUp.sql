@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `close_up`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: close_up
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.37
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,10 +32,10 @@ CREATE TABLE `article` (
   `written_at` datetime DEFAULT NULL,
   `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-board-code-article-board_code` (`board_code`),
-  KEY `FK-user-id-article-user_id` (`user_id`),
-  CONSTRAINT `FK-board-code-article-board_code` FOREIGN KEY (`board_code`) REFERENCES `board` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-article-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `board_code` (`board_code`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `article_ibfk_1` FOREIGN KEY (`board_code`) REFERENCES `board` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `article_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,8 +64,8 @@ CREATE TABLE `article_file` (
   `data` longblob,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-article-id-article_file-article_id` (`article_id`),
-  CONSTRAINT `FK-article-id-article_file-article_id` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `article_id` (`article_id`),
+  CONSTRAINT `article_file_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,9 +89,9 @@ CREATE TABLE `article_recommendation` (
   `user_id` varchar(255) NOT NULL,
   `article_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`,`article_id`),
-  KEY `FK-article-id-article_recommendation-article_id` (`article_id`),
-  CONSTRAINT `FK-article-id-article_recommendation-article_id` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-article_recommendation-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `article_id` (`article_id`),
+  CONSTRAINT `article_recommendation_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `article_recommendation_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,6 +125,30 @@ CREATE TABLE `board` (
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `career`
+--
+
+DROP TABLE IF EXISTS `career`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `career` (
+  `expert_user_id` varchar(255) NOT NULL,
+  `information` varchar(100) NOT NULL,
+  PRIMARY KEY (`expert_user_id`),
+  CONSTRAINT `FK-expert-user_id-career-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `career`
+--
+
+LOCK TABLES `career` WRITE;
+/*!40000 ALTER TABLE `career` DISABLE KEYS */;
+/*!40000 ALTER TABLE `career` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -166,10 +188,10 @@ CREATE TABLE `chat_message` (
   `content` varchar(1000) DEFAULT NULL,
   `written_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-user-id-chat_message-user_id` (`user_id`),
-  KEY `FK-chat_room-id-chat_message-chat_room_id` (`chat_room_id`),
-  CONSTRAINT `FK-chat_room-id-chat_message-chat_room_id` FOREIGN KEY (`chat_room_id`) REFERENCES `chat_room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-chat_message-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `chat_room_id` (`chat_room_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `chat_message_ibfk_1` FOREIGN KEY (`chat_room_id`) REFERENCES `chat_room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `chat_message_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,10 +216,10 @@ CREATE TABLE `chat_room` (
   `user_id` varchar(255) NOT NULL,
   `expert_user_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-user-id-chat_room-user_id` (`user_id`),
-  KEY `FK-expert-user_id-chat_room-expert_user_id` (`expert_user_id`),
-  CONSTRAINT `FK-expert-user_id-chat_room-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-chat_room-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `expert_user_id` (`expert_user_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `chat_room_ibfk_1` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `chat_room_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -226,12 +248,12 @@ CREATE TABLE `comment` (
   `written_at` datetime DEFAULT NULL,
   `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-user-id-comment-user_id` (`user_id`),
-  KEY `FK-article-id-comment-article_id` (`article_id`),
-  KEY `FK-comment-id-comment-comment_id` (`comment_id`),
-  CONSTRAINT `FK-article-id-comment-article_id` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-comment-id-comment-comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-user-id-comment-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `article_id` (`article_id`),
+  KEY `comment_id` (`comment_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -283,7 +305,7 @@ CREATE TABLE `expert_detail` (
   `category` varchar(30) NOT NULL,
   `information` varchar(255) NOT NULL,
   PRIMARY KEY (`expert_user_id`,`category`,`information`),
-  CONSTRAINT `FK-expert-user_id-expert_detail-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`)
+  CONSTRAINT `expert_detail_ibfk_1` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -309,8 +331,8 @@ CREATE TABLE `expert_portfolio` (
   `title` varchar(255) NOT NULL,
   `content` longtext,
   PRIMARY KEY (`id`),
-  KEY `FK-expert-user_id-expert_portfolio-expert_user_id` (`expert_user_id`),
-  CONSTRAINT `FK-expert-user_id-expert_portfolio-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `expert_user_id` (`expert_user_id`),
+  CONSTRAINT `expert_portfolio_ibfk_1` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -331,7 +353,7 @@ DROP TABLE IF EXISTS `expert_portfolio_file`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `expert_portfolio_file` (
-  `id` bigint NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `expert_portfolio_id` bigint DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
@@ -339,8 +361,8 @@ CREATE TABLE `expert_portfolio_file` (
   `data` longblob,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK-expert_portfolio-id-expert_portfolio_file-expert_portfolio_id` (`expert_portfolio_id`),
-  CONSTRAINT `FK-expert_portfolio-id-expert_portfolio_file-expert_portfolio_id` FOREIGN KEY (`expert_portfolio_id`) REFERENCES `expert_portfolio` (`id`)
+  KEY `expert_portfolio_id` (`expert_portfolio_id`),
+  CONSTRAINT `expert_portfolio_file_ibfk_1` FOREIGN KEY (`expert_portfolio_id`) REFERENCES `expert_portfolio` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -361,15 +383,16 @@ DROP TABLE IF EXISTS `expert_service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `expert_service` (
-  `title` varchar(255) NOT NULL,
-  `expert_user_id` varchar(255) NOT NULL,
-  `category_code` varchar(30) NOT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `expert_user_id` varchar(255) DEFAULT NULL,
+  `category_code` varchar(30) DEFAULT NULL,
   `price` int DEFAULT NULL,
-  PRIMARY KEY (`title`,`expert_user_id`),
-  KEY `FK-expert-user_id-expert_service-expert_user_id` (`expert_user_id`),
-  KEY `FK-category-code-expert_service-category_code` (`category_code`),
-  CONSTRAINT `FK-category-code-expert_service-category_code` FOREIGN KEY (`category_code`) REFERENCES `category` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK-expert-user_id-expert_service-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`),
+  KEY `category_code` (`category_code`),
+  KEY `expert_user_id` (`expert_user_id`),
+  CONSTRAINT `expert_service_ibfk_1` FOREIGN KEY (`category_code`) REFERENCES `category` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `expert_service_ibfk_2` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -380,6 +403,31 @@ CREATE TABLE `expert_service` (
 LOCK TABLES `expert_service` WRITE;
 /*!40000 ALTER TABLE `expert_service` DISABLE KEYS */;
 /*!40000 ALTER TABLE `expert_service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `skill`
+--
+
+DROP TABLE IF EXISTS `skill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `skill` (
+  `name` varchar(30) NOT NULL,
+  `expert_user_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`name`,`expert_user_id`),
+  KEY `FK-expert-user_id-skill-expert_user_id` (`expert_user_id`),
+  CONSTRAINT `FK-expert-user_id-skill-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `skill`
+--
+
+LOCK TABLES `skill` WRITE;
+/*!40000 ALTER TABLE `skill` DISABLE KEYS */;
+/*!40000 ALTER TABLE `skill` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -421,9 +469,9 @@ CREATE TABLE `wish` (
   `user_id` varchar(255) NOT NULL,
   `expert_user_id` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`,`expert_user_id`),
-  KEY `FK-expert-user_id-wish-expert_user_id` (`expert_user_id`),
-  CONSTRAINT `FK-expert-user_id-wish-expert_user_id` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`),
-  CONSTRAINT `FK-user-id-wish-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  KEY `expert_user_id` (`expert_user_id`),
+  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`expert_user_id`) REFERENCES `expert` (`user_id`),
+  CONSTRAINT `wish_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -445,4 +493,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-16 11:26:33
+-- Dump completed on 2024-07-17 15:12:51

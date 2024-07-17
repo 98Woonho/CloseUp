@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,10 +11,11 @@
     <title>CloseUp</title>
 
     <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
 
 </head>
 <body>
@@ -68,11 +72,13 @@
             <div class="profile">프로필</div>
         </div>
     </div>
+    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
 </main>
 
 <footer>
     <a class="logo" href="/">
-        <img src="https://fontmeme.com/permalink/240702/4e102425bebd6f493cbad8015d29556d.png" alt="berry-pearl-font" border="0">
+        <img src="../static/imgs/CloseUp-navy-admin-removebg.png" alt="logo"/>
     </a>
     <p>&copy; 2024 CloseUp All Rights Reserved.</p>
 </footer>

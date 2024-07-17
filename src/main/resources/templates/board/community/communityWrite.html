@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
-    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
-    <link rel="stylesheet" href="../../../static/css/board/community/communityWrite.css">
+    <link rel="stylesheet" href="/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="commuWriteSec">
             <section class="header-sec">
@@ -64,8 +70,9 @@
                     </section>
                 </form>
             </section>
-
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

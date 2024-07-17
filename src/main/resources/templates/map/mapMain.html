@@ -5,16 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <title>주변전문가</title>
-    <script src="../../static/js/map/mapMain.js" th:src="@{/js/map/mapMain.js}" defer></script>
+
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/map/mapMain.css" th:href="@{/css/map/mapMain.css}">
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <script src="/js/map/mapMain.js" defer></script>
+
+
+    <link rel="stylesheet" href="/css/map/mapMain.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e"></script>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e&submodules=geocoder"></script>
 </head>
 
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="mapSec">
             <section id="currentLoca">
@@ -29,6 +36,7 @@
             <section id="ExpertMap">
                 <div id="map" style="width: 1040px; height: 640px">
                 </div>
+                <div id="mapOnMarker"></div>
                 <section id="expertInfoListSec">
                     <div class="embla">
                         <div class="embla__viewport">
@@ -108,6 +116,8 @@
                 </section>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

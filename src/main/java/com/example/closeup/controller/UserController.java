@@ -239,4 +239,8 @@ public class UserController {
         return "user/expertDetail";
     }
 
+    @GetMapping("/addExpertInfo")
+    public String getAddExpertInfo(Model model) {
+        return "user/addExpertInfo";
+    }
 }

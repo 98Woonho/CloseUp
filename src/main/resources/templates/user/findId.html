@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
     <meta charset="UTF-8">
     <title>아이디 찾기</title>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/findId.css" th:href="@{/css/user/findId.css}">
+    <link rel="stylesheet" href="/css/user/findId.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section class="find-sec">
             <section class="title-sec">
@@ -61,6 +64,8 @@
                 </form>
             </div>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

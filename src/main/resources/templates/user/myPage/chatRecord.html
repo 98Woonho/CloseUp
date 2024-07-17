@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>채팅기록</title>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../../static/css/common.css">
-    <link rel="stylesheet" href="../../../static/css/user/myPage/chatRecord.css">
+
+    <link rel="stylesheet" href="/css/user/myPage/chatRecord.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <!-- 내용 전체 -->
         <section id="chatRecordSec">
@@ -190,6 +197,8 @@
             </section>
 
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

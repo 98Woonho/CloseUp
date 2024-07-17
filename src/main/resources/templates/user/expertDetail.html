@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>전문가 프로필 페이지</title>
-    <link rel="stylesheet" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/user/expertDetail.css">
+
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
     <script src="../../static/js/user/expertDetail.js" defer></script>
+
+    <link rel="stylesheet" href="/css/user/expertDetail.css">
 </head>
 <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="detailSection">
             <section id="expertProfileSec">
@@ -268,6 +273,8 @@
                 </aside>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 
 </body>

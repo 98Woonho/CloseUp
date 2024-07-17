@@ -15,4 +15,5 @@ public class ExpertDto {
     private String zipcode;
     private String address;
     private String addressDetail;
+    private byte[] profile_img;
 }

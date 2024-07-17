@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
     <meta charset="UTF-8">
     <title>새 비밀번호 생성</title>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/css/common.css}">
-    <link rel="stylesheet" href="../../static/css/user/findIdSuccess.css" th:href="@{/css/user/findIdSuccess.css}">
+    <link rel="stylesheet" href="/css/user/findIdSuccess.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
 <main>
     <section class="find-sec">
         <section class="title-sec">
@@ -52,6 +55,8 @@
                 </div>
             </div>
         </section>
+    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

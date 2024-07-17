@@ -1,4 +1,4 @@
-
+@import "../../../common.css";
 #modifySection{
     max-width: 1104px;
     margin: 0 auto;
@@ -68,16 +68,33 @@
 }
 /********************************/
 .info-container{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
-.sub-title{
+.sub-title {
+    margin-bottom: 16px;
+    color: var(--color-error-red);
+}
+.sub-title span{
+    color: black;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+
 }
-.tags-container{
+
+.skills-container{
     margin-bottom: 10px;
 }
+
+.skills-container > label{
+    display: inline-block;
+    line-height: 50px;
+    width: 80px;
+
+}
+
+
+
 .tags-container > div{
     display: inline-block;
     padding: 3px 10px;
@@ -94,6 +111,10 @@
 .tags i{
     color: var(--color-medium-gray);
 }
+/*************************************/
+
+
+
 /*************************************/
 #portfolioSection{
     margin-bottom: 40px;
@@ -155,10 +176,13 @@
     width: 30px;
     height: 30px;
     font-size: 20px;
-    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 .embla-btn-container > button:hover{
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--color-main-navy);
+    color: var(--color-lighter-bluegray);
 }
 /************************************/
 #btnSec{

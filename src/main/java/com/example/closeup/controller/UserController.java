@@ -237,5 +237,9 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
+    @GetMapping("/expertDetail")
+    public String getExpertDetail(Model model) {
+        return "user/expertDetail";
+    }
 
 }

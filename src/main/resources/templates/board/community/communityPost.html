@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+><head>
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
+
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="commuSec">
             <section class="header-sec">
@@ -123,6 +130,9 @@
                                             근황 궁금했는데 여기서 뵙게 되네요.
                                             응원하겠습니다.</p>
                                     </div>
+                                    <div class="comment-delete">
+                                        <i class="fa-solid fa-x"></i>
+                                    </div>
                                 </li>
                                 <li class="commentCon">
                                     <div class="commentHeaderCon">
@@ -156,8 +166,7 @@
                                                     </div>
                                                     <div class="commentContent">
                                                         <p>대 댓글입니다 :).</p>
-
-
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -169,6 +178,8 @@
                 </section>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

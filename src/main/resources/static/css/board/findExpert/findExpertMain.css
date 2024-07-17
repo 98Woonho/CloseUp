@@ -1,3 +1,5 @@
+@import "../common.css";
+
 #findExpertSec{
     position: relative;
     top: 150px;
@@ -42,9 +44,11 @@
     border: none;
     outline: none;
 }
-#searchCon i{
-    font-size: 15px;
+#searchCon svg{
+    width: 16px;
+    height: 16px;
     margin-right: 5px;
+    color: var(--color-medium-gray);
 }
 #searchLabel{
     flex: 1;

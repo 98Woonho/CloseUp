@@ -8,7 +8,12 @@
     <title>fragment | header</title>
     <link rel="stylesheet" href="../static/css/header/header.css">
 
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
     <script src="../static/js/header.js" defer></script>
+
+
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/header/header.css">
 </head>
 <body>
 
@@ -25,6 +30,7 @@
 </th:block>
 
 <header th:fragment="header_fragment">
+    <section class="header-sec admin-header-sec">
 
 
     <section th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'admin-header-sec' : 'header-sec'">
@@ -92,6 +98,26 @@
     </section>
 
 </header>
+
+<!-- 회면 고정 메뉴  -->
+<div th:fragment="fixedBtns_frag" id="fixedBtns">
+    <nav>
+        <ul>
+            <li>
+                <a href=""><i class="fa-solid fa-plus"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-regular fa-comment"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-solid fa-location-dot"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-regular fa-user"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 </body>
 </html>

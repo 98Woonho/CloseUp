@@ -19,9 +19,9 @@ import java.util.List;
 public class CommunityService {
     @Autowired
     private CommunityMapper communityMapper;
-
-    public List<ArticleDto> getArticles(String boardCode) {
-        return communityMapper.selectArticles(boardCode);
+    /**************게시글 목록 조회***************/
+    public List<ArticleDto> getArticles(String boardCode, String keyword) {
+        return communityMapper.selectArticles(boardCode, keyword);
     }
 
     public List<ArticleDto> getArticlesByTitle(String keyword){
@@ -32,22 +32,22 @@ public class CommunityService {
         return communityMapper.selectAllBoards();
     }
 
-
+    /**************게시글 작성***************/
     public void createArticle(ArticleDto articleDto) {
         articleDto.setWrittenAt(LocalDateTime.now());
         communityMapper.insertArticle(articleDto);
     }
-
+    /**************댓글 작성***************/
         public void createComment(CommentDto commentDto){
             commentDto.setWrittenAt(LocalDateTime.now());
             communityMapper.insertComment(commentDto);
         }
-
+    /**************게시글 상세 조회***************/
     public ArticleDto getArticleById (Integer id, HttpServletRequest request, HttpServletResponse response ){
         incrementViewCountIfNeeded(id, request, response);
         return communityMapper.selectArticleById(id);
     }
-
+    /**************쿠키로 조회수 조절***************/
     private void incrementViewCountIfNeeded(Integer articleId, HttpServletRequest request, HttpServletResponse response) {
         String cookieName = "viewedArticle_" + articleId;
         Cookie[] cookies = request.getCookies();
@@ -78,8 +78,8 @@ public class CommunityService {
 //        public List<ArticleFileDto> getFilesByArticleId (Integer articleId){
 //            return communityMapper.selectFilesByArticleId(articleId);
 //        }
-
-        public boolean toggleLike (Integer articleId, String userId){
+    /**************게시글 좋아요 토글***************/
+    public boolean toggleLike (Integer articleId, String userId){
             boolean exists = communityMapper.checkLikeExists(articleId, userId);
             if (exists) {
                 communityMapper.deleteLike(articleId, userId);
@@ -94,10 +94,30 @@ public class CommunityService {
 
         return communityMapper.selectLikeCount(articleId);
         }
+    /**************댓글 삭제***************/
     public void deleteComment(Integer commentId) {
         communityMapper.deleteComment(commentId);
     }
+
+
     public CommentDto getCommentById(Integer commentId) {
+
         return communityMapper.selectCommentById(commentId);
     }
+    /**************댓글 좋아요 토글***************/
+    public boolean toggleCommentLike(Integer commentId, String userId) {
+        boolean exists = communityMapper.checkCommentLikeExists(commentId, userId);
+        if (exists) {
+            communityMapper.deleteCommentLike(commentId, userId);
+            return false;
+        } else {
+            communityMapper.insertCommentLike(commentId, userId);
+            return true;
+        }
     }
+
+    public int getCommentLikeCount(Integer commentId) {
+        return communityMapper.selectCommentLikeCount(commentId);
+    }
+}
+

@@ -28,15 +28,17 @@ public class CommunityController {
     @Autowired
     CommunityService communityService;
 
-    // 커뮤니티 메인 페이지
+    /**************게시글 목록 조회***************/
     @GetMapping("/communityMain")
     public String communityMain(
             @RequestParam(required = false) String boardCode,
+            @RequestParam(required = false) String keyword,
             Model model) {
-        List<ArticleDto> articles = communityService.getArticles(boardCode);
+        List<ArticleDto> articles = communityService.getArticles(boardCode, keyword);
         List<BoardDto> boards = communityService.getAllBoards();
         model.addAttribute("articles", articles);
         model.addAttribute("boards", boards);
+        model.addAttribute("keyword", keyword);
         return "/board/community/communityMain";
     }
 
@@ -60,7 +62,7 @@ public class CommunityController {
         return "/board/community/communityWrite";
     }
 
-
+    /**************게시글 작성***************/
     @PostMapping("/communityWrite")
     public String communityWrite(
             @ModelAttribute ArticleDto articleDto,
@@ -75,7 +77,7 @@ public class CommunityController {
         communityService.createArticle(articleDto);
         return "redirect:/board/community/communityMain";
     }
-
+    /**************게시글 상세 조회***************/
     @GetMapping("/communityPost/{articleId}")
     public String communityView(
             @PathVariable Integer articleId,
@@ -96,7 +98,7 @@ public class CommunityController {
     }
 
 
-    // 댓글 작성 처리
+    /**************댓글 작성***************/
     @PostMapping("/communityPost/{articleId}")
     public String communityPostComment(
             @PathVariable Integer articleId,
@@ -113,7 +115,7 @@ public class CommunityController {
         return "redirect:/board/community/communityPost/" + articleId;
     }
 
-
+    /**************게시글 좋아요***************/
     @PostMapping("/communityPost/{articleId}/like")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> likeArticle(
@@ -130,8 +132,25 @@ public class CommunityController {
         response.put("likeCount", likeCount);
         return ResponseEntity.ok(response);
     }
+    /**************댓글 좋아요***************/
+    @PostMapping("/comment/{commentId}/like")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> likeComment(
+            @PathVariable Integer commentId,
+            Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String userId = authentication.getName();
+        boolean liked = communityService.toggleCommentLike(commentId, userId);
+        int likeCount = communityService.getCommentLikeCount(commentId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("liked", liked);
+        response.put("likeCount", likeCount);
+        return ResponseEntity.ok(response);
+    }
 
-
+    /**************댓글 삭제***************/
     @DeleteMapping("/comment/{commentId}")
     @ResponseBody
     public ResponseEntity<?> deleteComment(@PathVariable Integer commentId,

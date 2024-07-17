@@ -18,8 +18,23 @@ USE `close_up`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+
+
 --
---INSERT for table 'board'
+-- Table structure for table `comment_recommendation`
+--
+CREATE TABLE `comment_recommendation` (
+`user_id` varchar(255) NOT NULL,
+`comment_id` bigint NOT NULL,
+PRIMARY KEY (`user_id`,`comment_id`),
+KEY `FK-comment-id-comment_recommendation-comment_id` (`comment_id`),
+CONSTRAINT `FK-comment-id-comment_recommendation-comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `FK-user-id-comment_recommendation-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+--
+-- INSERT for table 'board'
 --
 INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expert', '전문가 자유 게시판');
 INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expertrecommendation', '전문가 추천 게시판');

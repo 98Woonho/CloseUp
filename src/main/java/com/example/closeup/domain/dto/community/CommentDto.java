@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class CommentDto {
     private Integer id;
     private Integer articleId;
+    private Integer likeCount;
     private String userId;
     private Integer commentId;
     private String content;

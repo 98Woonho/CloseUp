@@ -8,6 +8,7 @@
     <title>COMMUNITY PAGE</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../static/css/board/community/community.css" th:href="@{/css/board/community/community.css}">
+    <script> var isAuthenticated = /*[[${#authentication.isAuthenticated()}]]*/ false;</script>
     <script src="../../../static/js/board/community/communityPost.js" th:src="@{/js/board/community/communityPost.js}" defer></script>
 </head>
 <body>
@@ -93,9 +94,10 @@
                                         <a class="commentWriter" href="#" th:text="${comment.userId}" >댓글 작성자</a>
                                         <div class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd HH:mm')}">2024. 06. 26</div>
                                         <div class="commentBtnCon">
-                                            <button>
+                                            <button class="commentLikeBtn" th:data-comment-id="${comment.id}">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                                 <span>좋아요</span>
+                                                <span class="commentLikeCount" th:text="${comment.likeCount}">0</span>
                                             </button>
                                             <button>
                                                 <i class="fa-regular fa-comment-dots"></i>

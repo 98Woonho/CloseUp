@@ -1,9 +1,9 @@
-const likeBtn = document.querySelector('#likeBtn');
+const articleLikeBtn = document.querySelector('#likeBtn');
 const likeCountSpan = document.querySelector('.likeCount');
 const inputLoginRequest = document.querySelector('#commentInputCon input[type="text"][placeholder="댓글을 작성하려면 로그인 해주세요"]');
 
-
-    likeBtn.addEventListener('click', function() {
+//게시글 좋아요 기능
+articleLikeBtn.addEventListener('click', function() {
         var articleId = likeBtn.getAttribute('data-article-id');
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/board/community/communityPost/' + articleId + '/like', true);
@@ -24,6 +24,29 @@ const inputLoginRequest = document.querySelector('#commentInputCon input[type="t
         };
         xhr.send();
     });
+// 댓글 좋아요 기능
+document.querySelectorAll('.commentLikeBtn').forEach(likeBtn => {
+    likeBtn.addEventListener('click', function() {
+        var commentId = this.getAttribute('data-comment-id');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/board/community/comment/' + commentId + '/like', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                likeBtn.querySelector('.commentLikeCount').textContent = response.likeCount;
+                if (response.liked) {
+                    likeBtn.querySelector('i').classList.remove('fa-regular');
+                    likeBtn.querySelector('i').classList.add('fa-solid');
+                } else {
+                    likeBtn.querySelector('i').classList.remove('fa-solid');
+                    likeBtn.querySelector('i').classList.add('fa-regular');
+                }
+            }
+        };
+        xhr.send();
+    });
+});
 
     // // 파일 업로드 미리보기 기능 (선택적)
     // var filesInput = document.querySelector('#files');

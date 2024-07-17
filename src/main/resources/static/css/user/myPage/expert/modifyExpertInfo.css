@@ -1,4 +1,5 @@
 @import "../../../common.css";
+
 #modifySection{
     max-width: 1104px;
     margin: 0 auto;
@@ -79,22 +80,24 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-
 }
-
 .skills-container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 16px;
     margin-bottom: 10px;
 }
-
-.skills-container > label{
-    display: inline-block;
-    line-height: 50px;
-    width: 80px;
-
+.container{
+    height: 25px;
+    display: flex;
 }
-
-
-
+.container label{
+    align-content: center;
+}
+.container input{
+    margin-right: 4px;
+    align-content: center;
+}
 .tags-container > div{
     display: inline-block;
     padding: 3px 10px;
@@ -103,6 +106,9 @@
     border-radius: 15px;
     background-color: var(--color-lighter-gray);
     color: var(--color-medium-gray);
+}
+.tags{
+    margin-bottom: 8px;
 }
 .tags > p{
     display: inline-block;

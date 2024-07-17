@@ -17,6 +17,17 @@ USE `close_up`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+--
+--INSERT for table 'board'
+--
+INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expert', '전문가 자유 게시판');
+INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expertrecommendation', '전문가 추천 게시판');
+INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expertReview', '전문가의 후기 게시판');
+INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('free', '자유 게시판');
+INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('question', '간단한 질문 게시판');
+
+
 --
 -- Table structure for table `article`
 --

@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface CommunityMapper {
       List<ArticleDto> selectArticles(String boardCode);
+      List<ArticleDto> selectArticlesByTitle(String title);
     List<BoardDto> selectAllBoards();
     void insertArticle(ArticleDto articleDto);
     ArticleDto selectArticleById(Integer id);
@@ -22,4 +23,6 @@ public interface CommunityMapper {
     void deleteLike(Integer articleId, String userId);
     void insertLike(Integer articleId, String userId);
     int selectLikeCount(Integer articleId);
+    CommentDto selectCommentById(Integer commentId);
+    void deleteComment(Integer commentId);
 }

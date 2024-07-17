@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -17,10 +18,12 @@
                     <p class="commuTitle">커뮤니티</p>
                 </div>
                 <div class="search-con">
+                    <form th:action="@{/board/community/communityMain}" method="post">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
                         <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                     </svg>
-                    <input type="text">
+                        <input type="text" name="keyword" th:value="${title}">
+                    </form>
                 </div>
             </section>
             <section class="body-sec">
@@ -36,7 +39,7 @@
                         <!--                        <li><a href="#">간단한 질문 게시판</a></li>-->
                     </ul>
                     <div>
-                        <a href="#">전문가 커뮤니티</a>
+                        <a th:href="@{/board/community/communityMain(boardCode='expert')}" >전문가 커뮤니티</a>
                     </div>
                     <ul>
                         <li th:each="board : ${boards}" th:if="${board.code == 'expert'}">
@@ -48,8 +51,8 @@
                 <section class="content-con postSec">
                     <div id="viewHeader">
                         <div class="headerCategoryCon">
-                            <a href="#">통합 커뮤니티</a> >
-                            <a href="#">전문가 추천 게시판</a>
+                            <a href="#" th:href="@{/board/community/communityMain}">통합 커뮤니티</a> >
+                            <a href="#" th:text="${article.board.name}" th:href="@{/board/community/communityMain(boardCode=${article.board.code})}">전문가 추천 게시판</a>
                         </div>
                         <div class="postTitleCon">
                             <span th:text="${article.title}">첫 게시글이네요 :)</span>
@@ -73,9 +76,13 @@
                         </div>
                         <div id="commentInputCon">
                             <form th:action="@{/board/community/communityPost/{articleId}(articleId=${article.id})}" method="post">
-                            <input type="text" name="content" placeholder="댓글을 남겨보세요.">
-                            <input type="hidden" name="articleId" th:value="${article.id}">
-<!--                                <button>보내기</button>-->
+                                <th:block sec:authorize="authenticated">
+                                    <input type="text" name="content" placeholder="댓글을 남겨보세요.">
+                                    <input type="hidden" name="articleId" th:value="${article.id}">
+                                </th:block>
+                                <th:block sec:authorize="!authenticated">
+                                    <input type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
+                                </th:block>
                             </form>
                         </div>
                         <div class="commentsCon">
@@ -101,33 +108,34 @@
                                             근황 궁금했는데 여기서 뵙게 되네요.
                                             응원하겠습니다.</p>
                                     </div>
-                                    <div class="comment-delete">
+
+                                    <div class="comment-delete" th:data-comment-id="${comment.id}" th:if="${#authentication.name == comment.userId}">
                                         <i class="fa-solid fa-x"></i>
                                     </div>
                                 </li>
-                                <li class="commentCon">
-                                        <div class="comment-reply">
-                                            <ul>
-                                                <li>
-                                                    <div class="commentHeaderCon">
-                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png" th:src="@{/imgs/2199107_forward_arrow_direction_next_right_icon.png}" alt="#"/>
-                                                        <div>
-                                                            <a class="commentWriter" href="#">댓글 작성자</a>
-                                                            <div class="commentWriteDate">2024. 06. 26</div>
-                                                            <div class="commentBtnCon">
-                                                                <button><i class="fa-regular fa-thumbs-up"></i><span>좋아요</span></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="commentContent">
-                                                        <p >대 댓글입니다 :).</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            </div>
-                                        </li>
+<!--                                <li class="commentCon">-->
+<!--                                        <div class="comment-reply">-->
+<!--                                            <ul>-->
+<!--                                                <li>-->
+<!--                                                    <div class="commentHeaderCon">-->
+<!--                                                        <img src="../../../static/imgs/2199107_forward_arrow_direction_next_right_icon.png" th:src="@{/imgs/2199107_forward_arrow_direction_next_right_icon.png}" alt="#"/>-->
+<!--                                                        <div>-->
+<!--                                                            <a class="commentWriter" href="#">댓글 작성자</a>-->
+<!--                                                            <div class="commentWriteDate">2024. 06. 26</div>-->
+<!--                                                            <div class="commentBtnCon">-->
+<!--                                                                <button><i class="fa-regular fa-thumbs-up"></i><span>좋아요</span></button>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="commentContent">-->
+<!--                                                        <p >대 댓글입니다 :).</p>-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
                                     </ul>
-                                   </div>
+                                </div>
                     </section>
                 </section>
             </section>

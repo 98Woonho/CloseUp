@@ -5,6 +5,8 @@ import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.domain.dto.community.BoardDto;
 import com.example.closeup.domain.dto.community.CommentDto;
 import com.example.closeup.service.CommunityService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,13 +27,28 @@ import java.util.Map;
 public class CommunityController {
     @Autowired
     CommunityService communityService;
+
     // 커뮤니티 메인 페이지
     @GetMapping("/communityMain")
-    public String communityMain(@RequestParam(required = false) String boardCode, Model model) {
+    public String communityMain(
+            @RequestParam(required = false) String boardCode,
+            Model model) {
         List<ArticleDto> articles = communityService.getArticles(boardCode);
         List<BoardDto> boards = communityService.getAllBoards();
         model.addAttribute("articles", articles);
         model.addAttribute("boards", boards);
+        return "/board/community/communityMain";
+    }
+
+    @PostMapping("/communityMain")
+    public String communityMainPost(
+            @RequestParam(required = false) String keyword,
+            Model model) {
+        List<ArticleDto> articles = communityService.getArticlesByTitle(keyword);
+        List<BoardDto> boards = communityService.getAllBoards();
+        model.addAttribute("articles", articles);
+        model.addAttribute("boards", boards);
+        model.addAttribute("title", keyword);
         return "/board/community/communityMain";
     }
 
@@ -62,10 +79,15 @@ public class CommunityController {
     @GetMapping("/communityPost/{articleId}")
     public String communityView(
             @PathVariable Integer articleId,
-            Model model) {
-        ArticleDto article = communityService.getArticleById(articleId);
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response
+            ) {
+        ArticleDto article = communityService.getArticleById(articleId, request, response);
         List<CommentDto> comments = communityService.getCommentsByArticleId(articleId);
+        List<BoardDto> boards = communityService.getAllBoards();
 //        List<ArticleFileDto> files = communityService.getFilesByArticleId(id);
+        model.addAttribute("boards", boards);
         model.addAttribute("article", article);
         model.addAttribute("comments", comments);
 //        model.addAttribute("files", files);
@@ -108,5 +130,29 @@ public class CommunityController {
         response.put("likeCount", likeCount);
         return ResponseEntity.ok(response);
     }
+
+
+    @DeleteMapping("/comment/{commentId}")
+    @ResponseBody
+    public ResponseEntity<?> deleteComment(@PathVariable Integer commentId,
+                                           Authentication authentication) {
+        try {
+            CommentDto comment = communityService.getCommentById(commentId);
+            if (comment == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // 현재 로그인한 사용자와 댓글 작성자가 같은지 확인
+            if (!comment.getUserId().equals(authentication.getName())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 삭제할 권한이 없습니다.");
+            }
+
+            communityService.deleteComment(commentId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제 실패");
+        }
+    }
+
 }
 

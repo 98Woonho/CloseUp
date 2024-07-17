@@ -18,14 +18,15 @@
     </select>
 
     <insert id="insertArticle" parameterType="com.example.closeup.domain.dto.community.ArticleDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO article (board_code, user_id, title, content, view, like_count, written_at, modified_at)
-        VALUES (#{boardCode}, #{userId}, #{title}, #{content}, 0, 0, #{writtenAt}, #{modifiedAt})
+        INSERT INTO article (board_code, user_id, title, content, view, written_at)
+        VALUES (#{boardCode}, #{userId}, #{title}, #{content}, 0, #{writtenAt})
     </insert>
 
-    <select id="selectArticleById" resultType="com.example.closeup.domain.dto.community.ArticleDto">
-        SELECT a.*, COUNT(ar.user_id) as likeCount
+    <select id="selectArticleById" resultType="com.example.closeup.domain.dto.community.ArticleDto" resultMap="selectArticleByIdWithBoard">
+        SELECT a.*, b.*, COUNT(ar.user_id) as likeCount
         FROM article a
                  LEFT JOIN article_recommendation ar ON a.id = ar.article_id
+        INNER JOIN board b ON a.board_code = b.code
         WHERE a.id = #{id}
         GROUP BY a.id
     </select>
@@ -73,5 +74,25 @@
         FROM article_recommendation
         WHERE article_id = #{articleId}
     </select>
+    <select id="selectArticlesByTitle" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT *
+        FROM article
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <resultMap id="selectArticleByIdWithBoard" type="com.example.closeup.domain.dto.community.ArticleDto" autoMapping="true">
+        <id property="id" column="id" />
+        <association property="board" javaType="com.example.closeup.domain.dto.community.BoardDto" autoMapping="true">
+            <id property="code" column="code"/>
+        </association>
+    </resultMap>
+
+    <select id="selectCommentById" resultType="com.example.closeup.domain.dto.community.CommentDto">
+        SELECT * FROM comment WHERE id = #{commentId}
+    </select>
+
+    <delete id="deleteComment">
+        DELETE FROM comment WHERE id = #{commentId}
+    </delete>
 
 </mapper>

@@ -13,4 +13,11 @@
         WHERE `chat_room_id` = #{chatRoomId}
     </select>
 
+    <select id="selectLastChatMessageByChatRoomId">
+        SELECT content
+        FROM `chat_message`
+        WHERE `chat_room_id` = #{chatRoomId}
+        ORDER BY `id` DESC
+        LIMIT 1;
+    </select>
 </mapper>

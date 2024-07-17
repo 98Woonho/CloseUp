@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>채팅기록</title>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+
     <link rel="stylesheet" href="/css/user/myPage/chatRecord.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
 
+    <script defer src="/js/user/myPage/chatRecord.js"></script>
 </head>
 <body>
+
+<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
+
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
     <main>
@@ -34,32 +38,11 @@
                     </div>
                     <section id="chatList">
                         <ul>
-                            <li class="chat-lies">
+                            <li class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                                 <div>
-                                    <div class="user-name"><b>oboa</b></div>
-                                    <div class="content"><p>Will head to the Help Center...</p></div>
-                                </div>
-                            </li>
-                            <li class="chat-lies">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
-                                    <div class="user-name"><b>oboa</b></div>
-                                    <div class="content"><p>Will head to the Help Center...</p></div>
-                                </div>
-                            </li>
-                            <li class="chat-lies">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
-                                    <div class="user-name"><b>oboa</b></div>
-                                    <div class="content"><p>Will head to the Help Center...</p></div>
-                                </div>
-                            </li>
-                            <li class="chat-lies">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
-                                    <div class="user-name"><b>oboa</b></div>
-                                    <div class="content"><p>Will head to the Help Center...</p></div>
+                                    <div class="user-name"><b th:text="${chatRoomDto.expertUserId}"></b></div>
+                                    <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
                                 </div>
                             </li>
                         </ul>
@@ -78,7 +61,7 @@
                                 <div id="topProfileContainer">
                                     <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
                                     <div id="topProfileInfo">
-                                        <div id="topProfileName"><b>oboa</b></div>
+                                        <div id="topProfileName"></div>
                                         <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
                                     </div>
                                 </div>
@@ -95,42 +78,6 @@
                         </div>
                     </section>
                     <section id="chatMsgSec">
-                        <!-- 채팅 내용이 있을 때, -->
-                        <div class="selected">
-                            <div class="chat user1">
-                                <div class="chat-msg">No honestly I’m thinking of a career pivot</div>
-                            </div>
-                            <div class="chat user1">
-                                <div class="chat-msg">This is the main chat template</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">Oh?</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">Cool</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">How does it work?</div>
-                            </div>
-                            <div class="chat user1">
-                                <div class="chat-msg">Simple</div>
-                            </div>
-                            <div class="chat user1">
-                                <div class="chat-msg">You just edit any text to type in the conversation you want to show, and delete any bubbles you don’t want to use</div>
-                            </div>
-                            <div class="chat user1">
-                                <div class="chat-msg">Boom</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">Hmmm</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">I think I get it</div>
-                            </div>
-                            <div class="chat user2">
-                                <div class="chat-msg">Will head to the Help Center if I have more questions tho</div>
-                            </div>
-                        </div>
                         <!-- 채팅 내용이 없을 때, -->
                         <div class="non-selected">
                             <div>

@@ -6,14 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/expert")
 public class ExpertController {
-    @Autowired private ExpertService expertService;
+    @Autowired
+    private ExpertService expertService;
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ExpertDto getExpert(@PathVariable String id) {
+        return expertService.getExpertDto(id);
+    }
 
     @GetMapping("/map")
     public String getMap(Model model) {

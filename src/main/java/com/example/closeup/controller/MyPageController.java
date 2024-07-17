@@ -1,15 +1,25 @@
 package com.example.closeup.controller;
 
-import ch.qos.logback.core.model.Model;
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("myPage")
 public class MyPageController {
+    @Autowired
+    private MyPageService myPageService;
+
     @GetMapping("/myPageMain")
     public String getMyPageMain(Model model) {
         return "user/myPage/myPageMain";
@@ -26,7 +36,20 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(Model model) {
+    public String getChats(Authentication auth, Model model) {
+        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
+        String userId = principal.getUserDto().getId();
+
+        List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
+
+        for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
+            String lastChatMessage = myPageService.getLastChatMessage(chatRoomDto.getId());
+
+            chatRoomDto.setLastChatMessage(lastChatMessage);
+        }
+
+        model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+
         return "user/myPage/chatRecord";
     }
 

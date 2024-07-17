@@ -3,13 +3,13 @@
 /************* 채팅 리스트 선택 시 display: unset **************/
 /************* 채팅 리스트 미선택 시 display: none **************/
 .selected{
-    display: unset;
+    display: none;
 }
 
 /************* 채팅 리스트 선택 시 display: none **************/
 /************* 채팅 리스트 미선택 시 display: unset 설정 **************/
 .non-selected{
-    display: none;
+    display: unset;
 }
 
 /************* 전체 설정 **************/
@@ -68,20 +68,30 @@
     height: 64px;
     margin-right: 16px;
 }
-.chat-lies{
+.chat-li{
+    cursor: pointer;
     display: flex;
     height: 88px;
     padding: 12px 14px;
 }
-.chat-lies > div{
+
+.chat-li:hover {
+    background-color: #e6e6e6;
+}
+
+.chat-li.selected {
+    background-color: #d5d5d5;
+}
+
+.chat-li > div{
     flex: 1;
     align-content: center;
 }
-.chat-lies .user-name{
+.chat-li .user-name{
     font-size: 18px;
     margin-bottom: 4px;
 }
-.chat-lies .content{
+.chat-li .content{
     font-size: 16px;
 }
 /************* 채팅창 상단 프로필 **************/

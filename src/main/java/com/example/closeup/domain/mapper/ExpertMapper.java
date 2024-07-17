@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface ExpertMapper {
     List<ExpertDto> getExpertInformation();
+
+    ExpertDto selectExpertById(String id);
 }

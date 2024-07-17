@@ -1,0 +1,185 @@
+@import "../../common.css";
+
+#modifySection{
+    max-width: 1104px;
+    margin: 0 auto;
+    height: 100vh;
+}
+#modifyContainer{
+    position: relative;
+    top: 150px;
+    margin: 0 auto;
+    width: 800px;
+}
+#titleSec{
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+    text-align: left;
+}
+/************************************/
+#modifyContainer > form{
+    padding: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+#fileSection{
+    margin-bottom: 30px;
+}
+#fileInputContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 110px;
+    color: var(--color-medium-gray);
+    background-color: var(--color-lighter-bluegray);
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+#fileInputContainer > input[type="file"]{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#infoSection{
+    margin-bottom: 30px;
+}
+#infoSection input{
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+#infoSection textarea{
+    padding: 10px;
+    width: 100%;
+    height: 160px;
+    resize: none;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+}
+#infoSection .service-info{
+    margin-bottom: 8px;
+}
+#infoSection .service-info span{
+    font-size: 16px;
+    color: var(--color-medium-gray);
+}
+#introSection{
+    margin-bottom: 30px;
+}
+#introSection textarea{
+    padding: 10px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    resize: none;
+    width: 100%;
+    height: 200px;
+}
+.sub-title {
+    margin-bottom: 16px;
+    color: var(--color-error-red);
+}
+.sub-title span{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/*************************************/
+#portfolioSection{
+    margin-bottom: 40px;
+}
+#titleContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+#titleContainer > p{
+    align-content: center;
+    margin-bottom: unset;
+}
+#portfolioWriteBtn{
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--color-main-navy);
+    color: white;
+}
+#portfolioWriteBtn:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
+}
+.embla{
+    position: relative;
+    overflow: hidden;
+}
+.embla__container{
+    display: flex;
+}
+.embla__slide{
+    width: 240px;
+    height: 300px;
+}
+.embla__slide:not(:last-child){
+    margin-right: 20px;
+}
+.img-container img{
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+}
+.title-container > a{
+    display: block;
+}
+.portfolio-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+.embla-btn-container{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    top: 150px;
+    justify-content: space-between;
+}
+.embla-btn-container > button{
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+}
+.embla-btn-container > button:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/************************************/
+#btnSec{
+    display: flex;
+    justify-content: space-between;
+}
+#btnSec > button{
+    flex: 1;
+    height: 72px;
+    padding: 15px;
+    background-color: var(--color-main-navy);
+    color: white;
+    border-radius: 20px;
+}
+#btnSec > button:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
+}
+#btnSec > button:first-child{
+    margin-right: 20px;
+}

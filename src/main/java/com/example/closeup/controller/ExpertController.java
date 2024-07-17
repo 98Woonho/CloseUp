@@ -15,31 +15,27 @@ import java.util.List;
 public class ExpertController {
     @Autowired private ExpertService expertService;
 
-    @GetMapping("/map")
+    @GetMapping("map")
     public String getMap(Model model) {
-        List<ExpertDto> expertInformation = expertService.getExpertInformation();
-        model.addAttribute("expertInformation", expertInformation);
-        System.out.println(expertInformation);
-
         return "map/mapMain";
     }
 
-    @GetMapping("/myPageMain")
+    @GetMapping("myPageMain")
     public String getExpertMyPageMain(Model model) {
         return "user/myPage/expert/myPageMainEx";
     }
 
-    @GetMapping("/modifyExpertInfo")
+    @GetMapping("modifyExpertInfo")
     public String getModifyExpertInfo(Model model) {
         return "user/myPage/expert/modifyExpertInfo";
     }
 
-    @GetMapping("/addPortfolio")
+    @GetMapping("addPortfolio")
     public String getAddPortfolio(Model model) {
         return "user/myPage/expert/addPortfolio";
     }
 
-    @GetMapping("/chatRequest")
+    @GetMapping("chatRequest")
     public String getChatRequest(Model model) {
         return "user/myPage/expert/chatRequest";
     }

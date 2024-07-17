@@ -97,6 +97,7 @@
     box-shadow: var(--box-shadow);
 }
 .name-con{
+    width: 144px;
     align-content: center;
     margin-right: 16px;
 }

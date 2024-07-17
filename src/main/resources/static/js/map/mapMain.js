@@ -20,17 +20,21 @@ const currentLocaBtn = document.getElementById('currentLocaBtn');
 const currentAddress = document.getElementById('currentAddress');
 
 // 인포컨테이너 템플릿
-var infoTemplate = '<div class="info-template">\n' +
-    '    <div class="name-con">\n' +
-    '        <p th:text="${expertInformation.userId}" class="expert-name">전문가 아이디</p>\n' +
-    '        <p th:text="${expertInformation.introduction}" class="expert-desc">전문 분야/ 간단 설명</p>\n' +
-    '    </div>\n' +
-    '    <button type="button">프로필<br/>보기</button>\n' +
-    '</div>'
+// var infoTemplate =
 
 let zoom = 16; // 초기 줌 레벨
 let map;
 let markers;
+
+
+// 내 위치 정의
+navigator.geolocation.getCurrentPosition(function(pos) {
+    const curLat = pos.coords.latitude;
+    const curLng = pos.coords.longitude;
+    loadNaverMap(curLat, curLng, options);
+});
+// 내 위치
+
 
 // 내 위치 정확도 높이는 옵션
 var options = {
@@ -38,6 +42,7 @@ var options = {
     timeout: 5000,
     maximumAge: 0
 }
+
 
 // 맵 로딩 함수
 function loadNaverMap(lat, lng){
@@ -77,56 +82,77 @@ function loadNaverMap(lat, lng){
         }
     });
 
-    // 주소를 좌표로 변환(지오코더 사용)
-    naver.maps.Service.geocode({
-        query: '중앙대로 366'
-    }, function(status, response) {
-        if (status !== naver.maps.Service.Status.OK) {
-            return alert('잘못된 주소를 입력하셨습니다.');
-        }
+    // 데이터베이스에서 값 가져오기
+    fetch('/expert/mapData')
+        .then(response => {
+            console.log(response);
+            return response.json()
+        }).then(value => {
+        console.log(value);
+        value.forEach(item => {
+            console.log(`ID: ${item.userId}, Intro: ${item.introduction}, Address: ${item.address}, Detail: ${item.addressDetail}`)
+            const userId = item.userId;
+            const introduction = item.introduction;
+            const address = item.address;
+            const addressDetail = item.addressDetail;
 
-        var result = response.v2, // 검색 결과의 컨테이너
-            items = result.addresses; // 검색 결과의 배열
-
-        let addrLat = items[0].y;
-        let addrLng = items[0].x;
-
-        var expertMarkers = new naver.maps.Marker({
-            position: new naver.maps.LatLng(addrLat, addrLng),
-            map: map,
-            icon: {
-                content: '<img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width: 40px; height: 40px;"/>',
-                size: new naver.maps.Size(40, 40),
-                anchor: new naver.maps.Point(20, 30)
-            }
-        });
-
-        // 마커 클릭 시 나오는 인포컨테이너
-        (function(expertMarkers) {
-            var infoWindow = new naver.maps.InfoWindow({
-                content: infoTemplate,
-                borderWidth: 0
-            });
-
-            naver.maps.Event.addListener(expertMarkers, 'click', function() {
-                if (infoWindow.getMap()) {
-                    infoWindow.close();
-                } else {
-                    infoWindow.open(map, expertMarkers);
+            // 주소를 좌표로 변환(지오코더 사용)
+            naver.maps.Service.geocode({
+                query: address
+            }, function(status, response) {
+                if (status !== naver.maps.Service.Status.OK) {
+                    return alert('잘못된 주소를 입력하셨습니다.');
                 }
+
+                var result = response.v2, // 검색 결과의 컨테이너
+                    items = result.addresses; // 검색 결과의 배열
+
+                let addrLat = items[0].y;
+                let addrLng = items[0].x;
+
+                var expertMarkers = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(addrLat, addrLng),
+                    map: map,
+                    icon: {
+                        content: '<img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width: 40px; height: 40px;"/>',
+                        size: new naver.maps.Size(40, 40),
+                        anchor: new naver.maps.Point(20, 30)
+                    }
+                });
+
+                // 마커 클릭 시 나오는 인포컨테이너
+                (function(expertMarkers) {
+                    var infoWindow = new naver.maps.InfoWindow({
+                        content: '<div class="info-template">\n' +
+                            '    <div class="name-con">\n' +
+                            '        <p class="expert-name">' + userId + '</p>\n' +
+                            '        <p class="expert-desc">' + introduction + '</p>\n' +
+                            '    </div>\n' +
+                            '    <button type="button">프로필<br/>보러가기</button>\n' +
+                            '</div>',
+                        borderWidth: 0
+                    });
+
+                    naver.maps.Event.addListener(expertMarkers, 'click', function() {
+                        if (infoWindow.getMap()) {
+                            infoWindow.close();
+                        } else {
+                            infoWindow.open(map, expertMarkers);
+                        }
+                    });
+
+                    // 인포컨테이너가 열린 상태로 맵 아무 곳 클릭 시 인포 닫힘
+                    naver.maps.Event.addListener(map, 'click', function () {
+                        if (infoWindow.getMap()) {
+                            infoWindow.close();
+                        }
+                    })
+                })(expertMarkers);
+
+                markers.push(expertMarkers);
             });
-
-            // 인포컨테이너가 열린 상태로 맵 아무 곳 클릭 시 인포 닫힘
-            naver.maps.Event.addListener(map, 'click', function () {
-                if (infoWindow.getMap()) {
-                    infoWindow.close();
-                }
-            })
-        })(expertMarkers);
-
-        markers.push(expertMarkers);
+        })
     });
-
 
     // 현재 위치 클릭 시 현재 위치로 이동
     currentLocaBtn.addEventListener('click', (e) => {
@@ -134,11 +160,24 @@ function loadNaverMap(lat, lng){
         map.panTo(latLng);
     });
 
+    // // 경도,위도로 내 위치의 도로명주소 가져오기
+    // naver.maps.Service.geocode({ location: new naver.maps.LatLng(curLat, curLng) }, (status, response) => {
+    //     if (status === 'OK') {
+    //         if (response.v2.addresses.length > 0) {
+    //             console.log('도로명 주소:', response.v2.addresses[0].roadAddress);
+    //         } else {
+    //             console.error('주소 정보를 찾을 수 없습니다.');
+    //         }
+    //     } else {
+    //         console.error('Geocoder 요청에 실패했습니다. 상태:', status);
+    //     }
+    // });
+
     // 보이는 지역만 마커 표시 함수
     // naver.maps.Event.addListener(map, 'idle', function() {
     //     updateMarkers(map, markers);
     // });
-
+    //
     // function updateMarkers(map, markers) {
     //     var mapBounds = map.getBounds();
     //     var marker, position;
@@ -166,7 +205,3 @@ function loadNaverMap(lat, lng){
     // }
 }
 
-// 내 위치 정의
-navigator.geolocation.getCurrentPosition(function(pos) {
-    loadNaverMap(pos.coords.latitude, pos.coords.longitude, options);
-});

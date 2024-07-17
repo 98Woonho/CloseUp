@@ -9,24 +9,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+    @GetMapping("/main")
+    public String getMain() {
+        return "admin/main";
+    }
 
     @GetMapping("login")
     public String getLogin() {
-        return "login";
+        return "admin/login";
     }
 
     @GetMapping("users")
     public String getUsers() {
-        return "admin/admin_manage_member";
+        return "admin/manage/member";
     }
 
     @GetMapping("posts")
     public String getPosts() {
-        return "admin/admin_manage_post";
+        return "admin/manage/post";
     }
 
     @GetMapping("reviews")
     public String getReviews() {
-        return "admin/admin_manage_review";
+        return "admin/manage/review";
     }
+
 }

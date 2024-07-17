@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>서비스 작성 페이지</title>
+
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <link rel="stylesheet" href="../../../static/css/board/findExpert/findExpertWrite.css">
+
+</head>
+<body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
+    <main>
+        <section id="modifySection">
+            <div id="modifyContainer">
+                <section id="titleSec">
+                    <p>서비스 작성하기</p>
+                </section>
+                <form action="" method="POST">
+                    <!-- 썸네일 파일 첨부 -->
+                    <section id="fileSection">
+                        <div class="desc-container">
+                            <p class="sub-title"><span>파일 첨부</span></p>
+                        </div>
+                        <div id="fileInputContainer">
+                            <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                            <label for="files">첨부할 파일을 선택 해주세요 :)</label>
+                            <p>Max size : 5GB</p>
+                            <input type="file" id="files">
+                        </div>
+                    </section>
+                    <!-- 서비스 제목/가격/간단 설명 작성 섹션 -->
+                    <section id="infoSection">
+                        <p class="sub-title"><span>서비스 정보</span></p>
+                        <div class="service-title">
+                            <p class="service-info"><span>제목</span></p>
+                            <label for="titleInput"></label>
+                            <input type="text" id="titleInput" placeholder="제목을 입력하세요.">
+                        </div>
+                        <div class="service-price">
+                            <p class="service-info"><span>가격</span></p>
+                            <label for="priceInput"></label>
+                            <input type="text" id="priceInput" placeholder="금액을 입력하세요.">
+                        </div>
+                        <div class="service-desc">
+                            <p class="service-info"><span>간단 설명</span></p>
+                            <label for="desc"></label>
+                            <textarea id="desc"></textarea>
+                        </div>
+                    </section>
+                    <!-- 서비스 소개 작성 섹션 -->
+                    <section id="introSection">
+                        <!-- 전문가 소개 -->
+                        <div class="intro-container">
+                            <p class="sub-title"><span>서비스 소개</span></p>
+                            <div id="introTextareaContainer">
+                                <label>
+                                    <textarea></textarea>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 포트폴리오 관리 -->
+                    <section id="portfolioSection">
+                        <div id="portfolioContainer">
+                            <div id="titleContainer">
+                                <p class="sub-title"><span>포트폴리오</span></p>
+                                <button id="portfolioWriteBtn" type="button">작성하기</button>
+                            </div>
+                            <!-- 포트폴리오 클릭하면 수정 페이지로 이동 -->
+                            <div class="embla">
+                                <div class="embla__viewport">
+                                    <div class="embla__container">
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="portfolio-title" href="#">포트폴리오 제목</a>
+                                                <a class="portfolio-desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="embla-btn-container">
+                                    <button type="button" class="embla__prev"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <button type="button" class="embla__next"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 수정 완료 버튼 -->
+                    <section id="btnSec">
+                        <button type="button">이전으로</button>
+                        <button type="submit">등록하기</button>
+                    </section>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- 캐러셀 -->
+    <script type="text/javascript">
+        // Grab wrapper nodes
+        const rootNode = document.querySelector('.embla');
+        const viewportNode = rootNode.querySelector('.embla__viewport');
+
+        // Grab button nodes
+        const prevButtonNode = rootNode.querySelector('.embla__prev');
+        const nextButtonNode = rootNode.querySelector('.embla__next');
+
+        // Initialize the carousel
+        const embla = EmblaCarousel(viewportNode);
+
+        // Add click listeners
+        prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+        nextButtonNode.addEventListener('click', embla.scrollNext, false);
+    </script>
+</body>
+</html>

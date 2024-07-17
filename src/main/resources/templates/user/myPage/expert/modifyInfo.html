@@ -2,63 +2,103 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>서비스 작성 페이지</title>
-
+    <title>마이페이지 | 전문가 정보 수정 페이지</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../../static/css/common.css">
+    <link rel="stylesheet" href="../../../../static/css/user/myPage/expert/modifyInfo.css">
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <link rel="stylesheet" href="../../../static/css/board/findExpert/findExpertWrite.css">
 
 </head>
 <body>
-<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
-
     <main>
         <section id="modifySection">
-            <div id="modifyContainer">
+            <div class="modify-container">
                 <section id="titleSec">
-                    <p>서비스 작성하기</p>
+                    <p>전문가 정보 수정 페이지</p>
                 </section>
                 <form action="" method="POST">
-                    <!-- 썸네일 파일 첨부 -->
-                    <section id="fileSection">
-                        <div class="desc-container">
-                            <p class="sub-title"><span>파일 첨부</span></p>
-                        </div>
-                        <div id="fileInputContainer">
-                            <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                            <label for="files">첨부할 파일을 선택 해주세요 :)</label>
-                            <p>Max size : 5GB</p>
-                            <input type="file" id="files">
-                        </div>
-                    </section>
-                    <!-- 서비스 제목/가격/간단 설명 작성 섹션 -->
+                    <!-- 전문가 정보 수정 섹션 -->
                     <section id="infoSection">
-                        <p class="sub-title"><span>서비스 정보</span></p>
-                        <div class="service-title">
-                            <p class="service-info"><span>제목</span></p>
-                            <label for="titleInput"></label>
-                            <input type="text" id="titleInput" placeholder="제목을 입력하세요.">
-                        </div>
-                        <div class="service-price">
-                            <p class="service-info"><span>가격</span></p>
-                            <label for="priceInput"></label>
-                            <input type="text" id="priceInput" placeholder="금액을 입력하세요.">
-                        </div>
-                        <div class="service-desc">
-                            <p class="service-info"><span>간단 설명</span></p>
-                            <label for="desc"></label>
-                            <textarea id="desc"></textarea>
-                        </div>
-                    </section>
-                    <!-- 서비스 소개 작성 섹션 -->
-                    <section id="introSection">
                         <!-- 전문가 소개 -->
-                        <div class="intro-container">
-                            <p class="sub-title"><span>서비스 소개</span></p>
+                        <div class="info-container">
+                            <p class="sub-title">전문가 소개</p>
                             <div id="introTextareaContainer">
                                 <label>
                                     <textarea></textarea>
                                 </label>
+                            </div>
+                        </div>
+                        <!-- 전문 분야 선택 -->
+                        <div class="info-container">
+                            <!-- textarea 에서 입력하고 버튼 누르면 추가되고 X 눌러서 삭제할 수 있는 방식 -->
+                            <p class="sub-title">전문 분야</p>
+                            <div class="tags-container">
+                                <div class="tags"><p>웹 페이지 제작</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            </div>
+                            <div class="textarea-container">
+                                <label>
+                                    <textarea></textarea>
+                                </label>
+                                <div class="input-btn-container">
+                                    <button class="input-btn">입력</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-container">
+                            <p class="sub-title">보유 기술</p>
+                            <div class="tags-container">
+                                <div class="tags"><p>JAVA</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                                <div class="tags"><p>Python</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                                <div class="tags"><p>JavaScript</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            </div>
+                            <div class="select-container">
+                                <label>
+                                    <select>
+                                        <option selected>보유 기술</option>
+                                        <option>JAVA</option>
+                                        <option>Python</option>
+                                        <option>JavaScript</option>
+                                        <option>C</option>
+                                        <option>C++</option>
+                                        <option>React</option>
+                                        <option>MySQL</option>
+                                        <option>MariaDB</option>
+                                        <option>Flutter</option>
+                                        <option>Kotlin</option>
+                                        <option>Swift</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="info-container">
+                            <p class="sub-title">경력 사항</p>
+                            <div class="tags-container">
+                                <div class="tags"><p>OO기업에서 6년간 근무</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                                <div class="tags"><p>OO기업에서 인턴쉽 경험</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            </div>
+                            <div class="textarea-container">
+                                <label>
+                                    <textarea></textarea>
+                                </label>
+                                <div class="input-btn-container">
+                                    <button class="input-btn">입력</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-container">
+                            <p class="sub-title">학력/자격증</p>
+                            <div class="tags-container">
+                                <div class="tags"><p>OO대학교 졸업</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                                <div class="tags"><p>정보처리기사</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                                <div class="tags"><p>리눅스 마스터 2급</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            </div>
+                            <div class="textarea-container">
+                                <label>
+                                    <textarea></textarea>
+                                </label>
+                                <div class="input-btn-container">
+                                    <button class="input-btn">입력</button>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -67,7 +107,7 @@
                     <section id="portfolioSection">
                         <div id="portfolioContainer">
                             <div id="titleContainer">
-                                <p class="sub-title"><span>포트폴리오</span></p>
+                                <p class="sub-title">포트폴리오</p>
                                 <button id="portfolioWriteBtn" type="button">작성하기</button>
                             </div>
                             <!-- 포트폴리오 클릭하면 수정 페이지로 이동 -->
@@ -131,8 +171,8 @@
 
                     <!-- 수정 완료 버튼 -->
                     <section id="btnSec">
-                        <button type="button">이전으로</button>
-                        <button type="submit">등록하기</button>
+                        <button type="button">수정 취소</button>
+                        <button type="submit">수정 완료</button>
                     </section>
                 </form>
             </div>

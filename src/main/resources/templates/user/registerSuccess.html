@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
     <meta charset="UTF-8">
     <title>회원가입 성공</title>
-    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/user/registerSuccess.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
@@ -34,6 +35,8 @@
                 </div>
             </div>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

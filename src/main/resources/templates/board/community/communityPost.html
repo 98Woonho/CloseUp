@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+><head>
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
+
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../../static/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="commuSec">
             <section class="header-sec">
@@ -171,6 +178,8 @@
                 </section>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

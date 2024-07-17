@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
 
     <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+    <script defer src="/js/user/register.js"></script>
 
-<!--    <link rel="stylesheet" href="/css/common.css">-->
     <link rel="stylesheet" href="/css/user/register.css">
     <link rel="stylesheet" href="/css/header/header.css">
 
-    <script defer src="/js/user/register.js"></script>
 
 </head>
 <body>
@@ -68,6 +69,7 @@
         </div>
 
     </div>
+
 </main>
 
 </body>

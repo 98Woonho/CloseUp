@@ -232,7 +232,6 @@ CREATE TABLE `chat_room` (
 
 LOCK TABLES `chat_room` WRITE;
 /*!40000 ALTER TABLE `chat_room` DISABLE KEYS */;
-INSERT INTO `chat_room` VALUES (18,'test1',NULL),(19,'test1',NULL),(20,'test1',NULL),(21,'test1',NULL),(22,'test1',NULL),(23,'test1',NULL),(24,'test1',NULL),(25,'test1',NULL),(26,'test1',NULL),(27,'test1',NULL),(28,'test1',NULL),(29,'test1',NULL),(30,'test1',NULL),(31,'test1',NULL),(32,'test1',NULL),(33,'test1',NULL),(34,'test1','ExpertUser1'),(35,'test1','ExpertUser1'),(36,'test1','ExpertUser1'),(37,'test1','ExpertUser1'),(38,'test1','ExpertUser1'),(39,'test1','ExpertUser1'),(40,'test1','ExpertUser1'),(41,'test1','ExpertUser1'),(42,'test1','ExpertUser1');
 /*!40000 ALTER TABLE `chat_room` ENABLE KEYS */;
 UNLOCK TABLES;
 

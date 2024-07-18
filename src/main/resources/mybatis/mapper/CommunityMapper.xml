@@ -128,5 +128,8 @@
         GROUP BY a.id
         ORDER BY a.written_at DESC
     </select>
+    <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT * FROM article;
+    </select>
 
 </mapper>

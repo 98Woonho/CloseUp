@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ADMIN | 회원 관리</title>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/css/admin/manage/manage.css">
-    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/static/css/admin/manage/manage.css" th:href="@{/css/admin/manage/manage.css}">
+    <link rel="stylesheet" href="/css/header/header.css" th:href="@{/css/header/header.css}">
 
 
 </head>
@@ -23,13 +24,13 @@
                     <nav>
                         <ul>
                             <li>
-                                <a href="#">회원</a>
+                                <a href="/admin/manage/member">회원</a>
                             </li>
                             <li>
-                                <a href="#">게시글</a>
+                                <a href="/admin/manage/post">게시글</a>
                             </li>
                             <li>
-                                <a href="#">리뷰</a>
+                                <a href="/admin/manage/review">리뷰</a>
                             </li>
                         </ul>
                     </nav>
@@ -39,12 +40,12 @@
                     <aside class="sub-nav-sec">
                         <section class="logo-sec">
                             <!-- 로고 이미지 -->
-                            <div></div>
+                            <div onclick="location.href='/admin/post'"></div>
                         </section>
                         <nav>
                             <ul>
-                                <li><a href="#"><i class="fa-solid fa-list-ul"></i>전체</a></li>
-                                <li><a href="#">일반 등록 사용자</a></li>
+                                <li><a href="/admin/manage/member"><i class="fa-solid fa-list-ul"></i>전체</a></li>
+                                <li><a href="/#">일반 등록 사용자</a></li>
                                 <li><a href="#">전문 등록 사용자</a></li>
                                 <li><a href="#">관리자</a></li>
                                 <li><a href="#"><i class="fa-solid fa-gear"></i>설정</a></li>
@@ -104,26 +105,29 @@
                                     <th><b>아이디</b></th>
                                     <th><b>이름</b></th>
                                     <th><b>휴대폰 번호</b></th>
-                                    <th><b>가입 날짜</b></th>
                                     <th><b>전문가 등록 여부</b></th>
-                                    <th><b>즐겨찾기 수</b></th>
+                                    <th><b>역할</b></th>
+<!--                                    <th><b>즐겨찾기 수</b></th>-->
                                     <th>
                                         <b>수정 | 삭제</b>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="user : ${users}">
                                         <td><input type="radio"></td>
-                                        <td><span>아이디</span></td>
-                                        <td><span>이름</span></td>
-                                        <td><span>휴대폰 번호</span></td>
-                                        <td><span>가입 날짜</span></td>
-                                        <td><span>전문가 등록 여부</span></td>
-                                        <td><span>즐겨찾기 수</span></td>
+                                        <td><span th:text="${user.id}">아이디</span></td>
+                                        <td><span th:text="${user.name}">이름</span></td>
+                                        <td><span th:text="${user.phone}">휴대폰 번호</span></td>
+<!--                                        <td><span >즐겨찾기 수</span></td>-->
+                                        <td><span th:text="${user.isSuspended}">가입 날짜</span></td>
+                                        <td><span th:text="${user.role}">전문가 등록 여부</span></td>
+
                                         <td>
                                             <input type="button" id="modifyBtn" value="수정">
-                                            <input type="button" id="deleteBtn" value="삭제">
+<!--                                            <input type="button" id="deleteBtn" value="삭제">-->
+<!--                                            <a th:href="@{/admin/manage/member/edit/{id}(id=${user.id})}">수정</a>-->
+                                            <a th:href="@{/admin/manage/member/delete/{id}(id=${user.id})}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                                         </td>
                                     </tr>
                                 </tbody>

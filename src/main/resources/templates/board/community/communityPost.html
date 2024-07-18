@@ -62,7 +62,7 @@
                             <a href="#" th:text="${article.board.name}" th:href="@{/board/community/communityMain(boardCode=${article.board.code})}">전문가 추천 게시판</a>
                         </div>
                         <div class="postTitleCon">
-                            <span>첫 게시글이네요 :)</span>
+                            <span th:text="${article.title}">첫 게시글이네요 :)</span>
                         </div>
                         <div id="viewContent">
                             <p th:text="${article.content}">안녕하세요</p>

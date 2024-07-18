@@ -20,9 +20,9 @@ USE `close_up`;
 
 
 
---
--- Table structure for table `comment_recommendation`
---
+-- --
+-- -- Table structure for table `comment_recommendation`
+-- --
 CREATE TABLE `comment_recommendation` (
 `user_id` varchar(255) NOT NULL,
 `comment_id` bigint NOT NULL,
@@ -33,9 +33,9 @@ CONSTRAINT `FK-user-id-comment_recommendation-user_id` FOREIGN KEY (`user_id`) R
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
---
--- INSERT for table 'board'
---
+
+INSERT for table 'board'
+
 INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expert', '전문가 자유 게시판');
 INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expertrecommendation', '전문가 추천 게시판');
 INSERT INTO `close_up`.`board` (`code`, `name`) VALUES ('expertReview', '전문가의 후기 게시판');

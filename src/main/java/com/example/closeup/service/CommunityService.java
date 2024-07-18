@@ -119,5 +119,12 @@ public class CommunityService {
     public int getCommentLikeCount(Integer commentId) {
         return communityMapper.selectCommentLikeCount(commentId);
     }
+
+
+    /**************관리자 페이지****************/
+    public List<ArticleDto> getAllArticles() {
+        return communityMapper.selectAllArticles();
+    }
+
 }
 

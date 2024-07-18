@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -52,6 +54,23 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public byte[] selectUserProfileImgById(String id) {
         return userMapper.selectUserProfileImgById(id);
+    }
+
+
+
+    /*********************관리자 페이지**********************/
+    @Transactional(readOnly = true)
+    public List<UserDto> getAllUsers() {
+        return userMapper.selectAllUsers();
+    }
+    @Transactional
+    public void updateUser(UserDto user) {
+        userMapper.updateUser(user);
+    }
+
+    @Transactional
+    public void deleteUser(String id) {
+        userMapper.deleteUser(id);
     }
 }
 

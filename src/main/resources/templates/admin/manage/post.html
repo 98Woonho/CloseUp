@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ADMIN | 게시글 관리</title>
@@ -19,13 +20,13 @@
                     <nav>
                         <ul>
                             <li>
-                                <a href="#">회원</a>
+                                <a href="/admin/manage/member">회원</a>
                             </li>
                             <li>
-                                <a href="#">게시글</a>
+                                <a href="/admin/manage/post">게시글</a>
                             </li>
                             <li>
-                                <a href="#">리뷰</a>
+                                <a href="/admin/manage/review">리뷰</a>
                             </li>
                         </ul>
                     </nav>
@@ -109,14 +110,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each="article, stat: ${articles}">
                                     <td><input type="radio"></td>
                                     <td><span>게시글 분류</span></td>
-                                    <td><span>게시글 번호</span></td>
-                                    <td><span>작성자</span></td>
-                                    <td><span>제목</span></td>
-                                    <td><span>작성 날짜</span></td>
-                                    <td><span>조회수</span></td>
+                                    <td><span th:text="${stat.count}">게시글 번호</span></td>
+                                    <td><span th:text="${article.userId}">작성자</span></td>
+                                    <td><span th:text="${article.title}">제목</span></td>
+                                    <td><span th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">작성 날짜</span></td>
+                                    <td><span th:text="${article.view}">조회수</span></td>
                                     <td>
                                         <input type="button" id="modifyBtn" value="수정">
                                         <input type="button" id="deleteBtn" value="삭제">

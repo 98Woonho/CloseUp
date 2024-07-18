@@ -42,5 +42,8 @@ public interface CommunityMapper {
     void insertCommentLike(Integer commentId, String userId);
     /**************댓글 삭제***************/
     int selectCommentLikeCount(Integer commentId);
+
+    /*********관리자 페이지***********/
+    List<ArticleDto> selectAllArticles();
 }
 

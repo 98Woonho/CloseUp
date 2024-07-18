@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.closeup.domain.mapper.WishListMapper">
+    <select id="getWishListByUserId" resultType="com.example.closeup.domain.dto.WishListDTO">
+
+    </select>
+    <insert id="insertWishList">
+        INSERT INTO `wish`(user_id, expert_user_id) VALUES (#{user.id}, #{expert.user_id})
+    </insert>
+    <delete id="deleteWishList">
+
+    </delete>
+</mapper>

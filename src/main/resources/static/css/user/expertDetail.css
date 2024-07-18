@@ -3,7 +3,7 @@
 #detailSection{
     position: relative;
     width: 1104px;
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 32px;
 }
 #expertProfileSec{
@@ -53,9 +53,13 @@
 }
 
 #heartContainer> button > i{
-
-    font-size: 40px;
+    font-size: 32px;
 }
+
+#heartContainer> button:hover > i{
+    color: var(--color-error-red);
+}
+
 
 /*************** 전문가 소개 ***************/
 #bodySec{

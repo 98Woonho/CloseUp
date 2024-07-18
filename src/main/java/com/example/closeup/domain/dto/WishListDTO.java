@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class WishListDTO {
     private Integer wishNo;
-    private UserDto user;  // 즐겨찾기를
-    private ExpertDto expert;
+    private UserDto user;  // 즐겨찾기한 사용자
+    private ExpertDto expert;  // 즐겨찾기된 전문가
 
 }

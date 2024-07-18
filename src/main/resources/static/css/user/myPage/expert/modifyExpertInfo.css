@@ -1,5 +1,4 @@
 @import "../../../common.css";
-
 #modifySection{
     max-width: 1104px;
     margin: 0 auto;
@@ -7,7 +6,6 @@
 }
 .modify-container{
     position: relative;
-    top: 150px;
     margin: 0 auto;
     width: 800px;
 }
@@ -80,7 +78,9 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+
 }
+
 .skills-container{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -91,8 +91,12 @@
     height: 25px;
     display: flex;
 }
+.container label{
+    align-content: center;
+}
 .container input{
     margin-right: 4px;
+    align-content: center;
 }
 .tags-container > div{
     display: inline-block;
@@ -102,6 +106,9 @@
     border-radius: 15px;
     background-color: var(--color-lighter-gray);
     color: var(--color-medium-gray);
+}
+.tags{
+    margin-bottom: 8px;
 }
 .tags > p{
     display: inline-block;

@@ -17,10 +17,7 @@ nextButtonNode.addEventListener('click', embla.scrollNext, false);
 //////////////////// 네이버 지도 api ///////////////////////
 // 현재 위치 버튼
 const currentLocaBtn = document.getElementById('currentLocaBtn');
-const currentAddress = document.getElementById('currentAddress');
-
-// 인포컨테이너 템플릿
-// var infoTemplate =
+let currentAddress = document.getElementById('currentAddress');
 
 let zoom = 16; // 초기 줌 레벨
 let map;
@@ -47,6 +44,29 @@ var options = {
 // 맵 로딩 함수
 function loadNaverMap(lat, lng){
     const latLng = new naver.maps.LatLng(lat, lng);
+
+
+    // // 경도,위도로 내 위치의 도로명주소 가져오기
+    naver.maps.Service.reverseGeocode({
+        coords: latLng,
+    }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+            return alert('Something wrong!');
+        }
+
+        var result = response.v2, // 검색 결과의 컨테이너
+            items = result.results, // 검색 결과의 배열
+            address = result.address; // 검색 결과로 만든 주소
+        console.log(address);
+        console.log(address.jibunAddress);
+
+        if(address.roadAddress !== '') {
+            currentAddress.textContent = address.roadAddress;
+        } else {
+            currentAddress.textContent = address.jibunAddress;
+        }
+    });
+
 
     // 커스텀 맵 객체
     map = new naver.maps.Map('map',{
@@ -76,21 +96,18 @@ function loadNaverMap(lat, lng){
         map: map,
         icon: {
             content: '<i style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; ' +
-                '-webkit-user-select: none; position: absolute; width: 36px; height: 36px; left: 0px; top: 0px; color: var(--color-error-red); font-size: 36px" class="fa-solid fa-location-crosshairs"></i>',
-            size: new naver.maps.Size(36, 36),
-            anchor: new naver.maps.Point(18, 18)
+                '-webkit-user-select: none; position: absolute; left: 0px; top: 0px; color: var(--color-error-red); font-size: 24px" class="fa-solid fa-location-crosshairs"></i>',
+            size: new naver.maps.Size(24, 24),
+            anchor: new naver.maps.Point(12, 12)
         }
     });
 
     // 데이터베이스에서 값 가져오기
     fetch('/expert/mapData')
         .then(response => {
-            console.log(response);
             return response.json()
         }).then(value => {
-        console.log(value);
         value.forEach(item => {
-            console.log(`ID: ${item.userId}, Intro: ${item.introduction}, Address: ${item.address}, Detail: ${item.addressDetail}`)
             const userId = item.userId;
             const introduction = item.introduction;
             const address = item.address;
@@ -159,19 +176,6 @@ function loadNaverMap(lat, lng){
         e.preventDefault();
         map.panTo(latLng);
     });
-
-    // // 경도,위도로 내 위치의 도로명주소 가져오기
-    // naver.maps.Service.geocode({ location: new naver.maps.LatLng(curLat, curLng) }, (status, response) => {
-    //     if (status === 'OK') {
-    //         if (response.v2.addresses.length > 0) {
-    //             console.log('도로명 주소:', response.v2.addresses[0].roadAddress);
-    //         } else {
-    //             console.error('주소 정보를 찾을 수 없습니다.');
-    //         }
-    //     } else {
-    //         console.error('Geocoder 요청에 실패했습니다. 상태:', status);
-    //     }
-    // });
 
     // 보이는 지역만 마커 표시 함수
     // naver.maps.Event.addListener(map, 'idle', function() {

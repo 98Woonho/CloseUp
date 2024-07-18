@@ -12,9 +12,8 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private String id;
     private String password;
-    private String phone;
-    private String role;
     private String name;
+    private String phone;
     private Boolean isSuspended;
-    private Boolean isAuth;
+    private String role;
 }

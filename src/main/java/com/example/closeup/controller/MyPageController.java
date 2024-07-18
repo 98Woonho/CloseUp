@@ -25,7 +25,7 @@ public class MyPageController {
         return "user/myPage/modifyConfirm";
     }
 
-    @GetMapping("chats")
+    @GetMapping("/chats")
     public String getChats(Model model) {
         return "user/myPage/chatRecord";
     }

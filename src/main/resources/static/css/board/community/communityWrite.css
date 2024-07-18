@@ -4,7 +4,7 @@
     width: 1104px;
     margin: 48px auto;
 }
-.header-sec .title-con {
+.top-sec >.title-con {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;

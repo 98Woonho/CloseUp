@@ -2,7 +2,6 @@
 
 #detailSection{
     position: relative;
-    top: 150px;
     width: 1104px;
     margin: 0 auto;
     padding: 32px;
@@ -51,8 +50,13 @@
 #heartContainer{
     width: 64px;
     height: 120px;
+}
+
+#heartContainer> button > i{
+
     font-size: 40px;
 }
+
 /*************** 전문가 소개 ***************/
 #bodySec{
     display: flex;

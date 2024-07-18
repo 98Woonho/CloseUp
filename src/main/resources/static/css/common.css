@@ -28,6 +28,7 @@
 
 body {
     font-family: Pretendard;
+    overflow-x: hidden;
 }
 
 ul, li {

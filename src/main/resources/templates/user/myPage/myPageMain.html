@@ -30,7 +30,8 @@
                         <div id="userProfileImgContainer">
                             <!-- 유저 프로필 사진 div-->
                             <input type="file" id="fileInput" onchange="changeProfileImage(this.files[0])" hidden="hidden">
-                            <button type="button" onclick="document.getElementById('fileInput').click()"><img style="border-radius: 50%" id="profileImage" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="https://cdn-icons-png.flaticon.com/512/3177/3177440.png"></button>
+                            <button type="button" onclick="document.getElementById('fileInput').click()">
+                            <img style="border-radius: 50%" id="profileImage" th:src="@{/controller/MyPageController/{id}/profileImage(id=${userId})}" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="https://cdn-icons-png.flaticon.com/512/3177/3177440.png"></button>
                         </div>
                     </div>
                 </section>

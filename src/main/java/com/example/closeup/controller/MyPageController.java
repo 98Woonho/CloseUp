@@ -42,6 +42,8 @@ public class MyPageController {
 
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
+        System.out.println(chatRoomDtoList);
+
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
             String lastChatMessage = myPageService.getLastChatMessage(chatRoomDto.getId());
 

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.closeup.domain.mapper.CommunityMapper">
+
+    <select id="selectAllBoards" resultType="com.example.closeup.domain.dto.community.BoardDto">
+        SELECT * FROM board
+    </select>
+
+    <insert id="insertArticle" parameterType="com.example.closeup.domain.dto.community.ArticleDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO article (board_code, user_id, title, content, view, written_at)
+        VALUES (#{boardCode}, #{userId}, #{title}, #{content}, 0, #{writtenAt})
+    </insert>
+
+    <select id="selectArticleById" resultType="com.example.closeup.domain.dto.community.ArticleDto" resultMap="selectArticleByIdWithBoard">
+        SELECT a.*, b.*, COUNT(ar.user_id) as likeCount
+        FROM article a
+                 LEFT JOIN article_recommendation ar ON a.id = ar.article_id
+        INNER JOIN board b ON a.board_code = b.code
+        WHERE a.id = #{id}
+        GROUP BY a.id
+    </select>
+
+    <update id="incrementViewCount">
+        UPDATE article SET view = view + 1 WHERE id = #{id}
+    </update>
+
+    <insert id="insertComment" parameterType="com.example.closeup.domain.dto.community.CommentDto">
+        INSERT INTO comment (article_id, user_id, comment_id, content, written_at)
+        VALUES (#{articleId}, #{userId}, #{commentId}, #{content}, #{writtenAt})
+    </insert>
+
+    <select id="selectCommentsByArticleId" resultType="com.example.closeup.domain.dto.community.CommentDto">
+        SELECT c.*, COUNT(cr.user_id) as likeCount
+        FROM comment c
+                 LEFT JOIN comment_recommendation cr ON c.id = cr.comment_id
+        WHERE c.article_id = #{articleId}
+        GROUP BY c.id
+        ORDER BY c.written_at DESC
+    </select>
+
+<!--    <insert id="insertFile" parameterType="com.example.closeup.domain.dto.community.ArticleFileDto">-->
+<!--        INSERT INTO article_file (article_id, name, type, size, created_at)-->
+<!--        VALUES (#{articleId}, #{name}, #{type}, #{size}, #{createdAt})-->
+<!--    </insert>-->
+
+<!--    <select id="selectFilesByArticleId" resultType="com.example.closeup.domain.dto.community.ArticleFileDto">-->
+<!--        SELECT * FROM article_file WHERE article_id = #{articleId}-->
+<!--    </select>-->
+
+    <select id="checkLikeExists" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM article_recommendation
+        WHERE article_id = #{articleId} AND user_id = #{userId}
+    </select>
+
+    <delete id="deleteLike">
+        DELETE FROM article_recommendation
+        WHERE article_id = #{articleId} AND user_id = #{userId}
+    </delete>
+
+    <insert id="insertLike">
+        INSERT INTO article_recommendation (article_id, user_id)
+        VALUES (#{articleId}, #{userId})
+    </insert>
+
+    <select id="selectLikeCount" resultType="int">
+        SELECT COUNT(*)
+        FROM article_recommendation
+        WHERE article_id = #{articleId}
+    </select>
+    <select id="selectArticlesByTitle" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT a.*, COUNT(ar.user_id) as likeCount
+        FROM article a
+                 LEFT JOIN article_recommendation ar ON a.id = ar.article_id
+        WHERE a.title LIKE CONCAT('%', #{keyword}, '%')
+        GROUP BY a.id
+        ORDER BY a.written_at DESC
+    </select>
+
+    <resultMap id="selectArticleByIdWithBoard" type="com.example.closeup.domain.dto.community.ArticleDto" autoMapping="true">
+        <id property="id" column="id" />
+        <association property="board" javaType="com.example.closeup.domain.dto.community.BoardDto" autoMapping="true">
+            <id property="code" column="code"/>
+        </association>
+    </resultMap>
+
+    <select id="selectCommentById" resultType="com.example.closeup.domain.dto.community.CommentDto">
+        SELECT * FROM comment WHERE id = #{commentId}
+    </select>
+
+    <delete id="deleteComment">
+        DELETE FROM comment WHERE id = #{commentId}
+    </delete>
+
+    <select id="checkCommentLikeExists" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM comment_recommendation
+        WHERE comment_id = #{commentId} AND user_id = #{userId}
+    </select>
+
+    <delete id="deleteCommentLike">
+        DELETE FROM comment_recommendation
+        WHERE comment_id = #{commentId} AND user_id = #{userId}
+    </delete>
+
+    <insert id="insertCommentLike">
+        INSERT INTO comment_recommendation (comment_id, user_id)
+        VALUES (#{commentId}, #{userId})
+    </insert>
+
+    <select id="selectCommentLikeCount" resultType="int">
+        SELECT COUNT(*)
+        FROM comment_recommendation
+        WHERE comment_id = #{commentId}
+    </select>
+    <select id="selectArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT a.*, COUNT(ar.user_id) as likeCount, b.name as boardName
+        FROM article a
+        LEFT JOIN article_recommendation ar ON a.id = ar.article_id
+        LEFT JOIN board b ON a.board_code = b.code
+        WHERE 1=1
+        <if test="boardCode != null and boardCode != ''">
+            AND a.board_code = #{boardCode}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND a.title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        GROUP BY a.id
+        ORDER BY a.written_at DESC
+    </select>
+
+</mapper>

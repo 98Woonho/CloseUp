@@ -20,12 +20,8 @@ public class PrincipalDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(id);
         }
 
-//        System.out.println("PrincipalDetailsService's userDto: " + userDto);
-
         PrincipalDetails principalDetails = new PrincipalDetails();
         principalDetails.setUserDto(userDto);
-
-//        System.out.println("PrincipalDetailsService's principalDetails's userDto: " + principalDetails.getUserDto());
 
         return principalDetails;
     }

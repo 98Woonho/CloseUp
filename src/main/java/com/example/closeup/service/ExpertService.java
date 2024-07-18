@@ -16,8 +16,8 @@ public class ExpertService {
     @Autowired
     private ExpertDetailMapper expertDetailMapper;
 
-    public List<ExpertDto> getExpertInformation() {
-        return expertMapper.getExpertInformation();
+    public List<ExpertDto> selectExpertInformation() {
+        return expertMapper.selectExpertInformation();
     }
 
     public ExpertDto getExpertDto(String nickname) {
@@ -26,5 +26,9 @@ public class ExpertService {
 
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname, String category) {
         return expertDetailMapper.selectExpertDetailListByNicknameAndCategory(nickname, category);
+
+    public ExpertDto selectExpertDto(String id) {
+        return expertMapper.selectExpertByUserId(id);
+
     }
 }

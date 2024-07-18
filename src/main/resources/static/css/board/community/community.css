@@ -1,11 +1,14 @@
- @import "../../common.css";
+@import "../../common.css";
 
- #commuSec {
+#commuSec {
     width: 1104px;
     margin: 48px auto;
 }
+#commuSec > div {
+    text-align: right;
+}
 
-.header-sec {
+.top-sec {
     padding: 0 40px;
     text-align: center;
 }
@@ -42,9 +45,25 @@
     border-radius: 8px;
 }
 
+.writeBtn {
+    width: 80px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    background-color: var(--color-main-navy);
+    color: white;
+}
+
+.writeBtn:hover , .writeBtn:hover a{
+    background-color: var(--color-light-blue);
+    color: var(--color-main-navy);
+}
+
+
+
+
 /* 하단 사이드 메뉴 + 결과 내용 부분 */
 .body-sec {
-    margin-top: 48px;
     padding: 24px 40px;
     display: flex;
     border-radius: 20px;
@@ -98,9 +117,9 @@
     border-bottom: 1px solid var(--color-lighter-gray);
 
 }
- .content-con tbody > tr {
-     font-weight: lighter;
- }
+.content-con tbody > tr {
+    font-weight: lighter;
+}
 
 /* 글 제목 부분은 text 정렬 왼쪽 부터 */
 .content-con tbody td:nth-child(2){
@@ -199,10 +218,10 @@
     font-weight: lighter;
     color: var(--color-medium-gray) !important;
 }
- .commentBtnCon> button:hover {
-     font-weight: normal;
-     text-decoration: underline;
- }
+.commentBtnCon> button:hover {
+    font-weight: normal;
+    text-decoration: underline;
+}
 
 
 .commentContent {
@@ -216,14 +235,14 @@
     color: var(--color-lighter-bluegray);
 }
 
- .commentCon:hover .comment-delete {
-     color: #000;
-     cursor: pointer;
- }
+.commentCon:hover .comment-delete {
+    color: #000;
+    cursor: pointer;
+}
 
- .comment-reply .commentHeaderCon {
-     display: flex;
- }
+.comment-reply .commentHeaderCon {
+    display: flex;
+}
 .comment-reply .commentHeaderCon > img {
     margin-right: 8px;
     width: 24px;

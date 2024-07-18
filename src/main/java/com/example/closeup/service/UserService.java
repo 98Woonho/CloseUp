@@ -1,16 +1,28 @@
 package com.example.closeup.service;
 
+
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
+
+import com.example.closeup.config.auth.PrincipalDetails;
+
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.mapper.ExpertDetailMapper;
 import com.example.closeup.domain.mapper.ExpertMapper;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -62,9 +74,8 @@ public class UserService {
         userMapper.updateUserProfileImg(id, profileImg);
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public byte[] selectUserProfileImgById(String id) {
-        return userMapper.selectUserProfileImgById(id);
+    public boolean isSuspendedUserById(String id) {
+        return userMapper.selectIsSuspendedUserById(id);
     }
 
     @Transactional(rollbackFor = Exception.class)

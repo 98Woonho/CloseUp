@@ -1,7 +1,11 @@
 package com.example.closeup.controller;
 
+
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
+
+import com.example.closeup.config.auth.PrincipalDetails;
+
 import com.example.closeup.domain.dto.UserDto;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +13,7 @@ import org.json.JSONObject;
 import org.springframework.http.*;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -240,6 +245,7 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
+
     @GetMapping("/expertDetail/{nickname}")
     public String getExpertDetail(@PathVariable String nickname, Model model) {
         ExpertDto expertDto = userService.getExpertDto(nickname);
@@ -248,8 +254,17 @@ public class UserController {
 
         model.addAttribute("expertDto", expertDto);
         model.addAttribute("expertDetailDtoList", expertDetailDtoList);
+    }
 
-        return "user/expertDetail";
+
+    @GetMapping("/")
+    public String userIsSuspended(
+            Model model,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
+        model.addAttribute("isExpert", isExpert);
+        return "redirect:/";
     }
 
     @GetMapping("/addExpertInfo")

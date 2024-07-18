@@ -23,6 +23,7 @@ public class ExpertController {
     // 닉네임으로 expert table에서 정보 가져오기
     @GetMapping("/{nickname}")
     @ResponseBody
+
     public ExpertDto getExpert(@PathVariable String nickname) {
         return expertService.getExpertDto(nickname);
     }
@@ -33,11 +34,12 @@ public class ExpertController {
     public List<ExpertDetailDto> getDetail(@PathVariable String nickname,
                                            @PathVariable String category) {
         return expertService.getExpertDetailDtoList(nickname, category);
+
     }
 
     @GetMapping("map")
     public String getMap(Model model) {
-        List<ExpertDto> expertInformation = expertService.getExpertInformation();
+        List<ExpertDto> expertInformation = expertService.selectExpertInformation();
         model.addAttribute("expertInfo", expertInformation);
 
         return "map/mapMain";

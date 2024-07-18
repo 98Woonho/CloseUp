@@ -1,9 +1,11 @@
+
 CREATE DATABASE  IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `close_up`;
 
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+
 --
--- Host: localhost    Database: close_up
+-- Host: 192.168.5.15    Database: close_up
 -- ------------------------------------------------------
 -- Server version	8.0.37
 
@@ -39,7 +41,7 @@ CREATE TABLE `article` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`board_code`) REFERENCES `board` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `article_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +50,7 @@ CREATE TABLE `article` (
 
 LOCK TABLES `article` WRITE;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
+INSERT INTO `article` VALUES (1,'free','test2','자유게시판','자유',1,'2024-07-18 16:23:03',NULL),(2,'expertRecommendation','test2','전문가','전문가',1,'2024-07-18 16:24:03',NULL),(3,'expertReview','test2','전문가 후기','후기',1,'2024-07-18 16:24:28',NULL),(4,'question','test2','간단한 질문','간단한 질문',1,'2024-07-18 16:24:57',NULL),(5,'expert','test2','전문가 자유','자유',1,'2024-07-18 16:25:21',NULL),(6,'free','test4','자유','자유\r\n',0,'2024-07-18 16:26:00',NULL),(7,'expertRecommendation','test4','전문가 추천','추천',0,'2024-07-18 16:26:23',NULL),(8,'expertReview','test4','전문가의 후기','전문가 후기\r\n',1,'2024-07-18 16:27:42',NULL);
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,6 +107,7 @@ CREATE TABLE `article_recommendation` (
 
 LOCK TABLES `article_recommendation` WRITE;
 /*!40000 ALTER TABLE `article_recommendation` DISABLE KEYS */;
+INSERT INTO `article_recommendation` VALUES ('test2',1),('test4',1),('test2',3),('test2',4),('test2',5),('test4',5);
 /*!40000 ALTER TABLE `article_recommendation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,6 +131,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
+INSERT INTO `board` VALUES ('expert','전문가 자유 게시판'),('expertrecommendation','전문가 추천 게시판'),('expertReview','전문가의 후기 게시판'),('free','자유 게시판'),('question','간단한 질문 게시판');
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +262,7 @@ CREATE TABLE `comment` (
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,7 +271,35 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,1,'test2',NULL,'자유','2024-07-18 16:23:42',NULL),(2,2,'test2',NULL,'전문가','2024-07-18 16:24:08',NULL),(3,3,'test2',NULL,'후기','2024-07-18 16:24:32',NULL),(4,4,'test2',NULL,'간단함','2024-07-18 16:25:04',NULL),(5,5,'test2',NULL,'자유','2024-07-18 16:25:25',NULL),(6,5,'test4',NULL,'좋습니다.','2024-07-18 16:29:21',NULL);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comment_recommendation`
+--
+
+DROP TABLE IF EXISTS `comment_recommendation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comment_recommendation` (
+  `user_id` varchar(255) NOT NULL,
+  `comment_id` bigint NOT NULL,
+  PRIMARY KEY (`user_id`,`comment_id`),
+  KEY `FK-comment-id-comment_recommendation-comment_id` (`comment_id`),
+  CONSTRAINT `FK-comment-id-comment_recommendation-comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK-user-id-comment_recommendation-user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comment_recommendation`
+--
+
+LOCK TABLES `comment_recommendation` WRITE;
+/*!40000 ALTER TABLE `comment_recommendation` DISABLE KEYS */;
+INSERT INTO `comment_recommendation` VALUES ('test2',1),('test2',2),('test2',3),('test2',4),('test2',5),('test4',5),('test4',6);
+/*!40000 ALTER TABLE `comment_recommendation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -283,6 +316,7 @@ CREATE TABLE `expert` (
   `zipcode` varchar(45) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `address_detail` varchar(255) DEFAULT NULL,
+  `profile_img` longblob,
   PRIMARY KEY (`nickname`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `expert_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -295,7 +329,9 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES ('ExpertUser1','test1','I am an expert in the field of technology.','12345','123 Main Street','Apartment 1A'),('ExpertUser10','test10','I am knowledgeable in the field of information technology.','65432','654 Oak Drive','Townhouse 12'),('ExpertUser2','test2','I have extensive experience in business consulting.','67890','456 Oak Avenue','Suite 201'),('ExpertUser3','test3','My expertise lies in the field of healthcare.','54321','789 Elm Road','Building C'),('ExpertUser4','test4','I am knowledgeable in the field of education.','09876','321 Pine Lane','Room 305'),('ExpertUser5','test5','I specialize in the field of finance.','98765','654 Maple Drive','Townhouse 7'),('ExpertUser6','test6','My expertise is in the field of marketing.','43210','987 Oak Street','Apartment 2B'),('ExpertUser7','test7','I have extensive experience in the field of law.','76543','456 Elm Avenue','Suite 101'),('ExpertUser8','test8','My expertise lies in the field of design.','21098','789 Pine Road','Building D'),('ExpertUser9','test9','I specialize in the field of human resources.','87654','321 Maple Lane','Room 405');
+
+INSERT INTO `expert` VALUES ('ExpertUser1','test1','I am an expert in the field of technology.','12345','123 Main Street','Apartment 1A'),('ExpertUser10','test10','I am knowledgeable in the field of information technology.','65432','654 Oak Drive','Townhouse 12'),('ExpertUser2','test2','I have extensive experience in business consulting.','67890','456 Oak Avenue','Suite 201'),('ExpertUser3','test3','My expertise lies in the field of healthcare.','54321','789 Elm Road','Building C'),('ExpertUser4','test4','I am knowledgeable in the field of education.','09876','321 Pine Lane','Room 305'),('ExpertUser5','test5','I specialize in the field of finance.','98765','654 Maple Drive','Townhouse 7'),('ExpertUser6','test6','My expertise is in the field of marketing.','43210','987 Oak Street','Apartment 2B'),('ExpertUser7','test7','I have extensive experience in the field of law.','76543','456 Elm Avenue','Suite 101'),('ExpertUser8','test8','My expertise lies in the field of design.','21098','789 Pine Road','Building D'),('ExpertUser9','test9','I specialize in the field of human resources.','87654','321 Maple Lane','Room 405'),('디자인마스터','test1','안녕하세요11',NULL,'중앙대로 366','코리아 IT 9층',NULL),('스프링부트','test3','스프링부트 잘해요',NULL,'공평로 105','노마즈하우스',NULL),('웹개발신','test2','소개입니다2',NULL,'동성로 1길 65','현풍닭칼국수',NULL);
+
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,6 +462,7 @@ CREATE TABLE `user` (
   `phone` varchar(255) DEFAULT NULL,
   `is_suspended` tinyint(1) DEFAULT NULL,
   `role` varchar(30) DEFAULT NULL,
+  `profile_img` longblob,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -436,7 +473,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('test1','$2a$10$Nzv9rV2Q.o3MrJJa2Xi2JOhoQws6UA4nS5mkXNWzDbwm50.YH3.Vq','이운호','',0,'ROLE_USER'),('test2','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','박정우','',NULL,'ROLE_EXPERT'),('test3','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','이성훈',NULL,NULL,'ROLE_ADMIN'),('test4','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','길보령',NULL,NULL,'ROLE_EXPERT');
+INSERT INTO `user` VALUES ('test1','$2a$10$Nzv9rV2Q.o3MrJJa2Xi2JOhoQws6UA4nS5mkXNWzDbwm50.YH3.Vq','이운호','',0,'ROLE_USER',NULL),('test2','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','박정우','',1,'ROLE_EXPERT',NULL),('test3','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','이성훈','01098583656',1,'ROLE_ADMIN',NULL),('test4','$2a$10$xrVGKyUCdUwPYI.pL53HBe3Q9RAe.FiMg6yg/C4a8oxA3LUDgCG4C','길보령',NULL,NULL,'ROLE_EXPERT',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,10 +486,10 @@ DROP TABLE IF EXISTS `wish`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wish` (
   `user_id` varchar(255) NOT NULL,
-  `expert_nickname` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_id`,`expert_nickname`),
-  KEY `expert_nickname` (`expert_nickname`),
-  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`),
+  `expert_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`,`expert_id`),
+  KEY `wish_ibfk_1_idx` (`expert_id`),
+  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`expert_id`) REFERENCES `expert` (`user_id`),
   CONSTRAINT `wish_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -463,6 +500,7 @@ CREATE TABLE `wish` (
 
 LOCK TABLES `wish` WRITE;
 /*!40000 ALTER TABLE `wish` DISABLE KEYS */;
+INSERT INTO `wish` VALUES ('test4','test2'),('test4','test3');
 /*!40000 ALTER TABLE `wish` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -476,3 +514,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-07-18 16:07:26
+

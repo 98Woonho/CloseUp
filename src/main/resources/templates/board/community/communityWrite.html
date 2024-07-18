@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
-    <link rel="stylesheet" href="/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
+    <script src="../../../static/js/board/community/communityWrite.js" defer th:src="@{/js/board/community/communityWrite.js}"></script>
 
 </head>
 <body>
@@ -15,31 +16,31 @@
 
     <main>
         <section id="commuWriteSec">
-            <section class="header-sec">
+            <section class="header-pop">
                 <div class="title-con">
                     <p class="commuTitle">게시물 작성하기</p>
                 </div>
             </section>
             <section id="writeContentSec">
 
-                <form action="" method="POST">
+                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data">
                     <section class="post-write-sec">
                         <div class="write-header-con">
-                            <label class="writeCategoryLabel">
-                                <select>
+                            <label class="writeCategoryLabel" >
+                                <select name="boardCode">
                                     <option selected>카테고리 선택</option>
                                     <option disabled>-- 통합 커뮤니티 --</option>
-                                    <option>자유 게시판</option>
-                                    <option>전문가 추천 게시판</option>
-                                    <option>전문가의 후기 게시판</option>
-                                    <option>간단한 질문 게시판</option>
+                                    <option value="free">자유 게시판</option>
+                                    <option value="expertRecommendation">전문가 추천 게시판</option>
+                                    <option value="expertReview">전문가의 후기 게시판</option>
+                                    <option value="question">간단한 질문 게시판</option>
                                     <option disabled>-- 전문가 커뮤니티 --</option>
-                                    <option>전문가 자유 게시판</option>
+                                    <option value="expert">전문가 자유 게시판</option>
                                 </select>
                             </label>
                             <div class="title-con">
                                 <label for="title"></label>
-                                <input type="text" id="title" placeholder="제목을 입력하세요.">
+                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title">
                             </div>
                         </div>
                         <section id="fileSection">
@@ -50,7 +51,7 @@
                                 <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                                 <label for="files">첨부할 파일을 선택 해주세요 :)</label>
                                 <p>Max size : 5GB</p>
-                                <input type="file" id="files">
+                                <input type="file" id="files" name="files" multiple>
                             </div>
                         </section>
                     </section>
@@ -59,7 +60,7 @@
                             <span>내용</span>
                         </div>
                         <label>
-                            <textarea placeholder="내용을 작성하세요." maxlength="1500"></textarea>
+                            <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500"></textarea>
                         </label>
                     </section>
 
@@ -70,6 +71,7 @@
                     </section>
                 </form>
             </section>
+
         </section>
         <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 

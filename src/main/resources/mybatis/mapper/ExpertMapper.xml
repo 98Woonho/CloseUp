@@ -6,4 +6,10 @@
     <select id="getExpertInformation" resultType="com.example.closeup.domain.dto.ExpertDto">
         SELECT * FROM `expert`
     </select>
+
+    <select id="selectExpertById">
+        SELECT *
+        FROM `expert`
+        WHERE `user_id` = #{id}
+    </select>
 </mapper>

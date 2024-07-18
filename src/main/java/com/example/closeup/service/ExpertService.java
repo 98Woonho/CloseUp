@@ -15,4 +15,8 @@ public class ExpertService {
     public List<ExpertDto> getExpertInformation() {
         return expertMapper.getExpertInformation();
     }
+
+    public ExpertDto getExpertDto(String id) {
+        return expertMapper.selectExpertById(id);
+    }
 }

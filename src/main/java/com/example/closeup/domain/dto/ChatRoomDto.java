@@ -17,7 +17,9 @@ import java.util.UUID;
 public class ChatRoomDto {
     private Long id;
     private String userId;
-    private String expertId;
+    private String expertUserId;
+    private String lastChatMessage;
+    private String expertUserName;
 
     //WebSocketSession은 Spring에서 Websocket Connection이 맺어진 세션
     private Set<WebSocketSession> sessions = new HashSet<>();

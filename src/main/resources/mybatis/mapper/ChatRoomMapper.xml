@@ -3,15 +3,16 @@
 <mapper namespace="com.example.closeup.domain.mapper.ChatRoomMapper">
 
     <select id="selectChatRoomDtoListByUserId">
-        SELECT *
-        FROM chat_room
+        SELECT cr.*, u.name AS expert_user_name
+        FROM `chat_room` cr
+        JOIN `user` u ON u.id = cr.expert_user_id
         WHERE user_id = #{userId}
     </select>
 
     <select id="selectChatRoomDtoById">
         SELECT *
-        FROM chat_room
-        WHERE id = #{id}
+        FROM `chat_room`
+        WHERE `id` = #{id}
     </select>
 
     <insert id="insertChatRoom"

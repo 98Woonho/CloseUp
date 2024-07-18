@@ -1,14 +1,12 @@
 @import "../../common.css";
 #wishlistSec{
     max-width: 1104px;
-    margin: 0 auto;
+    margin: 80px auto;
     height: 100vh;
 }
 #wishlistSec > div{
     width: 1040px;
     margin: 0 auto;
-    position: relative;
-    top: 150px;
 }
 #titleSec{
     color: var(--color-dark-gray);

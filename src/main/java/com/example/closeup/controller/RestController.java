@@ -11,7 +11,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -33,7 +32,6 @@ public class RestController {
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @RequestBody byte[] profileImg
     ) {
-        principalDetails.getUserDto().setProfileImg(profileImg);
         userService.updateUserProfileImg(principalDetails.getUsername(), profileImg);
     }
 }

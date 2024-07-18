@@ -3,7 +3,8 @@
 #userMainSec{
     max-width: 1104px;
     height: 100vh;
-    margin: 80px auto;
+    margin: 0 auto;
+    padding: 32px 0;
 }
 
 #userMainSec > div{
@@ -28,33 +29,8 @@
     font-weight: lighter;
 }
 #userProfileImgContainer{
-    position: relative;
     width: 250px;
     margin-left: 20px;
-}
-#changeSpan{
-    position: absolute;
-    display: none;
-    width: 80px;
-    height: 40px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    align-content: center;
-    border: 2px solid var(--color-lighter-gray);
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-weight: bold;
-}
-#changeProfileImgBtn:hover img{
-    filter:brightness(70%);
-}
-#changeProfileImgBtn:hover{
-    #changeSpan{
-        display: inline-block;
-    }
 }
 /***********************************/
 #userCategorySection > ul{

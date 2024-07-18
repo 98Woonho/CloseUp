@@ -2,10 +2,12 @@
 
 #manageSection{
     max-width: 1104px;
-    margin: 80px auto;
+    margin: 0 auto;
     height: 100vh;
 }
 #manageSection > div{
+    position: relative;
+    top: 150px;
     width: 1040px;
     margin: 0 auto;
 }

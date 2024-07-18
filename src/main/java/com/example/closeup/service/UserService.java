@@ -50,7 +50,7 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public UserDto selectUserProfileImgById(String id) {
+    public byte[] selectUserProfileImgById(String id) {
         return userMapper.selectUserProfileImgById(id);
     }
 }

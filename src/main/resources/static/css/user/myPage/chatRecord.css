@@ -14,9 +14,11 @@
 
 /************* 전체 설정 **************/
 #chatRecordSec{
+    position: relative;
+    top: 150px;
     width: 1440px;
     height: 900px;
-    margin: 80px auto;
+    margin: 0 auto;
     display: flex;
     background-color: white;
 }

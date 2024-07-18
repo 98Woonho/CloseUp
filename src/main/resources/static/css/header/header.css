@@ -1,15 +1,14 @@
 @import "../common.css";
 
 .header-sec {
-    position: relative;
     display: flex;
     width: 100vw;
     height: 104px;
     align-items: center;
-    /*background-image: url(../../imgs/CloseUp-removebg-preview.png);*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: center center;*/
-    /*background-size: auto 100%;*/
+    background-image: url(../../imgs/CloseUp-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
     background-color: #fff;
 }
 
@@ -23,19 +22,6 @@
     background-position: center center;
     background-size: auto 100%;
     background-color: #152C4F;
-}
-
-#logoContainer{
-    width: 104px;
-    position: absolute;
-    display: block;
-    text-align: center;
-    left: 50%;
-    transform: translate(-50%);
-}
-#logoContainer img{
-    width: 104px;
-    height: 104px;
 }
 
 #navSec {

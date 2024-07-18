@@ -35,9 +35,6 @@
 
     <section th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'admin-header-sec' : 'header-sec'">
         <!-- 백그라운드 이미지로 로고 넣기-->
-        <div id="logoContainer">
-            <a href="/"><img src="/imgs/CloseUp-removebg-preview.png"/></a>
-        </div>
         <section id="navSec">
             <div>
                 <nav class="headerNav">
@@ -57,13 +54,13 @@
                             </div>
                         </li>
                         <li>
-                            <a href="/expert/map">주변 전문가</a>
+                            <a href="#">주변 전문가</a>
                         </li>
                         <li>
-                            <a href="/board/communityMain">커뮤니티</a>
+                            <a href="#">커뮤니티</a>
                         </li>
                         <li>
-                            <a href="/board/cs">문의</a>
+                            <a href="#">문의</a>
                         </li>
                     </ul>
                 </nav>

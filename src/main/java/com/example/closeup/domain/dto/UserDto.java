@@ -18,4 +18,5 @@ public class UserDto {
     private Boolean isSuspended;
     private Boolean isAuth;
     private byte[] profileImg;
+
 }

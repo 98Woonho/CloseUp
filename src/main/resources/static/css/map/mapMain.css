@@ -29,7 +29,7 @@
 .embla{
     position: relative;
     overflow: hidden;
-    top: -100px;
+    top: -120px;
 }
 .embla__container{
     display: flex;

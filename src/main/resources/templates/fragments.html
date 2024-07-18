@@ -81,7 +81,7 @@
                             <a href="#">상담 내역</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
-                            <a href="#">마이페이지</a>
+                            <a href="/myPage/myPageMain">마이페이지</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <div id="accountToggleCon">

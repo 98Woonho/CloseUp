@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,8 +29,14 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
+    @GetMapping("messages/{chatRoomId}")
+    @ResponseBody
+    public List<ChatMessageDto> getMessages(@PathVariable Long chatRoomId) {
+        return chatService.getChatMessageDtoList(chatRoomId);
+    }
+
     // 채팅 목록 조회
-    @GetMapping(value = "list")
+    @GetMapping("list")
     public void getRooms(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
@@ -40,7 +47,7 @@ public class ChatController {
     }
 
     //채팅방 개설
-    @PostMapping(value = "room")
+    @PostMapping("room")
     public String postRoom(ChatRoomDto chatRoomDto){
         chatService.createRoom(chatRoomDto);
 

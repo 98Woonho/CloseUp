@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExpertDto {
+    private String nickname;
     private String userId;
     private String introduction;
     private String zipcode;

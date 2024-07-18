@@ -2,12 +2,10 @@
 
 #modifySection{
     max-width: 1104px;
-    margin: 0 auto;
+    margin: 80px auto;
     height: 100vh;
 }
 .modify-container{
-    position: relative;
-    top: 150px;
     margin: 0 auto;
     width: 800px;
 }

@@ -22,7 +22,7 @@
     </select>
 
     <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
-        SELECT user.profile_img FROM `user`
+        SELECT profile_img FROM `user`
         WHERE id = #{id}
     </select>
 

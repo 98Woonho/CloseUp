@@ -30,7 +30,12 @@
     </insert>
 
     <select id="selectCommentsByArticleId" resultType="com.example.closeup.domain.dto.community.CommentDto">
-        SELECT * FROM comment WHERE article_id = #{articleId} ORDER BY written_at DESC
+        SELECT c.*, COUNT(cr.user_id) as likeCount
+        FROM comment c
+                 LEFT JOIN comment_recommendation cr ON c.id = cr.comment_id
+        WHERE c.article_id = #{articleId}
+        GROUP BY c.id
+        ORDER BY c.written_at DESC
     </select>
 
 <!--    <insert id="insertFile" parameterType="com.example.closeup.domain.dto.community.ArticleFileDto">-->

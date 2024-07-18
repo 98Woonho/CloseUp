@@ -1,5 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `close_up`;
+
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: close_up
@@ -222,7 +223,7 @@ CREATE TABLE `chat_room` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `chat_room_ibfk_1` FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `chat_room_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,6 +232,7 @@ CREATE TABLE `chat_room` (
 
 LOCK TABLES `chat_room` WRITE;
 /*!40000 ALTER TABLE `chat_room` DISABLE KEYS */;
+INSERT INTO `chat_room` VALUES (18,'test1',NULL),(19,'test1',NULL),(20,'test1',NULL),(21,'test1',NULL),(22,'test1',NULL),(23,'test1',NULL),(24,'test1',NULL),(25,'test1',NULL),(26,'test1',NULL),(27,'test1',NULL),(28,'test1',NULL),(29,'test1',NULL),(30,'test1',NULL),(31,'test1',NULL),(32,'test1',NULL),(33,'test1',NULL),(34,'test1','ExpertUser1'),(35,'test1','ExpertUser1'),(36,'test1','ExpertUser1'),(37,'test1','ExpertUser1'),(38,'test1','ExpertUser1'),(39,'test1','ExpertUser1'),(40,'test1','ExpertUser1'),(41,'test1','ExpertUser1'),(42,'test1','ExpertUser1');
 /*!40000 ALTER TABLE `chat_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,7 +296,7 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES ('디자인마스터','test1',NULL,NULL,NULL,NULL),('스프링부트','test3',NULL,NULL,NULL,NULL),('웹개발신','test2',NULL,NULL,NULL,NULL);
+INSERT INTO `expert` VALUES ('ExpertUser1','test1','I am an expert in the field of technology.','12345','123 Main Street','Apartment 1A'),('ExpertUser10','test10','I am knowledgeable in the field of information technology.','65432','654 Oak Drive','Townhouse 12'),('ExpertUser2','test2','I have extensive experience in business consulting.','67890','456 Oak Avenue','Suite 201'),('ExpertUser3','test3','My expertise lies in the field of healthcare.','54321','789 Elm Road','Building C'),('ExpertUser4','test4','I am knowledgeable in the field of education.','09876','321 Pine Lane','Room 305'),('ExpertUser5','test5','I specialize in the field of finance.','98765','654 Maple Drive','Townhouse 7'),('ExpertUser6','test6','My expertise is in the field of marketing.','43210','987 Oak Street','Apartment 2B'),('ExpertUser7','test7','I have extensive experience in the field of law.','76543','456 Elm Avenue','Suite 101'),('ExpertUser8','test8','My expertise lies in the field of design.','21098','789 Pine Road','Building D'),('ExpertUser9','test9','I specialize in the field of human resources.','87654','321 Maple Lane','Room 405');
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,6 +322,7 @@ CREATE TABLE `expert_detail` (
 
 LOCK TABLES `expert_detail` WRITE;
 /*!40000 ALTER TABLE `expert_detail` DISABLE KEYS */;
+INSERT INTO `expert_detail` VALUES ('ExpertUser1','ability','Adaptability'),('ExpertUser1','ability','Critical Thinking'),('ExpertUser1','ability','Problem-solving'),('ExpertUser1','expertise','Innovation'),('ExpertUser1','expertise','Research'),('ExpertUser1','expertise','Technology'),('ExpertUser1','skill','Data Analysis'),('ExpertUser1','skill','Programming'),('ExpertUser1','skill','Project Management'),('ExpertUser10','career','Client Engagement'),('ExpertUser10','career','IT Consulting'),('ExpertUser10','career','Project Management'),('ExpertUser10','expertise','Information Technology'),('ExpertUser10','expertise','IT Consulting'),('ExpertUser10','expertise','Software Development'),('ExpertUser10','skill','Agile Methodologies'),('ExpertUser10','skill','Cloud Computing'),('ExpertUser10','skill','Software Development'),('ExpertUser2','career','Consulting Experience'),('ExpertUser2','career','Industry Expertise'),('ExpertUser2','career','Leadership'),('ExpertUser2','expertise','Business Consulting'),('ExpertUser2','expertise','Change Management'),('ExpertUser2','expertise','Strategic Planning'),('ExpertUser2','skill','Client Relationship'),('ExpertUser2','skill','Stakeholder Management'),('ExpertUser2','skill','Strategic Planning'),('ExpertUser3','ability','Analytical Skills'),('ExpertUser3','ability','Attention to Detail'),('ExpertUser3','ability','Patient Care'),('ExpertUser3','expertise','Healthcare'),('ExpertUser3','expertise','Medical Research'),('ExpertUser3','expertise','Patient Care'),('ExpertUser3','skill','Clinical Trials'),('ExpertUser3','skill','Medical Research'),('ExpertUser3','skill','Patient Diagnosis'),('ExpertUser4','career','Curriculum Evaluation'),('ExpertUser4','career','Educational Leadership'),('ExpertUser4','career','Teaching Experience'),('ExpertUser4','expertise','Curriculum Development'),('ExpertUser4','expertise','Education'),('ExpertUser4','expertise','Teaching Methodology'),('ExpertUser4','skill','Curriculum Development'),('ExpertUser4','skill','Instructional Design'),('ExpertUser4','skill','Student Engagement'),('ExpertUser5','ability','Decision Making'),('ExpertUser5','ability','Problem-solving'),('ExpertUser5','ability','Risk Management'),('ExpertUser5','expertise','Finance'),('ExpertUser5','expertise','Financial Analysis'),('ExpertUser5','expertise','Risk Management'),('ExpertUser5','skill','Financial Analysis'),('ExpertUser5','skill','Financial Modeling'),('ExpertUser5','skill','Investment Strategy'),('ExpertUser6','career','Analytics Interpretation'),('ExpertUser6','career','Brand Management'),('ExpertUser6','career','Campaign Planning'),('ExpertUser6','expertise','Brand Management'),('ExpertUser6','expertise','Digital Marketing'),('ExpertUser6','expertise','Marketing'),('ExpertUser6','skill','Content Creation'),('ExpertUser6','skill','Digital Marketing'),('ExpertUser6','skill','Social Media Marketing'),('ExpertUser7','ability','Attention to Detail'),('ExpertUser7','ability','Critical Thinking'),('ExpertUser7','ability','Litigation'),('ExpertUser7','expertise','Law'),('ExpertUser7','expertise','Legal Research'),('ExpertUser7','expertise','Litigation'),('ExpertUser7','skill','Contract Drafting'),('ExpertUser7','skill','Legal Research'),('ExpertUser7','skill','Negotiation'),('ExpertUser8','career','Design Thinking'),('ExpertUser8','career','Design Trends'),('ExpertUser8','career','UI/UX Design'),('ExpertUser8','expertise','Design'),('ExpertUser8','expertise','Graphic Design'),('ExpertUser8','expertise','UI/UX Design'),('ExpertUser8','skill','Graphic Design'),('ExpertUser8','skill','Prototyping'),('ExpertUser8','skill','Typography'),('ExpertUser9','ability','Coaching'),('ExpertUser9','ability','Conflict Resolution'),('ExpertUser9','ability','Employee Development'),('ExpertUser9','expertise','Employee Development'),('ExpertUser9','expertise','Human Resources'),('ExpertUser9','expertise','Talent Acquisition'),('ExpertUser9','skill','Performance Management'),('ExpertUser9','skill','Talent Acquisition'),('ExpertUser9','skill','Training Development');
 /*!40000 ALTER TABLE `expert_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,31 +414,6 @@ LOCK TABLES `expert_service` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `skill`
---
-
-DROP TABLE IF EXISTS `skill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `skill` (
-  `name` varchar(30) NOT NULL,
-  `expert_nickname` varchar(255) NOT NULL,
-  PRIMARY KEY (`name`,`expert_nickname`),
-  KEY `expert_nickname` (`expert_nickname`),
-  CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `skill`
---
-
-LOCK TABLES `skill` WRITE;
-/*!40000 ALTER TABLE `skill` DISABLE KEYS */;
-/*!40000 ALTER TABLE `skill` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
@@ -498,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-18 11:37:48
+-- Dump completed on 2024-07-18 16:07:26

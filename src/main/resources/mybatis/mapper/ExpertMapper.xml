@@ -12,4 +12,10 @@
         FROM `expert`
         WHERE `user_id` = #{id}
     </select>
+
+    <select id="selectExpertByNickname">
+        SELECT *
+        FROM `expert`
+        WHERE `nickname` = #{nickname}
+    </select>
 </mapper>

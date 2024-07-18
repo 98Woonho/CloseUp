@@ -1,5 +1,6 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,19 @@ public class ExpertController {
     @Autowired
     private ExpertService expertService;
 
-    @GetMapping("/{id}")
+    // 닉네임으로 expert table에서 정보 가져오기
+    @GetMapping("/{nickname}")
     @ResponseBody
-    public ExpertDto getExpert(@PathVariable String id) {
-        return expertService.getExpertDto(id);
+    public ExpertDto getExpert(@PathVariable String nickname) {
+        return expertService.getExpertDto(nickname);
+    }
+
+    // 닉네임과 카테고리로 expert_detail table에서 정보 가져오기
+    @GetMapping("/detail/{nickname}/{category}")
+    @ResponseBody
+    public List<ExpertDetailDto> getDetail(@PathVariable String nickname,
+                                           @PathVariable String category) {
+        return expertService.getExpertDetailDtoList(nickname, category);
     }
 
     @GetMapping("map")

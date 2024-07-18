@@ -43,5 +43,15 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(newPassword);
         return userMapper.updatePassword(id, encodedPassword) > 0;
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserProfileImg(String id, byte[] profileImg) {
+        userMapper.updateUserProfileImg(id, profileImg);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public byte[] selectUserProfileImgById(String id) {
+        return userMapper.selectUserProfileImgById(id);
+    }
 }
 

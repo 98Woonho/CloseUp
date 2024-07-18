@@ -17,4 +17,5 @@ public class UserDto {
     private String name;
     private Boolean isSuspended;
     private Boolean isAuth;
+    private byte[] profileImg;
 }

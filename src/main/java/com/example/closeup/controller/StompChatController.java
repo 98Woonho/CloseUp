@@ -25,11 +25,9 @@ public class StompChatController {
 //        template.convertAndSend("/sub/chat/room/" + chatMessageDto.getChatRoomId(), chatMessageDto);
 //    }
 
+    // /pub/chat/message
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto chatMessageDto){
-        System.out.println("message() chatMessageDto : " + chatMessageDto);
-        LocalDateTime date = LocalDateTime.now();
-        chatMessageDto.setWrittenAt(date);
         template.convertAndSend("/sub/chat/room/" + chatMessageDto.getChatRoomId(), chatMessageDto);
     }
 }

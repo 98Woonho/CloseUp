@@ -1,10 +1,11 @@
+@import "../../common.css";
 
 #modifySection{
     max-width: 1104px;
     margin: 0 auto;
     height: 100vh;
 }
-.modify-container{
+#modifyContainer{
     position: relative;
     top: 150px;
     margin: 0 auto;
@@ -17,82 +18,84 @@
     text-align: left;
 }
 /************************************/
-.modify-container > form{
+#modifyContainer > form{
     padding: 40px;
     background-color: white;
     border-radius: 20px;
     box-shadow: var(--box-shadow);
 }
+#fileSection{
+    margin-bottom: 30px;
+}
+#fileInputContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 110px;
+    color: var(--color-medium-gray);
+    background-color: var(--color-lighter-bluegray);
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+#fileInputContainer > input[type="file"]{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
 #infoSection{
     margin-bottom: 30px;
 }
+#infoSection input{
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
 #infoSection textarea{
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    width: 100%;
+    height: 160px;
     resize: none;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
 }
-/****************************************/
-#introTextareaContainer textarea{
-    width: 100%;
-    height: 150px;
+#infoSection .service-info{
+    margin-bottom: 8px;
 }
-.textarea-container{
-    display: flex;
+#infoSection .service-info span{
+    font-size: 16px;
+    color: var(--color-medium-gray);
 }
-.textarea-container > label{
-    flex: 1;
-    margin-right: 10px;
+#introSection{
+    margin-bottom: 30px;
 }
-.textarea-container textarea{
-    width: 100%;
-    height: 40px;
-}
-.input-btn{
-    width: 60px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: var(--color-main-navy);
-    color: white;
-}
-.input-btn:hover{
-    background-color: var(--color-lighter-bluegray);
-    color: var(--color-main-navy);
-}
-.select-container select{
-    width: 150px;
-    height: 40px;
+#introSection textarea{
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    resize: none;
+    width: 100%;
+    height: 200px;
 }
-/********************************/
-.info-container{
-    margin-bottom: 20px;
+.sub-title {
+    margin-bottom: 16px;
+    color: var(--color-error-red);
 }
-.sub-title{
+.sub-title span{
+    color: black;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-}
-.tags-container{
-    margin-bottom: 10px;
-}
-.tags-container > div{
-    display: inline-block;
-    padding: 3px 10px;
-    height: 25px;
-    align-content: center;
-    border-radius: 15px;
-    background-color: var(--color-lighter-gray);
-    color: var(--color-medium-gray);
-}
-.tags > p{
-    display: inline-block;
-    margin-right: 5px;
-}
-.tags i{
-    color: var(--color-medium-gray);
 }
 /*************************************/
 #portfolioSection{

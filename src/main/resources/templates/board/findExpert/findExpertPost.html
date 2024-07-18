@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>전문가 찾기 | 서비스 게시물</title>
+
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../../static/css/common.css">
-    <link rel="stylesheet" href="../../../static/css/board/findExpertPost.css">
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <script src="../../../static/js/board/findExpertPost.js" defer></script>
+    <script src="/js/board/findExpertPost.js" defer></script>
+
+    <link rel="stylesheet" href="/css/board/findExpertPost.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
     <main>
         <section id="findExpertPostSec">
             <section id="postSec">
@@ -171,6 +178,8 @@
                 </aside>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

@@ -1,3 +1,5 @@
+@import "../../common.css";
+
 input, button{
     display: block;
     width: 440px;

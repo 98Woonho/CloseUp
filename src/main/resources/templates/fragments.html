@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,7 +8,12 @@
     <title>fragment | header</title>
     <link rel="stylesheet" href="../static/css/header/header.css">
 
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
     <script src="../static/js/header.js" defer></script>
+
+
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/header/header.css">
 </head>
 <body>
 
@@ -25,8 +30,10 @@
 </th:block>
 
 <header th:fragment="header_fragment">
+    <section class="header-sec admin-header-sec">
 
-    <section id="headerSec">
+
+    <section th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'admin-header-sec' : 'header-sec'">
         <!-- 백그라운드 이미지로 로고 넣기-->
         <section id="navSec">
             <div>
@@ -61,18 +68,56 @@
             <div>
                 <nav class="headerNav">
                     <ul>
-                        <li>
+                        <li sec:authorize="isAnonymous()">
                             <a href="/user/login">로그인</a>
                         </li>
-                        <li>
+                        <li sec:authorize="isAnonymous()">
                             <a href="/user/register">회원가입</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/logout">로그아웃</a>
+                        </li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
+                            <a href="#">상담 내역</a>
+                        </li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
+                            <a href="#">마이페이지</a>
+                        </li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
+                            <div id="accountToggleCon">
+                                <a href="">일반</a>
+                                <input type="checkbox" id="toggleSwitch">
+                                <label for="toggleSwitch"></label>
+                                <a href="" id="expertAccount">전문</a>
+                            </div>
                         </li>
                     </ul>
                 </nav>
             </div>
         </section>
     </section>
+
 </header>
+
+<!-- 회면 고정 메뉴  -->
+<div th:fragment="fixedBtns_frag" id="fixedBtns">
+    <nav>
+        <ul>
+            <li>
+                <a href=""><i class="fa-solid fa-plus"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-regular fa-comment"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-solid fa-location-dot"></i></a>
+            </li>
+            <li>
+                <a href=""><i class="fa-regular fa-user"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 </body>
 </html>

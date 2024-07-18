@@ -12,7 +12,7 @@
 <div class="container">
     <div>
         <ul th:each="chatRoomDto : ${chatRoomDtoList}">
-            <li><a th:href="@{/chat/room(id=${chatRoomDto.id})}">[[${chatRoomDto.id}]] [[${chatRoomDto.userId}]]</a></li>
+            <li><a th:href="@{/chat/room(id=${chatRoomDto.id})}">[[${chatRoomDto.id}]]</a></li>
         </ul>
     </div>
 </div>

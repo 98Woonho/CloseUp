@@ -91,6 +91,8 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: scroll;
+    resize: unset;
+    overflow-x: hidden;
 }
 
 

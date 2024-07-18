@@ -5,14 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-<!--    <script src="../../static/js/login.js" th:src="@{/js/login.js}"></script>-->
+    <script defer src="/js/user/login.js"></script>
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/css/common.css">
+
     <link rel="stylesheet" href="/css/user/login.css">
+    <link rel="stylesheet" href="/css/header/header.css">
 
-<!--    <script defer src="/js/user/login.js"></script>-->
+    <script defer src="/js/user/login.js"></script>
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
 <main>
     <section class="login-sec">
@@ -76,6 +79,8 @@
         </div>
     </section>
 </main>
+
+
 
 </body>
 </html>

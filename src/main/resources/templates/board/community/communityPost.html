@@ -9,9 +9,15 @@
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../static/css/board/community/community.css" th:href="@{/css/board/community/community.css}">
     <script> var isAuthenticated = /*[[${#authentication.isAuthenticated()}]]*/ false;</script>
-    <script src="../../../static/js/board/community/communityPost.js" th:src="@{/js/board/community/communityPost.js}" defer></script>
+    <script src="/js/board/community/communityPost.js" th:src="@{/js/board/community/communityPost.js}" defer></script>
+    <link rel="stylesheet" href="/css/board/community/community.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 </head>
 <body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
     <main>
         <section id="commuSec">
             <section class="header-sec">
@@ -56,7 +62,7 @@
                             <a href="#" th:text="${article.board.name}" th:href="@{/board/community/communityMain(boardCode=${article.board.code})}">전문가 추천 게시판</a>
                         </div>
                         <div class="postTitleCon">
-                            <span th:text="${article.title}">첫 게시글이네요 :)</span>
+                            <span>첫 게시글이네요 :)</span>
                         </div>
                         <div id="viewContent">
                             <p th:text="${article.content}">안녕하세요</p>
@@ -142,6 +148,8 @@
                 </section>
             </section>
         </section>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
     </main>
 </body>
 </html>

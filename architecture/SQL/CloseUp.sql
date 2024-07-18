@@ -1,7 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `close_up`;
-
-
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: close_up
@@ -142,7 +140,7 @@ CREATE TABLE `career` (
   `expert_nickname` varchar(255) NOT NULL,
   `information` varchar(100) NOT NULL,
   PRIMARY KEY (`expert_nickname`),
-  FOREIGN KEY (`expert_nickname`) REFERENCES `expert`(`nickname`)
+  CONSTRAINT `career_ibfk_1` FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -279,13 +277,14 @@ DROP TABLE IF EXISTS `expert`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `expert` (
   `nickname` varchar(255) NOT NULL,
-  `user_id` varchar(255) UNIQUE NOT NULL,
+  `user_id` varchar(255) NOT NULL,
   `introduction` longtext,
   `zipcode` varchar(45) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `address_detail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`nickname`),
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `expert_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,7 +294,7 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES ('디자인마스터','test1',NULL,NULL,NULL,NULL),('웹개발신','test2',NULL,NULL,NULL,NULL),('스프링부트','test3',NULL,NULL,NULL,NULL);
+INSERT INTO `expert` VALUES ('디자인마스터','test1',NULL,NULL,NULL,NULL),('스프링부트','test3',NULL,NULL,NULL,NULL),('웹개발신','test2',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,7 +421,8 @@ CREATE TABLE `skill` (
   `name` varchar(30) NOT NULL,
   `expert_nickname` varchar(255) NOT NULL,
   PRIMARY KEY (`name`,`expert_nickname`),
-  FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `expert_nickname` (`expert_nickname`),
+  CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`expert_nickname`) REFERENCES `expert` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -498,4 +498,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-17 15:12:51
+-- Dump completed on 2024-07-18 11:37:48

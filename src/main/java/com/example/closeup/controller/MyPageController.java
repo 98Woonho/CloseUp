@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
-import ch.qos.logback.core.model.Model;
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.service.UserService;
 import lombok.extern.slf4j.Slf4j;

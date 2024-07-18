@@ -1,21 +1,26 @@
 package com.example.closeup.controller;
 
-import ch.qos.logback.core.model.Model;
 import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
 @Controller
-@RequestMapping("myPage")
+@RequestMapping("/myPage")
 public class MyPageController {
     @Autowired private UserService userService;
 
@@ -24,17 +29,15 @@ public class MyPageController {
         return "user/myPage/myPageMain";
     }
 
-    @GetMapping("/{id}/profileImage")
+    @ResponseBody
+    @GetMapping("/profileImage")
     public ResponseEntity<byte[]> getProfileImage(
-            @PathVariable("id") String id,
             @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) {
-        id = principalDetails.getUsername();
-        System.out.println(id);
-        byte[] profileImg = userService.selectUserProfileImgById(id);
+    ) throws Exception {
+        byte[] data = principalDetails.getUserDto().getProfileImg();
         return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(profileImg);
+                .contentLength(data.length)
+                .body(data);
     }
 
     @GetMapping("/modifyUserInfo")

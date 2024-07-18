@@ -1,12 +1,12 @@
  @import "../../common.css";
 
-#commuSec {
+ #commuSec {
     width: 1104px;
     margin: 48px auto;
 }
- #commuSec > div {
-     text-align: right;
- }
+#commuSec > div {
+    text-align: right;
+}
 
 .top-sec {
     padding: 0 40px;
@@ -45,27 +45,26 @@
     border-radius: 8px;
 }
 
-#writeBtn {
+.writeBtn {
     width: 80px;
     padding: 8px 16px;
     border: 1px solid var(--color-light-gray);
     border-radius: 8px;
     background-color: var(--color-main-navy);
-}
-
- #writeBtn:hover , #writeBtn:hover a{
-     background-color: var(--color-light-blue);
-     color: var(--color-main-navy);
- }
-
-
-#writeBtn > a {
     color: white;
 }
+
+.writeBtn:hover , .writeBtn:hover a{
+    background-color: var(--color-light-blue);
+    color: var(--color-main-navy);
+}
+
+
 
 
 /* 하단 사이드 메뉴 + 결과 내용 부분 */
 .body-sec {
+    /*margin-top: 48px;*/
     padding: 24px 40px;
     display: flex;
     border-radius: 20px;
@@ -220,10 +219,10 @@
     font-weight: lighter;
     color: var(--color-medium-gray) !important;
 }
- .commentBtnCon> button:hover {
-     font-weight: normal;
-     text-decoration: underline;
- }
+.commentBtnCon> button:hover {
+    font-weight: normal;
+    text-decoration: underline;
+}
 
 
 .commentContent {
@@ -237,14 +236,14 @@
     color: var(--color-lighter-bluegray);
 }
 
- .commentCon:hover .comment-delete {
-     color: #000;
-     cursor: pointer;
- }
+.commentCon:hover .comment-delete {
+    color: #000;
+    cursor: pointer;
+}
 
- .comment-reply .commentHeaderCon {
-     display: flex;
- }
+.comment-reply .commentHeaderCon {
+    display: flex;
+}
 .comment-reply .commentHeaderCon > img {
     margin-right: 8px;
     width: 24px;

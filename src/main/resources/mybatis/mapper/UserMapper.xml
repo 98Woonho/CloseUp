@@ -7,7 +7,6 @@
         VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended})
     </insert>
 
-
     <select id="selectUserByNameAndPhone" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE name = #{name} AND phone = #{phone}
@@ -22,9 +21,20 @@
         WHERE id = #{id}
     </select>
 
+    <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT user.profile_img FROM `user`
+        WHERE id = #{id}
+    </select>
+
     <update id="updatePassword">
         UPDATE `user`
         SET password = #{newPassword}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserProfileImg">
+        UPDATE `user`
+        SET profile_img = #{profileImg}
         WHERE id = #{id}
     </update>
 

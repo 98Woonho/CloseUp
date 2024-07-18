@@ -1,0 +1,31 @@
+
+
+
+#commuSec {
+    width: 1104px;
+    margin: 48px auto;
+}
+
+.headerSec {
+    padding: 0 40px;
+    display: flex;
+    text-align: center;
+}
+
+
+/* 사이드 메뉴 */
+.bodySec {
+    display: flex;
+}
+
+.bodySec > aside{
+    padding: 24px 40px;
+    border-right: 1px solid var(--color-light-gray);
+}
+
+
+/* 게시글 내용부분 */
+
+.contentCon {
+    padding: 0 24px;
+}

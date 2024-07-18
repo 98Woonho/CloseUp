@@ -10,4 +10,6 @@ public interface ChatMessageMapper {
     void insertChatMessage(ChatMessageDto chatMessageDto);
 
     List<ChatMessageDto> selectChatMessageDtoListByChatRoomId(Long chatRoomId);
+
+    String selectLastChatMessageByChatRoomId(Long chatRoomId);
 }

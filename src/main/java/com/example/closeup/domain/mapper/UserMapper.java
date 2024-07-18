@@ -13,4 +13,9 @@ public interface UserMapper {
     int updatePassword(String id, String newPassword);
     /**************회원가입***************/
     void insertUser(UserDto user);
+    /**************유저 프로필 사진(회원가입 후 마이페이지에서 변경)***************/
+    void updateUserProfileImg(String id, byte[] profileImg);
+    /**************유저 프로필 사진 조회***************/
+    byte[] selectUserProfileImgById(String id);
+
 }

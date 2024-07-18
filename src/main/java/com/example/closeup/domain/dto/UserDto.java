@@ -14,6 +14,9 @@ public class UserDto {
     private String password;
     private String name;
     private String phone;
-    private Boolean isSuspended;
     private String role;
+    private Boolean isSuspended;
+    private Boolean isAuth;
+    private byte[] profileImg;
+
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface ExpertMapper {
-    List<ExpertDto> getExpertInformation();
+    List<ExpertDto> selectExpertInformation();
 
-    ExpertDto selectExpertById(String id);
+    ExpertDto selectExpertByUserId(String id);
 }

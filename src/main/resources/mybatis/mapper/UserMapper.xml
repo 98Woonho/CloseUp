@@ -20,9 +20,8 @@
         SELECT * FROM `user`
         WHERE id = #{id}
     </select>
-
-    <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
-        SELECT profile_img FROM `user`
+    <select id="selectIsSuspendedUserById" resultType="boolean">
+        SELECT is_suspended FROM `user`
         WHERE id = #{id}
     </select>
 

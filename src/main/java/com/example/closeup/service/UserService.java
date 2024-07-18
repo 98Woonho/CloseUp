@@ -1,11 +1,17 @@
 package com.example.closeup.service;
 
+import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class UserService {
@@ -49,9 +55,8 @@ public class UserService {
         userMapper.updateUserProfileImg(id, profileImg);
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public UserDto selectUserProfileImgById(String id) {
-        return userMapper.selectUserProfileImgById(id);
+    public boolean isSuspendedUserById(String id) {
+        return userMapper.selectIsSuspendedUserById(id);
     }
 }
 

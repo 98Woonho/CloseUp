@@ -3,13 +3,15 @@
 <mapper namespace="com.example.closeup.domain.mapper.ExpertMapper">
 
 
-    <select id="getExpertInformation" resultType="com.example.closeup.domain.dto.ExpertDto">
+    <select id="selectExpertInformation" resultType="com.example.closeup.domain.dto.ExpertDto">
         SELECT * FROM `expert`
     </select>
 
-    <select id="selectExpertById">
-        SELECT *
-        FROM `expert`
-        WHERE `user_id` = #{id}
+    <select id="selectExpertByUserId" resultType="com.example.closeup.domain.dto.ExpertDto">
+        SELECT e.*
+        FROM `user` u
+            JOIN `expert` e
+            ON u.id = e.user_id
+        WHERE u.id = #{id}
     </select>
 </mapper>

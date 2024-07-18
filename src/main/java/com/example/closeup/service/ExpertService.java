@@ -12,11 +12,11 @@ public class ExpertService {
     @Autowired
     private ExpertMapper expertMapper;
 
-    public List<ExpertDto> getExpertInformation() {
-        return expertMapper.getExpertInformation();
+    public List<ExpertDto> selectExpertInformation() {
+        return expertMapper.selectExpertInformation();
     }
 
-    public ExpertDto getExpertDto(String id) {
-        return expertMapper.selectExpertById(id);
+    public ExpertDto selectExpertDto(String id) {
+        return expertMapper.selectExpertByUserId(id);
     }
 }

@@ -22,12 +22,12 @@ public class ExpertController {
     @GetMapping("/{id}")
     @ResponseBody
     public ExpertDto getExpert(@PathVariable String id) {
-        return expertService.getExpertDto(id);
+        return expertService.selectExpertDto(id);
     }
 
     @GetMapping("map")
     public String getMap(Model model) {
-        List<ExpertDto> expertInformation = expertService.getExpertInformation();
+        List<ExpertDto> expertInformation = expertService.selectExpertInformation();
         model.addAttribute("expertInfo", expertInformation);
 
         return "map/mapMain";

@@ -49,4 +49,9 @@ public class ChatService {
     public List<ChatMessageDto> getChatMessageDtoList(Long chatRoomId) {
         return chatMessageMapper.selectChatMessageDtoListByChatRoomId(chatRoomId);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public String getLastChatMessage(Long chatRoomId) {
+        return chatMessageMapper.selectLastChatMessageByChatRoomId(chatRoomId);
+    }
 }

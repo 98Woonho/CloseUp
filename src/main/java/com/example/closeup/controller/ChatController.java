@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +38,23 @@ public class ChatController {
 
     // 채팅 목록 조회
     @GetMapping("list")
-    public void getRooms(Authentication auth, Model model) {
-        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
-        String userId = principal.getUserDto().getId();
+    @ResponseBody
+    public List<ChatRoomDto> getRooms(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        List<ChatRoomDto> chatRoomDtoList = null;
 
-        List<ChatRoomDto> chatRoomDtoList = chatService.getChatRoomDtoList(userId);
+        if (principalDetails != null) {
+            String userId = principalDetails.getUserDto().getId();
 
-        model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+            chatRoomDtoList = chatService.getChatRoomDtoList(userId);
+
+            for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
+                String lastChatMessage = chatService.getLastChatMessage(chatRoomDto.getId());
+
+                chatRoomDto.setLastChatMessage(lastChatMessage);
+            }
+        }
+
+        return chatRoomDtoList;
     }
 
     //채팅방 개설

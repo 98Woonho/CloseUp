@@ -51,8 +51,8 @@ public class MyPageController {
         return "user/myPage/myPageMain";
     }
 
-    @ResponseBody
     @GetMapping("/profileImage")
+    @ResponseBody
     public ResponseEntity<byte[]> getProfileImage(
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws Exception {

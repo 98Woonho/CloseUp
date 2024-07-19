@@ -268,6 +268,7 @@ public class UserController {
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
         boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
+        System.out.println(isExpert);
         model.addAttribute("isExpert", isExpert);
         return "redirect:/";
     }

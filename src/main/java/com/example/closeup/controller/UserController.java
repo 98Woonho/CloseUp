@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -239,9 +240,28 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
-    @GetMapping("/expertDetail")
-    public String getExpertDetail(Model model) {
+
+
+    @GetMapping("expertDetail/{nickname}")
+    public String getExpertDetail(@PathVariable String nickname, Model model) {
+        System.out.println(nickname);
+        ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        System.out.println(expertDto);
+
+        List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
+
+        model.addAttribute("expertDto", expertDto);
+        model.addAttribute("expertDetailDtoList", expertDetailDtoList);
+
         return "user/expertDetail";
+    }
+
+    @GetMapping("id")
+    @ResponseBody
+    public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto().getId();
+
     }
 
     @GetMapping("/addExpertInfo")

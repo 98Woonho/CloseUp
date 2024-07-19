@@ -20,6 +20,18 @@ public class ExpertService {
         return expertMapper.selectExpertInformation();
     }
 
+
+    public ExpertDto getExpertDto(String nickname) {
+        return expertMapper.selectExpertByNickname(nickname);
+    }
+
+    public List<ExpertDetailDto> getExpertDetailDtoList(String nickname, String category) {
+        return expertDetailMapper.selectExpertDetailListByNicknameAndCategory(nickname, category);
+    }
+
+    public ExpertDto selectExpertDto(String id) {
+        return expertMapper.selectExpertByUserId(id);
+
     public ExpertDto selectExpertDtoByUserId(String id) {
         return expertMapper.selectExpertByUserId(id);
     }
@@ -27,5 +39,6 @@ public class ExpertService {
     @Transactional(rollbackFor = Exception.class)
     public void updateExpertProfileImg(String id, byte[] profileImg) {
         expertMapper.updateExpertProfileImg(id, profileImg);
+
     }
 }

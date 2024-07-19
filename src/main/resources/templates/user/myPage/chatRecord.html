@@ -18,6 +18,10 @@
 <body>
 
 <input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
+<th:block th:if="${selectedChatRoomDto}">
+    <input type="hidden" id="selectedChatRoomId" th:value="${selectedChatRoomDto.id}">
+    <input type="hidden" id="selectedExpertNickname" th:value="${selectedChatRoomDto.expertNickname}">
+</th:block>
 
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
@@ -40,7 +44,9 @@
                     </div>
                     <section id="chatList">
                         <ul>
-                            <li class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
+
+                            <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
+
                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                                 <div>
                                     <div class="user-name"><b th:text="${chatRoomDto.expertUserName}"></b></div>
@@ -91,7 +97,7 @@
                     <section id="chatInputSec">
                         <div class="selected">
                             <label for="chatInput">
-                                <input type="text" id="chatInput" placeholder="종료된 대화입니다." disabled>
+                                <input type="text" id="chatInput" onkeydown="keydownEvent(event)">
                                 <i class="fa-regular fa-face-smile"></i>
                                 <i class="fa-regular fa-image"></i>
                             </label>

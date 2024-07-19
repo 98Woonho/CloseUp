@@ -54,6 +54,18 @@ public class MyPageController {
         return "user/myPage/myPageMain";
     }
 
+
+    @GetMapping("/profileImage")
+    @ResponseBody
+    public ResponseEntity<byte[]> getProfileImage(
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) throws Exception {
+        byte[] data = principalDetails.getUserDto().getProfileImg();
+        return ResponseEntity.ok()
+                .contentLength(data.length)
+                .body(data);
+    }
+
     @GetMapping("/modifyUserInfo")
     public String modify(Model model) {
         return "user/myPage/modifyUserInfo";
@@ -69,6 +81,8 @@ public class MyPageController {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
+        ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
+
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
         System.out.println(chatRoomDtoList);
@@ -80,6 +94,8 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+
+        model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
     }

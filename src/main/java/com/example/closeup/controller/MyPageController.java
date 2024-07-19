@@ -77,6 +77,8 @@ public class MyPageController {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
+        ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
+
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
@@ -86,7 +88,7 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
-        model.addAttribute("roomId", roomId);
+        model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
     }

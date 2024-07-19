@@ -246,14 +246,19 @@ public class UserController {
     }
 
 
-    @GetMapping("/expertDetail/{nickname}")
+    @GetMapping("expertDetail/{nickname}")
     public String getExpertDetail(@PathVariable String nickname, Model model) {
+        System.out.println(nickname);
         ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        System.out.println(expertDto);
 
         List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
 
         model.addAttribute("expertDto", expertDto);
         model.addAttribute("expertDetailDtoList", expertDetailDtoList);
+
+        return "user/expertDetail";
     }
 
 

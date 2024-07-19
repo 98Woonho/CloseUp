@@ -1,4 +1,3 @@
-
 CREATE DATABASE  IF NOT EXISTS `close_up` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `close_up`;
 
@@ -330,7 +329,7 @@ CREATE TABLE `expert` (
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
 
-INSERT INTO `expert` VALUES ('ExpertUser1','test1','I am an expert in the field of technology.','12345','123 Main Street','Apartment 1A'),('ExpertUser10','test10','I am knowledgeable in the field of information technology.','65432','654 Oak Drive','Townhouse 12'),('ExpertUser2','test2','I have extensive experience in business consulting.','67890','456 Oak Avenue','Suite 201'),('ExpertUser3','test3','My expertise lies in the field of healthcare.','54321','789 Elm Road','Building C'),('ExpertUser4','test4','I am knowledgeable in the field of education.','09876','321 Pine Lane','Room 305'),('ExpertUser5','test5','I specialize in the field of finance.','98765','654 Maple Drive','Townhouse 7'),('ExpertUser6','test6','My expertise is in the field of marketing.','43210','987 Oak Street','Apartment 2B'),('ExpertUser7','test7','I have extensive experience in the field of law.','76543','456 Elm Avenue','Suite 101'),('ExpertUser8','test8','My expertise lies in the field of design.','21098','789 Pine Road','Building D'),('ExpertUser9','test9','I specialize in the field of human resources.','87654','321 Maple Lane','Room 405'),('디자인마스터','test1','안녕하세요11',NULL,'중앙대로 366','코리아 IT 9층',NULL),('스프링부트','test3','스프링부트 잘해요',NULL,'공평로 105','노마즈하우스',NULL),('웹개발신','test2','소개입니다2',NULL,'동성로 1길 65','현풍닭칼국수',NULL);
+INSERT INTO `expert` VALUES ('ExpertUser10','test10','I am knowledgeable in the field of information technology.','65432','654 Oak Drive','Townhouse 12',NULL),('ExpertUser4','test4','I am knowledgeable in the field of education.','09876','321 Pine Lane','Room 305',NULL),('ExpertUser5','test5','I specialize in the field of finance.','98765','654 Maple Drive','Townhouse 7',NULL),('ExpertUser6','test6','My expertise is in the field of marketing.','43210','987 Oak Street','Apartment 2B',NULL),('ExpertUser7','test7','I have extensive experience in the field of law.','76543','456 Elm Avenue','Suite 101',NULL),('ExpertUser8','test8','My expertise lies in the field of design.','21098','789 Pine Road','Building D',NULL),('ExpertUser9','test9','I specialize in the field of human resources.','87654','321 Maple Lane','Room 405',NULL),('디자인마스터','test1','안녕하세요11',NULL,'중앙대로 366','코리아 IT 9층',NULL),('스프링부트','test3','스프링부트 잘해요',NULL,'공평로 105','노마즈하우스',NULL),('웹개발신','test2','소개입니다2',NULL,'동성로 1길 65','현풍닭칼국수',NULL);
 
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;

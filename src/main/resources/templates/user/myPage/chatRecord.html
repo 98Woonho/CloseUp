@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>채팅기록</title>
+    <script src="/js/header.js" defer></script>
+
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
     <th:block th:insert="~{fragments.html :: cdns}"></th:block>
@@ -42,10 +44,12 @@
                     </div>
                     <section id="chatList">
                         <ul>
+
                             <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
+
                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                                 <div>
-                                    <div class="nickname"><b th:text="${chatRoomDto.expertNickname}"></b></div>
+                                    <div class="user-name"><b th:text="${chatRoomDto.expertUserName}"></b></div>
                                     <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
                                 </div>
                             </li>
@@ -66,6 +70,7 @@
                                     <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
                                     <div id="topProfileInfo">
                                         <div id="topProfileName"></div>
+                                        <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
                                     </div>
                                 </div>
                                 <div class="side-btn-container">

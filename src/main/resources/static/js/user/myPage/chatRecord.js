@@ -5,6 +5,7 @@ const userId = document.getElementById('userId').value;
 const topProfileName = document.getElementById('topProfileName');
 const nonSelecteds = document.querySelectorAll('.non-selected');
 const selecteds = document.querySelectorAll('.selected');
+
 const profileImg = document.querySelector('#profileImg > img');
 const categoryBtn = document.querySelectorAll('#category > button');
 const mapAddr = document.getElementById('mapAddr');
@@ -32,8 +33,8 @@ if (selectedChatRoomId) {
     getExpertInfo(selectedChatRoomId, selectedExpertNickname);
 }
 
-// 채팅 목록에서 채팅을 클릭 했을 때의 function
 function clickChatLi(chat) {
+
     selectedChatRoomId = chat.dataset.id;
     selectedExpertNickname = chat.querySelector('.nickname').innerText;
 
@@ -104,6 +105,7 @@ function setChat(chatLi) {
      * chat-li를 클릭 할 때 마다, 이벤트 중첩되는 거 해결해야 함.
      */
 
+
     nonSelecteds.forEach(nonSelected => {
         nonSelected.style.display = 'none';
     })
@@ -111,6 +113,7 @@ function setChat(chatLi) {
     selecteds.forEach(selected => {
         selected.style.display = 'unset';
     })
+
 }
 
 
@@ -137,6 +140,21 @@ function keydownEvent(e) {
 function getExpertInfo(selectedChatRoomId, selectedExpertNickname) {
     // 채팅 리스트 가져오기
     axios.get(`/chat/messages/${selectedChatRoomId}`)
+
+
+    chatLies.forEach(chatLi => {
+        if (chatLi === chat) {
+            chatLi.classList.add('selected');
+        } else {
+            chatLi.classList.remove('selected');
+        }
+    })
+
+    chatMsgSec.innerHTML = '';
+    chat.classList.add('selected');
+
+    axios.get(`/chat/messages/${chat.dataset.id}`)
+
         .then(res => {
             const chatMessageDtoList = res.data;
 
@@ -149,12 +167,11 @@ function getExpertInfo(selectedChatRoomId, selectedExpertNickname) {
 
                 chatMsgSec.appendChild(message);
             })
-
-            chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
         })
         .catch(err => {
             console.log(err);
         })
+
 
     // 전문가 정보 가져오기
     axios.get(`/expert/${selectedExpertNickname}`)
@@ -175,6 +192,13 @@ function getExpertInfo(selectedChatRoomId, selectedExpertNickname) {
             categoryBtn.forEach((categoryBtn, index) => {
                 categoryBtn.innerText = res.data[index].information;
             })
+
+    const expertUserId = chat.querySelector('.user-name').innerText;
+
+    axios.get(`/expert/${expertUserId}`)
+        .then(res => {
+            topProfileName.innerText = res.data.userId;
+
         })
         .catch(err => {
             console.log(err);

@@ -1,11 +1,6 @@
 package com.example.closeup.controller;
 
-
-import com.example.closeup.domain.dto.ExpertDetailDto;
-import com.example.closeup.domain.dto.ExpertDto;
-
 import com.example.closeup.config.auth.PrincipalDetails;
-
 import com.example.closeup.domain.dto.UserDto;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -247,6 +241,7 @@ public class UserController {
     }
 
 
+
     @GetMapping("expertDetail/{nickname}")
     public String getExpertDetail(@PathVariable String nickname, Model model) {
         System.out.println(nickname);
@@ -266,6 +261,7 @@ public class UserController {
     @ResponseBody
     public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return principalDetails.getUserDto().getId();
+
     }
 
     @GetMapping("/addExpertInfo")

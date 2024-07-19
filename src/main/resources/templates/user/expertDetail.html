@@ -1,314 +1,282 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <meta charset="UTF-8">
     <title>전문가 프로필 페이지</title>
+    <script src="/js/header.js" defer></script>
 
-    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
-
-    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <script src="/js/user/expertDetail.js" defer></script>
+    <script src="../../static/js/user/expertDetail.js" defer></script>
 
     <link rel="stylesheet" href="/css/user/expertDetail.css">
 </head>
-
-<input type="hidden" id="expertNickname" th:value="${expertDto.nickname}">
-
+<script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
-<main>
-    <section id="detailSection">
-        <section id="expertProfileSec">
-            <div id="profileImgContainer">
-                <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                     alt="">
-            </div>
-            <div id="profileInfoContainer">
-                <div id="profileNameContainer">
-                    <a href="#"><span th:text="${expertDto.nickname}"></span></a>
-                    <div>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span id="ratePoint">4.8</span>
-                        <span id="reviewCount">(46)</span>
+    <main>
+        <section id="detailSection">
+            <section id="expertProfileSec">
+                <div id="profileImgContainer">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="">
+                </div>
+                <div id="profileInfoContainer">
+                    <div id="profileNameContainer">
+                        <a href="#"><span>oboa</span></a>
+                        <div>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span id="ratePoint">4.8</span>
+                            <span id="reviewCount">(46)</span>
+                        </div>
+                    </div>
+                    <div id="heartContainer">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
                     </div>
                 </div>
-                <div id="heartContainer">
-                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                </div>
-            </div>
-        </section>
-        <section id="bodySec">
-            <section id="expertInfoSec">
-                <div id="contentNav">
-                    <nav>
-                        <ul>
-                            <li active><a href="#expertInfo">전문가 정보</a></li>
-                            <li><a href="#serviceList">서비스 목록</a></li>
-                            <li><a href="#portfolioList">포트폴리오</a></li>
-                            <li><a href="#reviewList">리뷰</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <section id="contentSec">
-                    <!-- '전문가 소개' 클릭시 보여지는 내용 -->
-                    <section id="introSec">
-                        <p class="nav-title" id="expertInfo">전문가 정보</p>
-                        <div class="desc-container">
-                            <p class="sub-title">소개</p>
-                            <p class="desc" th:text="${expertDto.introduction}">
-                            </p>
-                        </div>
-                        <div class="desc-container">
-                            <p class="sub-title">전문 분야</p>
-                            <div class="tags-container">
-                                <div class="tags" th:if="${expertDetailDto.category == 'expertise'}"
-                                     th:each="expertDetailDto : ${expertDetailDtoList}">
-                                    <p th:text="${expertDetailDto.information}"></p>
+            </section>
+            <section id="bodySec">
+                <section id="expertInfoSec">
+                    <div id="contentNav">
+                        <nav>
+                            <ul>
+                                <li active><a href="#expertInfo">전문가 정보</a></li>
+                                <li><a href="#serviceList">서비스 목록</a></li>
+                                <li><a href="#portfolioList">포트폴리오</a></li>
+                                <li><a href="#reviewList">리뷰</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <section id="contentSec">
+                        <!-- '전문가 소개' 클릭시 보여지는 내용 -->
+                        <section id="introSec">
+                            <p class="nav-title" id="expertInfo">전문가 정보</p>
+                            <div class="desc-container">
+                                <p class="sub-title">소개</p>
+                                <p class="desc">
+                                    (주)오보아 입니다. nictoinc
+                                    꼼꼼하게, 최선을 다해서, 친절하게, 대표가 직접 참여하겠습니다.
+                                    공장처럼, 만들어 내지 않습니다.  하나하나 소통하면서 만들고 있습니다.
+                                    외주회사들은 외주만 한다고 생각하시죠?. 저희는  개발뿐만 아니라,
+                                    자체적으로 "앱 서비스 , 소개팅, 채팅 앱"을 운영합니다.
+                                    단순히 개발뿐 아니라, 앱운영, 마케팅까지 도와드립니다. 기술팀장님들 5명, 10년이상의 개발자님 11명, 디자이너3명,기획자 3명
+                                </p>
+                            </div>
+                            <div class="desc-container">
+                                <p class="sub-title">전문 분야</p>
+                                <div class="tags-container">
+                                    <div class="tags"><p>웹 디자인</p></div>
+                                    <div class="tags"><p>홈페이지 제작</p></div>
+                                    <div class="tags"><p>앱 개발</p></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="desc-container">
-                            <p class="sub-title">보유 기술</p>
-                            <div class="tags-container">
-                                <div class="tags" th:if="${expertDetailDto.category == 'skill'}"
-                                     th:each="expertDetailDto : ${expertDetailDtoList}">
-                                    <p th:text="${expertDetailDto.information}"></p>
+                            <div class="desc-container">
+                                <p class="sub-title">보유 기술</p>
+                                <div class="tags-container">
+                                    <div class="tags"><p>JAVA</p></div>
+                                    <div class="tags"><p>Python</p></div>
+                                    <div class="tags"><p>JavaScript</p></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="desc-container">
-                            <p class="sub-title">경력 사항</p>
-                            <div class="tags-container">
-                                <div class="tags" th:if="${expertDetailDto.category == 'career'}"
-                                     th:each="expertDetailDto : ${expertDetailDtoList}">
-                                    <p th:text="${expertDetailDto.information}"></p>
-                                </div>
-                                </p></div>
-                        </div>
-                        </div>
-                        <div class="desc-container">
-                            <p class="sub-title">학력/자격증</p>
-                            <div class="tags-container">
-                                <div class="tags" th:if="${expertDetailDto.category == 'ability'}"
-                                     th:each="expertDetailDto : ${expertDetailDtoList}">
-                                    <p th:text="${expertDetailDto.information}"></p>
+                            <div class="desc-container">
+                                <p class="sub-title">경력 사항</p>
+                                <div class="tags-container">
+                                    <div class="tags"><p>OO기업 O년 근무</p></div>
+                                    <div class="tags"><p>OO기업 인턴쉽 경험</p></div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <!-- '서비스' 클릭시 보여지는 내용 -->
-                    <section id="serviceSection">
-                        <div class="nav-title-container">
-                            <p class="nav-title" id="serviceList">서비스 목록</p>
-                        </div>
-                        <!-- 서비스 목록 캐러셀 -->
-                        <div class="embla_service">
-                            <div class="embla__viewport_service">
-                                <div class="embla__container">
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                            <div class="desc-container">
+                                <p class="sub-title">학력/자격증</p>
+                                <div class="tags-container">
+                                    <div class="tags"><p>OO대학교 졸업</p></div>
+                                    <div class="tags"><p>정보처리기사</p></div>
+                                    <div class="tags"><p>리눅스 마스터 2급</p></div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- '서비스' 클릭시 보여지는 내용 -->
+                        <section id="serviceSection">
+                            <div class="nav-title-container">
+                                <p class="nav-title" id="serviceList">서비스 목록</p>
+                            </div>
+                            <!-- 서비스 목록 캐러셀 -->
+                            <div class="embla_service">
+                                <div class="embla__viewport_service">
+                                    <div class="embla__container">
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">서비스명</a>
+                                                <a class="desc" href="#">서비스 간단한 설명</a>
+                                            </div>
                                         </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">서비스명</a>
-                                            <a class="desc" href="#">서비스 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">서비스명</a>
+                                                <a class="desc" href="#">서비스 간단한 설명</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">서비스명</a>
+                                                <a class="desc" href="#">서비스 간단한 설명</a>
+                                            </div>
                                         </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">서비스명</a>
-                                            <a class="desc" href="#">서비스 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">서비스명</a>
+                                                <a class="desc" href="#">서비스 간단한 설명</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">서비스명</a>
-                                            <a class="desc" href="#">서비스 간단한 설명</a>
-                                        </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">서비스명</a>
-                                            <a class="desc" href="#">서비스 간단한 설명</a>
-                                        </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">서비스명</a>
-                                            <a class="desc" href="#">서비스 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">서비스명</a>
+                                                <a class="desc" href="#">서비스 간단한 설명</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="embla-btn-container">
+                                    <button type="button" class="embla__prev_service"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <button type="button" class="embla__next_service"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
                             </div>
-                            <div class="embla-btn-container">
-                                <button type="button" class="embla__prev_service"><i
-                                        class="fa-solid fa-chevron-left"></i></button>
-                                <button type="button" class="embla__next_service"><i
-                                        class="fa-solid fa-chevron-right"></i></button>
+                        </section>
+                        <!-- '포트폴리오' 클릭시 보여지는 내용 -->
+                        <section id="portfolioSection">
+                            <div class="nav-title-container">
+                                <p class="nav-title" id="portfolioList">포트폴리오</p>
                             </div>
-                        </div>
-                    </section>
-                    <!-- '포트폴리오' 클릭시 보여지는 내용 -->
-                    <section id="portfolioSection">
-                        <div class="nav-title-container">
-                            <p class="nav-title" id="portfolioList">포트폴리오</p>
-                        </div>
-                        <!-- 포트폴리오 캐러셀 -->
-                        <div class="embla_portfolio">
-                            <div class="embla__viewport_portfolio">
-                                <div class="embla__container">
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                            <!-- 포트폴리오 캐러셀 -->
+                            <div class="embla_portfolio">
+                                <div class="embla__viewport_portfolio">
+                                    <div class="embla__container">
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">포트폴리오 제목</a>
+                                                <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
                                         </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">포트폴리오 제목</a>
-                                            <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">포트폴리오 제목</a>
+                                                <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">포트폴리오 제목</a>
+                                                <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
                                         </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">포트폴리오 제목</a>
-                                            <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">포트폴리오 제목</a>
+                                                <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">포트폴리오 제목</a>
-                                            <a class="desc" href="#">포트폴리오 간단한 설명</a>
-                                        </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">포트폴리오 제목</a>
-                                            <a class="desc" href="#">포트폴리오 간단한 설명</a>
-                                        </div>
-                                    </div>
-                                    <div class="embla__slide">
-                                        <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
-                                        </div>
-                                        <div class="title-container">
-                                            <a class="title" href="#">포트폴리오 제목</a>
-                                            <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                        <div class="embla__slide">
+                                            <div class="img-container">
+                                                <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                            </div>
+                                            <div class="title-container">
+                                                <a class="title" href="#">포트폴리오 제목</a>
+                                                <a class="desc" href="#">포트폴리오 간단한 설명</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="embla-btn-container">
-                                <button type="button" class="embla__prev_portfolio"><i
-                                        class="fa-solid fa-chevron-left"></i></button>
-                                <button type="button" class="embla__next_portfolio"><i
-                                        class="fa-solid fa-chevron-right"></i></button>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- '리뷰' 클릭시 보여지는 내용 -->
-                    <section id="reviewSection">
-                        <div class="nav-title-container">
-                            <p class="nav-title" id="reviewList">리뷰</p>
-                        </div>
-                        <div class="review-container">
-                            <section class="review-header-sec">
-                                <div class="writer-img-con">
-                                    <!-- 리뷰 작성자 프로필 이미지 -->
-                                    <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="#">
+                                <div class="embla-btn-container">
+                                    <button type="button" class="embla__prev_portfolio"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <button type="button" class="embla__next_portfolio"><i class="fa-solid fa-chevron-right"></i></button>
                                 </div>
-                                <div class="review-writer-container">
-                                    <a href="#" class="review-writer">작성자아이디/닉네임</a>
-                                    <!-- 별점 -->
-                                    <div>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <span class="review-rate">5.0</span>
+                            </div>
+                        </section>
+                        <!-- '리뷰' 클릭시 보여지는 내용 -->
+                        <section id="reviewSection">
+                            <div class="nav-title-container">
+                                <p class="nav-title" id="reviewList">리뷰</p>
+                            </div>
+                            <div class="review-container">
+                                <section class="review-header-sec">
+                                    <div class="writer-img-con">
+                                        <!-- 리뷰 작성자 프로필 이미지 -->
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="#">
+                                    </div>
+                                    <div class="review-writer-container">
+                                        <a href="#" class="review-writer">작성자아이디/닉네임</a>
+                                        <!-- 별점 -->
+                                        <div>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <span class="review-rate">5.0</span>
+                                            <span class="bar">|</span>
+                                            <span class="review-write-date">리뷰 작성 일자</span>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div class="review-content-con">
+                                    <p>다른 업체에서 제작한 앱을 이번에 새로 개편하면서 의뢰드렸는데 만족도가 아주아주 높았습니다. 워낙에 꼼꼼하게 신경써 주셨고 사소한 부분 하나하나까지 친절하게 답변주셨습니다. 특히 시차가 있는 해외와 연락할 일이 많은 프로젝트여서 빠른 피드백이 매우 중요했는데 덕분에 잘 마무리할 수 있었습니다!</p>
+                                </div>
+                                <section class="review-answer-sec">
+                                    <div class="answer-header-container">
+                                        <a href="#" class="answer-writer">답변자</a>
                                         <span class="bar">|</span>
-                                        <span class="review-write-date">리뷰 작성 일자</span>
+                                        <span class="answer-write-date">작성 일자</span>
                                     </div>
-                                </div>
-                            </section>
-                            <div class="review-content-con">
-                                <p>다른 업체에서 제작한 앱을 이번에 새로 개편하면서 의뢰드렸는데 만족도가 아주아주 높았습니다. 워낙에 꼼꼼하게 신경써 주셨고 사소한 부분 하나하나까지
-                                    친절하게 답변주셨습니다. 특히 시차가 있는 해외와 연락할 일이 많은 프로젝트여서 빠른 피드백이 매우 중요했는데 덕분에 잘 마무리할 수
-                                    있었습니다!</p>
+                                    <div class="answer-content-con">
+                                        <p>대표님 좋은 말씀 감사드립니다 ^^ 연락드릴 때마다 항상 빠르게 컨펌 주시고 확인해 주셔서 서로 더 큰 시너지가 난 것 같습니다! 말씀드렸듯이 빠르게 초기 지표 만들 수 있을 거라 확신합니다!! 감사합니다^^</p>
+                                    </div>
+                                </section>
                             </div>
-                            <section class="review-answer-sec">
-                                <div class="answer-header-container">
-                                    <a href="#" class="answer-writer">답변자</a>
-                                    <span class="bar">|</span>
-                                    <span class="answer-write-date">작성 일자</span>
-                                </div>
-                                <div class="answer-content-con">
-                                    <p>대표님 좋은 말씀 감사드립니다 ^^ 연락드릴 때마다 항상 빠르게 컨펌 주시고 확인해 주셔서 서로 더 큰 시너지가 난 것 같습니다! 말씀드렸듯이
-                                        빠르게 초기 지표 만들 수 있을 거라 확신합니다!! 감사합니다^^</p>
-                                </div>
-                            </section>
-                        </div>
+                        </section>
                     </section>
                 </section>
+                <aside id="expertAside">
+                    <div id="startConsultCon">
+                        <p><span>ooo</span>전문가님에게 <span>(-전문가타이틀제목-)</span>에 대해 상담요청을 해보세요!</p>
+                        <button type="button" id="consultBtn">상담하기</button>
+                    </div>
+                </aside>
             </section>
-            <aside id="expertAside">
-                <div id="startConsultCon">
-                    <p><span th:text="${expertDto.nickname}"></span>전문가님에게 상담요청을 해보세요!</p>
-                    <button type="button" id="consultBtn">상담하기</button>
-                </div>
-            </aside>
         </section>
-    </section>
-    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+        <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 
-</main>
+    </main>
 
 </body>
 </html>

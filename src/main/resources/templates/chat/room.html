@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+
+    <link rel="stylesheet" href="/css/chat/room.css">
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script defer src="/js/chat/room.js"></script>
+</head>
+<body>
+
+<input type="hidden" id="chatRoomId" th:value="${chatRoomDto.id}">
+<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
+
+<div class="container">
+    <div>
+        <!-- 채팅 내용 -->
+        <section id="chatViewSec">
+            <section id="chatViewTop">
+                <!-- 전문가를 선택했을 때 -->
+                <div class="selected">
+                    <div>
+                        <div class="side-btn-container">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <a href="#">이전</a>
+                        </div>
+                        <div id="topProfileContainer">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
+                            <div id="topProfileInfo">
+                                <div id="topProfileName"><b>oboa</b></div>
+                                <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
+                            </div>
+                        </div>
+                        <div class="side-btn-container">
+                            <i class="fa-solid fa-x"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- 선택한 전문가가 없을 때, -->
+                <div class="non-selected">
+                    <div>
+                        <p>좌측의 목록에서 전문가를 선택해주세요.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="chatMsgSec">
+                <th:block th:if="${chatMessageDtoList.size() != 0}">
+                        <div th:each="chatMessageDto : ${chatMessageDtoList}" class="chat" th:classappend="${#authentication.Principal.userDto.id == chatMessageDto.userId} ? 'user1' : 'user2'">
+                            <div class="chat-msg" th:text="${chatMessageDto.content}"></div>
+                        </div>
+                </th:block>
+            </section>
+            <section id="chatInputSec">
+                <div class="selected">
+                    <label for="chatInput">
+                        <input type="text" id="chatInput" placeholder="종료된 대화입니다." disabled>
+                        <i class="fa-regular fa-face-smile"></i>
+                        <i class="fa-regular fa-image"></i>
+                    </label>
+                </div>
+                <div class="non-selected">
+                    <div>
+                        <label for="chatInputNon">
+                            <input type="text" id="chatInputNon" placeholder="선택된 채팅이 없습니다." disabled>
+                            <i class="fa-regular fa-face-smile"></i>
+                            <i class="fa-regular fa-image"></i>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <input type="text" id="msg" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6"></div>
+</div>
+
+</body>
+</html>

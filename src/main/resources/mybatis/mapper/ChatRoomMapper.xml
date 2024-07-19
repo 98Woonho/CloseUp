@@ -3,10 +3,10 @@
 <mapper namespace="com.example.closeup.domain.mapper.ChatRoomMapper">
 
     <select id="selectChatRoomDtoListByUserId">
-        SELECT cr.*, e.nickname AS expert_nickname
+        SELECT cr.*, u.name AS expert_user_name
         FROM `chat_room` cr
-        JOIN `expert` e ON e.nickname = cr.expert_nickname
-        WHERE cr.user_id = #{userId}
+        JOIN `user` u ON u.id = cr.expert_user_id
+        WHERE user_id = #{userId}
     </select>
 
     <select id="selectChatRoomDtoById">
@@ -15,17 +15,12 @@
         WHERE `id` = #{id}
     </select>
 
-    <select id="selectChatRoomDtoByUserIdAndExpertNickname">
-        SELECT *
-        FROM `chat_room`
-        WHERE `user_id` = #{userId} AND `expert_nickname` = #{expertNickname}
-    </select>
-
     <insert id="insertChatRoom"
             parameterType="com.example.closeup.domain.dto.ChatRoomDto"
             useGeneratedKeys="true"
+            keyColumn="id"
             keyProperty="id">
-        INSERT INTO `chat_room` (`user_id`, `expert_nickname`)
-        VALUES (#{userId}, #{expertNickname})
+        INSERT INTO `chat_room` (`user_id`, `expert_user_id`)
+        VALUES (#{userId}, null)
     </insert>
 </mapper>

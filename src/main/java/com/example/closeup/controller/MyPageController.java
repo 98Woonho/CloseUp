@@ -6,6 +6,8 @@ import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -26,11 +28,7 @@ import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import java.util.List;
 
@@ -47,9 +45,15 @@ public class MyPageController {
 
 
     @GetMapping("/myPageMain")
-    public String getMyPageMain(Model model) {
+    public String getMyPageMain(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            Model model
+    ) {
+        UserDto user = principalDetails.getUserDto();
+        model.addAttribute("user", user);
         return "user/myPage/myPageMain";
     }
+
 
     @GetMapping("/profileImage")
     @ResponseBody
@@ -73,13 +77,15 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
+    public String getChats(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
         ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
 
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
+
+        System.out.println(chatRoomDtoList);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
             String lastChatMessage = myPageService.getLastChatMessage(chatRoomDto.getId());
@@ -88,10 +94,12 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+
         model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
     }
+
 
     @GetMapping("/wishlist")
     public String getWishlist(Model model) {

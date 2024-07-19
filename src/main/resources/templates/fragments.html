@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../static/css/header/header.css">
 
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <script src="../static/js/header.js" defer></script>
 
 
 
@@ -100,10 +99,11 @@
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <a href="/myPage/myPageMain">마이페이지</a>
                         </li>
-                        <li sec:authorize="hasRole('ROLE_EXPERT') && isAuthenticated()">
+                        <li th:if="${#authentication.principal.userDto.isSuspended}" sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <div id="accountToggleCon">
                                 <a href="">일반</a>
-                                <input type="checkbox" id="toggleSwitch">
+                                <!-- checked 상태가 전문가 상태 / 전문가 등록 유저라면 기본 상태는 전문가 토글 활성화 -->
+                                <input type="checkbox" id="toggleSwitch" th:checked="${#authentication.principal.userDto.role == 'ROLE_EXPERT'}">
                                 <label for="toggleSwitch"></label>
                                 <a href="" id="expertAccount">전문</a>
                             </div>

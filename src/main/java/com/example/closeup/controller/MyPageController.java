@@ -6,6 +6,8 @@ import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -47,19 +49,13 @@ public class MyPageController {
 
 
     @GetMapping("/myPageMain")
-    public String getMyPageMain(Model model) {
+    public String getMyPageMain(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            Model model
+    ) {
+        UserDto user = principalDetails.getUserDto();
+        model.addAttribute("user", user);
         return "user/myPage/myPageMain";
-    }
-
-    @ResponseBody
-    @GetMapping("/profileImage")
-    public ResponseEntity<byte[]> getProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) throws Exception {
-        byte[] data = principalDetails.getUserDto().getProfileImg();
-        return ResponseEntity.ok()
-                .contentLength(data.length)
-                .body(data);
     }
 
     @GetMapping("/modifyUserInfo")
@@ -90,6 +86,7 @@ public class MyPageController {
 
         return "user/myPage/chatRecord";
     }
+
 
     @GetMapping("/wishlist")
     public String getWishlist(Model model) {

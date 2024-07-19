@@ -11,9 +11,9 @@ import com.example.closeup.domain.mapper.ExpertDetailMapper;
 import com.example.closeup.domain.mapper.ExpertMapper;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
@@ -24,6 +24,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -50,7 +53,19 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsSuspended(false);
         user.setRole("ROLE_USER");
+        setUserDefaultProfileImage(user);
         userMapper.insertUser(user);
+    }
+
+    private void setUserDefaultProfileImage(UserDto userDto){
+        try {
+            ClassPathResource resource = new ClassPathResource("static/imgs/user-profile.png");
+            InputStream in = resource.getInputStream();
+            byte[] data = in.readAllBytes();
+            userDto.setProfileImg(data);
+        }catch (Exception e){
+            System.out.println("setUserDefaultProfileImage - image 설정 중 에러..: " + e.getMessage());
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)

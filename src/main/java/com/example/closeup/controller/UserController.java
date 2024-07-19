@@ -258,13 +258,13 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String userIsSuspended(
+    public ResponseEntity<Boolean> userIsSuspended(
             Model model,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
-        boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
+        Boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
         model.addAttribute("isExpert", isExpert);
-        return "redirect:/";
+        return ResponseEntity.ok(isExpert);
     }
 
     @GetMapping("/addExpertInfo")

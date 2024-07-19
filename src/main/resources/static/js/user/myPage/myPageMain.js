@@ -23,6 +23,6 @@ function changeProfileImage(file) {
             method: "PUT",
             headers: { "Content-Type": "application/octet-stream" },
             body: data
-        })
+        });
     }
 }

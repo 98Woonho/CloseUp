@@ -48,17 +48,10 @@ public class ChatController {
 
     //채팅방 개설
     @PostMapping("room")
-    public ResponseEntity<Long> postRoom(Authentication auth, @RequestBody ChatRoomDto chatRoomDto){
-        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
-        String userId = principal.getUserDto().getId();
+    public String postRoom(ChatRoomDto chatRoomDto){
+        chatService.createRoom(chatRoomDto);
 
-        chatRoomDto.setUserId(userId);
-
-        ChatRoomDto originalChatRoomDto = chatService.getChatRoomDto(chatRoomDto);
-
-        Long roomId = originalChatRoomDto == null ? chatService.createRoom(chatRoomDto) : originalChatRoomDto.getId();
-
-        return ResponseEntity.ok(roomId);
+        return "redirect:/chat/room?id=" + chatRoomDto.getId();
     }
 
     // 채팅방 조회

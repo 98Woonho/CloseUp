@@ -10,9 +10,8 @@ import java.util.List;
 public interface ExpertMapper {
     List<ExpertDto> selectExpertInformation();
 
-
-    ExpertDto selectExpertByNickname(String nickname);
-
     ExpertDto selectExpertByUserId(String id);
 
+    /**************전문가 프로필 사진(전문가 등록 후 마이페이지에서 변경)***************/
+    void updateExpertProfileImg(String id, byte[] profileImg);
 }

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
+    <script src="/js/header.js" defer></script>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script src="/js/user/myPage/myPageMain.js" defer></script>
@@ -26,13 +27,13 @@
                 <section id="userProfileSection">
                     <div>
                         <section id="titleSec">
-                            <p>(USERNAME)의 마이 페이지</p>
+                            <p id="userId" th:text="${user.id}"></p><p>님의 마이 페이지</p>
                         </section>
-                        <div id="userProfileImgContainer" th:object="${user}">
+                        <div id="userProfileImgContainer">
                             <!-- 유저 프로필 사진 div-->
                             <input type="file" id="fileInput" onchange="changeProfileImage(this.files[0])" hidden="hidden">
                             <button type="button" id="changeProfileImgBtn">
-                                <img style="border-radius: 50%; object-fit: cover;" id="profileImage" class="profile-image" th:src="@{/myPage/profileImage}" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="프로필 사진">
+                                <img style="border-radius: 50%; object-fit: cover;" id="profileImage" class="profile-image" th:src="@{/myPage/profileImage}" src="#" alt="프로필 사진">
                                 <span id="changeSpan">변경하기</span>
                             </button>
                         </div>

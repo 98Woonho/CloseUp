@@ -1,14 +1,12 @@
 package com.example.closeup.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "profileImg")
 public class UserDto {
     private String id;
     private String password;

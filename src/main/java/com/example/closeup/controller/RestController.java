@@ -5,15 +5,11 @@ import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.ExpertService;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -40,11 +36,23 @@ public class RestController {
         userService.updateUserProfileImg(principalDetails.getUsername(), profileImg);
     }
 
-    @PutMapping("imgChangeExpert")
+    @PutMapping("/imgChangeExpert")
     public void changeImgExpert(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
             @RequestBody byte[] profileImg
     ) {
+        ExpertDto expertDto = expertService.selectExpertDtoByUserId(principalDetails.getUsername());
+        expertDto.setProfileImg(profileImg);
+        expertService.updateExpertProfileImg(expertDto.getUserId(), profileImg);
+    }
 
+    @PutMapping("/changeRole")
+    public void changeRole(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestBody String role
+    ) {
+        principalDetails.getUserDto().setRole(role);
+        userService.updateUserRoleByToggle(principalDetails.getUsername(), role);
     }
 
     @ResponseBody
@@ -53,6 +61,18 @@ public class RestController {
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
         byte[] data = principalDetails.getUserDto().getProfileImg();
+        return ResponseEntity.ok()
+                .contentLength(data.length)
+                .body(data);
+    }
+
+    @ResponseBody
+    @GetMapping("/expert/profileImage")
+    public ResponseEntity<byte[]> getExpertProfileImage(
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        ExpertDto expert = expertService.selectExpertDtoByUserId(principalDetails.getUsername());
+        byte[] data = expert.getProfileImg();
         return ResponseEntity.ok()
                 .contentLength(data.length)
                 .body(data);

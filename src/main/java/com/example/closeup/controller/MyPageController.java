@@ -28,11 +28,7 @@ import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import java.util.List;
 
@@ -69,11 +65,13 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
+    public String getChats(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
+
+        System.out.println(chatRoomDtoList);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
             String lastChatMessage = myPageService.getLastChatMessage(chatRoomDto.getId());
@@ -82,7 +80,6 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
-        model.addAttribute("roomId", roomId);
 
         return "user/myPage/chatRecord";
     }

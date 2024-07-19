@@ -1,22 +1,13 @@
 package com.example.closeup.service;
 
-
-import com.example.closeup.domain.dto.ExpertDetailDto;
-import com.example.closeup.domain.dto.ExpertDto;
-
 import com.example.closeup.config.auth.PrincipalDetails;
-
 import com.example.closeup.domain.dto.UserDto;
-import com.example.closeup.domain.mapper.ExpertDetailMapper;
-import com.example.closeup.domain.mapper.ExpertMapper;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private ExpertMapper expertMapper;
-
-    @Autowired
-    private ExpertDetailMapper expertDetailMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -53,10 +37,12 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsSuspended(false);
         user.setRole("ROLE_USER");
+        // 회원가입 시에 기본 프로필 사진 등록
         setUserDefaultProfileImage(user);
         userMapper.insertUser(user);
     }
 
+    // 유저 기본 프로필 사진 등록 메서드
     private void setUserDefaultProfileImage(UserDto userDto){
         try {
             ClassPathResource resource = new ClassPathResource("static/imgs/user-profile.png");
@@ -89,18 +75,9 @@ public class UserService {
         userMapper.updateUserProfileImg(id, profileImg);
     }
 
-    public boolean isSuspendedUserById(String id) {
-        return userMapper.selectIsSuspendedUserById(id);
-    }
-
     @Transactional(rollbackFor = Exception.class)
-    public ExpertDto getExpertDto(String nickname) {
-        return expertMapper.selectExpertByNickname(nickname);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
-        return expertDetailMapper.selectExpertDetailListByNickname(nickname);
+    public void updateUserRoleByToggle(String id, String role) {
+        userMapper.updateUserRoleByToggle(id, role);
     }
 }
 

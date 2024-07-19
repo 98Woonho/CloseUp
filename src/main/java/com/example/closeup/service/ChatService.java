@@ -19,10 +19,8 @@ public class ChatService {
     private ChatMessageMapper chatMessageMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public Long createRoom(ChatRoomDto chatRoomDto) {
+    public void createRoom(ChatRoomDto chatRoomDto) {
         chatRoomMapper.insertChatRoom(chatRoomDto);
-
-        return chatRoomDto.getId();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -33,11 +31,6 @@ public class ChatService {
     @Transactional(rollbackFor = Exception.class)
     public ChatRoomDto getChatRoomDto(Long id) {
         return chatRoomMapper.selectChatRoomDtoById(id);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public ChatRoomDto getChatRoomDto(ChatRoomDto chatRoomDto) {
-        return chatRoomMapper.selectChatRoomDtoByUserIdAndExpertNickname(chatRoomDto);
     }
 
     @Transactional(rollbackFor = Exception.class)

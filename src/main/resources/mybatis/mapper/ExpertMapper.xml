@@ -14,4 +14,12 @@
             ON u.id = e.user_id
         WHERE u.id = #{id}
     </select>
+
+    <!-- 전문가 프로필 사진 변경 -->
+    <update id="updateExpertProfileImg">
+        UPDATE `expert`
+        SET profile_img = #{profileImg}
+        WHERE user_id = #{id}
+    </update>
+
 </mapper>

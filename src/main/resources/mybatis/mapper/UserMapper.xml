@@ -16,14 +16,12 @@
         SELECT * FROM `user`
         WHERE name = #{name} AND id = #{id}
     </select>
+
     <select id="selectUserById" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE id = #{id}
     </select>
-    <select id="selectIsSuspendedUserById" resultType="boolean">
-        SELECT is_suspended FROM `user`
-        WHERE id = #{id}
-    </select>
+
 
     <update id="updatePassword">
         UPDATE `user`
@@ -34,6 +32,12 @@
     <update id="updateUserProfileImg">
         UPDATE `user`
         SET profile_img = #{profileImg}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserRoleByToggle">
+        UPDATE `user`
+        SET role = #{role}
         WHERE id = #{id}
     </update>
 

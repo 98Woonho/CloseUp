@@ -37,10 +37,12 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsSuspended(false);
         user.setRole("ROLE_USER");
+        // 회원가입 시에 기본 프로필 사진 등록
         setUserDefaultProfileImage(user);
         userMapper.insertUser(user);
     }
 
+    // 유저 기본 프로필 사진 등록 메서드
     private void setUserDefaultProfileImage(UserDto userDto){
         try {
             ClassPathResource resource = new ClassPathResource("static/imgs/user-profile.png");
@@ -73,8 +75,9 @@ public class UserService {
         userMapper.updateUserProfileImg(id, profileImg);
     }
 
-    public boolean isSuspendedUserById(String id) {
-        return userMapper.selectIsSuspendedUserById(id);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserRoleByToggle(String id, String role) {
+        userMapper.updateUserRoleByToggle(id, role);
     }
 }
 

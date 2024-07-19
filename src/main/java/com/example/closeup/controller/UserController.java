@@ -239,16 +239,6 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Boolean> userIsSuspended(
-            Model model,
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) {
-        Boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
-        model.addAttribute("isExpert", isExpert);
-        return ResponseEntity.ok(isExpert);
-    }
-
     @GetMapping("/expertDetail")
     public String getExpertDetail(Model model) {
         return "user/expertDetail";

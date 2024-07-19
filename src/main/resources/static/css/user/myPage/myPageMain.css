@@ -21,20 +21,21 @@
     width: 250px;
     height: 250px;
 }
-.profile-image{
-    width: 250px;
-    height: 250px;
-    object-fit: fill;
-}
 #profileImage{
     width: 250px;
     height: 250px;
-    object-fit: fill;
+    object-fit: cover;
 }
 #titleSec{
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
+}
+#titleSec p{
+    display: inline-block;
+}
+#userId{
+    font-weight: normal;
 }
 #userProfileImgContainer{
     position: relative;

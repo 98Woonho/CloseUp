@@ -32,9 +32,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-    <!-- picmo -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button/dist/index.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button/dist/index.min.js"></script>
 </th:block>
 
 <header th:fragment="header_fragment">
@@ -204,7 +201,7 @@
             <div class="selected">
                 <label for="chatInput">
                     <input type="text" id="chatInput" onkeydown="keydownEvent(event)">
-                    <i class="fa-regular fa-face-smile"></i>
+                    <i id="emojiIcon" class="fa-regular fa-face-smile"></i>
                     <i class="fa-regular fa-image"></i>
                 </label>
             </div>

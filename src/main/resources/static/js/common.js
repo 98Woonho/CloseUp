@@ -16,9 +16,11 @@ const mapAddr = document.getElementById('mapAddr');
 const chatInput = document.getElementById('chatInput');
 const topProfileContainer = document.getElementById('topProfileContainer');
 const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
+const emojiIcon = document.getElementById('emojiIcon');
 
 let userId;
 
+// 유저 id 조회
 axios.get('/user/id')
     .then(res => {
         userId = res.data;
@@ -27,21 +29,26 @@ axios.get('/user/id')
         console.log(err);
     })
 
+
+// 채팅 dialog 닫기 아이콘 클릭 event
 closeChatDialogIcon.addEventListener('click', function(e) {
     e.preventDefault();
 
     chatDialog.classList.remove('visible');
 })
 
+// 채팅창 상단 프로필 클릭 event
 topProfileContainer.addEventListener('click', function(e) {
     e.preventDefault();
     infoSec.classList.toggle('visible');
 })
 
+// 고정 아이콘 - 채팅 아이콘 클릭 event
 chatIcon.addEventListener('click', function () {
     chatDialog.classList.toggle('visible');
 })
 
+// 채팅 리스트 아이콘 토글
 toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
     toggleChatListSecIcon.addEventListener('click', function () {
         chatListSec.classList.toggle('hidden');
@@ -76,11 +83,6 @@ axios.get('/chat/list')
     .catch(err => {
         console.log(err);
     })
-
-
-
-
-
 
 
 

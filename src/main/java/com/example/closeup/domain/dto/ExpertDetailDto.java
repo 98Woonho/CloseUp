@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+// 전문가 전문분야/기술/경력/학력/자격증 dto
 public class ExpertDetailDto {
     private String expertNickname;
     private String category;

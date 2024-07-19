@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.closeup.domain.mapper.AdminMapper">
+<!--    관리자 페이지 유저-->
+    <select id="selectAllUsers" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT * FROM `user`
+    </select>
+
+    <update id="updateUser" parameterType="com.example.closeup.domain.dto.UserDto">
+        UPDATE `user`
+        SET name = #{name}, phone = #{phone}, role = #{role}, is_suspended = #{isSuspended}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM `user` WHERE id = #{id}
+    </delete>
+    <delete id="deleteExpertUser">
+        DELETE FROM `expert` WHERE user_id = #{id}
+    </delete>
+    <delete id="deleteArticle">
+        DELETE FROM `article` WHERE id = #{userId}
+    </delete>
+
+    <!--관리자 페이지 게시판-->
+    <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT * FROM article;
+    </select>
+    <select id="selectUsersByRole" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT * FROM `user` WHERE role = #{role}
+    </select>
+    <select id="searchUsers" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT * FROM `user`
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="id != null and id != ''">
+                AND id LIKE CONCAT('%', #{id}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="selectArticleByUser" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT * FROM article
+        WHERE board_code = #{boardCode}
+    </select>
+    <select id="searchArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT * FROM `article`
+        <where>
+            <if test="userId != null and userId != ''">
+                AND user_id LIKE CONCAT('%', #{userId}, '%')
+            </if>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="dateTime != null and dateTime != ''">
+                AND DATE(written_at) = DATE(#{dateTime})
+            </if>
+            <if test="content != null and content != ''">
+                AND content LIKE CONCAT('%', #{content}, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

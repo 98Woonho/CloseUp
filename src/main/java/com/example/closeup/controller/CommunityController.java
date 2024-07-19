@@ -77,6 +77,17 @@ public class CommunityController {
         communityService.createArticle(articleDto);
         return "redirect:/board/community/communityMain";
     }
+/*****************관리자 게시글 수정***********************/
+    @GetMapping("communityWrite/{articleId}")
+    public String adminCommunityModify(
+            @PathVariable Integer articleId,
+            Model model
+    ){
+    List<ArticleDto> articles = communityService.getAllArticles(articleId);
+    model.addAttribute("articles", articles);
+
+        return "/board/community/communityWrite";
+    }
     /**************게시글 상세 조회***************/
     @GetMapping("/communityPost/{articleId}")
     public String communityView(

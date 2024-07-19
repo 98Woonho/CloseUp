@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
+
     <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -18,7 +19,8 @@
         <section id="commuWriteSec">
             <section class="header-pop">
                 <div class="title-con">
-                    <p class="commuTitle">게시물 작성하기</p>
+                    <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">게시물 작성하기</p>
+                    <p class="commuTitle" sec:authorize="hasRole('ROLE_ADMIN')">(관리자) 게시물 수정하기</p>
                 </div>
             </section>
             <section id="writeContentSec">
@@ -40,7 +42,10 @@
                             </label>
                             <div class="title-con">
                                 <label for="title"></label>
-                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title">
+                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
+                                <th:block th:each="article: ${articles}">
+                                <input type="text" placeholder="제목을 입력하세요." name="title" th:value="${article.title}"  sec:authorize="hasRole('ROLE_ADMIN')">
+                                </th:block>
                             </div>
                         </div>
                         <section id="fileSection">
@@ -60,14 +65,19 @@
                             <span>내용</span>
                         </div>
                         <label>
-                            <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500"></textarea>
+                            <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500" sec:authorize="!hasRole('ROLE_ADMIN')"></textarea>
+                            <th:block th:each="article : ${articles}">
+                            <textarea name="content" maxlength="1500" th:text="${article.content}" sec:authorize="hasRole('ROLE_ADMIN')"></textarea>
+                            </th:block>
                         </label>
                     </section>
 
 
                     <section class="writeBtnSec">
                         <button type="button">취소</button>
-                        <button type="submit">확인</button>
+                        <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
+                        <button type="submit" sec:authorize="hasRole('ROLE_ADMIN')">(관리자)수정</button>
+
                     </section>
                 </form>
             </section>

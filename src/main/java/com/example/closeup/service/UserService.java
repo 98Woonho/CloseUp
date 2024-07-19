@@ -56,21 +56,5 @@ public class UserService {
         return userMapper.selectUserProfileImgById(id);
     }
 
-
-
-    /*********************관리자 페이지**********************/
-    @Transactional(readOnly = true)
-    public List<UserDto> getAllUsers() {
-        return userMapper.selectAllUsers();
-    }
-    @Transactional
-    public void updateUser(UserDto user) {
-        userMapper.updateUser(user);
-    }
-
-    @Transactional
-    public void deleteUser(String id) {
-        userMapper.deleteUser(id);
-    }
 }
 

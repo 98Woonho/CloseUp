@@ -20,10 +20,4 @@ public interface UserMapper {
     /**************유저 프로필 사진 조회***************/
     byte[] selectUserProfileImgById(String id);
 
-
-
-    /**********관리자 페이지************/
-    List<UserDto> selectAllUsers();
-    void updateUser(UserDto user);
-    void deleteUser(String id);
 }

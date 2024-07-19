@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/admin/manage/manage.css">
     <link rel="stylesheet" href="/css/header/header.css">
+    <script src="../../../static/js/admin/admin.js" th:src="@{/js/admin/admin.js}" defer></script>
 
 </head>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
@@ -36,13 +37,17 @@
                     <aside class="sub-nav-sec">
                         <section class="logo-sec">
                             <!-- 로고 이미지 -->
-                            <div></div>
+                            <div onclick=></div>
+
                         </section>
                         <nav>
                             <ul>
-                                <li><i class="fa-solid fa-list-ul"></i><a href="#">전체</a></li>
-                                <li><a href="#">전문가 포트폴리오</a></li>
-                                <li><a href="#">커뮤니티</a></li>
+                                <li><i class="fa-solid fa-list-ul"></i><a href="/admin/manage/post">전체</a></li>
+                                <li ><a th:href="@{/admin/manage/post/expert}">전문가 자유 게시판</a></li>
+                                <li ><a th:href="@{/admin/manage/post/expertrecommendation}">전문가 추천 게시판</a></li>
+                                <li ><a th:href="@{/admin/manage/post/expertReview}">전문가의 후기 게시판</a></li>
+                                <li ><a th:href="@{/admin/manage/post/free}">자유 게시판</a></li>
+                                <li ><a th:href="@{/admin/manage/post/question}">간단한 질문 게시판</a></li>
                                 <li><a href="#">문의</a></li>
                                 <li><a href="#"><i class="fa-solid fa-gear"></i>설정</a></li>
                             </ul>
@@ -64,24 +69,26 @@
                             </div>
                         </section>
                         <!-- 검색 -->
+                        <form th:action="@{/admin/manage/post/search}" method="get" autocomplete="off">
                         <section id="searchInputSec">
                             <div>
                                 <label for="userName">작성한 회원 아이디</label>
-                                <input type="text" id="userName" placeholder="아이디 입력">
+                                <input type="text" id="userName" name="userId" placeholder="아이디 입력">
                             </div>
                             <div>
                                 <label for="postTitle">제목</label>
-                                <input type="text" id="postTitle" placeholder="제목 입력">
+                                <input type="text" id="postTitle" name="title" placeholder="제목 입력">
                             </div>
                             <div>
                                 <label for="writeDate">작성 날짜</label>
-                                <input type="text" id="writeDate" placeholder="날짜 입력">
+                                <input type="date" id="writeDate" name="dateTime" placeholder="날짜 입력">
                             </div>
                             <div>
                                 <label for="postContent">내용</label>
-                                <input type="text" id="postContent" placeholder="내용 입력">
+                                <input type="text" id="postContent" name="content" placeholder="내용 입력">
                             </div>
                         </section>
+                        </form>
                         <!-- 검색 결과 테이블 -->
                         <section id="searchViewSec">
                             <table>
@@ -119,8 +126,11 @@
                                     <td><span th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">작성 날짜</span></td>
                                     <td><span th:text="${article.view}">조회수</span></td>
                                     <td>
-                                        <input type="button" id="modifyBtn" value="수정">
-                                        <input type="button" id="deleteBtn" value="삭제">
+<!--                                        <input type="button" id="modifyBtn" value="수정">-->
+<!--                                        <input type="button" id="deleteBtn" value="삭제">-->
+                                        <a th:href="@{/board/community/communityWrite/{id}(id=${article.id})}">수정</a>
+                                        <a th:href="@{/admin/manage/post/delete/{id}(id=${article.id})}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+
                                     </td>
                                 </tr>
                                 </tbody>

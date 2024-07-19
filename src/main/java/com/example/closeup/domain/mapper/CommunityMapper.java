@@ -43,7 +43,9 @@ public interface CommunityMapper {
     /**************댓글 삭제***************/
     int selectCommentLikeCount(Integer commentId);
 
-    /*********관리자 페이지***********/
-    List<ArticleDto> selectAllArticles();
+    /************관리자 게시글 수정************/
+    List<ArticleDto> selectAllArticles(Integer articleId);
+
+
 }
 

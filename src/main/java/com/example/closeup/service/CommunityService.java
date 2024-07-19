@@ -121,9 +121,11 @@ public class CommunityService {
     }
 
 
-    /**************관리자 페이지****************/
-    public List<ArticleDto> getAllArticles() {
-        return communityMapper.selectAllArticles();
+
+
+    /***********관리자 페이지 게시글 수정*************/
+    public List<ArticleDto> getAllArticles(Integer articleId){
+        return communityMapper.selectAllArticles(articleId);
     }
 
 }

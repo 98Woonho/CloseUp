@@ -22,11 +22,17 @@ public class SecurityConfig {
                 (config) -> config.disable()
         );
 
-        http.authorizeHttpRequests(
-                authorize -> {
-                    authorize.anyRequest().permitAll();
-                }
-        );
+//        http.authorizeHttpRequests(
+//                authorize -> {
+//                    authorize.anyRequest().permitAll();
+//                }
+//        );
+
+        http.authorizeHttpRequests(authorize -> {
+            authorize
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().permitAll();
+        });
 
         http.formLogin(
                 formLogin -> {

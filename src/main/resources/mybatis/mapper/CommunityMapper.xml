@@ -128,8 +128,14 @@
         GROUP BY a.id
         ORDER BY a.written_at DESC
     </select>
+
+
+<!--    관리자 게시글 수정!!!-->
     <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
-        SELECT * FROM article;
+        SELECT *
+        FROM `article`
+        WHERE id = #{articleId}
     </select>
+
 
 </mapper>

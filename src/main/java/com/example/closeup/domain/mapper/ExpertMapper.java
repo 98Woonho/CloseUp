@@ -10,5 +10,9 @@ import java.util.List;
 public interface ExpertMapper {
     List<ExpertDto> selectExpertInformation();
 
+
+    ExpertDto selectExpertByNickname(String nickname);
+
     ExpertDto selectExpertByUserId(String id);
+
 }

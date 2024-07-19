@@ -14,4 +14,10 @@
             ON u.id = e.user_id
         WHERE u.id = #{id}
     </select>
+
+    <select id="selectExpertByNickname">
+        SELECT *
+        FROM `expert`
+        WHERE `nickname` = #{nickname}
+    </select>
 </mapper>

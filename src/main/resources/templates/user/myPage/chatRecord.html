@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
     <script defer src="/js/user/myPage/chatRecord.js"></script>
 </head>
 <body>
@@ -38,10 +41,10 @@
                     </div>
                     <section id="chatList">
                         <ul>
-                            <li class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
+                            <li th:class="'chat-li ' + ${chatRoomDto.id == roomId ? 'choice' : ''}" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                                 <div>
-                                    <div class="user-name"><b th:text="${chatRoomDto.expertUserName}"></b></div>
+                                    <div class="nickname"><b th:text="${chatRoomDto.expertNickname}"></b></div>
                                     <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
                                 </div>
                             </li>
@@ -62,7 +65,6 @@
                                     <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
                                     <div id="topProfileInfo">
                                         <div id="topProfileName"></div>
-                                        <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
                                     </div>
                                 </div>
                                 <div class="side-btn-container">
@@ -89,7 +91,7 @@
                     <section id="chatInputSec">
                         <div class="selected">
                             <label for="chatInput">
-                                <input type="text" id="chatInput" placeholder="종료된 대화입니다." disabled>
+                                <input type="text" id="chatInput">
                                 <i class="fa-regular fa-face-smile"></i>
                                 <i class="fa-regular fa-image"></i>
                             </label>

@@ -17,6 +17,15 @@
     justify-content: center;
     align-items: center;
 }
+#userProfileImgContainer{
+    width: 250px;
+    height: 250px;
+}
+.profile-image{
+    width: 250px;
+    height: 250px;
+    object-fit: fill;
+}
 #profileImage{
     width: 250px;
     height: 250px;

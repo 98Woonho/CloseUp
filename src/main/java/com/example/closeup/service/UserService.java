@@ -4,6 +4,8 @@ import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 @Service
 public class UserService {
@@ -31,7 +37,19 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setIsSuspended(false);
         user.setRole("ROLE_USER");
+        setUserDefaultProfileImage(user);
         userMapper.insertUser(user);
+    }
+
+    private void setUserDefaultProfileImage(UserDto userDto){
+        try {
+            ClassPathResource resource = new ClassPathResource("static/imgs/user-profile.png");
+            InputStream in = resource.getInputStream();
+            byte[] data = in.readAllBytes();
+            userDto.setProfileImg(data);
+        }catch (Exception e){
+            System.out.println("setUserDefaultProfileImage - image 설정 중 에러..: " + e.getMessage());
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)

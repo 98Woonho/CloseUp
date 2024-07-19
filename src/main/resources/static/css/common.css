@@ -142,8 +142,8 @@ footer {
 }
 
 #chatDialog #infoSec {
-    right: 0;
-    width: 200px;
+    right: -250px;
+    width: 250px;
     z-index: 1;
     border-left: 2px solid rgba(0, 0, 0, 0.1);
 
@@ -152,8 +152,8 @@ footer {
     transition-duration: 0.5s;
 }
 
-#chatDialog #infoSec.hidden {
-    right: -200px;
+#chatDialog #infoSec.visible {
+    right: 0;
 }
 
 #chatDialog #chatListSec h3 {
@@ -176,10 +176,6 @@ footer {
     margin-bottom: 20px;
 }
 
-#chatDialog #infoSec{
-    /*display: none;*/
-}
-
 #chatDialog #chatViewSec {
     width: 100%;
 }
@@ -195,5 +191,21 @@ footer {
 #chatDialog #chatViewTop .non-selected {
     display: block;
     height: 100%;
+}
 
+#chatDialog #chatViewTop .selected > div > div {
+    width: 180px;
+}
+
+#chatDialog #topProfileContainer {
+    cursor: pointer;
+}
+#chatDialog #map,
+#chatDialog #map img {
+    width: 100%;
+}
+
+#chatDialog #closeChatDialogIcon {
+    cursor: pointer;
+    float: right;
 }

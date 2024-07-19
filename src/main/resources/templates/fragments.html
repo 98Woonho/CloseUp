@@ -12,6 +12,8 @@
     <script src="../static/js/header.js" defer></script>
 
 
+
+
     <link rel="stylesheet" href="/css/fixedBtns.css">
     <link rel="stylesheet" href="/css/header/header.css">
 </head>
@@ -25,6 +27,14 @@
 
     <!-- 아임포트 cdn -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <!-- sockJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <!-- picmo -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button/dist/index.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button/dist/index.min.js"></script>
 </th:block>
 
 <header th:fragment="header_fragment">
@@ -163,8 +173,7 @@
             <div class="selected">
                 <div>
                     <div class="side-btn-container">
-                        <i class="fa-solid fa-chevron-left"></i>
-                        <a href="#">이전</a>
+                        <i class="toggle-chat-list-sec-icon fa-solid fa-chevron-left">채팅 목록</i>
                     </div>
                     <div id="topProfileContainer">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
@@ -173,7 +182,7 @@
                         </div>
                     </div>
                     <div class="side-btn-container">
-                        <i class="fa-solid fa-x"></i>
+                        <i id="closeChatDialogIcon" class="fa-solid fa-x"></i>
                     </div>
                 </div>
             </div>

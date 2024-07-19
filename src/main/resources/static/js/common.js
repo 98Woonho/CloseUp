@@ -14,9 +14,29 @@ const profileImg = document.querySelector('#profileImg > img');
 const categoryBtn = document.querySelectorAll('#category > button');
 const mapAddr = document.getElementById('mapAddr');
 const chatInput = document.getElementById('chatInput');
+const topProfileContainer = document.getElementById('topProfileContainer');
+const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
 
-// axios.get('/user')
+let userId;
 
+axios.get('/user/id')
+    .then(res => {
+        userId = res.data;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+closeChatDialogIcon.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    chatDialog.classList.remove('visible');
+})
+
+topProfileContainer.addEventListener('click', function(e) {
+    e.preventDefault();
+    infoSec.classList.toggle('visible');
+})
 
 chatIcon.addEventListener('click', function () {
     chatDialog.classList.toggle('visible');
@@ -25,7 +45,6 @@ chatIcon.addEventListener('click', function () {
 toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
     toggleChatListSecIcon.addEventListener('click', function () {
         chatListSec.classList.toggle('hidden');
-        infoSec.classList.toggle('hidden');
     })
 })
 

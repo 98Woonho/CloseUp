@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -261,16 +262,10 @@ public class UserController {
         return "user/expertDetail";
     }
 
-
-    @GetMapping("/")
-    public String userIsSuspended(
-            Model model,
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) {
-        boolean isExpert = userService.isSuspendedUserById(principalDetails.getUsername());
-        System.out.println(isExpert);
-        model.addAttribute("isExpert", isExpert);
-        return "redirect:/";
+    @GetMapping("id")
+    @ResponseBody
+    public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto().getId();
     }
 
     @GetMapping("/addExpertInfo")

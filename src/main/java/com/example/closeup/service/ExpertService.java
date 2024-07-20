@@ -1,6 +1,8 @@
 package com.example.closeup.service;
 
+import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
+import com.example.closeup.domain.mapper.ExpertDetailMapper;
 import com.example.closeup.domain.mapper.ExpertMapper;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,9 @@ import java.util.List;
 public class ExpertService {
     @Autowired
     private ExpertMapper expertMapper;
+
     @Autowired
-    private UserMapper userMapper;
+    private ExpertDetailMapper expertDetailMapper;
 
     public List<ExpertDto> selectExpertInformation() {
         return expertMapper.selectExpertInformation();
@@ -22,6 +25,14 @@ public class ExpertService {
 
     public ExpertDto selectExpertDtoByUserId(String id) {
         return expertMapper.selectExpertByUserId(id);
+    }
+
+    public ExpertDto getExpertDto(String nickname) {
+        return expertMapper.selectExpertByNickname(nickname);
+    }
+
+    public List<ExpertDetailDto> getExpertDetailDtoList(String nickname, String category) {
+        return expertDetailMapper.selectExpertDetailListByNicknameAndCategory(nickname, category);
     }
 
     @Transactional(rollbackFor = Exception.class)

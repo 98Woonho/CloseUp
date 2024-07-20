@@ -23,4 +23,8 @@ public class MyPageService {
     public String getLastChatMessage(Long chatRoomId) {
         return chatMessageMapper.selectLastChatMessageByChatRoomId(chatRoomId);
     }
+
+    public ChatRoomDto getChatRoomDto(Long roomId) {
+        return chatRoomMapper.selectChatRoomDtoById(roomId);
+    }
 }

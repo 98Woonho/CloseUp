@@ -137,7 +137,7 @@ footer {
     transition-duration: 0.5s;
 }
 
-#chatDialog #chatListSec.hidden {
+#chatDialog #chatListSec.visible {
     left: -330px;
 }
 

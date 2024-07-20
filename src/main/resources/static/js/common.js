@@ -18,7 +18,9 @@ const topProfileContainer = document.getElementById('topProfileContainer');
 const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
 const emojiIcon = document.getElementById('emojiIcon');
 const profileNickname = document.getElementById('profileNickname');
+const searchChat = document.getElementById('searchChat');
 
+let chatRoomDtoList;
 let userId;
 
 // 유저 id 조회
@@ -52,14 +54,14 @@ chatIcon.addEventListener('click', function () {
 // 채팅 리스트 아이콘 토글
 toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
     toggleChatListSecIcon.addEventListener('click', function () {
-        chatListSec.classList.toggle('hidden');
+        chatListSec.classList.toggle('visible');
     })
 })
 
 axios.get('/chat/list')
     .then(res => {
         if (res.data !== '') {
-            const chatRoomDtoList = res.data;
+            chatRoomDtoList = res.data;
 
             const ul = document.createElement('ul');
 
@@ -86,7 +88,32 @@ axios.get('/chat/list')
     })
 
 
+searchChat.addEventListener('input', function(e) {
+    chatList.innerHTML = '';
 
+    const filteredChatRoomDtoList = chatRoomDtoList.filter(chatRoomDto => {
+        chatRoomDto.expertNickname.includes(e.target.value);
+    })
+
+    const ul = document.createElement('ul');
+
+    filteredChatRoomDtoList.forEach(chatRoomDto => {
+        const li = new DOMParser().parseFromString(`
+                    <li class="chat-li" data-id="${chatRoomDto.id}"
+                    onClick="clickChatLi(this)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                        <div>
+                            <div class="nickname"><b>${chatRoomDto.expertNickname}</b></div>
+                            <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
+                        </div>
+                    </li>
+                `, 'text/html').querySelector('.chat-li');
+
+        ul.appendChild(li);
+    })
+
+    chatList.appendChild(ul);
+})
 
 
 
@@ -101,6 +128,7 @@ let stomp;
 
 // 채팅 목록에서 채팅을 클릭 했을 때의 function
 function clickChatLi(chat) {
+    chatListSec.classList.toggle('visible');
     selectedChatRoomId = chat.dataset.id;
     selectedExpertNickname = chat.querySelector('.nickname').innerText;
 

@@ -74,9 +74,6 @@ public class UserService {
         userMapper.updateUserProfileImg(id, profileImg);
     }
 
-    public boolean isSuspendedUserById(String id) {
-        return userMapper.selectIsSuspendedUserById(id);
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public ExpertDto getExpertDto(String nickname) {

@@ -166,9 +166,6 @@ function setChat(chatLi) {
         });
     });
 
-    /** TODO
-     * chat-li를 클릭 할 때 마다, 이벤트 중첩되는 거 해결해야 함.
-     */
 
     nonSelecteds.forEach(nonSelected => {
         nonSelected.style.display = 'none';

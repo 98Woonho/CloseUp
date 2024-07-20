@@ -252,8 +252,6 @@ public class UserController {
         System.out.println(nickname);
         ExpertDto expertDto = userService.getExpertDto(nickname);
 
-        System.out.println(expertDto);
-
         List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
 
         model.addAttribute("expertDto", expertDto);

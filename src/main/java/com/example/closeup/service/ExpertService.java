@@ -27,8 +27,4 @@ public class ExpertService {
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname, String category) {
         return expertDetailMapper.selectExpertDetailListByNicknameAndCategory(nickname, category);
     }
-
-    public ExpertDto selectExpertDto(String id) {
-        return expertMapper.selectExpertByUserId(id);
-    }
 }

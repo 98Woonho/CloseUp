@@ -4,13 +4,17 @@
 >
 <head>
     <meta charset="UTF-8">
+<!--    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">-->
+
     <title>전문가 프로필 페이지</title>
 
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <script src="../../static/js/user/expertDetail.js" defer></script>
+    <script src="/js/user/expertDetail.js" defer></script>
+    <script src="/js/user/myPage/wishlist.js" defer></script>
 
     <link rel="stylesheet" href="/css/user/expertDetail.css">
     <link rel="stylesheet" href="/css/header/header.css">
+
 </head>
 <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 <body>
@@ -24,7 +28,7 @@
                 </div>
                 <div id="profileInfoContainer">
                     <div id="profileNameContainer">
-                        <a href="#"><span>oboa</span></a>
+                        <a href="#"><span th:text="${expert.nickname}">oboa</span></a>
                         <div>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -36,8 +40,12 @@
                         </div>
                     </div>
                     <div id="heartContainer">
-                        <button><i class="fa-regular fa-heart"></i></button>
-<!--                        <button><i class="fa-solid fa-heart"></i></button>-->
+                        <button type="button" th:id="${expert.userId}" th:if="${!expert.isWished}" onclick="addWishlist(this);">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <button type="button" th:id="${expert.userId}" th:if="${expert.isWished}" onclick="deleteWishlist(this);">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
                     </div>
                 </div>
             </section>

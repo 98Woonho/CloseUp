@@ -1,5 +1,7 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.http.*;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -237,8 +240,14 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
-    @GetMapping("/expertDetail")
-    public String getExpertDetail(Model model) {
+    @GetMapping("/expertDetail/{userNick}")
+    public String getExpertDetail(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @PathVariable("userNick") String userNick,
+            Model model
+    ) {
+        ExpertDto expertDto = userService.findExpertByNickNameWithIsWished(principalDetails.getUsername(), userNick);
+        model.addAttribute("expert", expertDto);
         return "user/expertDetail";
     }
 

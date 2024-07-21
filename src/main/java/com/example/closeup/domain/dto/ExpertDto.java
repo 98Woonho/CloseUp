@@ -16,5 +16,6 @@ public class ExpertDto {
     private String zipcode;
     private String address;
     private String addressDetail;
+    private Boolean isWished; // 유저가 이 전문가를 좋아요 하고 있는가?
     private byte[] profile_img;
 }

@@ -4,8 +4,10 @@
 >
 <head>
     <meta charset="UTF-8">
+<!--    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">-->
     <title>마이페이지 | 즐겨찾기 페이지</title>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <script src="/js/user/myPage/wishlist.js" defer></script>
 
     <link rel="stylesheet" href="/css/user/myPage/wishlist.css">
     <link rel="stylesheet" href="/css/header/header.css">
@@ -22,13 +24,14 @@
                     <p>즐겨찾기 페이지</p>
                 </section>
                 <form th:action="@{/myPage/wishlist}" method="post">
-
                     <section id="bodySec">
                         <ul id="wishList">
-                            <li class="wish-lies" th:each="wish: ${wishlist}">
+                            <li class="wish-lies" th:each="expert: ${expertList}">
                                 <div>
                                     <div class="heart-con">
-                                        <a href="#"><i class="fa-solid fa-heart"></i></a>
+                                        <button type="button" th:id="${expert.userId}" onclick="deleteWishlist(this);">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </button>
                                     </div>
                                     <div class="header-con">
                                         <div class="img-con">

@@ -1,5 +1,6 @@
 package com.example.closeup.service;
 
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public UserDto findUserByNameAndId(String name, String id) {
         return userMapper.selectUserByNameAndId(name, id);
+    }
+
+    public ExpertDto findExpertByNickNameWithIsWished(String userId, String expertNickName) {
+        return userMapper.selectExpertByNickNameWithIsWished(userId, expertNickName);
     }
 
     @Transactional(rollbackFor = Exception.class)

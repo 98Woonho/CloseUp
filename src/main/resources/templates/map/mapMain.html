@@ -44,7 +44,7 @@
                             <div class="embla__container">
                                 <div class="embla__slide" th:each="info: ${expertInfo}">
                                     <div class="img-container">
-                                        <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
+                                        <a th:href="@{|/user/expertDetail/${info.nickname}|}"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                     </div>
                                     <div class="title-container">
                                         <a class="profile-title" href="#" th:text="${info.userId}">전문가 프로필</a>

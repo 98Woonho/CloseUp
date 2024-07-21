@@ -1,5 +1,7 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.dto.WishListDTO;
 import com.example.closeup.service.WishListService;
@@ -26,38 +28,49 @@ public class WishListController {
 
     @GetMapping("/wishlist")
     public String getWishlist(
-            @AuthenticationPrincipal UserDto user,
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
             Model model
-    ) {
-        List<WishListDTO> wishlist = new ArrayList<>();
-        if (!Objects.isNull(user)) {
-            wishlist = wishListService.getWishlist(user);
+    ){
+        List<ExpertDto> wishlist = new ArrayList<>();
+        if (!Objects.isNull(principalDetails)) {
+            System.out.println("user is not null");
+            wishlist = wishListService.getWishlist(principalDetails.getUserDto().getId());
         }
         log.info("wishlist: " + wishlist);
-        model.addAttribute("wishlist", wishlist);
+        model.addAttribute("expertList", wishlist);
         return "user/myPage/wishlist";
     }
 
     @ResponseBody
-    @PostMapping("/wishlist")
+    @PostMapping("/wishlist/{expertId}")
     public ResponseEntity<Void> postWishlist(
-            @AuthenticationPrincipal UserDto user,
-            WishListDTO wishlist
+            @AuthenticationPrincipal PrincipalDetails user,
+            @PathVariable String expertId
     ) {
-        log.info("wishlist: " + wishlist);
+        log.info("expertId: " + expertId);
         if (Objects.isNull(user)) {
             log.error("로그인되지 않은 유저");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        wishListService.insertWishlist(user, wishlist);
+        wishListService.insertWishlist(user.getUsername(), expertId);
         // 장바구니 삽입 성공
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
+
     @ResponseBody
-    @DeleteMapping("/wishlist")
-    public ResponseEntity<Void> deleteWishlist() {
-        wishListService.deleteWishlist();
+    @DeleteMapping("/wishlist/{expertId}")
+    public ResponseEntity<Void> deleteWishlist(
+            @AuthenticationPrincipal PrincipalDetails user,
+            @PathVariable String expertId
+    ) {
+        log.info("expertId: " + expertId);
+        if (Objects.isNull(user)) {
+            log.error("로그인되지 않은 유저");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        wishListService.deleteWishlist(user.getUsername(), expertId);
+        // 장바구니 삽입 성공
         return ResponseEntity.ok().body(null);
     }
 }

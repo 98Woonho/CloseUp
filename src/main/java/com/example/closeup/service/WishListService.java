@@ -1,5 +1,6 @@
 package com.example.closeup.service;
 
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.dto.WishListDTO;
 import com.example.closeup.domain.mapper.WishListMapper;
@@ -14,15 +15,17 @@ public class WishListService {
     @Autowired
     private WishListMapper wishListMapper;
 // user의 즐겨찾기 내역 불러오기
-    public List<WishListDTO> getWishlist(UserDto user) {
-        System.out.println(user);
-        return wishListMapper.getWishListByUserId(user.getId());
+    public List<ExpertDto> getWishlist(String userId) {
+        System.out.println(userId);
+        return wishListMapper.getWishListByUserId(userId);
     }
-    public void insertWishlist(UserDto user, WishListDTO wishListDTO) {
-
+    public void insertWishlist(String userId, String expertId) {
+        wishListMapper.insertWishList(userId, expertId);
     }
 
-    public void deleteWishlist() {}
+    public void deleteWishlist(String userId, String expertId) {
+        wishListMapper.deleteWishList(userId, expertId);
+    }
 
 
 

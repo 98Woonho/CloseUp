@@ -28,10 +28,10 @@ import java.util.List;
 @Controller
 @RequestMapping("myPage")
 public class MyPageController {
-
+    @Autowired
+    private MyPageService myPageService;
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/myPageMain")
     public String getMyPageMain(Model model) {

@@ -20,6 +20,12 @@
         WHERE `user_id` = #{userId} AND `expert_nickname` = #{expertNickname}
     </select>
 
+    <select id="selectChatRoomDtoListByExpertNickname">
+        SELECT *
+        FROM `chat_room`
+        WHERE `expert_nickname` = #{expertNickname}
+    </select>
+
     <insert id="insertChatRoom"
             parameterType="com.example.closeup.domain.dto.ChatRoomDto"
             useGeneratedKeys="true"

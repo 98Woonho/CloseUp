@@ -2,8 +2,11 @@ package com.example.closeup.service;
 
 import com.example.closeup.domain.dto.ChatMessageDto;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.mapper.ChatMessageMapper;
 import com.example.closeup.domain.mapper.ChatRoomMapper;
+import com.example.closeup.domain.mapper.ExpertMapper;
+import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +21,25 @@ public class ChatService {
     @Autowired
     private ChatMessageMapper chatMessageMapper;
 
+    @Autowired
+    private ExpertMapper expertMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
     @Transactional(rollbackFor = Exception.class)
     public Long createRoom(ChatRoomDto chatRoomDto) {
         chatRoomMapper.insertChatRoom(chatRoomDto);
 
         return chatRoomDto.getId();
+    }
+
+    public ExpertDto getExpertDto(String userId) {
+        return expertMapper.selectExpertByUserId(userId);
+    }
+
+    public String getUserName(String userId) {
+        return userMapper.selectUserNameById(userId);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -41,8 +58,13 @@ public class ChatService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public List<ChatRoomDto> getChatRoomDtoList(String userId) {
+    public List<ChatRoomDto> getChatRoomDtoListByUserId(String userId) {
         return chatRoomMapper.selectChatRoomDtoListByUserId(userId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<ChatRoomDto> getChatRoomDtoListByExpertNickname(String nickname) {
+        return chatRoomMapper.selectChatRoomDtoListByExpertNickname(nickname);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -10,6 +10,8 @@ import java.util.List;
 public interface ChatRoomMapper {
     List<ChatRoomDto> selectChatRoomDtoListByUserId(String userId);
 
+    List<ChatRoomDto> selectChatRoomDtoListByExpertNickname(String expertNickname);
+
     ChatRoomDto selectChatRoomDtoById(Long id);
 
     ChatRoomDto selectChatRoomDtoByUserIdAndExpertNickname(ChatRoomDto chatRoomDto);

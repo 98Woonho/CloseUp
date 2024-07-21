@@ -12,6 +12,12 @@
         WHERE name = #{name} AND phone = #{phone}
     </select>
 
+    <select id="selectUserNameById">
+        SELECT `name`
+        FROM `user`
+        WHERE `id` = #{id}
+    </select>
+
     <select id="selectUserByNameAndId" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE name = #{name} AND id = #{id}

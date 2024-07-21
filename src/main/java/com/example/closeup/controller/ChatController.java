@@ -4,6 +4,7 @@ package com.example.closeup.controller;
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatMessageDto;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,14 +46,23 @@ public class ChatController {
 
         if (principalDetails != null) {
             String userId = principalDetails.getUserDto().getId();
+            String role = principalDetails.getUserDto().getRole();
 
+            if (role.equals("ROLE_USER")) {
+                chatRoomDtoList = chatService.getChatRoomDtoListByUserId(userId);
+            }
 
-            chatRoomDtoList = chatService.getChatRoomDtoList(userId);
+            if (role.equals("ROLE_EXPERT")) {
+                ExpertDto expertDto = chatService.getExpertDto(userId);
+                chatRoomDtoList = chatService.getChatRoomDtoListByExpertNickname(expertDto.getNickname());
+            }
 
             for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
                 String lastChatMessage = chatService.getLastChatMessage(chatRoomDto.getId());
+                String userName = chatService.getUserName(chatRoomDto.getUserId());
 
                 chatRoomDto.setLastChatMessage(lastChatMessage);
+                chatRoomDto.setUserName(userName);
             }
         }
 

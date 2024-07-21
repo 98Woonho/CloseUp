@@ -21,13 +21,18 @@ const emojiIcon = document.getElementById('emojiIcon');
 const profileNickname = document.getElementById('profileNickname');
 const searchChat = document.getElementById('searchChat');
 
-let chatRoomDtoList;
-let userId;
 
-// 유저 id 조회
-axios.get('/user/id')
+let userId; // 현재 로그인 한 유저의 아이디
+let role; // 현재 로그인 한 유저의 역할
+let name; // 현재 로그인 한 유저의 이름
+let chatRoomDtoList;
+
+// 현재 로그인 한 유저 조회
+axios.get('/user')
     .then(res => {
-        userId = res.data;
+        userId = res.data.id;
+        role = res.data.role;
+        name = res.data.name;
     })
     .catch(err => {
         console.log(err);
@@ -35,14 +40,14 @@ axios.get('/user/id')
 
 
 // 채팅 dialog 닫기 아이콘 클릭 event
-closeChatDialogIcon.addEventListener('click', function(e) {
+closeChatDialogIcon.addEventListener('click', function (e) {
     e.preventDefault();
 
     chatDialog.classList.remove('visible');
 })
 
 // 채팅창 상단 프로필 클릭 event
-topProfileContainer.addEventListener('click', function(e) {
+topProfileContainer.addEventListener('click', function (e) {
     e.preventDefault();
     infoSec.classList.toggle('visible');
 })
@@ -72,7 +77,7 @@ axios.get('/chat/list')
                     onClick="clickChatLi(this)">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                         <div>
-                            <div class="nickname"><b>${chatRoomDto.expertNickname}</b></div>
+                            <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
                         </div>
                     </li>
@@ -80,6 +85,7 @@ axios.get('/chat/list')
 
                 ul.appendChild(li);
             })
+
 
             chatList.appendChild(ul);
         }
@@ -89,64 +95,33 @@ axios.get('/chat/list')
     })
 
 
-searchChat.addEventListener('input', function(e) {
+searchChat.addEventListener('input', function (e) {
     chatList.innerHTML = '';
 
-    if (e.target.value === '') {
-        const ul = document.createElement('ul');
+    const newChatRoomDtoList = e.target.value === ''
+        ? chatRoomDtoList
+        : chatRoomDtoList.filter(chatRoomDto => chatRoomDto.expertNickname.includes(e.target.value));
 
-        chatRoomDtoList.forEach(chatRoomDto => {
-            const li = new DOMParser().parseFromString(`
+
+    const ul = document.createElement('ul');
+
+    newChatRoomDtoList.forEach(chatRoomDto => {
+        const li = new DOMParser().parseFromString(`
                     <li class="chat-li" data-id="${chatRoomDto.id}"
                     onClick="clickChatLi(this)">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                         <div>
-                            <div class="nickname"><b>${chatRoomDto.expertNickname}</b></div>
+                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
                         </div>
                     </li>
                 `, 'text/html').querySelector('.chat-li');
 
-            ul.appendChild(li);
-        })
+        ul.appendChild(li);
+    })
 
-        chatList.appendChild(ul);
-    }
-
-
-    if (e.target.value !== '') {
-        const filteredChatRoomDtoList = chatRoomDtoList.filter(chatRoomDto =>
-            chatRoomDto.expertNickname.includes(e.target.value)
-        );
-
-        const ul = document.createElement('ul');
-
-        filteredChatRoomDtoList.forEach(chatRoomDto => {
-            const li = new DOMParser().parseFromString(`
-                    <li class="chat-li" data-id="${chatRoomDto.id}"
-                    onClick="clickChatLi(this)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                        <div>
-                            <div class="nickname"><b>${chatRoomDto.expertNickname}</b></div>
-                            <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
-                        </div>
-                    </li>
-                `, 'text/html').querySelector('.chat-li');
-
-            ul.appendChild(li);
-        })
-
-        chatList.appendChild(ul);
-    }
+    chatList.appendChild(ul);
 })
-
-
-
-
-
-
-
-
 
 
 let stomp;
@@ -155,7 +130,7 @@ let stomp;
 function clickChatLi(chat) {
     chatListSec.classList.toggle('visible');
     selectedChatRoomId = chat.dataset.id;
-    selectedExpertNickname = chat.querySelector('.nickname').innerText;
+    selectedNickname = chat.querySelector('.nickname').innerText;
 
     // 어떤 채팅방을 선택했는지에 대한 style을 위한 class 추가/제거
     chatLies.forEach(chatLi => {
@@ -166,8 +141,35 @@ function clickChatLi(chat) {
         }
     })
 
+    axios.get(`/chat/messages/${selectedChatRoomId}`)
+        .then(res => {
+            const chatMessageDtoList = res.data;
+
+            chatMessageDtoList.forEach(chatMessageDto => {
+                const message = new DOMParser().parseFromString(`
+                        <div class="chat ${userId === chatMessageDto.userId ? 'user1' : 'user2'}">
+                            <div class="chat-msg">${chatMessageDto.content}</div>
+                        </div>
+                    `, 'text/html').querySelector('.chat');
+
+                chatMsgSec.appendChild(message);
+            })
+
+            chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
     setChat(chat);
-    getExpertInfo(selectedChatRoomId, selectedExpertNickname);
+
+    if (role === 'ROLE_USER') {
+        getExpertInfo(selectedNickname);
+    }
+
+    if (role === 'ROLE_EXPERT') {
+        topProfileName.innerText = selectedNickname;
+    }
 
     chatMsgSec.innerHTML = '';
     chatInput.value = '';
@@ -179,7 +181,7 @@ function setChat(chatLi) {
 
     // 이전 채팅방 연결 해제
     if (stomp) {
-        stomp.disconnect(function() {
+        stomp.disconnect(function () {
             console.log('Disconnected from previous chat room');
         });
     }
@@ -250,33 +252,11 @@ function keydownEvent(e) {
     }
 }
 
-// 전문가 채팅 리스트, 전문 분야 및 정보 가져오는 함수
-function getExpertInfo(selectedChatRoomId, selectedExpertNickname) {
-    // 채팅 리스트 가져오기
-    axios.get(`/chat/messages/${selectedChatRoomId}`)
-        .then(res => {
-            const chatMessageDtoList = res.data;
-
-            chatMessageDtoList.forEach(chatMessageDto => {
-                const message = new DOMParser().parseFromString(`
-                        <div class="chat ${userId === chatMessageDto.userId ? 'user1' : 'user2'}">
-                            <div class="chat-msg">${chatMessageDto.content}</div>
-                        </div>
-                    `, 'text/html').querySelector('.chat');
-
-                chatMsgSec.appendChild(message);
-            })
-
-            chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
-        })
-        .catch(err => {
-            console.log(err);
-        })
-
+// 전문 분야 및 정보 가져오는 함수
+function getExpertInfo(selectedExpertNickname) {
     // 전문가 정보 가져오기
     axios.get(`/expert/${selectedExpertNickname}`)
         .then(res => {
-            console.log(res);
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;

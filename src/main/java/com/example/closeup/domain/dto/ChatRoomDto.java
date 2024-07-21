@@ -17,6 +17,7 @@ import java.util.UUID;
 public class ChatRoomDto {
     private Long id;
     private String userId;
+    private String userName;
     private String lastChatMessage;
     private String expertNickname;
 

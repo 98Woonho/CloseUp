@@ -259,10 +259,10 @@ public class UserController {
         return "user/expertDetail";
     }
 
-    @GetMapping("id")
+    @GetMapping("")
     @ResponseBody
-    public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return principalDetails.getUserDto().getId();
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto();
     }
 
     @GetMapping("/addExpertInfo")

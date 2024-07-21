@@ -47,10 +47,13 @@ closeChatDialogIcon.addEventListener('click', function (e) {
 })
 
 // 채팅창 상단 프로필 클릭 event
-topProfileContainer.addEventListener('click', function (e) {
-    e.preventDefault();
-    infoSec.classList.toggle('visible');
-})
+if (role === 'ROLE_USER') {
+    topProfileContainer.addEventListener('click', function (e) {
+        e.preventDefault();
+        infoSec.classList.toggle('visible');
+    })
+}
+
 
 // 고정 아이콘 - 채팅 아이콘 클릭 event
 chatIcon.addEventListener('click', function () {

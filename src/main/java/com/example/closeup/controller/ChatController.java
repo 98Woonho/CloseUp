@@ -46,6 +46,7 @@ public class ChatController {
         if (principalDetails != null) {
             String userId = principalDetails.getUserDto().getId();
 
+
             chatRoomDtoList = chatService.getChatRoomDtoList(userId);
 
             for (ChatRoomDto chatRoomDto : chatRoomDtoList) {

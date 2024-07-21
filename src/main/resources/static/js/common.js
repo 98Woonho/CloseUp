@@ -6,6 +6,7 @@ const infoSec = document.getElementById('infoSec');
 const chatList = document.getElementById('chatList');
 const chatLies = document.querySelectorAll('.chat-li');
 const chatMsgSec = document.getElementById('chatMsgSec');
+const chatViewSec = document.getElementById('chatViewSec');
 const chatViewTop = document.getElementById('chatViewTop');
 const topProfileName = document.getElementById('topProfileName');
 const nonSelecteds = document.querySelectorAll('.non-selected');
@@ -91,14 +92,11 @@ axios.get('/chat/list')
 searchChat.addEventListener('input', function(e) {
     chatList.innerHTML = '';
 
-    const filteredChatRoomDtoList = chatRoomDtoList.filter(chatRoomDto => {
-        chatRoomDto.expertNickname.includes(e.target.value);
-    })
+    if (e.target.value === '') {
+        const ul = document.createElement('ul');
 
-    const ul = document.createElement('ul');
-
-    filteredChatRoomDtoList.forEach(chatRoomDto => {
-        const li = new DOMParser().parseFromString(`
+        chatRoomDtoList.forEach(chatRoomDto => {
+            const li = new DOMParser().parseFromString(`
                     <li class="chat-li" data-id="${chatRoomDto.id}"
                     onClick="clickChatLi(this)">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
@@ -109,10 +107,37 @@ searchChat.addEventListener('input', function(e) {
                     </li>
                 `, 'text/html').querySelector('.chat-li');
 
-        ul.appendChild(li);
-    })
+            ul.appendChild(li);
+        })
 
-    chatList.appendChild(ul);
+        chatList.appendChild(ul);
+    }
+
+
+    if (e.target.value !== '') {
+        const filteredChatRoomDtoList = chatRoomDtoList.filter(chatRoomDto =>
+            chatRoomDto.expertNickname.includes(e.target.value)
+        );
+
+        const ul = document.createElement('ul');
+
+        filteredChatRoomDtoList.forEach(chatRoomDto => {
+            const li = new DOMParser().parseFromString(`
+                    <li class="chat-li" data-id="${chatRoomDto.id}"
+                    onClick="clickChatLi(this)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                        <div>
+                            <div class="nickname"><b>${chatRoomDto.expertNickname}</b></div>
+                            <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
+                        </div>
+                    </li>
+                `, 'text/html').querySelector('.chat-li');
+
+            ul.appendChild(li);
+        })
+
+        chatList.appendChild(ul);
+    }
 })
 
 

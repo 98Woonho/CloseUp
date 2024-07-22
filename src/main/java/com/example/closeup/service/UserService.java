@@ -96,11 +96,11 @@ public class UserService {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public ExpertDto getExpertDto(String nickname) {
-        return expertMapper.selectExpertByNickname(nickname);
-    }
-
+//    @Transactional(rollbackFor = Exception.class)
+//    public ExpertDto getExpertDto(String nickname) {
+//        return expertMapper.selectExpertByNickname(nickname);
+//    }
+//
     @Transactional(rollbackFor = Exception.class)
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
         System.out.println(nickname);

@@ -18,10 +18,11 @@ function requestWishList(expertId, method, message){
         // }
     }).then(response => {
         if(response.status === 401){
-            alert("로긘 ㄱㄱ")
+            alert("로그인 이후 재시도 해주세요")
         }else{
             alert(message);
             location.reload();
+
         }
     })
 }

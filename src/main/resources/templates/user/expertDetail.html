@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="/css/user/expertDetail.css">
     <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
 
 </head>
 
@@ -315,7 +317,7 @@
             </section>
             <aside id="expertAside">
                 <div id="startConsultCon">
-                    <p><span th:text="${expertDto.nickname}"></span>전문가님에게 상담요청을 해보세요!</p>
+                    <p><span th:text="${expert.nickname}"></span>전문가님에게 상담요청을 해보세요!</p>
                     <button type="button" id="consultBtn">상담하기</button>
                 </div>
             </aside>

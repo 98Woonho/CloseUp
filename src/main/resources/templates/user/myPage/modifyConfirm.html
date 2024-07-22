@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>마이페이지 | 회원 정보 수정(회원 인증)</title>
     <script src="/js/header.js" defer></script>
+    <script src="/js/user/modifyConfirm.js" defer></script>
 
     <link rel="stylesheet" href="/css/user/myPage/modifyConfirm.css">
     <link rel="stylesheet" href="/css/header/header.css">
@@ -22,9 +23,12 @@
                     <p>회원 정보를 수정하려면</p>
                     <p>비밀번호를 입력해주세요</p>
                 </section>
-                <div class="modify-input-container">
+                <section class="modify-input-container">
                     <input id="modifyPw" type="password" placeholder="비밀번호를 입력해주세요.">
                     <button type="submit">확인</button>
+                </section>
+                <div class="error-input error">
+                    <p th:if="${error == true}" class="err-msg err-failure">입력한 비밀번호가 틀렸습니다.</p>
                 </div>
             </div>
         </section>

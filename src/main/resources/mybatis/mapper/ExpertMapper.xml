@@ -3,13 +3,29 @@
 <mapper namespace="com.example.closeup.domain.mapper.ExpertMapper">
 
 
-    <select id="getExpertInformation" resultType="com.example.closeup.domain.dto.ExpertDto">
+    <select id="selectExpertInformation" resultType="com.example.closeup.domain.dto.ExpertDto">
         SELECT * FROM `expert`
     </select>
 
-    <select id="selectExpertById">
+    <select id="selectExpertByUserId" resultType="com.example.closeup.domain.dto.ExpertDto">
+        SELECT e.*
+        FROM `user` u
+            JOIN `expert` e
+            ON u.id = e.user_id
+        WHERE u.id = #{id}
+    </select>
+
+    <select id="selectExpertByNickname">
         SELECT *
         FROM `expert`
-        WHERE `user_id` = #{id}
+        WHERE `nickname` = #{nickname}
     </select>
+
+    <!-- 전문가 프로필 사진 변경 -->
+    <update id="updateExpertProfileImg">
+        UPDATE `expert`
+        SET profile_img = #{profileImg}
+        WHERE user_id = #{id}
+    </update>
+
 </mapper>

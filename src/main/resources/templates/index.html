@@ -9,6 +9,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CloseUp</title>
+    <script src="/js/header.js" defer></script>
 
     <th:block th:insert="~{fragments.html :: cdns}"></th:block>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
@@ -16,10 +17,13 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
+    <script defer src="/js/common.js"></script>
 
 </head>
 <body>
 
+
+<th:block th:insert="~{fragments.html :: chat_dialog}"></th:block>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
 <main>
@@ -70,7 +74,7 @@
 
 <footer>
     <a class="logo" href="/">
-        <img src="../static/imgs/CloseUp-navy-admin-removebg.png" alt="logo"/>
+        <img src="/imgs/CloseUp-removebg-preview.png"/>
     </a>
     <p>&copy; 2024 CloseUp All Rights Reserved.</p>
 </footer>

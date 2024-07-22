@@ -1,15 +1,14 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,22 +18,37 @@ public class ExpertController {
     @Autowired
     private ExpertService expertService;
 
-    @GetMapping("/{id}")
+    // 닉네임으로 expert table에서 정보 가져오기
+    @GetMapping("/{nickname}")
     @ResponseBody
-    public ExpertDto getExpert(@PathVariable String id) {
-        return expertService.getExpertDto(id);
+    public ExpertDto getExpert(@PathVariable String nickname) {
+        return expertService.getExpertDto(nickname);
+    }
+
+    // 닉네임과 카테고리로 expert_detail table에서 정보 가져오기
+    @GetMapping("/detail/{nickname}/{category}")
+    @ResponseBody
+    public List<ExpertDetailDto> getDetail(@PathVariable String nickname,
+                                           @PathVariable String category) {
+        return expertService.getExpertDetailDtoList(nickname, category);
+
     }
 
     @GetMapping("map")
     public String getMap(Model model) {
-        List<ExpertDto> expertInformation = expertService.getExpertInformation();
+        List<ExpertDto> expertInformation = expertService.selectExpertInformation();
         model.addAttribute("expertInfo", expertInformation);
 
         return "map/mapMain";
     }
 
     @GetMapping("myPageMain")
-    public String getExpertMyPageMain(Model model) {
+    public String getExpertMyPageMain(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            Model model
+    ) {
+        ExpertDto expert = expertService.selectExpertDtoByUserId(principalDetails.getUsername());
+        model.addAttribute("expert", expert);
         return "user/myPage/expert/myPageMainEx";
     }
 
@@ -46,6 +60,11 @@ public class ExpertController {
     @GetMapping("addPortfolio")
     public String getAddPortfolio(Model model) {
         return "user/myPage/expert/addPortfolio";
+    }
+
+    @PostMapping("/addPortfolio")
+    public String addPortfolio() {
+        return "redirect:/myPage/myPageMain";
     }
 
     @GetMapping("chatRequest")

@@ -3,8 +3,8 @@
 <mapper namespace="com.example.closeup.domain.mapper.UserMapper">
 
     <insert id="insertUser"  parameterType="com.example.closeup.domain.dto.UserDto">
-        INSERT INTO user (id, password, phone, role, name, is_suspended)
-        VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended})
+        INSERT INTO user (id, password, phone, role, name, is_suspended, profile_img)
+        VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended}, #{profileImg})
     </insert>
 
     <select id="selectUserByNameAndPhone" resultType="com.example.closeup.domain.dto.UserDto">
@@ -16,15 +16,12 @@
         SELECT * FROM `user`
         WHERE name = #{name} AND id = #{id}
     </select>
+
     <select id="selectUserById" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE id = #{id}
     </select>
 
-    <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
-        SELECT user.profile_img FROM `user`
-        WHERE id = #{id}
-    </select>
 
     <update id="updatePassword">
         UPDATE `user`
@@ -35,6 +32,12 @@
     <update id="updateUserProfileImg">
         UPDATE `user`
         SET profile_img = #{profileImg}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserRoleByToggle">
+        UPDATE `user`
+        SET role = #{role}
         WHERE id = #{id}
     </update>
 

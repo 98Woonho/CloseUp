@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../static/css/header/header.css">
 
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-    <script src="../static/js/header.js" defer></script>
+
+
 
 
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -25,25 +26,36 @@
 
     <!-- 아임포트 cdn -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <!-- sockJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 </th:block>
 
 <header th:fragment="header_fragment">
-    <section class="header-sec admin-header-sec">
-
-
-    <section th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'admin-header-sec' : 'header-sec'">
+    <section
+            th:classappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? 'admin-header-sec' : 'header-sec'">
         <!-- 백그라운드 이미지로 로고 넣기-->
+        <div class="logo-container" sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">
+            <a href="/"><img src="/imgs/CloseUp-removebg-preview.png"/></a>
+        </div>
+        <div class="logo-container" sec:authorize="${#authorization.expression(hasRole('ROLE_ADMIN'))}">
+            <a href="/admin/main"><img src="/imgs/CloseUp-white-admin-removebg.png"/></a>
+        </div>
         <section id="navSec">
             <div>
                 <nav class="headerNav">
                     <ul>
                         <li id="findIcon">
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
+                            <div sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24"
+                                     viewBox="0 0 50 50">
                                     <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                                 </svg>
                             </div>
-                            <div id="clickedFind" style="display: none">
+                            <div id="clickedFind" style="display: none"
+                                 sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50">
                                     <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                                 </svg>
@@ -52,13 +64,16 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#">주변 전문가</a>
+                            <a href="/expert/map" sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">주변
+                                전문가</a>
                         </li>
                         <li>
-                            <a href="/board/community/communityMain">커뮤니티</a>
+                            <a href="/board/communityMain"
+                               sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">커뮤니티</a>
                         </li>
                         <li>
-                            <a href="#">문의</a>
+                            <a href="/board/cs"
+                               sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">문의</a>
                         </li>
                     </ul>
                 </nav>
@@ -81,10 +96,11 @@
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <a href="/myPage/myPageMain">마이페이지</a>
                         </li>
-                        <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
+                        <li th:if="${#authentication.principal.userDto.isSuspended}" sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <div id="accountToggleCon">
                                 <a href="">일반</a>
-                                <input type="checkbox" id="toggleSwitch">
+                                <!-- checked 상태가 전문가 상태 / 전문가 등록 유저라면 기본 상태는 전문가 토글 활성화 -->
+                                <input type="checkbox" id="toggleSwitch" th:checked="${#authentication.principal.userDto.role == 'ROLE_EXPERT'}">
                                 <label for="toggleSwitch"></label>
                                 <a href="" id="expertAccount">전문</a>
                             </div>
@@ -93,7 +109,6 @@
                 </nav>
             </div>
         </section>
-    </section>
     </section>
 </header>
 
@@ -104,8 +119,8 @@
             <li>
                 <a href=""><i class="fa-solid fa-plus"></i></a>
             </li>
-            <li>
-                <a href=""><i class="fa-regular fa-comment"></i></a>
+            <li id="chatIcon">
+                <i class="fa-regular fa-comment"></i>
             </li>
             <li>
                 <a href=""><i class="fa-solid fa-location-dot"></i></a>
@@ -115,6 +130,118 @@
             </li>
         </ul>
     </nav>
+</div>
+
+<div id="chatDialog" th:fragment="chat_dialog">
+    <!-- 채팅 목록 -->
+    <section id="chatListSec" class="visible">
+        <div id="searchContainer">
+            <div class="search-top">
+                <h3>채팅 내역</h3>
+                <div class="spring"></div>
+                <i class="toggle-chat-list-sec-icon fa-solid fa-chevron-left"></i>
+            </div>
+            <label for="searchChat">
+                <button type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
+                        <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                    </svg>
+                </button>
+                <input type="text" placeholder="검색" id="searchChat">
+            </label>
+        </div>
+        <section id="chatList"></section>
+    </section>
+    <!-- 채팅 내용 -->
+    <section id="chatViewSec">
+        <section id="chatViewTop">
+            <!-- 전문가를 선택했을 때 -->
+            <div class="selected">
+                <div>
+                    <div class="side-btn-container">
+                        <i class="toggle-chat-list-sec-icon fa-solid fa-chevron-left">채팅 목록</i>
+                    </div>
+                    <div id="topProfileContainer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
+                        <div id="topProfileInfo">
+                            <div id="topProfileName"></div>
+                        </div>
+                    </div>
+                    <div class="side-btn-container">
+                        <i id="closeChatDialogIcon" class="fa-solid fa-x"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- 선택한 전문가가 없을 때, -->
+            <div class="non-selected">
+                <i class="toggle-chat-list-sec-icon fa-solid fa-chevron-left">채팅 목록</i>
+            </div>
+        </section>
+        <section id="chatMsgSec">
+            <!-- 채팅 내용이 없을 때, -->
+            <div class="non-selected">
+                <div>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p>채팅 내용을 찾을 수 없습니다.</p>
+                </div>
+            </div>
+        </section>
+        <section id="chatInputSec">
+            <div class="selected">
+                <label for="chatInput">
+                    <input type="text" id="chatInput" onkeydown="keydownEvent(event)">
+                    <i id="emojiIcon" class="fa-regular fa-face-smile"></i>
+                    <i class="fa-regular fa-image"></i>
+                </label>
+            </div>
+            <div class="non-selected">
+                <div>
+                    <label for="chatInputNon">
+                        <input type="text" id="chatInputNon" placeholder="선택된 채팅이 없습니다." disabled>
+                        <i class="fa-regular fa-face-smile"></i>
+                        <i class="fa-regular fa-image"></i>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- 대화 상대 정보 -->
+    <section id="infoSec">
+        <!-- 선택된 대화 상대가 있을 때 -->
+        <div class="selected">
+            <section id="profileSec">
+                <div id="profileImg">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화 상대의 프로필 이미지">
+                    <p id="profileNickname"></p>
+                </div>
+                <section id="category">
+                    <button style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>
+                    <button style="background-color:#FDF4C7; color: #FF9900;">Design</button>
+                    <button style="background-color:#FDE7E0; color: #A0855B;">WEB</button>
+                </section>
+            </section>
+            <div id="profileBtnContainer">
+                <button type="button" id="profileBtn">프로필 보기</button>
+            </div>
+            <section id="mapSec">
+                <!-- 지도 API들어갈 div -->
+                <span>전문가의 위치</span>
+                <div id="map">
+                    <img src="data:image/jpeg;base64,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"
+                         alt="#">
+                </div>
+                <div id="mapAddr">
+                    <p>대구광역시 달구벌대로 618번길 21</p>
+                </div>
+            </section>
+        </div>
+        <div class="non-selected">
+            <div>
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>정보를 찾을 수 없습니다.</p>
+            </div>
+        </div>
+    </section>
 </div>
 
 </body>

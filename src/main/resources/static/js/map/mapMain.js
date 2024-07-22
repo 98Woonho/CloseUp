@@ -28,6 +28,8 @@ let markers;
 navigator.geolocation.getCurrentPosition(function(pos) {
     const curLat = pos.coords.latitude;
     const curLng = pos.coords.longitude;
+
+    console.log(pos);
     loadNaverMap(curLat, curLng, options);
 });
 // 내 위치

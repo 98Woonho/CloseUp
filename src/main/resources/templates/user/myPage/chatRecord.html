@@ -49,7 +49,7 @@
                         <ul>
                             <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
+                                <div class="spring">
                                     <div class="nickname"><b th:text="${chatRoomDto.expertNickname}"></b></div>
                                     <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
                                 </div>

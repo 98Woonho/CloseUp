@@ -83,7 +83,6 @@
 }
 
 .chat-li > div{
-    flex: 1;
     align-content: center;
 }
 .chat-li .nickname{

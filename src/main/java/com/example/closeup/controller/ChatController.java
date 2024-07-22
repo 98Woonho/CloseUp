@@ -96,11 +96,7 @@ public class ChatController {
     }
 
     @PostMapping("message")
-    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto, Authentication auth) {
-        // 현재 로그인 한 유저의 아이디
-        String userId = ((PrincipalDetails) auth.getPrincipal()).getUsername();
-        chatMessageDto.setUserId(userId);
-
+    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
         LocalDateTime date = LocalDateTime.now();
         chatMessageDto.setWrittenAt(date);
 

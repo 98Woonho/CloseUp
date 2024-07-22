@@ -47,12 +47,13 @@ closeChatDialogIcon.addEventListener('click', function (e) {
 })
 
 // 채팅창 상단 프로필 클릭 event
-if (role === 'ROLE_USER') {
-    topProfileContainer.addEventListener('click', function (e) {
-        e.preventDefault();
+
+topProfileContainer.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (role === 'ROLE_USER') {
         infoSec.classList.toggle('visible');
-    })
-}
+    }
+})
 
 
 // 고정 아이콘 - 채팅 아이콘 클릭 event
@@ -79,16 +80,72 @@ axios.get('/chat/list')
                     <li class="chat-li" data-id="${chatRoomDto.id}"
                     onClick="clickChatLi(this)">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                        <div>
+                        <div class="spring">
                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
-                            <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
+                            <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
+                        </div>
+                        <div class="message-count-container">
+                            <div class="message-count">1</div>
                         </div>
                     </li>
                 `, 'text/html').querySelector('.chat-li');
 
                 ul.appendChild(li);
-            })
 
+
+                const content = li.querySelector('.content');
+                let count = 0;
+
+                // sockJs, stomp를 이용하여 채팅 기능 활성화
+                const sockJs = new SockJS("/stomp/chat");
+                //1. SockJS를 내부에 들고있는 stomp를 내어줌
+                stomp = Stomp.over(sockJs);
+
+                //2. connection이 맺어지면 실행
+                stomp.connect({}, function () {
+                    //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+                    stomp.subscribe("/sub/chat/room/" +  chatRoomDto.id, function (messageInfo) {
+                        const message = JSON.parse(messageInfo.body);
+
+                        console.log(message);
+
+                        // db에 채팅 정보 저장
+                        if (message.userId === userId) {
+                            axios.post('/chat/message', message)
+                                .then(res => {
+                                })
+                                .catch(err => {
+                                    alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
+                                })
+                        }
+
+                        const chat = new DOMParser().parseFromString(`
+                            <div class="chat ${message.userId === userId ? 'user1' : 'user2'}">
+                                <div class="chat-msg">${message.content}</div>
+                            </div>`, "text/html").querySelector('.chat');
+
+                        chatMsgSec.appendChild(chat);
+
+                        // 채팅 목록에 가장 마지막 content를 표시
+                        content.innerText = message.content;
+
+                        chatMsgSec.append('');
+                        chatInput.value = '';
+
+                        // 채팅이 올 때 마다 스크롤을 맨 아래로 내림
+                        chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
+
+                        const chatLies = chatList.querySelectorAll('.chat-li');
+
+                        chatLies.forEach(chatLi => {
+                            if (Number(chatLi.dataset.id) === message.chatRoomId && userId !== message.userId) {
+                                count++;
+                                chatLi.querySelector('.message-count').innerText = count;
+                            }
+                        })
+                    });
+                });
+            })
 
             chatList.appendChild(ul);
         }
@@ -113,8 +170,8 @@ searchChat.addEventListener('input', function (e) {
                     <li class="chat-li" data-id="${chatRoomDto.id}"
                     onClick="clickChatLi(this)">
                         <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                        <div>
-                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
+                        <div class="spring">
+                            <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
                         </div>
                     </li>
@@ -180,50 +237,65 @@ function clickChatLi(chat) {
 
 // chatting setting 함수
 function setChat(chatLi) {
-    const content = chatLi.querySelector('.content');
-
-    // 이전 채팅방 연결 해제
-    if (stomp) {
-        stomp.disconnect(function () {
-            console.log('Disconnected from previous chat room');
-        });
-    }
-
-    // sockJs, stomp를 이용하여 채팅 기능 활성화
-    const sockJs = new SockJS("/stomp/chat");
-    //1. SockJS를 내부에 들고있는 stomp를 내어줌
-    stomp = Stomp.over(sockJs);
-
-    //2. connection이 맺어지면 실행
-    stomp.connect({}, function () {
-        //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-        stomp.subscribe("/sub/chat/room/" + chatLi.dataset.id, function (messageInfo) {
-            const message = JSON.parse(messageInfo.body);
-
-            axios.post('/chat/message', message)
-                .then(res => {
-                })
-                .catch(err => {
-                    alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
-                })
-
-            const chat = new DOMParser().parseFromString(`
-            <div class="chat ${message.userId === userId ? 'user1' : 'user2'}">
-                <div class="chat-msg">${message.content}</div>
-            </div>
-        `, "text/html").querySelector('.chat');
-
-            chatMsgSec.appendChild(chat);
-
-            // 채팅 목록에 가장 마지막 content를 표시
-            content.innerText = message.content;
-
-            chatMsgSec.append('');
-            chatInput.value = '';
-
-            chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
-        });
-    });
+    // const content = chatLi.querySelector('.content');
+    // let count = 0;
+    //
+    // // 이전 채팅방 연결 해제
+    // if (stomp) {
+    //     stomp.disconnect(function () {
+    //         console.log('Disconnected from previous chat room');
+    //     });
+    // }
+    //
+    // // sockJs, stomp를 이용하여 채팅 기능 활성화
+    // const sockJs = new SockJS("/stomp/chat");
+    // //1. SockJS를 내부에 들고있는 stomp를 내어줌
+    // stomp = Stomp.over(sockJs);
+    //
+    // //2. connection이 맺어지면 실행
+    // stomp.connect({}, function () {
+    //     //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+    //     stomp.subscribe("/sub/chat/room/" + chatLi.dataset.id, function (messageInfo) {
+    //         const message = JSON.parse(messageInfo.body);
+    //
+    //
+    //         // db에 채팅 정보 저장
+    //         if (message.userId === userId) {
+    //             axios.post('/chat/message', message)
+    //                 .then(res => {
+    //                 })
+    //                 .catch(err => {
+    //                     alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
+    //                 })
+    //         }
+    //
+    //         const chat = new DOMParser().parseFromString(`
+    //         <div class="chat ${message.userId === userId ? 'user1' : 'user2'}">
+    //             <div class="chat-msg">${message.content}</div>
+    //         </div>
+    //     `, "text/html").querySelector('.chat');
+    //
+    //         chatMsgSec.appendChild(chat);
+    //
+    //         // 채팅 목록에 가장 마지막 content를 표시
+    //         content.innerText = message.content;
+    //
+    //         chatMsgSec.append('');
+    //         chatInput.value = '';
+    //
+    //         // 채팅이 올 때 마다 스크롤을 맨 아래로 내림
+    //         chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
+    //
+    //         const chatLies = chatList.querySelectorAll('.chat-li');
+    //
+    //         chatLies.forEach(chatLi => {
+    //             if (Number(chatLi.dataset.id) === message.chatRoomId && userId !== message.userId) {
+    //                 count++;
+    //                 chatLi.querySelector('.message-count').innerText = count;
+    //             }
+    //         })
+    //     });
+    // });
 
 
     nonSelecteds.forEach(nonSelected => {

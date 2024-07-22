@@ -218,3 +218,21 @@ footer {
     font-size: 18px;
     font-weight: 600;
 }
+
+#chatDialog .message-count-container {
+    position: relative;
+    width: 30px;
+}
+
+#chatDialog .message-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff8888;
+    color: #fff8f8;
+}

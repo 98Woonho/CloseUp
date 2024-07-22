@@ -15,16 +15,13 @@ import java.util.List;
 public class ExpertService {
     @Autowired
     private ExpertMapper expertMapper;
-
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private ExpertDetailMapper expertDetailMapper;
 
     public List<ExpertDto> selectExpertInformation() {
         return expertMapper.selectExpertInformation();
-    }
-
-    public ExpertDto selectExpertDtoByUserId(String id) {
-        return expertMapper.selectExpertByUserId(id);
     }
 
     public ExpertDto getExpertDto(String nickname) {
@@ -35,8 +32,17 @@ public class ExpertService {
         return expertDetailMapper.selectExpertDetailListByNicknameAndCategory(nickname, category);
     }
 
+    public ExpertDto selectExpertDto(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
+        public ExpertDto selectExpertDtoByUserId(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void updateExpertProfileImg(String id, byte[] profileImg) {
         expertMapper.updateExpertProfileImg(id, profileImg);
+
     }
 }

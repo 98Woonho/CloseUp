@@ -1,11 +1,8 @@
 package com.example.closeup.controller;
 
-
+import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
-
-import com.example.closeup.config.auth.PrincipalDetails;
-
 import com.example.closeup.domain.dto.UserDto;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -247,9 +244,13 @@ public class UserController {
     }
 
 
+
     @GetMapping("expertDetail/{nickname}")
     public String getExpertDetail(@PathVariable String nickname, Model model) {
+        System.out.println(nickname);
         ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        System.out.println(expertDto);
 
         List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
 
@@ -263,6 +264,7 @@ public class UserController {
     @ResponseBody
     public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return principalDetails.getUserDto().getId();
+
     }
 
     @GetMapping("/addExpertInfo")

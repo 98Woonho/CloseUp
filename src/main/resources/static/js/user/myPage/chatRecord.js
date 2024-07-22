@@ -1,3 +1,5 @@
+// TODO
+// 팝업 챗.js에 맞게 수정해야 함.
 
 const chatListSec = document.getElementById('chatListSec');
 const chatList = document.getElementById('chatList');

@@ -46,6 +46,13 @@ public class SecurityConfig {
                     formLogin.successHandler(customLoginSuccessHandler());
                 });
 
+//        http.oauth2Login(oauth2Login -> {
+//            oauth2Login.loginPage("/user/login")
+//                    .defaultSuccessUrl("/")
+//                    .successHandler(new CustomOAuth2SuccessHandler())
+//                    .permitAll();
+//        });
+
         http.logout(
                 logout ->{
                     logout.logoutUrl("/logout").permitAll(); // 로그아웃 url 지정

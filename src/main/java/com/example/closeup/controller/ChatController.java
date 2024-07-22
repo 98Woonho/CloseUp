@@ -95,6 +95,12 @@ public class ChatController {
         model.addAttribute("chatMessageDtoList", chatMessageDtoList);
     }
 
+    @GetMapping("/room/{id}")
+    @ResponseBody
+    public ChatRoomDto getChatRoomDto(@PathVariable Long id) {
+        return chatService.getChatRoomDto(id);
+    }
+
     @PostMapping("message")
     public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
         LocalDateTime date = LocalDateTime.now();
@@ -111,16 +117,15 @@ public class ChatController {
         Long chatRoomId = chatRoomDto.getId();
         String role = principalDetails.getUserDto().getRole();
 
-
         ChatRoomDto newChatRoomDto = chatService.getChatRoomDto(chatRoomId);
 
         if (chatRoomDto.getAction().equals("increment")) {
             if (role.equals("ROLE_USER")) {
-                newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
+                newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
             }
 
             if (role.equals("ROLE_EXPERT")) {
-                newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
+                newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
             }
         }
 

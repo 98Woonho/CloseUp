@@ -5,8 +5,6 @@ const toggleChatListSecIcons = document.querySelectorAll('.toggle-chat-list-sec-
 const infoSec = document.getElementById('infoSec');
 const chatList = document.getElementById('chatList');
 const chatMsgSec = document.getElementById('chatMsgSec');
-const chatViewSec = document.getElementById('chatViewSec');
-const chatViewTop = document.getElementById('chatViewTop');
 const topProfileName = document.getElementById('topProfileName');
 const nonSelecteds = document.querySelectorAll('.non-selected');
 const selecteds = document.querySelectorAll('.selected');
@@ -86,7 +84,7 @@ axios.get('/chat/list')
                             <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
                             <div class="spring">
                                 <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
-                                <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
+                                <div class="content">${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</div>
                             </div>
                             <div class="message-count-container">
                                 <div class="message-count">${role === 'ROLE_USER' ? chatRoomDto.notReadExpertMessageCount : chatRoomDto.notReadUserMessageCount}</div>
@@ -95,9 +93,6 @@ axios.get('/chat/list')
                     `, 'text/html').querySelector('.chat-li');
 
                     ul.appendChild(li);
-
-
-
 
                     const messageCount = li.querySelector('.message-count');
 
@@ -115,16 +110,49 @@ axios.get('/chat/list')
                         const chatLi = chatList.querySelector(`.chat-li[data-id="${chatRoomDto.id}"]`);
                         const content = chatLi.querySelector('.content');
                         const message = JSON.parse(messageInfo.body);
-                        const messageCount = chatLi.querySelector('.message-count');
+                        let messageCount = chatLi.querySelector('.message-count');
 
-                        if (message.userId !== userId) {
-                            if (messageCount.innerText !== '0') {
-                                messageCount.classList.add('visible');
-                            }
+                        axios.get(`/chat/room/${chatRoomDto.id}`)
+                            .then(res => {
+                                const notReadExpertMessageCount = res.data.notReadExpertMessageCount;
+                                const notReadUserMessageCount = res.data.notReadUserMessageCount;
 
-                            if (messageCount.innerText === '0') {
-                                messageCount.innerText = '';
-                            }
+                                if (chatLi.classList.contains('choice')) {
+                                    messageCount.innerText = '';
+                                } else {
+                                    messageCount.innerText = role === 'ROLE_USER' ? notReadExpertMessageCount + 1 : notReadUserMessageCount + 1;
+                                }
+
+                                if (messageCount.innerText !== '') {
+                                    messageCount.classList.add('visible');
+                                }
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+
+
+
+                        if (message.userId === userId) {
+                            // DB에 메세지 저장
+                            axios.post('/chat/message', {
+                                chatRoomId: message.chatRoomId,
+                                content: message.content,
+                                userId: message.userId
+                            })
+                                .then(res => {
+                                })
+                                .catch(err => {
+                                    alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
+                                });
+                        }
+
+                        if (!chatLi.classList.contains('choice')) {
+                            // 안 읽은 메세지 count 증가
+                            axios.patch('/chat/room', {
+                                id: message.chatRoomId,
+                                action: 'increment'
+                            })
                         }
 
                         const chat = new DOMParser().parseFromString(`
@@ -213,22 +241,15 @@ function clickChatLi(chat) {
         }
     })
 
-
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';
     chat.querySelector('.message-count').classList.remove('visible');
 
     // chat_room DB에 읽지 않은 메세지 0으로 초기화
-    axios.patch('/chat', {
+    axios.patch('/chat/room', {
         id: chat.dataset.id,
         action: 'reset'
     })
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
 
     // 선택된 채팅방의 채팅목록 가져오기
     axios.get(`/chat/messages/${selectedChatRoomId}`)
@@ -281,29 +302,6 @@ function keydownEvent(e) {
         }
 
         e.preventDefault();
-
-        // DB에 메세지 저장
-        axios.post('/chat/message', {
-            chatRoomId: selectedChatRoomId,
-            content: chatInput.value,
-            userId: userId
-        })
-            .then(res => {
-                axios.patch('/chat/room', {
-                    id: selectedChatRoomId,
-                    action: 'increment'
-                })
-                    .then(res => {
-                        // 상대방에게 메세지가 왔을 때, 메세지 카운트 표시
-                        console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
-            })
-            .catch(err => {
-                alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
-            });
 
         // stomp send
         stomp.send('/pub/chat/message', {}, JSON.stringify({

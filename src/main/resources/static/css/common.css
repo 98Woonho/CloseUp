@@ -120,6 +120,13 @@ footer {
     opacity: 1;
 }
 
+#chatDialog .content {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #chatDialog #chatListSec,
 #chatDialog #infoSec,
 #chatDialog #chatViewSec {
@@ -219,12 +226,12 @@ footer {
     font-weight: 600;
 }
 
-#chatDialog .message-count-container {
+.message-count-container {
     position: relative;
     width: 30px;
 }
 
-#chatDialog .message-count.visible {
+.message-count.visible {
     position: absolute;
     top: 50%;
     left: 50%;

@@ -45,17 +45,7 @@
                             <input type="text" placeholder="검색" id="search">
                         </label>
                     </div>
-                    <section id="chatList">
-                        <ul>
-                            <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div class="spring">
-                                    <div class="nickname"><b th:text="${chatRoomDto.expertNickname}"></b></div>
-                                    <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
+                    <section id="chatList"></section>
                 </section>
                 <!-- 채팅 내용 -->
                 <section id="chatViewSec">

@@ -105,5 +105,15 @@ public class UserService {
     public void updateUserRoleByToggle(String id, String role) {
         userMapper.updateUserRoleByToggle(id, role);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void insertExpertInfoByUserId(String id) {
+        userMapper.insertExpertInfoByUserId(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserSuspendAndRoleById(String id) {
+        userMapper.updateUserSuspendAndRoleById(id);
+    }
 }
 

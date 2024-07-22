@@ -7,6 +7,16 @@
         VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended}, #{profileImg})
     </insert>
 
+    <insert id="insertExpertInfoByUserId">
+        INSERT INTO `expert` (nickname, user_id, introduction, zipcode, address, address_detail)
+        VALUES (#{nickname}, (SELECT id FROM `user` WHERE #{userID}), #{introduction}, #{zipcode}, #{address}, #{addressDetail})
+    </insert>
+
+    <insert id="insertExpertDetailInfoByNickname">
+        INSERT INTO `expert_detail` (expert_nickname, category, information)
+        VALUES (#{nickname}, #{category}, #{information})
+    </insert>
+
     <select id="selectUserByNameAndPhone" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE name = #{name} AND phone = #{phone}
@@ -39,6 +49,12 @@
         UPDATE `user`
         SET role = #{role}
         WHERE id = #{id}
+    </update>
+
+    <update id="updateUserSuspendAndRoleById">
+#         UPDATE `user`
+#         SET role = 'ROLE_EXPERT', is_suspended = is_suspended +1
+#         WHERE id = #{id}
     </update>
 
 </mapper>

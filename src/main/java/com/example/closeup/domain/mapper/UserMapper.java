@@ -17,4 +17,9 @@ public interface UserMapper {
     void updateUserRoleByToggle(String id, String role);
     /**************유저 프로필 사진(회원가입 후 마이페이지에서 변경)***************/
     void updateUserProfileImg(String id, byte[] profileImg);
+    /**************전문가 정보 등록***************/
+    void insertExpertInfoByUserId(String id);
+    void insertExpertDetailInfoByNickname(String nickname);
+    /**************전문가 정보 등록 후 유저 정보 업데이트***************/
+    void updateUserSuspendAndRoleById(String id);
 }

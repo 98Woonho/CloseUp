@@ -9,7 +9,7 @@ findIcon.onclick = () => {
 }
 
 // 토글 버튼 클릭 시 유저 ROLE 변경
-const toggleSwitchInput = document.querySelector('input[type=checkbox]');
+const toggleSwitchInput = document.getElementById('toggleSwitch');
 
 let currentRole;
 // 체크박스 상태 설정

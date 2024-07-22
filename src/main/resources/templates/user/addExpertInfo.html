@@ -6,9 +6,12 @@
     <meta charset="UTF-8">
     <title>전문가 등록 페이지</title>
     <script src="/js/header.js" defer></script>
+    <script src="/js/user/addExpertInfo.js" defer></script>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
 
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -24,7 +27,7 @@
                 <section id="titleSec">
                     <p>전문가 정보 등록 페이지</p>
                 </section>
-                <form th:action="@{/expert/addPortfolio}" method="POST">
+                <form th:action="@{/expert/addExpertInfo}" method="POST">
                     <!-- 전문가 정보 섹션 -->
                     <section id="infoSection">
                         <!-- 전문 분야 선택 -->
@@ -33,7 +36,7 @@
                             <p class="sub-title"><span>닉네임 설정</span> (최대 15자)</p>
                             <div class="textarea-container">
                                 <label>
-                                    <textarea maxlength="15"></textarea>
+                                    <input type="text" maxlength="15" name="nickname">
                                 </label>
                                 <div class="input-btn-container">
                                     <button type="button" id="duplicateBtn">중복 확인</button>
@@ -45,179 +48,195 @@
                             <p class="sub-title"><span>전문가 소개</span></p>
                             <div id="introTextareaContainer">
                                 <label>
-                                    <textarea></textarea>
+                                    <textarea name="introduction"></textarea>
                                 </label>
                             </div>
                         </div>
                         <!-- 전문 분야 선택 -->
                         <div class="info-container">
                             <!-- textarea 에서 입력하고 버튼 누르면 추가되고 X 눌러서 삭제할 수 있는 방식 -->
+                            <!-- expertise -->
                             <p class="sub-title"><span>전문 분야</span></p>
-                            <div class="tags-container">
-                                <div class="tags"><p>웹 페이지 제작</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            <div class="tags-container" id="expertiseTagsContainer">
                             </div>
                             <div class="textarea-container">
                                 <label>
-                                    <textarea></textarea>
+                                    <input type="text" id="expertiseInput">
                                 </label>
                                 <div class="input-btn-container">
-                                    <button class="input-btn">입력</button>
+                                    <button class="input-btn" id="addExpertiseBtn" type="button">입력</button>
                                 </div>
                             </div>
                         </div>
                         <div class="info-container">
+                            <!-- skill -->
                             <p class="sub-title"><span>보유 기술</span> (최소 3항목, 최대 6항목)</p>
                             <div class="skills-container">
                                 <div class="container">
-                                    <input type="checkbox" id="skillJava">
+                                    <input type="checkbox" id="skillJava" name="skill">
                                     <label for="skillJava">Java</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillPython">
+                                    <input type="checkbox" id="skillPython" name="skill">
                                     <label for="skillPython">Python</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillJavaScript">
+                                    <input type="checkbox" id="skillJavaScript" name="skill">
                                     <label for="skillJavaScript">JavaScript</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillC">
+                                    <input type="checkbox" id="skillC" name="skill">
                                     <label for="skillC">C</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillC++">
+                                    <input type="checkbox" id="skillC++" name="skill">
                                     <label for="skillC++">C++</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillC#">
+                                    <input type="checkbox" id="skillC#" name="skill">
                                     <label for="skillC#">C#</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillReact">
+                                    <input type="checkbox" id="skillReact" name="skill">
                                     <label for="skillReact">React</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillMySQL">
+                                    <input type="checkbox" id="skillMySQL" name="skill">
                                     <label for="skillMySQL">MySQL</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillMariaDB">
+                                    <input type="checkbox" id="skillMariaDB" name="skill">
                                     <label for="skillMariaDB">MariaDB</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillFlutter">
+                                    <input type="checkbox" id="skillFlutter" name="skill">
                                     <label for="skillFlutter">Flutter</label>
                                 </div>
                                 <div class="container">
 
-                                    <input type="checkbox" id="skillKotlin">
+                                    <input type="checkbox" id="skillKotlin" name="skill">
                                     <label for="skillKotlin">Kotlin</label>
                                 </div>
                                 <div class="container">
 
-                                    <input type="checkbox" id="skillSwift">
+                                    <input type="checkbox" id="skillSwift" name="skill">
                                     <label for="skillSwift">Swift</label>
                                 </div>
                                 <div class="container">
 
-                                    <input type="checkbox" id="skillPHP">
+                                    <input type="checkbox" id="skillPHP" name="skill">
                                     <label for="skillPHP">PHP</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillJSP">
+                                    <input type="checkbox" id="skillJSP" name="skill">
                                     <label for="skillJSP">JSP</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillTypeScript">
+                                    <input type="checkbox" id="skillTypeScript" name="skill">
                                     <label for="skillTypeScript">TypeScript</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillGo">
+                                    <input type="checkbox" id="skillGo" name="skill">
                                     <label for="skillGo">Go</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillRuby">
+                                    <input type="checkbox" id="skillRuby" name="skill">
                                     <label for="skillRuby">Ruby</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillJquery">
+                                    <input type="checkbox" id="skillJquery" name="skill">
                                     <label for="skillJquery">Jquery</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillLinux">
+                                    <input type="checkbox" id="skillLinux" name="skill">
                                     <label for="skillLinux">Linux</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillNode.JS">
+                                    <input type="checkbox" id="skillNode.JS" name="skill">
                                     <label for="skillNode.JS">Node.JS</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillSpring">
+                                    <input type="checkbox" id="skillSpring" name="skill">
                                     <label for="skillSpring">Spring</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillSpringBoot">
+                                    <input type="checkbox" id="skillSpringBoot" name="skill">
                                     <label for="skillSpringBoot">SpringBoot</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillDjango">
+                                    <input type="checkbox" id="skillDjango" name="skill">
                                     <label for="skillDjango">Django</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillHTML">
+                                    <input type="checkbox" id="skillHTML" name="skill">
                                     <label for="skillHTML">HTML</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillCSS">
+                                    <input type="checkbox" id="skillCSS" name="skill">
                                     <label for="skillCSS">CSS</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillBootStrap">
+                                    <input type="checkbox" id="skillBootStrap" name="skill">
                                     <label for="skillBootStrap">BootStrap</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillEmotion">
+                                    <input type="checkbox" id="skillEmotion" name="skill">
                                     <label for="skillEmotion">Emotion</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillMongoDB">
+                                    <input type="checkbox" id="skillMongoDB" name="skill">
                                     <label for="skillMongoDB">MongoDB</label>
                                 </div>
                                 <div class="container">
-                                    <input type="checkbox" id="skillExpress">
+                                    <input type="checkbox" id="skillExpress" name="skill">
                                     <label for="skillExpress">Express</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="info-container">
+                            <!-- career -->
                             <p class="sub-title"><span>경력 사항</span></p>
-                            <div class="tags-container">
-                                <div class="tags"><p>OO기업에서 6년간 근무</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
-                                <div class="tags"><p>OO기업에서 인턴쉽 경험</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            <div class="tags-container" id="careerTagsContainer">
                             </div>
                             <div class="textarea-container">
                                 <label>
-                                    <textarea></textarea>
+                                    <input type="text" id="careerInput">
                                 </label>
                                 <div class="input-btn-container">
-                                    <button class="input-btn">입력</button>
+                                    <button class="input-btn" id="addCareerBtn" type="button">입력</button>
                                 </div>
                             </div>
                         </div>
                         <div class="info-container">
+                            <!-- ability -->
                             <p class="sub-title"><span>학력/자격증</span></p>
-                            <div class="tags-container">
-                                <div class="tags"><p>OO대학교 졸업</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
-                                <div class="tags"><p>정보처리기사</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
-                                <div class="tags"><p>리눅스 마스터 2급</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                            <div class="tags-container" id="abilityTagsContainer">
                             </div>
                             <div class="textarea-container">
                                 <label>
-                                    <textarea></textarea>
+                                    <input type="text" id="abilityInput">
                                 </label>
                                 <div class="input-btn-container">
-                                    <button class="input-btn">입력</button>
+                                    <button class="input-btn" id="addAbilityBtn" type="button">입력</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-container">
+                            <p class="sub-title"><span>주소</span></p>
+                            <div class="input-container">
+                                <div class="addr-container">
+                                    <label for="zipcodeInput"></label>
+                                    <input type="text" id="zipcodeInput" name="zipcode" disabled>
+                                    <div class="input-btn-container">
+                                        <button id="addressFindBtn" type="button">주소 찾기</button>
+                                    </div>
+                                </div>
+                                <div class="addr-container">
+                                    <label for="addressInput"></label>
+                                    <input type="text" id="addressInput" name="address" disabled>
+                                    <label for="addressDetailInput"></label>
+                                    <input type="text" id="addressDetailInput" name="addressDetail" placeholder="상세 주소를 입력해주세요.">
                                 </div>
                             </div>
                         </div>

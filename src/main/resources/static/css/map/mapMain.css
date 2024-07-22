@@ -100,6 +100,7 @@
     background-color: var(--color-main-navy);
     color: var(--color-lighter-bluegray);
 }
+/*****************인포 컨테이너******************/
 .info-template{
     display: flex;
     width: 276px;
@@ -109,16 +110,21 @@
     box-shadow: var(--box-shadow);
 }
 .name-con{
+    display: flex;
     width: 144px;
-    align-content: start;
+    justify-content: space-between;
+    flex-direction: column;
     margin-right: 16px;
 }
 .expert-name{
     font-size: 14px;
     font-weight: bold;
-    margin-bottom: 8px;
 }
 .expert-desc{
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.expert-addr{
     font-size: 12px;
 }
 .info-template button{

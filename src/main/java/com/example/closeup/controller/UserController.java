@@ -267,6 +267,25 @@ public class UserController {
 
     }
 
+    // 전문가 닉네임 중복 확인
+    @GetMapping("confirmNicknameDup")
+    public ResponseEntity<String> getConfirmNicknameDup(@RequestParam("nickname") String nickname) {
+        ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        if (expertDto != null) {
+            return new ResponseEntity<>("이미 존재하는 닉네임니다. 다른 닉네임을 입력해 주세요.", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("사용 가능한 닉네임입니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/addExpertInfo")
+    public ResponseEntity<String> addExpertInfo(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        userService.insertExpertInfoByUserId(principalDetails.getUsername());
+        userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
+        return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
+    }
+
     @GetMapping("/addExpertInfo")
     public String getAddExpertInfo(Model model) {
         return "user/addExpertInfo";

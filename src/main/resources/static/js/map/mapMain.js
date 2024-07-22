@@ -144,6 +144,7 @@ function loadNaverMap(lat, lng){
                             '    <div class="name-con">\n' +
                             '        <p class="expert-name">' + userId + '</p>\n' +
                             '        <p class="expert-desc">' + introduction + '</p>\n' +
+                            '        <p class="expert-addr">' + address + ' ' +  addressDetail + '</p>\n' +
                             '    </div>\n' +
                             '    <button type="button">프로필<br/>보러가기</button>\n' +
                             '</div>',

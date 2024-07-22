@@ -55,9 +55,12 @@
     flex: 1;
     margin-right: 10px;
 }
-.textarea-container textarea{
+.textarea-container input{
     width: 100%;
     height: 40px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 .input-btn{
     width: 60px;
@@ -111,6 +114,7 @@
 .tags-container > div{
     display: inline-block;
     padding: 3px 10px;
+    margin-right: 4px;
     height: 25px;
     align-content: center;
     border-radius: 15px;
@@ -128,7 +132,38 @@
     color: var(--color-medium-gray);
 }
 /*************************************/
-
+.addr-container{
+    display: flex;
+    margin-bottom: 8px;
+}
+.addr-container input{
+    height: 40px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+#zipcodeInput, #addressDetailInput{
+    flex: 1;
+}
+#zipcodeInput{
+    margin-right: 8px;
+}
+#addressInput{
+    width: 240px;
+    margin-right: 8px;
+}
+#addressFindBtn{
+    align-content: center;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: var(--color-main-navy);
+    color: var(--color-lighter-bluegray);
+}
+#addressFindBtn:hover{
+    background-color: var(--color-lighter-bluegray);
+    color: var(--color-main-navy);
+}
 
 
 /*************************************/

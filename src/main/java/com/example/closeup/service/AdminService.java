@@ -27,7 +27,7 @@ public class AdminService {
     public List<UserDto> searchUsers(String name, String id, String phone, String expertStatus) {
         return adminMapper.searchUsers(name, id, phone, expertStatus);
     }
-
+    @Transactional
     public void deleteUser(String id) {
         adminMapper.deleteExpertUser(id);
         adminMapper.deleteUser(id);

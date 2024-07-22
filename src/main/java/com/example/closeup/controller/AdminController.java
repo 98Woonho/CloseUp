@@ -99,6 +99,7 @@ public class AdminController {
     @GetMapping("/manage/post/delete/{id}")
     public String deleteArticle(@PathVariable String id) {
         adminService.deleteArticle(id);
+        log.info("딜리트실행");
         return "redirect:/admin/manage/post";
     }
 

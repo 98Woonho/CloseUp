@@ -105,24 +105,37 @@ public class ChatController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("")
-    public ResponseEntity<Void> patchChat(@RequestBody ChatRoomDto chatRoomDto,
+    @PatchMapping("room")
+    public ResponseEntity<ChatRoomDto> patchChat(@RequestBody ChatRoomDto chatRoomDto,
                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long chatRoomId = chatRoomDto.getId();
         String role = principalDetails.getUserDto().getRole();
 
+
         ChatRoomDto newChatRoomDto = chatService.getChatRoomDto(chatRoomId);
 
-        if (role.equals("ROLE_USER")) {
-            newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
+        if (chatRoomDto.getAction().equals("increment")) {
+            if (role.equals("ROLE_USER")) {
+                newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
+            }
+
+            if (role.equals("ROLE_EXPERT")) {
+                newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
+            }
         }
 
-        if (role.equals("ROLE_EXPERT")) {
-            newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
+        if (chatRoomDto.getAction().equals("reset")) {
+            if (role.equals("ROLE_USER")) {
+                newChatRoomDto.setNotReadExpertMessageCount(0);
+            }
+
+            if (role.equals("ROLE_EXPERT")) {
+                newChatRoomDto.setNotReadUserMessageCount(0);
+            }
         }
 
         chatService.updateChatRoom(newChatRoomDto);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(newChatRoomDto);
     }
 }

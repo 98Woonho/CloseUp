@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/board/community/communityWrite.js" defer></script>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
-    <script src="../../../static/js/board/community/communityWrite.js" defer th:src="@{/js/board/community/communityWrite.js}"></script>
 
 </head>
 <body>
@@ -73,6 +74,7 @@
                     </section>
                 </form>
             </section>
+
         </section>
         <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 

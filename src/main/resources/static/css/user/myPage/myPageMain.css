@@ -3,8 +3,7 @@
 #userMainSec{
     max-width: 1104px;
     height: 100vh;
-    margin: 0 auto;
-    padding: 32px 0;
+    margin: 80px auto;
 }
 
 #userMainSec > div{
@@ -18,19 +17,54 @@
     justify-content: center;
     align-items: center;
 }
+#userProfileImgContainer{
+    width: 250px;
+    height: 250px;
+}
 #profileImage{
     width: 250px;
     height: 250px;
-    object-fit: fill;
+    object-fit: cover;
 }
 #titleSec{
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
 }
+#titleSec p{
+    display: inline-block;
+}
+#userId{
+    font-weight: normal;
+}
 #userProfileImgContainer{
+    position: relative;
     width: 250px;
     margin-left: 20px;
+}
+#changeSpan{
+    position: absolute;
+    display: none;
+    width: 80px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    align-content: center;
+    border: 2px solid var(--color-lighter-gray);
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+}
+#changeProfileImgBtn:hover img{
+    filter:brightness(70%);
+}
+#changeProfileImgBtn:hover{
+    #changeSpan{
+        display: inline-block;
+    }
 }
 /***********************************/
 #userCategorySection > ul{

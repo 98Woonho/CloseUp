@@ -1,6 +1,6 @@
-@import
-url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+@import "./user/myPage/chatRecord.css";
 
 * {
     box-sizing: border-box;
@@ -29,7 +29,6 @@ url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/p
 
 body {
     font-family: Pretendard;
-    overflow-x: hidden;
 }
 
 ul, li {
@@ -45,6 +44,10 @@ button {
 a:link, a:visited {
     text-decoration: none;
     color: black;
+}
+
+.spring {
+    flex: 1;
 }
 
 header {
@@ -92,4 +95,126 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+
+#chatDialog {
+    overflow: hidden;
+    width: 700px;
+    height: 600px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px #666;
+    position: fixed;
+    z-index: 1;
+    bottom: 30px;
+    right: -800px;
+    opacity: 0;
+
+    transition-property: right, opacity;
+    transition-timing-function: ease;
+    transition-duration: 0.5s;
+}
+
+#chatDialog.visible {
+    right: 220px;
+    opacity: 1;
+}
+
+#chatDialog #chatListSec,
+#chatDialog #infoSec,
+#chatDialog #chatViewSec {
+    background-color: #ffffff;
+    height: 100%;
+    position: absolute;
+}
+
+#chatDialog #chatListSec {
+    left: -330px;
+    z-index: 1;
+
+    transition-property: left;
+    transition-timing-function: ease;
+    transition-duration: 0.5s;
+}
+
+#chatDialog #chatListSec.visible {
+    left: 0;
+}
+
+#chatDialog #infoSec {
+    right: -250px;
+    width: 250px;
+    z-index: 1;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+
+    transition-property: right;
+    transition-timing-function: ease;
+    transition-duration: 0.5s;
+}
+
+#chatDialog #infoSec.visible {
+    right: 0;
+}
+
+#chatDialog #chatListSec h3 {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+#chatDialog .toggle-chat-list-sec-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#chatDialog .toggle-chat-list-sec-icon::before {
+    margin-right: 5px;
+}
+
+#chatDialog .search-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#chatDialog #chatViewSec {
+    width: 100%;
+}
+
+#chatDialog #chatMsgSec {
+    height: 75%;
+}
+
+#chatDialog #chatViewTop {
+    height: 15%;
+}
+
+#chatDialog #chatViewTop .non-selected {
+    display: block;
+    height: 100%;
+}
+
+#chatDialog #chatViewTop .selected > div > div {
+    width: 180px;
+}
+
+#chatDialog #topProfileContainer {
+    cursor: pointer;
+}
+#chatDialog #map,
+#chatDialog #map img {
+    width: 100%;
+}
+
+#chatDialog #closeChatDialogIcon {
+    cursor: pointer;
+    float: right;
+}
+
+#chatDialog .side-btn-container {
+    color: unset;
+}
+
+#chatDialog #topProfileName {
+    font-size: 18px;
+    font-weight: 600;
 }

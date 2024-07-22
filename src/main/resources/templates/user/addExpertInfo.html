@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>전문가 등록 페이지</title>
+    <script src="/js/header.js" defer></script>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
@@ -23,7 +24,7 @@
                 <section id="titleSec">
                     <p>전문가 정보 등록 페이지</p>
                 </section>
-                <form action="" method="POST">
+                <form th:action="@{/expert/addPortfolio}" method="POST">
                     <!-- 전문가 정보 섹션 -->
                     <section id="infoSection">
                         <!-- 전문 분야 선택 -->

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.closeup.domain.mapper.ExpertDetailMapper">
+
+    <select id="selectExpertDetailListByNickname">
+        SELECT *
+        FROM `expert_detail`
+        WHERE `expert_nickname` = #{nickname}
+    </select>
+
+    <select id="selectExpertDetailListByNicknameAndCategory">
+        SELECT *
+        FROM `expert_detail`
+        WHERE `expert_nickname` = #{nickname} AND `category` = #{category}
+    </select>
+
+</mapper>

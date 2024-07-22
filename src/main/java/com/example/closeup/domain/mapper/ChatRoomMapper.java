@@ -12,5 +12,7 @@ public interface ChatRoomMapper {
 
     ChatRoomDto selectChatRoomDtoById(Long id);
 
+    ChatRoomDto selectChatRoomDtoByUserIdAndExpertNickname(ChatRoomDto chatRoomDto);
+
     void insertChatRoom(ChatRoomDto chatRoomDto);
 }

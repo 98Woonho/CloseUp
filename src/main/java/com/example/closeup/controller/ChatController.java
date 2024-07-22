@@ -1,3 +1,4 @@
+
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,21 +39,39 @@ public class ChatController {
 
     // 채팅 목록 조회
     @GetMapping("list")
-    public void getRooms(Authentication auth, Model model) {
-        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
-        String userId = principal.getUserDto().getId();
+    @ResponseBody
+    public List<ChatRoomDto> getRooms(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        List<ChatRoomDto> chatRoomDtoList = null;
 
-        List<ChatRoomDto> chatRoomDtoList = chatService.getChatRoomDtoList(userId);
+        if (principalDetails != null) {
+            String userId = principalDetails.getUserDto().getId();
 
-        model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+
+            chatRoomDtoList = chatService.getChatRoomDtoList(userId);
+
+            for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
+                String lastChatMessage = chatService.getLastChatMessage(chatRoomDto.getId());
+
+                chatRoomDto.setLastChatMessage(lastChatMessage);
+            }
+        }
+
+        return chatRoomDtoList;
     }
 
     //채팅방 개설
     @PostMapping("room")
-    public String postRoom(ChatRoomDto chatRoomDto){
-        chatService.createRoom(chatRoomDto);
+    public ResponseEntity<Long> postRoom(Authentication auth, @RequestBody ChatRoomDto chatRoomDto){
+        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
+        String userId = principal.getUserDto().getId();
 
-        return "redirect:/chat/room?id=" + chatRoomDto.getId();
+        chatRoomDto.setUserId(userId);
+
+        ChatRoomDto originalChatRoomDto = chatService.getChatRoomDto(chatRoomDto);
+
+        Long roomId = originalChatRoomDto == null ? chatService.createRoom(chatRoomDto) : originalChatRoomDto.getId();
+
+        return ResponseEntity.ok(roomId);
     }
 
     // 채팅방 조회

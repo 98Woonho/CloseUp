@@ -1,7 +1,8 @@
 @import "../../../common.css";
+
 #modifySection{
     max-width: 1104px;
-    margin: 0 auto;
+    margin: 80px auto;
     height: 100vh;
 }
 .modify-container{
@@ -78,9 +79,7 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-
 }
-
 .skills-container{
     display: grid;
     grid-template-columns: repeat(6, 1fr);

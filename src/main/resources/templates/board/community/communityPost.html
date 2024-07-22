@@ -6,10 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>COMMUNITY PAGE</title>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/board/community/communityPost.js" defer></script>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script> var isAuthenticated = /*[[${#authentication.isAuthenticated()}]]*/ false;</script>
-    <script src="/js/board/community/communityPost.js" th:src="@{/js/board/community/communityPost.js}" defer></script>
     <link rel="stylesheet" href="/css/board/community/community.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -116,6 +117,7 @@
                                             근황 궁금했는데 여기서 뵙게 되네요.
                                             응원하겠습니다.</p>
                                     </div>
+
                                     <div class="comment-delete" th:data-comment-id="${comment.id}" th:if="${#authentication.name == comment.userId}">
                                         <i class="fa-solid fa-x"></i>
                                     </div>

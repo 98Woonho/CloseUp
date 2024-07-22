@@ -15,6 +15,12 @@
         WHERE u.id = #{id}
     </select>
 
+    <select id="selectExpertByNickname">
+        SELECT *
+        FROM `expert`
+        WHERE `nickname` = #{nickname}
+    </select>
+
     <!-- 전문가 프로필 사진 변경 -->
     <update id="updateExpertProfileImg">
         UPDATE `expert`

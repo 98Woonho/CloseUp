@@ -1,13 +1,21 @@
 package com.example.closeup.service;
 
+
+import com.example.closeup.domain.dto.ExpertDetailDto;
+import com.example.closeup.domain.dto.ExpertDto;
+
 import com.example.closeup.config.auth.PrincipalDetails;
+
 import com.example.closeup.domain.dto.UserDto;
+import com.example.closeup.domain.mapper.ExpertDetailMapper;
+import com.example.closeup.domain.mapper.ExpertMapper;
 import com.example.closeup.domain.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +26,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ExpertMapper expertMapper;
+
+    @Autowired
+    private ExpertDetailMapper expertDetailMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -73,6 +88,17 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public void updateUserProfileImg(String id, byte[] profileImg) {
         userMapper.updateUserProfileImg(id, profileImg);
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public ExpertDto getExpertDto(String nickname) {
+        return expertMapper.selectExpertByNickname(nickname);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
+        return expertDetailMapper.selectExpertDetailListByNickname(nickname);
     }
 
     @Transactional(rollbackFor = Exception.class)

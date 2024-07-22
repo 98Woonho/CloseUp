@@ -54,18 +54,6 @@ public class MyPageController {
         return "user/myPage/myPageMain";
     }
 
-
-    @GetMapping("/profileImage")
-    @ResponseBody
-    public ResponseEntity<byte[]> getProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) throws Exception {
-        byte[] data = principalDetails.getUserDto().getProfileImg();
-        return ResponseEntity.ok()
-                .contentLength(data.length)
-                .body(data);
-    }
-
     @GetMapping("/modifyUserInfo")
     public String modify(Model model) {
         return "user/myPage/modifyUserInfo";
@@ -77,7 +65,7 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(Authentication auth, Model model) {
+    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 

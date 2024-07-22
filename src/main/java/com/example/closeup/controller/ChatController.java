@@ -1,3 +1,4 @@
+
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -45,6 +46,7 @@ public class ChatController {
         if (principalDetails != null) {
             String userId = principalDetails.getUserDto().getId();
 
+
             chatRoomDtoList = chatService.getChatRoomDtoList(userId);
 
             for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
@@ -59,10 +61,17 @@ public class ChatController {
 
     //채팅방 개설
     @PostMapping("room")
-    public String postRoom(ChatRoomDto chatRoomDto){
-        chatService.createRoom(chatRoomDto);
+    public ResponseEntity<Long> postRoom(Authentication auth, @RequestBody ChatRoomDto chatRoomDto){
+        PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
+        String userId = principal.getUserDto().getId();
 
-        return "redirect:/chat/room?id=" + chatRoomDto.getId();
+        chatRoomDto.setUserId(userId);
+
+        ChatRoomDto originalChatRoomDto = chatService.getChatRoomDto(chatRoomDto);
+
+        Long roomId = originalChatRoomDto == null ? chatService.createRoom(chatRoomDto) : originalChatRoomDto.getId();
+
+        return ResponseEntity.ok(roomId);
     }
 
     // 채팅방 조회

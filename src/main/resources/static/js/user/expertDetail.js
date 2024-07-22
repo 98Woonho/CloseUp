@@ -24,3 +24,23 @@ nextButtonNodeService.addEventListener('click', emblaService.scrollNext, false);
 // 포트폴리오
 prevButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollPrev, false);
 nextButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollNext, false);
+
+
+
+
+const consultBtn = document.getElementById('consultBtn');
+const expertNickname = document.getElementById('expertNickname').value;
+
+// 상담하기 버튼 클릭 event
+consultBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // 채팅 방 생성
+    axios.post('/chat/room', { expertNickname: expertNickname })
+        .then(res => {
+            location.href = `/myPage/chats?roomId=${res.data}`;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})

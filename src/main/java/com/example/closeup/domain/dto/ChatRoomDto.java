@@ -20,6 +20,8 @@ public class ChatRoomDto {
     private String userName;
     private String lastChatMessage;
     private String expertNickname;
+    private int notReadUserMessageCount;
+    private int notReadExpertMessageCount;
 
     //WebSocketSession은 Spring에서 Websocket Connection이 맺어진 세션
     private Set<WebSocketSession> sessions = new HashSet<>();

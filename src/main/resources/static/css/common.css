@@ -224,7 +224,7 @@ footer {
     width: 30px;
 }
 
-#chatDialog .message-count {
+#chatDialog .message-count.visible {
     position: absolute;
     top: 50%;
     left: 50%;

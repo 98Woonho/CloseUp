@@ -76,4 +76,9 @@ public class ChatService {
     public String getLastChatMessage(Long chatRoomId) {
         return chatMessageMapper.selectLastChatMessageByChatRoomId(chatRoomId);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateChatRoom(ChatRoomDto chatRoomDto) {
+        chatRoomMapper.updateChatRoom(chatRoomDto);
+    }
 }

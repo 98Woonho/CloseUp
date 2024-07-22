@@ -104,4 +104,25 @@ public class ChatController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("")
+    public ResponseEntity<Void> patchChat(@RequestBody ChatRoomDto chatRoomDto,
+                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long chatRoomId = chatRoomDto.getId();
+        String role = principalDetails.getUserDto().getRole();
+
+        ChatRoomDto newChatRoomDto = chatService.getChatRoomDto(chatRoomId);
+
+        if (role.equals("ROLE_USER")) {
+            newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
+        }
+
+        if (role.equals("ROLE_EXPERT")) {
+            newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
+        }
+
+        chatService.updateChatRoom(newChatRoomDto);
+
+        return ResponseEntity.ok().build();
+    }
 }

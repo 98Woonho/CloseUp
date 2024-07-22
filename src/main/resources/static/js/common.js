@@ -4,7 +4,6 @@ const chatListSec = document.getElementById('chatListSec');
 const toggleChatListSecIcons = document.querySelectorAll('.toggle-chat-list-sec-icon');
 const infoSec = document.getElementById('infoSec');
 const chatList = document.getElementById('chatList');
-const chatLies = document.querySelectorAll('.chat-li');
 const chatMsgSec = document.getElementById('chatMsgSec');
 const chatViewSec = document.getElementById('chatViewSec');
 const chatViewTop = document.getElementById('chatViewTop');
@@ -26,6 +25,7 @@ let userId; // 현재 로그인 한 유저의 아이디
 let role; // 현재 로그인 한 유저의 역할
 let name; // 현재 로그인 한 유저의 이름
 let chatRoomDtoList;
+let stomp;
 
 // 현재 로그인 한 유저 조회
 axios.get('/user')
@@ -68,55 +68,67 @@ toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
     })
 })
 
+
 axios.get('/chat/list')
     .then(res => {
         if (res.data !== '') {
             chatRoomDtoList = res.data;
-
             const ul = document.createElement('ul');
+            const sockJs = new SockJS("/stomp/chat");
+            stomp = Stomp.over(sockJs);
 
-            chatRoomDtoList.forEach(chatRoomDto => {
-                const li = new DOMParser().parseFromString(`
-                    <li class="chat-li" data-id="${chatRoomDto.id}"
-                    onClick="clickChatLi(this)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                        <div class="spring">
-                            <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
-                            <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
-                        </div>
-                        <div class="message-count-container">
-                            <div class="message-count">1</div>
-                        </div>
-                    </li>
-                `, 'text/html').querySelector('.chat-li');
+            // 하나의 WebSocket 연결을 사용하여 Stomp 연결 설정
+            stomp.connect({}, function () {
+                chatRoomDtoList.forEach(chatRoomDto => {
+                    const li = new DOMParser().parseFromString(`
+                        <li class="chat-li" data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                            <div class="spring">
+                                <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
+                                <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
+                            </div>
+                            <div class="message-count-container">
+                                <div class="message-count">${role === 'ROLE_USER' ? chatRoomDto.notReadExpertMessageCount : chatRoomDto.notReadUserMessageCount}</div>
+                            </div>
+                        </li>
+                    `, 'text/html').querySelector('.chat-li');
 
-                ul.appendChild(li);
+                    ul.appendChild(li);
+
+                    const messageCount = li.querySelector('.message-count');
+
+                    if (messageCount.innerText !== '0') {
+                        messageCount.classList.add('visible');
+                    }
+
+                    if (messageCount.innerText === '0') {
+                        messageCount.innerText = '';
+                    }
 
 
-                const content = li.querySelector('.content');
-                let count = 0;
-
-                // sockJs, stomp를 이용하여 채팅 기능 활성화
-                const sockJs = new SockJS("/stomp/chat");
-                //1. SockJS를 내부에 들고있는 stomp를 내어줌
-                stomp = Stomp.over(sockJs);
-
-                //2. connection이 맺어지면 실행
-                stomp.connect({}, function () {
-                    //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-                    stomp.subscribe("/sub/chat/room/" +  chatRoomDto.id, function (messageInfo) {
+                    // 각 채팅방에 대한 subscribe 설정
+                    stomp.subscribe("/sub/chat/room/" + chatRoomDto.id, function (messageInfo) {
+                        const chatLi = chatList.querySelector(`.chat-li[data-id="${chatRoomDto.id}"]`);
+                        const content = chatLi.querySelector('.content');
                         const message = JSON.parse(messageInfo.body);
 
-                        console.log(message);
+                        let count = 0;
 
                         // db에 채팅 정보 저장
                         if (message.userId === userId) {
                             axios.post('/chat/message', message)
                                 .then(res => {
+                                    axios.patch('/chat', {id: chatRoomDto.id})
+                                        .then(res => {
+
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        })
                                 })
                                 .catch(err => {
                                     alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
-                                })
+                                });
                         }
 
                         const chat = new DOMParser().parseFromString(`
@@ -132,27 +144,24 @@ axios.get('/chat/list')
                         chatMsgSec.append('');
                         chatInput.value = '';
 
-                        // 채팅이 올 때 마다 스크롤을 맨 아래로 내림
+                        // 채팅이 올 때마다 스크롤을 맨 아래로 내림
                         chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
 
-                        const chatLies = chatList.querySelectorAll('.chat-li');
-
-                        chatLies.forEach(chatLi => {
-                            if (Number(chatLi.dataset.id) === message.chatRoomId && userId !== message.userId) {
-                                count++;
-                                chatLi.querySelector('.message-count').innerText = count;
-                            }
-                        })
+                        // 상대방에게 메세지가 왔을 때, 메세지 카운트 증가
+                        if (userId !== message.userId) {
+                            count++;
+                            chatLi.querySelector('.message-count').innerText = count;
+                        }
                     });
                 });
-            })
 
-            chatList.appendChild(ul);
+                chatList.appendChild(ul);
+            });
         }
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 
 
 searchChat.addEventListener('input', function (e) {
@@ -174,23 +183,38 @@ searchChat.addEventListener('input', function (e) {
                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage}</p></div>
                         </div>
+                        <div class="message-count-container">
+                            <div class="message-count">${role === 'ROLE_USER' ? chatRoomDto.notReadExpertMessageCount : chatRoomDto.notReadUserMessageCount}</div>
+                        </div>
                     </li>
                 `, 'text/html').querySelector('.chat-li');
 
         ul.appendChild(li);
+
+        const messageCount = li.querySelector('.message-count');
+
+        if (messageCount.innerText !== '0') {
+            messageCount.classList.add('visible');
+        }
+
+        if (messageCount.innerText === '0') {
+            messageCount.innerText = '';
+        }
     })
 
     chatList.appendChild(ul);
 })
 
-
-let stomp;
-
 // 채팅 목록에서 채팅을 클릭 했을 때의 function
 function clickChatLi(chat) {
-    chatListSec.classList.toggle('visible');
+    const chatLies = document.querySelectorAll('.chat-li');
+    let selectedNickname = chat.querySelector('.nickname').innerText;
     selectedChatRoomId = chat.dataset.id;
-    selectedNickname = chat.querySelector('.nickname').innerText;
+
+    chatListSec.classList.toggle('visible');
+
+    chat.querySelector('.message-count').innerText = '';
+    chat.querySelector('.message-count').classList.remove('visible');
 
     // 어떤 채팅방을 선택했는지에 대한 style을 위한 class 추가/제거
     chatLies.forEach(chatLi => {
@@ -221,7 +245,13 @@ function clickChatLi(chat) {
             console.log(err);
         })
 
-    setChat(chat);
+    nonSelecteds.forEach(nonSelected => {
+        nonSelected.style.display = 'none';
+    })
+
+    selecteds.forEach(selected => {
+        selected.style.display = 'unset';
+    })
 
     if (role === 'ROLE_USER') {
         getExpertInfo(selectedNickname);
@@ -233,78 +263,6 @@ function clickChatLi(chat) {
 
     chatMsgSec.innerHTML = '';
     chatInput.value = '';
-}
-
-// chatting setting 함수
-function setChat(chatLi) {
-    // const content = chatLi.querySelector('.content');
-    // let count = 0;
-    //
-    // // 이전 채팅방 연결 해제
-    // if (stomp) {
-    //     stomp.disconnect(function () {
-    //         console.log('Disconnected from previous chat room');
-    //     });
-    // }
-    //
-    // // sockJs, stomp를 이용하여 채팅 기능 활성화
-    // const sockJs = new SockJS("/stomp/chat");
-    // //1. SockJS를 내부에 들고있는 stomp를 내어줌
-    // stomp = Stomp.over(sockJs);
-    //
-    // //2. connection이 맺어지면 실행
-    // stomp.connect({}, function () {
-    //     //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-    //     stomp.subscribe("/sub/chat/room/" + chatLi.dataset.id, function (messageInfo) {
-    //         const message = JSON.parse(messageInfo.body);
-    //
-    //
-    //         // db에 채팅 정보 저장
-    //         if (message.userId === userId) {
-    //             axios.post('/chat/message', message)
-    //                 .then(res => {
-    //                 })
-    //                 .catch(err => {
-    //                     alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
-    //                 })
-    //         }
-    //
-    //         const chat = new DOMParser().parseFromString(`
-    //         <div class="chat ${message.userId === userId ? 'user1' : 'user2'}">
-    //             <div class="chat-msg">${message.content}</div>
-    //         </div>
-    //     `, "text/html").querySelector('.chat');
-    //
-    //         chatMsgSec.appendChild(chat);
-    //
-    //         // 채팅 목록에 가장 마지막 content를 표시
-    //         content.innerText = message.content;
-    //
-    //         chatMsgSec.append('');
-    //         chatInput.value = '';
-    //
-    //         // 채팅이 올 때 마다 스크롤을 맨 아래로 내림
-    //         chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
-    //
-    //         const chatLies = chatList.querySelectorAll('.chat-li');
-    //
-    //         chatLies.forEach(chatLi => {
-    //             if (Number(chatLi.dataset.id) === message.chatRoomId && userId !== message.userId) {
-    //                 count++;
-    //                 chatLi.querySelector('.message-count').innerText = count;
-    //             }
-    //         })
-    //     });
-    // });
-
-
-    nonSelecteds.forEach(nonSelected => {
-        nonSelected.style.display = 'none';
-    })
-
-    selecteds.forEach(selected => {
-        selected.style.display = 'unset';
-    })
 }
 
 
@@ -354,3 +312,6 @@ function getExpertInfo(selectedExpertNickname) {
             console.log(err);
         })
 }
+
+
+

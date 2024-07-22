@@ -33,4 +33,10 @@
         INSERT INTO `chat_room` (`user_id`, `expert_nickname`)
         VALUES (#{userId}, #{expertNickname})
     </insert>
+
+    <update id="updateChatRoom">
+        UPDATE `chat_room`
+        SET `not_read_user_message_count` = #{notReadUserMessageCount}, `not_read_expert_message_count` = #{notReadExpertMessageCount}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

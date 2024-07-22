@@ -24,11 +24,10 @@ public class AdminService {
     public List<UserDto> getUsersByRole(String role) {
         return adminMapper.selectUsersByRole(role);
     }
-    public List<UserDto> searchUsers(String name, String id, String phone) {
-        return adminMapper.searchUsers(name, id, phone);
+    public List<UserDto> searchUsers(String name, String id, String phone, String expertStatus) {
+        return adminMapper.searchUsers(name, id, phone, expertStatus);
     }
 
-    @Transactional
     public void deleteUser(String id) {
         adminMapper.deleteExpertUser(id);
         adminMapper.deleteUser(id);

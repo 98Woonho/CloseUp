@@ -67,6 +67,15 @@
                         <div id="viewContent">
                             <p th:text="${article.content}">안녕하세요</p>
                         </div>
+                        <div th:if="${not #lists.isEmpty(files)}">
+                            <h3>첨부 파일</h3>
+                            <ul>
+                                <li th:each="file : ${files}">
+                                    <a th:href="@{/board/community/download/{fileId}(fileId=${file.id})}" th:text="${file.name}"></a>
+                                    <span th:text="${#numbers.formatDecimal(file.size / 1024, 0, 'COMMA', 2, 'POINT')} + ' KB'"></span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <section id="likeCommentSec">
                         <div id="btnCon">
@@ -111,6 +120,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                     <div class="commentContent">
                                         <p th:text="${comment.content}">팬입니다.
                                             근황 궁금했는데 여기서 뵙게 되네요.

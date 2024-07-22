@@ -2,6 +2,7 @@ package com.example.closeup.controller;
 
 
 import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.ArticleFileDto;
 import com.example.closeup.domain.dto.community.BoardDto;
 import com.example.closeup.domain.dto.community.CommentDto;
 import com.example.closeup.service.CommunityService;
@@ -9,7 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,27 +70,56 @@ public class CommunityController {
     @PostMapping("/communityWrite")
     public String communityWrite(
             @ModelAttribute ArticleDto articleDto,
-//            @RequestParam(value = "files", required = false) MultipartFile[] files,
-            Authentication authentication) {
+            @RequestParam(value = "files", required = false) MultipartFile[] files,
+            Authentication authentication) throws IOException {
         if (authentication != null && authentication.isAuthenticated()) {
             String userId = authentication.getName();
             articleDto.setUserId(userId);
         } else {
             return "redirect:/user/login";
         }
-        communityService.createArticle(articleDto);
+        Integer articleId = communityService.createArticle(articleDto);
+
+        if (files != null && files.length > 0) {
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    communityService.saveFile(file, articleId);
+                }
+            }
+        }
+
         return "redirect:/board/community/communityMain";
     }
-/*****************관리자 게시글 수정***********************/
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable Integer fileId) {
+        ArticleFileDto file = communityService.getFileById(fileId);
+        if (file == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .contentType(MediaType.parseMediaType(file.getType()))
+                .body(file.getData());
+    }
+    /*****************관리자 게시글 수정***********************/
     @GetMapping("communityWrite/{articleId}")
     public String adminCommunityModify(
             @PathVariable Integer articleId,
             Model model
     ){
-    List<ArticleDto> articles = communityService.getAllArticles(articleId);
-    model.addAttribute("articles", articles);
+        List<ArticleDto> articles = communityService.getAllArticles(articleId);
+        model.addAttribute("articles", articles);
 
         return "/board/community/communityWrite";
+    }
+    @PostMapping("communityUpdate")
+    public String adminCommunityUpdate(
+            @RequestParam Integer articleId,
+            @ModelAttribute ArticleDto articleDto
+    ){
+        articleDto.setId(articleId);
+        communityService.updateArticle(articleDto);
+        return "redirect:/board/community/communityPost/" + articleId; // 수정 후 리다이렉트할 경로
     }
     /**************게시글 상세 조회***************/
     @GetMapping("/communityPost/{articleId}")
@@ -95,15 +128,16 @@ public class CommunityController {
             Model model,
             HttpServletRequest request,
             HttpServletResponse response
-            ) {
+    ) {
         ArticleDto article = communityService.getArticleById(articleId, request, response);
         List<CommentDto> comments = communityService.getCommentsByArticleId(articleId);
         List<BoardDto> boards = communityService.getAllBoards();
-//        List<ArticleFileDto> files = communityService.getFilesByArticleId(id);
+        List<ArticleFileDto> files = communityService.getFilesByArticleId(articleId);  // 파일 정보를 가져옴
+
         model.addAttribute("boards", boards);
         model.addAttribute("article", article);
         model.addAttribute("comments", comments);
-//        model.addAttribute("files", files);
+        model.addAttribute("files", files);  // 모델에 파일 정보를 추가
         model.addAttribute("commentDto", new CommentDto());
         return "/board/community/communityPost";
     }

@@ -20,7 +20,8 @@ public interface AdminMapper {
     List<UserDto> searchUsers(
             @Param("name") String name,
             @Param("id") String id,
-            @Param("phone") String phone);
+            @Param("phone") String phone,
+            @Param("expertStatus") String expertStatus);
     void deleteExpertUser(String id);
     /*********관리자 페이지 게시판***********/
     List<ArticleDto> selectAllArticles();

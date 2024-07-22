@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
-    <script src="../../../static/js/board/community/communityWrite.js" defer th:src="@{/js/board/community/communityWrite.js}"></script>
+    <script src="../../../static/js/board/community/communityWrite.js"  th:src="@{/js/board/community/communityWrite.js}" defer></script>
 
 </head>
 <body>
@@ -24,10 +24,13 @@
                 </div>
             </section>
             <section id="writeContentSec">
-
-                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data">
+                <th:block th:with="actionUrl=${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? '/board/community/communityUpdate' : '/board/community/communityWrite'}">
+                    <form th:action="@{${actionUrl}}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="articleId" th:value="${articles[0].id}" sec:authorize="hasRole('ROLE_ADMIN')">
+<!--                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data" sec:authorize="hasRole('ROLE_ADMIN')">-->
                     <section class="post-write-sec">
                         <div class="write-header-con">
+                            <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
                             <label class="writeCategoryLabel" >
                                 <select name="boardCode">
                                     <option selected>카테고리 선택</option>
@@ -40,6 +43,21 @@
                                     <option value="expert">전문가 자유 게시판</option>
                                 </select>
                             </label>
+                        </th:block>
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <label class="writeCategoryLabel">
+                                    <select name="boardCode" th:with="boardCode=${articles[0].boardCode}">
+                                        <option value="">카테고리 선택</option>
+                                        <option disabled>-- 통합 커뮤니티 --</option>
+                                        <option value="free" th:selected="${boardCode == 'free'}">자유 게시판</option>
+                                        <option value="expertRecommendation" th:selected="${boardCode == 'expertRecommendation'}">전문가 추천 게시판</option>
+                                        <option value="expertReview" th:selected="${boardCode == 'expertReview'}">전문가의 후기 게시판</option>
+                                        <option value="question" th:selected="${boardCode == 'question'}">간단한 질문 게시판</option>
+                                        <option disabled>-- 전문가 커뮤니티 --</option>
+                                        <option value="expert" th:selected="${boardCode == 'expert'}">전문가 자유 게시판</option>
+                                    </select>
+                                </label>
+                            </th:block>
                             <div class="title-con">
                                 <label for="title"></label>
                                 <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
@@ -55,6 +73,7 @@
                             <div id="fileInputContainer">
                                 <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                                 <label for="files">첨부할 파일을 선택 해주세요 :)</label>
+                                <p></p>
                                 <p>Max size : 5GB</p>
                                 <input type="file" id="files" name="files" multiple>
                             </div>
@@ -80,7 +99,9 @@
 
                     </section>
                 </form>
+                </th:block>
             </section>
+
 
         </section>
         <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>

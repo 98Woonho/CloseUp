@@ -2,6 +2,7 @@ package com.example.closeup.domain.mapper;
 
 
 import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.ArticleFileDto;
 import com.example.closeup.domain.dto.community.BoardDto;
 import com.example.closeup.domain.dto.community.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -43,8 +44,13 @@ public interface CommunityMapper {
     /**************댓글 삭제***************/
     int selectCommentLikeCount(Integer commentId);
 
+    void insertFile(ArticleFileDto fileDto);
+    List<ArticleFileDto> selectFilesByArticleId(Integer articleId);
+    ArticleFileDto selectFileById(@Param("fileId") Integer fileId);
+
     /************관리자 게시글 수정************/
     List<ArticleDto> selectAllArticles(Integer articleId);
+    void updateArticle(ArticleDto articleDto);
 
 
 }

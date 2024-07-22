@@ -41,6 +41,13 @@
             <if test="phone != null and phone != ''">
                 AND phone LIKE CONCAT('%', #{phone}, '%')
             </if>
+            <if test="expertStatus != null and expertStatus != ''">
+                AND (
+                (LOWER(#{expertStatus}) = 'true' AND role = 'ROLE_EXPERT')
+                OR
+                (LOWER(#{expertStatus}) = 'false' AND role != 'ROLE_EXPERT')
+                )
+            </if>
         </where>
     </select>
     <select id="selectArticleByUser" resultType="com.example.closeup.domain.dto.community.ArticleDto">

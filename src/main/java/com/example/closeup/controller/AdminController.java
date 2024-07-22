@@ -52,8 +52,9 @@ public class AdminController {
     public String searchUsers(@RequestParam String name,
                               @RequestParam String id,
                               @RequestParam String phone,
+                              @RequestParam String expertStatus,
                               Model model) {
-        List<UserDto> users = adminService.searchUsers(name, id, phone);
+        List<UserDto> users = adminService.searchUsers(name, id, phone, expertStatus);
         model.addAttribute("users", users);
         return "admin/manage/member";
     }
@@ -63,7 +64,6 @@ public class AdminController {
         return "redirect:/admin/manage/member";
     }
 
-
     @GetMapping("/manage/post")
     public String getPosts(Model model) {
     List<ArticleDto> articles = adminService.getAllArticles();
@@ -72,6 +72,7 @@ public class AdminController {
     model.addAttribute("articles", articles);
         return "admin/manage/post";
     }
+
     @GetMapping("/manage/post/{boardCode}")
     public String getPostsByBoardCode(
             @PathVariable String boardCode,

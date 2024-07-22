@@ -86,10 +86,10 @@ public class MyPageController {
         return "user/myPage/chatRecord";
     }
 
-    @GetMapping("/wishlist")
-    public String getWishlist(Model model) {
-        return "user/myPage/wishlist";
-    }
+//    @GetMapping("/wishlist")
+//    public String getWishlist(Model model) {
+//        return "user/myPage/wishlist";
+//    }
 
     @GetMapping("/payment")
     public String getPayment(Model model) {

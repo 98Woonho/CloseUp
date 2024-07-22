@@ -103,6 +103,7 @@ public class UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
+        System.out.println(nickname);
         return expertDetailMapper.selectExpertDetailListByNickname(nickname);
     }
 

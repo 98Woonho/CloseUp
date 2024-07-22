@@ -53,7 +53,6 @@ public class WishListController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         wishListService.insertWishlist(user.getUsername(), expertId);
-        // 장바구니 삽입 성공
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
@@ -70,7 +69,6 @@ public class WishListController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         wishListService.deleteWishlist(user.getUsername(), expertId);
-        // 장바구니 삽입 성공
         return ResponseEntity.ok().body(null);
     }
 }

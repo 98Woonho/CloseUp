@@ -3,7 +3,7 @@
 function addWishlist(wishHeartBtn){
     requestWishList(wishHeartBtn.id, 'POST', "즐겨찾기 등록 완료")
 }
-
+// 등록된 즐겨찾기 목록에서 하트 버튼을 클릭시 (즐겨찾기 해제)
 function deleteWishlist(wishHeartBtn) {
     requestWishList(wishHeartBtn.id, 'DELETE', "즐겨찾기 삭제 완료")
 }

@@ -112,7 +112,6 @@ axios.get('/chat/list')
                         messageCount.innerText = '';
                     }
 
-
                     // 각 채팅방에 대한 subscribe 설정
                     stomp.subscribe("/sub/chat/room/" + chatRoomDto.id, function (messageInfo) {
                         const chatLi = chatList.querySelector(`.chat-li[data-id="${chatRoomDto.id}"]`);
@@ -120,7 +119,7 @@ axios.get('/chat/list')
                         const message = JSON.parse(messageInfo.body);
                         let messageCount = chatLi.querySelector('.message-count');
 
-                        if (message.userId !== userId) {
+                        if (message.userId !== userId && !chatLi.classList.contains('choice')) {
                             dot.classList.add('visible');
                         }
 
@@ -237,6 +236,7 @@ searchChat.addEventListener('input', function (e) {
 
 // 채팅방의 메세지를 가져오는 함수
 function getMessages(chatRoomId) {
+    chatMsgSec.innerHTML = '';
     // 선택된 채팅방의 채팅목록 가져오기
     axios.get(`/chat/messages/${chatRoomId}`)
         .then(res => {
@@ -328,7 +328,6 @@ function clickChatLi(chat) {
         topProfileName.innerText = selectedNickname;
     }
 
-    chatMsgSec.innerHTML = '';
     chatInput.value = '';
 }
 

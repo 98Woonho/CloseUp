@@ -3,14 +3,24 @@ package com.example.closeup.domain.mapper;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
     UserDto selectUserById(String id);
+    ExpertDto selectExpertByNickNameWithIsWished(
+            @Param("userId") String userId,
+            @Param("expertNickName") String expertNickName
+    );
     /**************아이디 찾기***************/
     UserDto selectUserByNameAndPhone(String name, String phone);
     /**************비밀번호 찾기***************/
     UserDto selectUserByNameAndId(String name, String id);
+
+    String selectUserNameById(String id);
+
     int updatePassword(String id, String newPassword);
     /**************회원가입***************/
     void insertUser(UserDto user);

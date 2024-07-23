@@ -23,6 +23,21 @@
     cursor: pointer;
 }
 
+#chatIcon {
+    position: relative;
+}
+
+#dot.visible {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ff4646;
+
+    left: 75%;
+    bottom: 75%;
+}
+
 
 /*#fixedBtns nav > ul > li > a{*/
 /*    width: 100%;*/

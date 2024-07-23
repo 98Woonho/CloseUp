@@ -6,6 +6,7 @@
     height: 100vh;
 }
 .modify-container{
+    position: relative;
     margin: 0 auto;
     width: 800px;
 }

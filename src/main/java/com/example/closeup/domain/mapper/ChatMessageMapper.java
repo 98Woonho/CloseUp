@@ -12,4 +12,8 @@ public interface ChatMessageMapper {
     List<ChatMessageDto> selectChatMessageDtoListByChatRoomId(Long chatRoomId);
 
     String selectLastChatMessageByChatRoomId(Long chatRoomId);
+
+    ChatMessageDto selectLastChatMessageDtoByChatRoomId(Long chatRoomId);
+
+    void updateChatMessageWrittenAtById(Long id);
 }

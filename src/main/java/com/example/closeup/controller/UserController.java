@@ -246,22 +246,23 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
-    @GetMapping("expertDetail/{nickname}")
-    public String getExpertDetail(@PathVariable String nickname, Model model) {
-        System.out.println(nickname);
-        ExpertDto expertDto = userService.getExpertDto(nickname);
 
-        System.out.println(expertDto);
 
+    @GetMapping("/expertDetail/{nickname}")
+    public String getExpertDetail(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @PathVariable("nickname") String nickname,
+            Model model
+    ) {
         List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
+        ExpertDto expertDto = userService.findExpertByNickNameWithIsWished(principalDetails.getUsername(), nickname);
 
-        model.addAttribute("expertDto", expertDto);
         model.addAttribute("expertDetailDtoList", expertDetailDtoList);
-
+        model.addAttribute("expert", expertDto);
         return "user/expertDetail";
     }
 
-    @GetMapping("id")
+    @GetMapping("")
     @ResponseBody
     public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return principalDetails.getUserDto().getId();
@@ -295,6 +296,7 @@ public class UserController {
 
         return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
     }
+  
 
     @GetMapping("/addExpertInfo")
     public String getAddExpertInfo(Model model) {

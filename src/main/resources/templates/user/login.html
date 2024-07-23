@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/user/login.css">
     <link rel="stylesheet" href="/css/header/header.css">
 
-    <script defer src="/js/user/login.js"></script>
+<!--    <script defer src="/js/user/login.js"></script>-->
 </head>
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
@@ -63,12 +63,12 @@
                 <ul>
                     <li>
                         <div class="other-login-ikon">
-                            <a href=""><img src="#" alt="(네이버로고)">네이버 로그인</a>
+                            <a href="/oauth2/authorization/naver"><img src="#" alt="(네이버로고)">네이버 로그인</a>
                         </div>
                     </li>
                     <li>
                         <div class="other-login-ikon">
-                            <a href=""><img src="#" alt="(카카오로고)">카카오 로그인</a>
+                            <a href="/oauth2/authorization/kakao"><img src="#" alt="(카카오로고)">카카오 로그인</a>
                         </div>
                     </li>
                 </ul>

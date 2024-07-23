@@ -162,12 +162,4 @@ public class ChatController {
 
         return ResponseEntity.ok(newChatRoomDto);
     }
-
-
-//    @GetMapping("notReadMessageCount")
-//    @ResponseBody
-//    public String getNotReadMessageCount() {
-//
-//        return null;
-//    }
 }

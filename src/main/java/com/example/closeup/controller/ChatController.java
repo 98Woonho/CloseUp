@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -103,8 +104,26 @@ public class ChatController {
 
     @PostMapping("message")
     public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
-        LocalDateTime date = LocalDateTime.now();
-        chatMessageDto.setWrittenAt(date);
+        ChatMessageDto lastChatMessageDto = chatService.getLastChatMessageDto(chatMessageDto.getChatRoomId());
+
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        if (lastChatMessageDto != null) {
+            LocalDateTime lastDate = lastChatMessageDto.getWrittenAt();
+
+            // 원하는 형식 지정
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+            // 형식에 맞게 시간 문자열 추출
+            String currentTime = currentDate.format(formatter);
+            String lastTime = lastDate.format(formatter);
+
+            if (chatMessageDto.getUserId().equals(lastChatMessageDto.getUserId()) && currentTime.equals(lastTime)) {
+                chatService.updateChatMessageWrittenAt(lastChatMessageDto.getId());
+            }
+        }
+
+        chatMessageDto.setWrittenAt(currentDate);
 
         chatService.createMessage(chatMessageDto);
 
@@ -143,4 +162,12 @@ public class ChatController {
 
         return ResponseEntity.ok(newChatRoomDto);
     }
+
+
+//    @GetMapping("notReadMessageCount")
+//    @ResponseBody
+//    public String getNotReadMessageCount() {
+//
+//        return null;
+//    }
 }

@@ -78,7 +78,17 @@ public class ChatService {
     }
 
     @Transactional(rollbackFor = Exception.class)
+    public ChatMessageDto getLastChatMessageDto(Long chatRoomId) {
+        return chatMessageMapper.selectLastChatMessageDtoByChatRoomId(chatRoomId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public void updateChatRoom(ChatRoomDto chatRoomDto) {
         chatRoomMapper.updateChatRoom(chatRoomDto);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateChatMessageWrittenAt(Long id) {
+        chatMessageMapper.updateChatMessageWrittenAtById(id);
     }
 }

@@ -243,3 +243,16 @@ footer {
     background-color: #ff8888;
     color: #fff8f8;
 }
+
+.chat .time {
+    position: relative;
+    top: 8px;
+}
+
+.chat.user1 .time {
+    right: 3px;
+}
+
+.chat.user2 .time {
+    left: 3px;
+}

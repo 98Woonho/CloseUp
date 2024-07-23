@@ -41,4 +41,20 @@
         WHERE id = #{id}
     </update>
 
+<!--관리자페이지-->
+    <select id="selectAllUsers" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT * FROM `user`
+    </select>
+
+    <update id="updateUser" parameterType="com.example.closeup.domain.dto.UserDto">
+        UPDATE `user`
+        SET name = #{name}, phone = #{phone}, role = #{role}, is_suspended = #{isSuspended}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM `user` WHERE id = #{id}
+    </delete>
+
+
 </mapper>

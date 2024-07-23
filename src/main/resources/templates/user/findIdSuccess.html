@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
 
+
 </head>
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
@@ -49,7 +50,7 @@
                         <p>입력한 비밀번호가 <span>서로 일치</span>하지 않습니다.</p>
                     </div>
                     <section>
-                        <button type="submit" class="find-Btn">확인</button>
+                        <button type="submit" class="find-Btn" onclick="location.href='/user/login'">확인</button>
                     </section>
                     <section class="register-link-sec">
                         <p>아직 회원이 아니신가요? <a href="/user/register">회원가입</a></p>

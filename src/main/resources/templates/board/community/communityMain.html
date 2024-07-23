@@ -83,30 +83,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="article : ${articles}">
-                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.id}"></a></td>
+                            <tr th:each="article,  stat: ${articles}">
+                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${stat.count}"></a></td>
                                 <td> <a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.title}"></a></td>
                                 <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">24/06/27</td>
                                 <td th:text="${article.userId}">abc123</td>
                                 <td th:text="${article.likeCount}">10</td>
                                 <td th:text="${article.view}">10</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>게시글</td>
-                                <td>24/06/27</td>
-                                <td>abc123</td>
-                                <td>1</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>게시글</td>
-                                <td>24/06/27</td>
-                                <td>abc123</td>
-                                <td>1</td>
-                                <td>10</td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td>1</td>-->
+<!--                                <td>게시글</td>-->
+<!--                                <td>24/06/27</td>-->
+<!--                                <td>abc123</td>-->
+<!--                                <td>1</td>-->
+<!--                                <td>10</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>1</td>-->
+<!--                                <td>게시글</td>-->
+<!--                                <td>24/06/27</td>-->
+<!--                                <td>abc123</td>-->
+<!--                                <td>1</td>-->
+<!--                                <td>10</td>-->
+<!--                            </tr>-->
                         </tbody>
                     </table>
                 </div>

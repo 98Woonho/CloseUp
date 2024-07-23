@@ -1,3 +1,20 @@
+// 캐러셀
+// Grab wrapper nodes
+const rootNode = document.querySelector('.embla');
+const viewportNode = rootNode.querySelector('.embla__viewport');
+
+// Grab button nodes
+const prevButtonNode = rootNode.querySelector('.embla__prev');
+const nextButtonNode = rootNode.querySelector('.embla__next');
+
+// Initialize the carousel
+const embla = EmblaCarousel(viewportNode);
+
+// Add click listeners
+prevButtonNode.addEventListener('click', embla.scrollPrev, false);
+nextButtonNode.addEventListener('click', embla.scrollNext, false);
+
+
 const addExpertiseBtn = document.getElementById('addExpertiseBtn');
 const addCareerBtn = document.getElementById('addCareerBtn');
 const addAbilityBtn = document.getElementById('addAbilityBtn');
@@ -13,18 +30,30 @@ const expertInfoForm = document.querySelector('form');
 // 정규식
 const CK_nickname = /^[가-힣a-zA-Z0-9]{4,15}$/;
 
+// 폼데이터
+const expertises = [];
+const careers = [];
+const abilities = [];
+
 // 입력 버튼 클릭 시 태그 추가
 addExpertiseBtn.addEventListener('click', function() {
     const expertiseTextarea = document.getElementById('expertiseInput').value;
     const expertiseContainer = document.getElementById('expertiseTagsContainer');
 
     addTags(expertiseTextarea, expertiseContainer, 'expertise');
+    expertises.push(expertiseTextarea);
 
     document.getElementById('expertiseInput').value = '';
 
     const deleteButton = document.querySelector('#expertiseTagsContainer .tags:last-child .delete-btns');
     deleteButton.addEventListener('click', function() {
-        this.parentElement.remove();
+        // 삭제 버튼의 부모 요소에서 expertises 배열에서 해당 값을 찾아 삭제
+        const tagValue = this.parentElement.textContent.trim(); // 태그의 텍스트 가져오기
+        const index = expertises.indexOf(tagValue); // 배열에서 해당 값의 인덱스 찾기
+        if (index > -1) {
+            expertises.splice(index, 1); // 배열에서 제거
+        }
+        this.parentElement.remove(); // 태그 요소 삭제
     });
 });
 
@@ -33,12 +62,20 @@ addCareerBtn.addEventListener('click', function() {
     const careerContainer = document.getElementById('careerTagsContainer');
 
     addTags(careerTextarea, careerContainer, 'career');
+    careers.push(careerTextarea);
+    console.log(careers);
 
     document.getElementById('careerInput').value = '';
 
     const deleteButton = document.querySelector('#careerTagsContainer .tags:last-child .delete-btns');
     deleteButton.addEventListener('click', function() {
+        const tagValue = this.parentElement.textContent.trim();
+        const index = careers.indexOf(tagValue);
+        if (index > -1) {
+            careers.splice(index, 1);
+        }
         this.parentElement.remove();
+        console.log(careers);
     });
 });
 
@@ -47,12 +84,20 @@ addAbilityBtn.addEventListener('click', function() {
     const abilityContainer = document.getElementById('abilityTagsContainer');
 
     addTags(abilityTextarea, abilityContainer, 'ability');
+    abilities.push(abilityTextarea);
+    console.log(abilities);
 
     document.getElementById('abilityInput').value = '';
 
     const deleteButton = document.querySelector('#abilityTagsContainer .tags:last-child .delete-btns');
     deleteButton.addEventListener('click', function() {
+        const tagValue = this.parentElement.textContent.trim();
+        const index = abilities.indexOf(tagValue);
+        if (index > -1) {
+            abilities.splice(index, 1);
+        }
         this.parentElement.remove();
+        console.log(abilities);
     });
 })
 
@@ -64,12 +109,19 @@ expertiseInput.addEventListener('keydown', function(e){
         const expertiseContainer = document.getElementById('expertiseTagsContainer');
 
         addTags(expertiseTextarea, expertiseContainer, 'expertise');
+        expertises.push(expertiseTextarea);
 
         document.getElementById('expertiseInput').value = '';
 
         const deleteButton = document.querySelector('#expertiseTagsContainer .tags:last-child .delete-btns');
         deleteButton.addEventListener('click', function() {
-            this.parentElement.remove();
+            // 삭제 버튼의 부모 요소에서 expertises 배열에서 해당 값을 찾아 삭제
+            const tagValue = this.parentElement.textContent.trim(); // 태그의 텍스트 가져오기
+            const index = expertises.indexOf(tagValue); // 배열에서 해당 값의 인덱스 찾기
+            if (index > -1) {
+                expertises.splice(index, 1); // 배열에서 제거
+            }
+            this.parentElement.remove(); // 태그 요소 삭제
         });
     }
 });
@@ -81,12 +133,20 @@ careerInput.addEventListener('keydown', function (e) {
         const careerContainer = document.getElementById('careerTagsContainer');
 
         addTags(careerTextarea, careerContainer, 'career');
+        careers.push(careerTextarea);
+        console.log(careers);
 
         document.getElementById('careerInput').value = '';
 
         const deleteButton = document.querySelector('#careerTagsContainer .tags:last-child .delete-btns');
         deleteButton.addEventListener('click', function() {
+            const tagValue = this.parentElement.textContent.trim();
+            const index = careers.indexOf(tagValue);
+            if (index > -1) {
+                careers.splice(index, 1);
+            }
             this.parentElement.remove();
+            console.log(careers);
         });
     }
 })
@@ -98,33 +158,49 @@ abilityInput.addEventListener('keydown', function (e) {
         const abilityContainer = document.getElementById('abilityTagsContainer');
 
         addTags(abilityTextarea, abilityContainer, 'ability');
+        abilities.push(abilityTextarea);
+        console.log(abilities);
 
         document.getElementById('abilityInput').value = '';
 
         const deleteButton = document.querySelector('#abilityTagsContainer .tags:last-child .delete-btns');
         deleteButton.addEventListener('click', function() {
+            const tagValue = this.parentElement.textContent.trim();
+            const index = abilities.indexOf(tagValue);
+            if (index > -1) {
+                abilities.splice(index, 1);
+            }
             this.parentElement.remove();
+            console.log(abilities);
         });
     }
 })
 
 // 태그 추가 메서드
-function addTags(textarea, tagsContainer, name) {
+function addTags(textarea, tagsContainer, value) {
     if (textarea.trim() !== '') {
         // 템플릿 문자열 생성
-        const template = `<div class="tags"><p>${textarea}</p><button type="button" class="delete-btns" name="${name}"><i class="fa-solid fa-xmark"></i></button></div>`;
+        const template = `<div class="tags"><p value="${value}">${textarea}</p><button type="button" class="delete-btns"><i class="fa-solid fa-xmark"></i></button></div>`;
         tagsContainer.insertAdjacentHTML('beforeend', template);
     } else {
         alert("입력된 내용이 없습니다!");
     }
 }
 
+
 // 체크박스 갯수 제한
 const maxChecked = 6; // 최대 체크 수
 const checkboxes = document.querySelectorAll('.skills-container input[type="checkbox"]');
+const skills = [];
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function(e) {
+        if (e.target.checked) {
+            skills.push(e.target.value);
+        } else if(!e.target.checked) {
+            skills.pop(e.target.value);
+        }
+
         const checkedCount = Array.from(checkboxes).filter(chk => chk.checked).length;
 
         if (checkedCount > maxChecked) {
@@ -184,17 +260,32 @@ addressFindBtn.onclick = () => {
 expertInfoForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const checkedSkills = document.querySelectorAll('input[type=checkbox]:checked');
+    if (expertInfoForm['nickname'].value === '') {
+        alert('아이디를 입력해 주세요.');
+        return;
+    }
+
+    if (!CK_nickname.test(expertInfoForm['nickname'].value)) {
+        alert('올바른 아이디를 입력해 주세요.');
+        return;
+    }
+
+    if (!confirmNicknameDupBtn.classList.contains('confirmed')) {
+        alert('닉네임 중복 확인을 해주세요');
+        return;
+    }
 
     const formData = new FormData(expertInfoForm);
-
-    for(const checkbox of checkedSkills) {
-        formData.append('skill', checkbox.value);
-    }
+    formData.append('zipcode', expertInfoForm['zipcode'].value);
+    formData.append('address', expertInfoForm['address'].value);
+    formData.append('skills', skills);
+    formData.append('expertises', expertises);
+    formData.append('careers', careers);
+    formData.append('abilities', abilities);
 
     axios.post('/user/addExpertInfo', formData)
         .then(response => {
-            alert(response);
+            alert(response.data);
             location.href = '/expert/myPageMain';
         })
         .catch(error => {

@@ -91,8 +91,7 @@
                             <a href="/logout">로그아웃</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
-                            <a sec:authorize="${#authorization.expression(hasRole('ROLE_USER'))}" href="/myPage/chats">상담 내역</a>
-                            <a sec:authorize="${#authorization.expression(hasRole('ROLE_EXPERT'))}" href="/expert/chatRequest">상담 내역</a>
+                            <a href="/myPage/chats">상담 내역</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <a sec:authorize="${#authorization.expression(hasRole('ROLE_USER'))}" href="/myPage/myPageMain">마이페이지</a>

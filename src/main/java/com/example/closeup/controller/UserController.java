@@ -4,6 +4,7 @@ import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
+import com.example.closeup.service.ExpertService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -36,6 +37,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired private ExpertService expertService;
 
     @GetMapping("confirmIdDup")
     public ResponseEntity<String> getConfirmIdDup(@RequestParam("id") String id) {
@@ -243,8 +246,6 @@ public class UserController {
         public AuthInfoResponse response;
     }
 
-
-
     @GetMapping("expertDetail/{nickname}")
     public String getExpertDetail(@PathVariable String nickname, Model model) {
         System.out.println(nickname);
@@ -280,9 +281,18 @@ public class UserController {
     }
 
     @PostMapping("/addExpertInfo")
-    public ResponseEntity<String> addExpertInfo(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        userService.insertExpertInfoByUserId(principalDetails.getUsername());
+    public ResponseEntity<String> addExpertInfo(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            ExpertDto expertDto
+    ) {
+        System.out.println(expertDto);
+        expertDto.setUserId(principalDetails.getUsername());
+        expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
+
+        userService.insertExpertInfo(expertDto);
+        expertService.insertExpertDetails(expertDto);
         userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
+
         return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
     }
 

@@ -86,9 +86,10 @@
                             <div class="desc-container">
                                 <p class="sub-title">전문 분야</p>
                                 <div class="tags-container">
-                                    <div class="tags"><p>웹 디자인</p></div>
-                                    <div class="tags"><p>홈페이지 제작</p></div>
-                                    <div class="tags"><p>앱 개발</p></div>
+                                    <div class="tags" th:if="${expertDetailDto.category == 'expertise'}"
+                                         th:each="expertDetailDto : ${expertDetailDtoList}">
+                                        <p th:text="${expertDetailDto.information}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

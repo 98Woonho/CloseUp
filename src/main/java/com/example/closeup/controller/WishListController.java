@@ -36,7 +36,6 @@ public class WishListController {
             System.out.println("user is not null");
             wishlist = wishListService.getWishlist(principalDetails.getUserDto().getId());
         }
-        log.info("wishlist: " + wishlist);
         model.addAttribute("expertList", wishlist);
         return "user/myPage/wishlist";
     }
@@ -47,7 +46,6 @@ public class WishListController {
             @AuthenticationPrincipal PrincipalDetails user,
             @PathVariable String expertId
     ) {
-        log.info("expertId: " + expertId);
         if (Objects.isNull(user)) {
             log.error("로그인되지 않은 유저");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -63,7 +61,7 @@ public class WishListController {
             @AuthenticationPrincipal PrincipalDetails user,
             @PathVariable String expertId
     ) {
-        log.info("expertId: " + expertId);
+//        log.info("expertId: " + expertId);
         if (Objects.isNull(user)) {
             log.error("로그인되지 않은 유저");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

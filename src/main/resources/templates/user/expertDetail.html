@@ -31,7 +31,7 @@
         <section id="detailSection">
             <section id="expertProfileSec">
                 <div id="profileImgContainer">
-                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="">
+                    <img th:src="${expert.profileImgUrl}" alt="#" src="/imgs/user-profile.png">
                 </div>
                 <div id="profileInfoContainer">
                     <div id="profileNameContainer">
@@ -86,9 +86,10 @@
                             <div class="desc-container">
                                 <p class="sub-title">전문 분야</p>
                                 <div class="tags-container">
-                                    <div class="tags"><p>웹 디자인</p></div>
-                                    <div class="tags"><p>홈페이지 제작</p></div>
-                                    <div class="tags"><p>앱 개발</p></div>
+                                    <div class="tags" th:if="${expertDetailDto.category == 'expertise'}"
+                                         th:each="expertDetailDto : ${expertDetailDtoList}">
+                                        <p th:text="${expertDetailDto.information}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

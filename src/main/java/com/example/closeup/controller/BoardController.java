@@ -41,9 +41,11 @@ public class BoardController {
         return "board/findExpert/findExpertWrite";
     }
 
-//    // 고객 센터
-//    @GetMapping("/cs")
-//    public String getCSCenter() {
-//        return "board/CSCenter/CSMain";
-//    }
+    // 고객 센터
+    @GetMapping("/cs")
+    public String getCSCenter() {
+
+
+        return "board/CSCenter/CSMain";
+    }
 }

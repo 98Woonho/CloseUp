@@ -9,22 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ExpertService {
     @Autowired
     private ExpertMapper expertMapper;
-
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private ExpertDetailMapper expertDetailMapper;
 
     public List<ExpertDto> selectExpertInformation() {
         return expertMapper.selectExpertInformation();
-    }
-
-    public ExpertDto selectExpertDtoByUserId(String id) {
-        return expertMapper.selectExpertByUserId(id);
     }
 
     public ExpertDto getExpertDto(String nickname) {
@@ -36,7 +34,40 @@ public class ExpertService {
     }
 
     @Transactional(rollbackFor = Exception.class)
+    public void insertExpertDetails(ExpertDto expertDto) {
+        List<ExpertDetailDto> details = new ArrayList<>();
+        String nickname = expertDto.getNickname();
+
+        for (String skill : expertDto.getSkills()) {
+            details.add(new ExpertDetailDto(nickname, "skill", skill));
+        }
+
+        for (String expertise : expertDto.getExpertises()) {
+            details.add(new ExpertDetailDto(nickname, "expertise", expertise));
+        }
+
+        for (String career : expertDto.getCareers()) {
+            details.add(new ExpertDetailDto(nickname, "career", career));
+        }
+
+        for (String ability : expertDto.getAbilities()) {
+            details.add(new ExpertDetailDto(nickname, "ability", ability));
+        }
+
+        expertDetailMapper.insertExpertDetails(details);
+    }
+
+    public ExpertDto selectExpertDto(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
+    public ExpertDto selectExpertDtoByUserId(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public void updateExpertProfileImg(String id, byte[] profileImg) {
         expertMapper.updateExpertProfileImg(id, profileImg);
+
     }
 }

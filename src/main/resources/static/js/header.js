@@ -1,9 +1,8 @@
 // 돋보기 아이콘을 클릭 시, 검색 창이 보여지게 함
-const findIcon = document.querySelector('#findIcon >div >  svg');
+const findIcon = document.querySelector('#findIcon > div > svg');
 const findInputCon = document.querySelector('#clickedFind');
 const findInput = document.querySelector('#clickedFind > input');
-// console.log(findIcon);
-// console.log(findInputCon);
+
 findIcon.onclick = () => {
     findIcon.style.display = 'none';
     findInputCon.style.display = 'block';
@@ -11,7 +10,7 @@ findIcon.onclick = () => {
 }
 
 // 토글 버튼 클릭 시 유저 ROLE 변경
-const toggleSwitchInput = document.querySelector('input[type=checkbox]');
+const toggleSwitchInput = document.getElementById('toggleSwitch');
 
 let currentRole;
 // 체크박스 상태 설정

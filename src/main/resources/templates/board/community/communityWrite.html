@@ -93,13 +93,10 @@
                             </th:block>
                         </label>
                     </section>
-
-
                     <section class="writeBtnSec">
                         <button type="button">취소</button>
                         <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
                         <button type="submit" sec:authorize="hasRole('ROLE_ADMIN')">(관리자)수정</button>
-
                     </section>
                 </form>
                 </th:block>

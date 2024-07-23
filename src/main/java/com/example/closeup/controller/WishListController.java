@@ -36,6 +36,10 @@ public class WishListController {
             System.out.println("user is not null");
             wishlist = wishListService.getWishlist(principalDetails.getUserDto().getId());
         }
+
+        for(ExpertDto expertDto : wishlist){
+            System.out.println(expertDto.getProfileImgUrl());
+        }
         model.addAttribute("expertList", wishlist);
         return "user/myPage/wishlist";
     }

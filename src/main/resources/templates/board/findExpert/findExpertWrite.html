@@ -7,7 +7,10 @@
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <link rel="stylesheet" href="../../../static/css/board/findExpert/findExpertWrite.css">
+
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/board/findExpert/findExpertWrite.css">
 
 </head>
 <body>
@@ -35,6 +38,23 @@
                     <!-- 서비스 제목/가격/간단 설명 작성 섹션 -->
                     <section id="infoSection">
                         <p class="sub-title"><span>서비스 정보</span></p>
+                        <div class="service-category">
+                            <p class="service-info"><span>서비스 카테고리</span></p>
+                            <label for="categorySelect"></label>
+                            <select id="categorySelect">
+                                <option value="none" disabled selected>-- 선택 --</option>
+                                <option value="app">앱</option>
+                                <option value="blockchain">블록체인</option>
+                                <option value="chatGPT">GPT</option>
+                                <option value="database">데이터베이스</option>
+                                <option value="game">게암</option>
+                                <option value="homepage">홈페이지</option>
+                                <option value="landingpage">랜딩페이지</option>
+                                <option value="security">보안</option>
+                                <option value="shoppingmall">쇼핑몰</option>
+                                <option value="test">QA·테스트</option>
+                            </select>
+                        </div>
                         <div class="service-title">
                             <p class="service-info"><span>제목</span></p>
                             <label for="titleInput"></label>

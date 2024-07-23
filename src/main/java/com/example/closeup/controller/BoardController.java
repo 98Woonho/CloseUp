@@ -44,8 +44,11 @@ public class BoardController {
     // 고객 센터
     @GetMapping("/cs")
     public String getCSCenter() {
-
-
         return "board/CSCenter/CSMain";
+    }
+
+    @GetMapping("/csPost")
+    public String getCSCenterPost() {
+        return "board/CSCenter/CSPost";
     }
 }

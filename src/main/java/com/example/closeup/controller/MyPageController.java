@@ -3,6 +3,7 @@ package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -42,8 +39,7 @@ import java.util.List;
 public class MyPageController {
     @Autowired
     private MyPageService myPageService;
-    @Autowired
-    private UserService userService;
+
 
     @GetMapping("/myPageMain")
     public String getMyPageMain(
@@ -66,7 +62,7 @@ public class MyPageController {
         return "user/myPage/modifyConfirm";
     }
 
-    @GetMapping("chats")
+    @GetMapping("/chats")
     public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
@@ -93,7 +89,25 @@ public class MyPageController {
     }
 
     @GetMapping("/postmanage")
-    public String getPostManage(Model model) {
+    public String getPostManage(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            Model model
+    ) {
+        List<ArticleDto> articles = new ArrayList<>();
+        if (!Objects.isNull(principalDetails)) {
+            articles = myPageService.selectArticle(principalDetails.getUserDto().getId());
+        }
+        for (ArticleDto article : articles) {
+            System.out.println(article.getTitle());
+        }
+
+        System.out.println(articles);
+        model.addAttribute("articles", articles);
+
         return "user/myPage/postmanage";
+    }
+    @DeleteMapping()
+    public void deletePostManage(){
+
     }
 }

@@ -1,6 +1,6 @@
-@import "../../common.css";
+ @import "../../common.css";
 
-#commuSec {
+ #commuSec {
     width: 1104px;
     margin: 48px auto;
 }
@@ -64,6 +64,7 @@
 
 /* 하단 사이드 메뉴 + 결과 내용 부분 */
 .body-sec {
+    /*margin-top: 48px;*/
     padding: 24px 40px;
     display: flex;
     border-radius: 20px;
@@ -117,9 +118,9 @@
     border-bottom: 1px solid var(--color-lighter-gray);
 
 }
-.content-con tbody > tr {
-    font-weight: lighter;
-}
+ .content-con tbody > tr {
+     font-weight: lighter;
+ }
 
 /* 글 제목 부분은 text 정렬 왼쪽 부터 */
 .content-con tbody td:nth-child(2){

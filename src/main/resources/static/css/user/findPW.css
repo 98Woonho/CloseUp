@@ -1,7 +1,7 @@
-@import "../common.css";
+    @import "../common.css";
 
 .find-sec {
-    margin: 132px auto;
+    margin: 80px auto;
     width: 520px;
 }
 /* 아이디찾기 타이틀 */
@@ -91,7 +91,6 @@
     padding-top: 48px;
 }
 .error p{
-    display: none;
     color: var(--color-error-red);
     font-size: 14px;
     text-align: center;

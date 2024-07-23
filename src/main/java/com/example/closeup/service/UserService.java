@@ -1,5 +1,6 @@
 package com.example.closeup.service;
 
+import com.example.closeup.domain.dto.ExpertDto;
 
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
+
 import java.util.List;
 
 @Service
@@ -79,6 +82,10 @@ public class UserService {
         return userMapper.selectUserByNameAndId(name, id);
     }
 
+    public ExpertDto findExpertByNickNameWithIsWished(String userId, String expertNickName) {
+        return userMapper.selectExpertByNickNameWithIsWished(userId, expertNickName);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public boolean resetPassword(String id, String newPassword) {
         String encodedPassword = passwordEncoder.encode(newPassword);
@@ -91,13 +98,14 @@ public class UserService {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public ExpertDto getExpertDto(String nickname) {
-        return expertMapper.selectExpertByNickname(nickname);
-    }
-
+//    @Transactional(rollbackFor = Exception.class)
+//    public ExpertDto getExpertDto(String nickname) {
+//        return expertMapper.selectExpertByNickname(nickname);
+//    }
+//
     @Transactional(rollbackFor = Exception.class)
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
+        System.out.println(nickname);
         return expertDetailMapper.selectExpertDetailListByNickname(nickname);
     }
 
@@ -105,5 +113,6 @@ public class UserService {
     public void updateUserRoleByToggle(String id, String role) {
         userMapper.updateUserRoleByToggle(id, role);
     }
+
 }
 

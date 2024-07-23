@@ -4,6 +4,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+<!--    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">-->
+
     <title>전문가 프로필 페이지</title>
 
     <th:block th:insert="~{fragments.html :: cdns}"></th:block>
@@ -11,67 +13,82 @@
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
     <script src="/js/user/expertDetail.js" defer></script>
+    <script src="/js/user/myPage/wishlist.js" defer></script>
 
     <link rel="stylesheet" href="/css/user/expertDetail.css">
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+
+
 </head>
 
-<input type="hidden" id="expertNickname" th:value="${expertDto.nickname}">
+<input type="hidden" id="expertNickname" th:value="${expert.nickname}">
 
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
-<main>
-    <section id="detailSection">
-        <section id="expertProfileSec">
-            <div id="profileImgContainer">
-                <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-                     alt="">
-            </div>
-            <div id="profileInfoContainer">
-                <div id="profileNameContainer">
-                    <a href="#"><span th:text="${expertDto.nickname}"></span></a>
-                    <div>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <span id="ratePoint">4.8</span>
-                        <span id="reviewCount">(46)</span>
+    <main>
+        <section id="detailSection">
+            <section id="expertProfileSec">
+                <div id="profileImgContainer">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="">
+                </div>
+                <div id="profileInfoContainer">
+                    <div id="profileNameContainer">
+                        <a href="#"><span th:text="${expert.nickname}">oboa</span></a>
+                        <div>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span id="ratePoint">4.8</span>
+                            <span id="reviewCount">(46)</span>
+                        </div>
+                    </div>
+                    <div id="heartContainer">
+                        <button type="button" th:id="${expert.userId}" th:if="${!expert.isWished}" onclick="addWishlist(this);">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <button type="button" th:id="${expert.userId}" th:if="${expert.isWished}" onclick="deleteWishlist(this);">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
                     </div>
                 </div>
-                <div id="heartContainer">
-                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                </div>
-            </div>
-        </section>
-        <section id="bodySec">
-            <section id="expertInfoSec">
-                <div id="contentNav">
-                    <nav>
-                        <ul>
-                            <li active><a href="#expertInfo">전문가 정보</a></li>
-                            <li><a href="#serviceList">서비스 목록</a></li>
-                            <li><a href="#portfolioList">포트폴리오</a></li>
-                            <li><a href="#reviewList">리뷰</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <section id="contentSec">
-                    <!-- '전문가 소개' 클릭시 보여지는 내용 -->
-                    <section id="introSec">
-                        <p class="nav-title" id="expertInfo">전문가 정보</p>
-                        <div class="desc-container">
-                            <p class="sub-title">소개</p>
-                            <p class="desc" th:text="${expertDto.introduction}">
-                            </p>
-                        </div>
-                        <div class="desc-container">
-                            <p class="sub-title">전문 분야</p>
-                            <div class="tags-container">
-                                <div class="tags" th:if="${expertDetailDto.category == 'expertise'}"
-                                     th:each="expertDetailDto : ${expertDetailDtoList}">
-                                    <p th:text="${expertDetailDto.information}"></p>
+            </section>
+            <section id="bodySec">
+                <section id="expertInfoSec">
+                    <div id="contentNav">
+                        <nav>
+                            <ul>
+                                <li active><a href="#expertInfo">전문가 정보</a></li>
+                                <li><a href="#serviceList">서비스 목록</a></li>
+                                <li><a href="#portfolioList">포트폴리오</a></li>
+                                <li><a href="#reviewList">리뷰</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <section id="contentSec">
+                        <!-- '전문가 소개' 클릭시 보여지는 내용 -->
+                        <section id="introSec">
+                            <p class="nav-title" id="expertInfo">전문가 정보</p>
+                            <div class="desc-container">
+                                <p class="sub-title">소개</p>
+                                <p class="desc">
+                                    (주)오보아 입니다. nictoinc
+                                    꼼꼼하게, 최선을 다해서, 친절하게, 대표가 직접 참여하겠습니다.
+                                    공장처럼, 만들어 내지 않습니다.  하나하나 소통하면서 만들고 있습니다.
+                                    외주회사들은 외주만 한다고 생각하시죠?. 저희는  개발뿐만 아니라,
+                                    자체적으로 "앱 서비스 , 소개팅, 채팅 앱"을 운영합니다.
+                                    단순히 개발뿐 아니라, 앱운영, 마케팅까지 도와드립니다. 기술팀장님들 5명, 10년이상의 개발자님 11명, 디자이너3명,기획자 3명
+                                </p>
+                            </div>
+                            <div class="desc-container">
+                                <p class="sub-title">전문 분야</p>
+                                <div class="tags-container">
+                                    <div class="tags"><p>웹 디자인</p></div>
+                                    <div class="tags"><p>홈페이지 제작</p></div>
+                                    <div class="tags"><p>앱 개발</p></div>
                                 </div>
                             </div>
                         </div>
@@ -300,7 +317,7 @@
             </section>
             <aside id="expertAside">
                 <div id="startConsultCon">
-                    <p><span th:text="${expertDto.nickname}"></span>전문가님에게 상담요청을 해보세요!</p>
+                    <p><span th:text="${expert.nickname}"></span>전문가님에게 상담요청을 해보세요!</p>
                     <button type="button" id="consultBtn">상담하기</button>
                 </div>
             </aside>

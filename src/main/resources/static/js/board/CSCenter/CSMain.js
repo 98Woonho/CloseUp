@@ -12,7 +12,9 @@ searchInput.onkeydown = (event) => {
         keywordSearch(keyword);
     }
 });
-
+// 검색 창에 키워드를 입력했을 떄 이동하는 경로 설정
 function keywordSearch(keyword){
-    location.href = `/customerService/one_on_one?keyword=${keyword}`
+    location.href = `/board/cs/one_on_one?keyword=${keyword}`
 }
+
+

@@ -16,12 +16,25 @@
         SELECT * FROM `user`
         WHERE name = #{name} AND id = #{id}
     </select>
-
     <select id="selectUserById" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE id = #{id}
     </select>
 
+    <select id="selectExpertByNickNameWithIsWished" resultType="com.example.closeup.domain.dto.ExpertDto">
+        SELECT
+            E.*, IF(W.user_id IS NOT NULL, true, false) AS 'isWished'
+        FROM `expert` E
+             LEFT OUTER JOIN `wish` W
+             ON E.`user_id` = W.`expert_id` AND W.`user_id` = #{userId}
+        WHERE nickname = #{expertNickName}
+
+    </select>
+
+    <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT user.profile_img FROM `user`
+        WHERE id = #{id}
+    </select>
 
     <update id="updatePassword">
         UPDATE `user`

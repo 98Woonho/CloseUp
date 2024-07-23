@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("board")
+@RequestMapping("/board")
 public class BoardController {
 
     @GetMapping("/communityMain")
@@ -41,8 +41,9 @@ public class BoardController {
         return "board/findExpert/findExpertWrite";
     }
 
-    @GetMapping("/cs")
-    public String getCSCenter() {
-        return "board/CSCenter/CSMain";
-    }
+//    // 고객 센터
+//    @GetMapping("/cs")
+//    public String getCSCenter() {
+//        return "board/CSCenter/CSMain";
+//    }
 }

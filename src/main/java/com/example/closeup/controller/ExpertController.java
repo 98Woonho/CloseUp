@@ -25,14 +25,14 @@ public class ExpertController {
         return expertService.getExpertDto(nickname);
     }
 
-    // 닉네임과 카테고리로 expert_detail table에서 정보 가져오기
-    @GetMapping("/detail/{nickname}/{category}")
-    @ResponseBody
-    public List<ExpertDetailDto> getDetail(@PathVariable String nickname,
-                                           @PathVariable String category) {
-        return expertService.getExpertDetailDtoList(nickname, category);
-
-    }
+//    // 닉네임과 카테고리로 expert_detail table에서 정보 가져오기
+//    @GetMapping("/detail/{nickname}/{category}")
+//    @ResponseBody
+//    public List<ExpertDetailDto> getDetail(@PathVariable String nickname,
+//                                           @PathVariable String category) {
+//        return expertService.getExpertDetailDtoList(nickname, category);
+//
+//    }
 
     @GetMapping("map")
     public String getMap(Model model) {

@@ -2,9 +2,9 @@
 
 #detailSection{
     position: relative;
-    top: 150px;
     width: 1104px;
-    margin: 32px auto;
+    margin: 40px auto;
+    padding: 32px;
 }
 #expertProfileSec{
     display: flex;
@@ -50,8 +50,17 @@
 #heartContainer{
     width: 64px;
     height: 120px;
-    font-size: 40px;
 }
+
+#heartContainer> button > i{
+    font-size: 32px;
+}
+
+#heartContainer> button:hover > i{
+    color: var(--color-error-red);
+}
+
+
 /*************** 전문가 소개 ***************/
 #bodySec{
     display: flex;

@@ -247,15 +247,17 @@ public class UserController {
     }
 
 
-    @GetMapping("expertDetail/{nickname}")
-    public String getExpertDetail(@PathVariable String nickname, Model model) {
-        ExpertDto expertDto = userService.getExpertDto(nickname);
-
+    @GetMapping("/expertDetail/{nickname}")
+    public String getExpertDetail(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @PathVariable("nickname") String nickname,
+            Model model
+    ) {
         List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
+        ExpertDto expertDto = userService.findExpertByNickNameWithIsWished(principalDetails.getUsername(), nickname);
 
-        model.addAttribute("expertDto", expertDto);
         model.addAttribute("expertDetailDtoList", expertDetailDtoList);
-
+        model.addAttribute("expert", expertDto);
         return "user/expertDetail";
     }
 

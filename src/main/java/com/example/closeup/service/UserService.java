@@ -1,5 +1,6 @@
 package com.example.closeup.service;
 
+import com.example.closeup.domain.dto.ExpertDto;
 
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
@@ -81,6 +82,10 @@ public class UserService {
         return userMapper.selectUserByNameAndId(name, id);
     }
 
+    public ExpertDto findExpertByNickNameWithIsWished(String userId, String expertNickName) {
+        return userMapper.selectExpertByNickNameWithIsWished(userId, expertNickName);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public boolean resetPassword(String id, String newPassword) {
         String encodedPassword = passwordEncoder.encode(newPassword);
@@ -93,13 +98,14 @@ public class UserService {
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
-    public ExpertDto getExpertDto(String nickname) {
-        return expertMapper.selectExpertByNickname(nickname);
-    }
-
+//    @Transactional(rollbackFor = Exception.class)
+//    public ExpertDto getExpertDto(String nickname) {
+//        return expertMapper.selectExpertByNickname(nickname);
+//    }
+//
     @Transactional(rollbackFor = Exception.class)
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
+        System.out.println(nickname);
         return expertDetailMapper.selectExpertDetailListByNickname(nickname);
     }
 

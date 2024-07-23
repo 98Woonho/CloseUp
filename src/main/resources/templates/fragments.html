@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="../static/css/header/header.css">
 
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
-
-
+    <script src="../static/js/header.js" defer></script>
 
 
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -68,7 +67,7 @@
                                 전문가</a>
                         </li>
                         <li>
-                            <a href="/board/communityMain"
+                            <a href="/board/community/communityMain"
                                sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">커뮤니티</a>
                         </li>
                         <li>
@@ -91,7 +90,7 @@
                             <a href="/logout">로그아웃</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
-                            <a href="#">상담 내역</a>
+                            <a href="/myPage/chats">상담 내역</a>
                         </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN') && isAuthenticated()">
                             <a href="/myPage/myPageMain">마이페이지</a>
@@ -110,6 +109,7 @@
             </div>
         </section>
     </section>
+
 </header>
 
 <!-- 회면 고정 메뉴  -->
@@ -117,16 +117,16 @@
     <nav>
         <ul>
             <li>
-                <a href=""><i class="fa-solid fa-plus"></i></a>
+                <a href="/board/communityWrite"><i class="fa-solid fa-plus"></i></a>
             </li>
             <li id="chatIcon">
-                <i class="fa-regular fa-comment"></i>
+                <a href="/myPage/chats"><i class="fa-regular fa-comment"></i></a>
             </li>
             <li>
-                <a href=""><i class="fa-solid fa-location-dot"></i></a>
+                <a href="/expert/map"><i class="fa-solid fa-location-dot"></i></a>
             </li>
             <li>
-                <a href=""><i class="fa-regular fa-user"></i></a>
+                <a href="/myPage/myPageMain"><i class="fa-regular fa-user"></i></a>
             </li>
         </ul>
     </nav>

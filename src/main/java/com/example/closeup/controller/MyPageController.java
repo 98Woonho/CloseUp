@@ -40,13 +40,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
-
     @Autowired
     private MyPageService myPageService;
-
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/myPageMain")
     public String getMyPageMain(
@@ -63,6 +60,7 @@ public class MyPageController {
         return "user/myPage/modifyUserInfo";
     }
 
+    // 회원정보 수정을 위한 비밀번호 입력 페이지
     @GetMapping("/modifyConfirm")
     public String confirm(Model model) {
         return "user/myPage/modifyConfirm";
@@ -87,12 +85,6 @@ public class MyPageController {
         model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
-    }
-
-
-    @GetMapping("/wishlist")
-    public String getWishlist(Model model) {
-        return "user/myPage/wishlist";
     }
 
     @GetMapping("/payment")

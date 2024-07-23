@@ -63,10 +63,19 @@
                             <a href="#" th:text="${article.board.name}" th:href="@{/board/community/communityMain(boardCode=${article.board.code})}">전문가 추천 게시판</a>
                         </div>
                         <div class="postTitleCon">
-                            <span>첫 게시글이네요 :)</span>
+                            <span th:text="${article.title}">첫 게시글이네요 :)</span>
                         </div>
                         <div id="viewContent">
                             <p th:text="${article.content}">안녕하세요</p>
+                        </div>
+                        <div th:if="${not #lists.isEmpty(files)}">
+                            <h3>첨부 파일</h3>
+                            <ul>
+                                <li th:each="file : ${files}">
+                                    <a th:href="@{/board/community/download/{fileId}(fileId=${file.id})}" th:text="${file.name}"></a>
+                                    <span th:text="${#numbers.formatDecimal(file.size / 1024, 0, 'COMMA', 2, 'POINT')} + ' KB'"></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <section id="likeCommentSec">
@@ -112,6 +121,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                     <div class="commentContent">
                                         <p th:text="${comment.content}">팬입니다.
                                             근황 궁금했는데 여기서 뵙게 되네요.

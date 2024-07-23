@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
     <script src="/js/header.js" defer></script>
+
     <script src="/js/board/community/communityWrite.js" defer></script>
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
+    <script src="../../../static/js/board/community/communityWrite.js"  th:src="@{/js/board/community/communityWrite.js}" defer></script>
 
 </head>
 <body>
@@ -21,14 +24,18 @@
         <section id="commuWriteSec">
             <section class="top-sec">
                 <div class="title-con">
-                    <p class="commuTitle">게시물 작성하기</p>
+                    <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">게시물 작성하기</p>
+                    <p class="commuTitle" sec:authorize="hasRole('ROLE_ADMIN')">(관리자) 게시물 수정하기</p>
                 </div>
             </section>
             <section id="writeContentSec">
-
-                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data">
+                <th:block th:with="actionUrl=${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? '/board/community/communityUpdate' : '/board/community/communityWrite'}">
+                    <form th:action="@{${actionUrl}}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="articleId" th:value="${articles[0].id}" sec:authorize="hasRole('ROLE_ADMIN')">
+<!--                <form action="/board/community/communityWrite" method="POST"  enctype="multipart/form-data" sec:authorize="hasRole('ROLE_ADMIN')">-->
                     <section class="post-write-sec">
                         <div class="write-header-con">
+                            <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
                             <label class="writeCategoryLabel" >
                                 <select name="boardCode">
                                     <option selected>카테고리 선택</option>
@@ -41,9 +48,27 @@
                                     <option value="expert">전문가 자유 게시판</option>
                                 </select>
                             </label>
+                        </th:block>
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <label class="writeCategoryLabel">
+                                    <select name="boardCode" th:with="boardCode=${articles[0].boardCode}">
+                                        <option value="">카테고리 선택</option>
+                                        <option disabled>-- 통합 커뮤니티 --</option>
+                                        <option value="free" th:selected="${boardCode == 'free'}">자유 게시판</option>
+                                        <option value="expertRecommendation" th:selected="${boardCode == 'expertRecommendation'}">전문가 추천 게시판</option>
+                                        <option value="expertReview" th:selected="${boardCode == 'expertReview'}">전문가의 후기 게시판</option>
+                                        <option value="question" th:selected="${boardCode == 'question'}">간단한 질문 게시판</option>
+                                        <option disabled>-- 전문가 커뮤니티 --</option>
+                                        <option value="expert" th:selected="${boardCode == 'expert'}">전문가 자유 게시판</option>
+                                    </select>
+                                </label>
+                            </th:block>
                             <div class="title-con">
                                 <label for="title"></label>
-                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title">
+                                <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
+                                <th:block th:each="article: ${articles}">
+                                <input type="text" placeholder="제목을 입력하세요." name="title" th:value="${article.title}"  sec:authorize="hasRole('ROLE_ADMIN')">
+                                </th:block>
                             </div>
                         </div>
                         <section id="fileSection">
@@ -53,6 +78,7 @@
                             <div id="fileInputContainer">
                                 <div><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
                                 <label for="files">첨부할 파일을 선택 해주세요 :)</label>
+                                <p></p>
                                 <p>Max size : 5GB</p>
                                 <input type="file" id="files" name="files" multiple>
                             </div>
@@ -63,17 +89,24 @@
                             <span>내용</span>
                         </div>
                         <label>
-                            <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500"></textarea>
+                            <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500" sec:authorize="!hasRole('ROLE_ADMIN')"></textarea>
+                            <th:block th:each="article : ${articles}">
+                            <textarea name="content" maxlength="1500" th:text="${article.content}" sec:authorize="hasRole('ROLE_ADMIN')"></textarea>
+                            </th:block>
                         </label>
                     </section>
 
 
                     <section class="writeBtnSec">
                         <button type="button">취소</button>
-                        <button type="submit">확인</button>
+                        <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
+                        <button type="submit" sec:authorize="hasRole('ROLE_ADMIN')">(관리자)수정</button>
+
                     </section>
                 </form>
+                </th:block>
             </section>
+
 
         </section>
         <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>

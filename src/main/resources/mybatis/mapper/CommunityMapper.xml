@@ -38,14 +38,6 @@
         ORDER BY c.written_at DESC
     </select>
 
-<!--    <insert id="insertFile" parameterType="com.example.closeup.domain.dto.community.ArticleFileDto">-->
-<!--        INSERT INTO article_file (article_id, name, type, size, created_at)-->
-<!--        VALUES (#{articleId}, #{name}, #{type}, #{size}, #{createdAt})-->
-<!--    </insert>-->
-
-<!--    <select id="selectFilesByArticleId" resultType="com.example.closeup.domain.dto.community.ArticleFileDto">-->
-<!--        SELECT * FROM article_file WHERE article_id = #{articleId}-->
-<!--    </select>-->
 
     <select id="checkLikeExists" resultType="boolean">
         SELECT COUNT(*) > 0
@@ -128,5 +120,38 @@
         GROUP BY a.id
         ORDER BY a.written_at DESC
     </select>
+
+    <select id="selectFileById" resultType="com.example.closeup.domain.dto.community.ArticleFileDto">
+        SELECT * FROM article_file WHERE id = #{fileId}
+    </select>
+
+    <insert id="insertFile" parameterType="com.example.closeup.domain.dto.community.ArticleFileDto">
+        INSERT INTO article_file (article_id, name, type, size, data, created_at)
+        VALUES (#{articleId}, #{name}, #{type}, #{size}, #{data}, #{createdAt})
+    </insert>
+
+    <select id="selectFilesByArticleId" resultType="com.example.closeup.domain.dto.community.ArticleFileDto">
+        SELECT * FROM article_file WHERE article_id = #{articleId}
+    </select>
+
+<!--    관리자 게시글 수정!!!-->
+    <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT *
+        FROM `article`
+        WHERE id = #{articleId}
+    </select>
+
+
+    <!--    관리자 게시글 수정 쿼리!!!-->
+    <update id="updateArticle" parameterType="com.example.closeup.domain.dto.community.ArticleDto">
+        UPDATE `article`
+        SET
+            board_code = #{boardCode},
+            title = #{title},
+            content = #{content},
+            modified_at = #{modifiedAt}
+        WHERE id = #{id}
+    </update>
+
 
 </mapper>

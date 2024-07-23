@@ -93,7 +93,6 @@
     padding-top: 48px;
 }
 .error p{
-    display: none;
     color: var(--color-error-red);
     font-size: 14px;
     text-align: center;

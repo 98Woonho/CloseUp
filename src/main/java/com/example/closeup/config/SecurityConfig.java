@@ -22,11 +22,17 @@ public class SecurityConfig {
                 (config) -> config.disable()
         );
 
-        http.authorizeHttpRequests(
-                authorize -> {
-                    authorize.anyRequest().permitAll();
-                }
-        );
+//        http.authorizeHttpRequests(
+//                authorize -> {
+//                    authorize.anyRequest().permitAll();
+//                }
+//        );
+
+        http.authorizeHttpRequests(authorize -> {
+            authorize
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().permitAll();
+        });
 
         http.formLogin(
                 formLogin -> {
@@ -39,6 +45,13 @@ public class SecurityConfig {
                     formLogin.failureHandler(customAuthenticationFailureHandler()); // 로그인 실패시 핸들러 작용
                     formLogin.successHandler(customLoginSuccessHandler());
                 });
+
+//        http.oauth2Login(oauth2Login -> {
+//            oauth2Login.loginPage("/user/login")
+//                    .defaultSuccessUrl("/")
+//                    .successHandler(new CustomOAuth2SuccessHandler())
+//                    .permitAll();
+//        });
 
         http.logout(
                 logout ->{

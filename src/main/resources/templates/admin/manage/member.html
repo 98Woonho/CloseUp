@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ADMIN | 회원 관리</title>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="/css/admin/manage/manage.css">
-    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/static/css/admin/manage/manage.css" th:href="@{/css/admin/manage/manage.css}">
+    <link rel="stylesheet" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <script src="../../../static/js/admin/admin.js" th:src="@{/js/admin/admin.js}" defer></script>
 
 
 </head>
@@ -23,13 +25,13 @@
                     <nav>
                         <ul>
                             <li>
-                                <a href="#">회원</a>
+                                <a href="/admin/manage/member">회원</a>
                             </li>
                             <li>
-                                <a href="#">게시글</a>
+                                <a href="/admin/manage/post">게시글</a>
                             </li>
                             <li>
-                                <a href="#">리뷰</a>
+                                <a href="/admin/manage/review">리뷰</a>
                             </li>
                         </ul>
                     </nav>
@@ -43,11 +45,10 @@
                         </section>
                         <nav>
                             <ul>
-                                <li><a href="#"><i class="fa-solid fa-list-ul"></i>전체</a></li>
-                                <li><a href="#">일반 등록 사용자</a></li>
-                                <li><a href="#">전문 등록 사용자</a></li>
-                                <li><a href="#">관리자</a></li>
-                                <li><a href="#"><i class="fa-solid fa-gear"></i>설정</a></li>
+                                <li><a th:href="@{/admin/manage/member}"><i class="fa-solid fa-list-ul"></i>전체</a></li>
+                                <li><a th:href="@{/admin/manage/member/ROLE_USER}">일반 사용자</a></li>
+                                <li><a th:href="@{/admin/manage/member/ROLE_EXPERT}">전문가</a></li>
+                                <li><a th:href="@{/admin/manage/member/ROLE_ADMIN}">관리자</a></li>
                             </ul>
                         </nav>
                     </aside>
@@ -67,24 +68,26 @@
                             </div>
                         </section>
                         <!-- 검색 -->
+                        <form th:action="@{/admin/manage/member/search}" method="get" autocomplete="off">
                         <section id="searchInputSec">
                             <div>
                                 <label for="userName">회원 이름</label>
-                                <input type="text" id="userName" placeholder="이름 입력">
+                                <input type="text" id="userName" name="name" th:value="${name}" placeholder="이름 입력">
                             </div>
                             <div>
                                 <label for="userId">아이디</label>
-                                <input type="text" id="userId" placeholder="아이디 입력">
+                                <input type="text" id="userId" name="id" th:value="${id}"  placeholder="아이디 입력">
                             </div>
                             <div>
-                                <label for="joinDate">가입 날짜</label>
-                                <input type="text" id="joinDate" placeholder="날짜 입력">
+                                <label for="joinDate">전문가 등록여부</label>
+                                <input type="text" id="joinDate" name="expertStatus"  placeholder="ex)true, false">
                             </div>
                             <div>
                                 <label for="userPhone">휴대폰 번호</label>
-                                <input type="text" id="userPhone" placeholder="휴대폰 번호 입력">
+                                <input type="text" id="userPhone" name="phone" th:value="${phone}"  placeholder="휴대폰 번호 입력">
                             </div>
                         </section>
+                        </form>
                         <!-- 검색 결과 테이블 -->
                         <section id="searchViewSec">
                             <table>
@@ -104,26 +107,29 @@
                                     <th><b>아이디</b></th>
                                     <th><b>이름</b></th>
                                     <th><b>휴대폰 번호</b></th>
-                                    <th><b>가입 날짜</b></th>
                                     <th><b>전문가 등록 여부</b></th>
-                                    <th><b>즐겨찾기 수</b></th>
+                                     <th><b>역할</b></th>
+<!--                                    <th><b>즐겨찾기 수</b></th>-->
                                     <th>
                                         <b>수정 | 삭제</b>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="radio"></td>
-                                        <td><span>아이디</span></td>
-                                        <td><span>이름</span></td>
-                                        <td><span>휴대폰 번호</span></td>
-                                        <td><span>가입 날짜</span></td>
-                                        <td><span>전문가 등록 여부</span></td>
-                                        <td><span>즐겨찾기 수</span></td>
+                                    <tr th:each="user : ${users}">
+                                        <td><input type="radio" ></td>
+                                        <td><span th:text="${user.id}">아이디</span></td>
+                                        <td><span th:text="${user.name}">이름</span></td>
+                                        <td><span th:text="${user.phone}">휴대폰 번호</span></td>
+<!--                                        <td><span >즐겨찾기 수</span></td>-->
+                                        <td><span th:text="${user.isSuspended}">가입 날짜</span></td>
+                                        <td><span th:text="${user.role}">전문가 등록 여부</span></td>
+
                                         <td>
-                                            <input type="button" id="modifyBtn" value="수정">
-                                            <input type="button" id="deleteBtn" value="삭제">
+<!--                                            <input type="button" id="modifyBtn" value="수정">-->
+<!--                                            <input type="button" id="deleteBtn" value="삭제">-->
+                                            <a th:href="@{/admin/manage/member/edit/{id}(id=${user.id})}">수정</a>
+                                            <a th:href="@{/admin/manage/member/delete/{id}(id=${user.id})}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                                         </td>
                                     </tr>
                                 </tbody>

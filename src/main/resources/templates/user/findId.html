@@ -50,10 +50,11 @@
                     </section>
 
                     <!--오류 메세지 부분-->
+<!--                    <p th:text="${error}">-->
+                    <div class="error" th:if="${error != null}">
+<!--                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>-->
                     <p th:text="${error}">
-                    <div class="error">
-                        <p id="blank"><span>공백</span>이 포함되었습니다.</p>
-                        <p><span>이름 </span>또는 <span>휴대폰 번호</span>가 틀렸습니다.</p>
+<!--                        <p ><span>이름 </span>또는 <span>휴대폰 번호</span>가 틀렸습니다.</p>-->
                     </div>
 
                     <section>

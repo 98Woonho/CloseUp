@@ -14,15 +14,14 @@ const mapAddr = document.getElementById('mapAddr');
 const chatInput = document.getElementById('chatInput');
 const topProfileContainer = document.getElementById('topProfileContainer');
 const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
-const emojiIcon = document.getElementById('emojiIcon');
 const profileNickname = document.getElementById('profileNickname');
 const searchChat = document.getElementById('searchChat');
 
 let userId; // 현재 로그인 한 유저의 아이디
 let role; // 현재 로그인 한 유저의 역할
 let name; // 현재 로그인 한 유저의 이름
-let selectedChatRoomId;
-let chatRoomDtoList;
+let selectedChatRoomId; // 선택한 채팅방의 id
+let chatRoomDtoList; // 채팅방 리스트
 let stomp;
 
 // 현재 로그인 한 유저 조회
@@ -36,42 +35,47 @@ axios.get('/user')
         console.log(err);
     })
 
-
-// 채팅 dialog 닫기 아이콘 클릭 event
-closeChatDialogIcon.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    chatDialog.classList.remove('visible');
-})
-
-// 채팅창 상단 프로필 클릭 event
-
-topProfileContainer.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (role === 'ROLE_USER') {
-        infoSec.classList.toggle('visible');
-    }
-})
-
-
-// 고정 아이콘 - 채팅 아이콘 클릭 event
-chatIcon.addEventListener('click', function () {
-    chatDialog.classList.toggle('visible');
-})
-
-// 채팅 리스트 아이콘 토글
-toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
-    toggleChatListSecIcon.addEventListener('click', function () {
-        chatListSec.classList.toggle('visible');
+if (window.location.pathname === '/myPage/chats') {
+    // 현재 경로가 /myPage/chats인 경우 우측 하단 챗 아이콘 숨기기
+    chatIcon.style.display = 'none';
+} else {
+    // 고정 아이콘 - 채팅 아이콘 클릭 event
+    chatIcon.addEventListener('click', function () {
+        chatDialog.classList.toggle('visible');
     })
-})
 
+    // 채팅 dialog 닫기 아이콘 클릭 event
+    closeChatDialogIcon.addEventListener('click', function (e) {
+        e.preventDefault();
 
+        chatDialog.classList.remove('visible');
+    })
+
+    // 채팅창 상단 프로필 클릭 event
+
+    topProfileContainer.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (role === 'ROLE_USER') {
+            infoSec.classList.toggle('visible');
+        }
+    })
+
+    // 채팅 리스트 아이콘 토글
+    toggleChatListSecIcons.forEach(toggleChatListSecIcon => {
+        toggleChatListSecIcon.addEventListener('click', function () {
+            chatListSec.classList.toggle('visible');
+        })
+    })
+}
+
+// 채팅 리스트 가져오기
 axios.get('/chat/list')
     .then(res => {
         if (res.data !== '') {
             chatRoomDtoList = res.data;
             const ul = document.createElement('ul');
+
+            // sockJs setting
             const sockJs = new SockJS("/stomp/chat");
             stomp = Stomp.over(sockJs);
 
@@ -96,10 +100,12 @@ axios.get('/chat/list')
 
                     const messageCount = li.querySelector('.message-count');
 
+                    // 읽지 않은 메세지가 있으면 count 표시 및 스타일 적용
                     if (messageCount.innerText !== '0') {
                         messageCount.classList.add('visible');
                     }
 
+                    // 읽지 않은 메세지가 없으면 공백 및 스타일 적용 x
                     if (messageCount.innerText === '0') {
                         messageCount.innerText = '';
                     }
@@ -112,17 +118,28 @@ axios.get('/chat/list')
                         const message = JSON.parse(messageInfo.body);
                         let messageCount = chatLi.querySelector('.message-count');
 
+                        // 메세지가 전송 되었을 때, 해당 채팅방의 읽지 않은 메세지 개수를 가져와서 count 적용
                         axios.get(`/chat/room/${chatRoomDto.id}`)
                             .then(res => {
                                 const notReadExpertMessageCount = res.data.notReadExpertMessageCount;
                                 const notReadUserMessageCount = res.data.notReadUserMessageCount;
 
+                                // 만약 메세지가 온 채팅방을 선택 했으면
                                 if (chatLi.classList.contains('choice')) {
+                                    // 카운트 표시 x
                                     messageCount.innerText = '';
                                 } else {
+                                    // 역할에 따라 count 증가
                                     messageCount.innerText = role === 'ROLE_USER' ? notReadExpertMessageCount + 1 : notReadUserMessageCount + 1;
+
+                                    // 안 읽은 메세지 수 DB 저장
+                                    axios.patch('/chat/room', {
+                                        id: message.chatRoomId,
+                                        action: 'increment'
+                                    })
                                 }
 
+                                // 메세지가 전송되고 카운트가 증가 했으면, 스타일 적용
                                 if (messageCount.innerText !== '') {
                                     messageCount.classList.add('visible');
                                 }
@@ -131,8 +148,7 @@ axios.get('/chat/list')
                                 console.log(err);
                             })
 
-
-
+                        // 양방향 통신이라 메세지를 한 번 보내면 subscribe가 2번 실행 되어 메세지가 2번 저장되는 것을 방지
                         if (message.userId === userId) {
                             // DB에 메세지 저장
                             axios.post('/chat/message', {
@@ -143,24 +159,18 @@ axios.get('/chat/list')
                                 .then(res => {
                                 })
                                 .catch(err => {
-                                    alert('알 수 없는 이유로 메세지 전송에 실패 하였습니다. 잠시 후 다시 시도해 주세요');
+                                    console.log(err);
                                 });
                         }
 
-                        if (!chatLi.classList.contains('choice')) {
-                            // 안 읽은 메세지 count 증가
-                            axios.patch('/chat/room', {
-                                id: message.chatRoomId,
-                                action: 'increment'
-                            })
-                        }
-
-                        const chat = new DOMParser().parseFromString(`
+                        if (chatLi.classList.contains('choice')) {
+                            const chat = new DOMParser().parseFromString(`
                             <div class="chat ${message.userId === userId ? 'user1' : 'user2'}">
                                 <div class="chat-msg">${message.content}</div>
                             </div>`, "text/html").querySelector('.chat');
 
-                        chatMsgSec.appendChild(chat);
+                            chatMsgSec.appendChild(chat);
+                        }
 
                         // 채팅 목록에 가장 마지막 content를 표시
                         content.innerText = message.content;
@@ -172,7 +182,6 @@ axios.get('/chat/list')
                         chatMsgSec.scrollTop = chatMsgSec.scrollHeight;
                     });
                 });
-
                 chatList.appendChild(ul);
             });
         }
@@ -187,7 +196,10 @@ searchChat.addEventListener('input', function (e) {
 
     const newChatRoomDtoList = e.target.value === ''
         ? chatRoomDtoList
-        : chatRoomDtoList.filter(chatRoomDto => chatRoomDto.expertNickname.includes(e.target.value));
+        : chatRoomDtoList.filter(chatRoomDto => {
+            const name = role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName;
+            return name.includes(e.target.value);
+        });
 
 
     const ul = document.createElement('ul');

@@ -19,4 +19,6 @@ public interface UserMapper {
     void updateUserRoleByToggle(String id, String role);
     /**************유저 프로필 사진(회원가입 후 마이페이지에서 변경)***************/
     void updateUserProfileImg(String id, byte[] profileImg);
+
+    UserDto selectUserByPhone(String phone);
 }

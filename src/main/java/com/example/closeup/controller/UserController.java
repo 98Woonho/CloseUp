@@ -6,14 +6,18 @@ import com.example.closeup.domain.dto.ExpertDto;
 
 import com.example.closeup.config.auth.PrincipalDetails;
 
+import com.example.closeup.domain.dto.OAuth2UserDto;
 import com.example.closeup.domain.dto.UserDto;
+import jakarta.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -120,16 +124,42 @@ public class UserController {
 
     }
 
-
-    @GetMapping("register")
-    public void getRegister() {
+    @GetMapping("/register")
+    public String getRegister(
+            @RequestParam(defaultValue = "false") boolean social,
+            Model model,
+            HttpSession session
+    ) {
+        if (social) {
+            OAuth2UserDto oAuth2UserDto = (OAuth2UserDto) session.getAttribute("oAuth2UserInfo");
+            if (oAuth2UserDto != null) {
+                model.addAttribute("socialUserInfo", oAuth2UserDto);
+                System.out.println(oAuth2UserDto);
+            }
+        }
+        return "user/register";
     }
 
-    @PostMapping("register")
-    public ResponseEntity<String> postRegister(UserDto userDto) {
+    @PostMapping("/register")
+    public ResponseEntity<String> postRegister(@ModelAttribute UserDto userDto, Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            updateUserDtoWithSocialInfo(userDto, oAuth2User);
+        }
+
         userService.register(userDto);
 
-        return ResponseEntity.ok("회원가입이 성공적으로 완료 되었습니다.");
+        return ResponseEntity.ok("회원가입이 성공적으로 완료되었습니다.");
+    }
+
+    private void updateUserDtoWithSocialInfo(UserDto userDto, OAuth2User oAuth2User) {
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+        if (attributes.containsKey("response")) { // Naver
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+            userDto.setName((String) response.get("name"));
+            userDto.setPhone((String) response.get("mobile"));
+        }
+        // 다른 소셜 로그인 케이스 추가
     }
 
     // portOne 엑세스 토큰 받기

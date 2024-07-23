@@ -19,8 +19,8 @@
 <body>
 
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
-
-<main id="main" data-step="1">
+<main id="main" th:data-step="${socialUserInfo != null} ? '2' : '1'">
+<!--<main id="main" data-step="1">-->
     <div class="content-container">
         <div class="step-container" data-step="1">
             <h1 class="title">본인인증</h1>
@@ -44,22 +44,38 @@
             <div id="registerCon">
                 <!-- 입력받는 부분 -->
                 <form id="registerForm">
-                    <div class="user-input-con">
-                        <input type="text" name="id" id="userId" placeholder="아이디">
-                        <button id="confirmIdDupBtn">중복 확인</button>
-                    </div>
 
-                    <div class="user-input-con">
-                        <input type="password" name="password" id="userPw1" placeholder="비밀번호 (숫자/문자/영문자를 포함한 8-15자리)">
+                    <div th:if="${socialUserInfo != null}">
+                        <input type="hidden" name="isSocialLogin" value="true">
+                        <div class="user-input-con">
+                            <input type="text" name="id" id="userId" th:value="${socialUserInfo.attributes['email']}" placeholder="아이디">
+                        </div>
+                        <div class="user-input-con">
+                            <input type="password" name="password" id="userPw1" placeholder="비밀번호 (숫자/문자/영문자를 포함한 8-15자리)">
+                        </div>
+                        <div class="user-input-con">
+                            <input readonly type="text" name="name" th:value="${socialUserInfo.name}" placeholder="이름">
+                        </div>
+                        <div class="user-input-con">
+                            <input readonly type="text" name="phone" th:value="${socialUserInfo.attributes['mobile']}" placeholder="휴대폰 번호">
+                        </div>
                     </div>
+<!--                    <div class="user-input-con">-->
+<!--                        <input type="text" name="id" id="userId" placeholder="아이디">-->
+<!--                        <button id="confirmIdDupBtn">중복 확인</button>-->
+<!--                    </div>-->
 
-                    <div class="user-input-con">
-                        <input readonly type="text" name="name" placeholder="이름">
-                    </div>
+<!--                    <div class="user-input-con">-->
+<!--                        <input type="password" name="password" id="userPw1" placeholder="비밀번호 (숫자/문자/영문자를 포함한 8-15자리)">-->
+<!--                    </div>-->
 
-                    <div class="user-input-con">
-                        <input readonly type="text" name="phone" placeholder="휴대폰 번호">
-                    </div>
+<!--                    <div class="user-input-con">-->
+<!--                        <input readonly type="text" name="name" placeholder="이름">-->
+<!--                    </div>-->
+
+<!--                    <div class="user-input-con">-->
+<!--                        <input readonly type="text" name="phone" placeholder="휴대폰 번호">-->
+<!--                    </div>-->
                     <button class="register-btn">회원가입</button>
                 </form>
 

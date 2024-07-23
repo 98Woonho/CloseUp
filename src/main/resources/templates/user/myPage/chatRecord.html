@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-    <script defer src="/js/user/myPage/chatRecord.js"></script>
+    <script defer src="/js/chat.js"></script>
 </head>
 <body>
 
@@ -45,17 +45,7 @@
                             <input type="text" placeholder="검색" id="search">
                         </label>
                     </div>
-                    <section id="chatList">
-                        <ul>
-                            <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
-                                    <div class="nickname"><b th:text="${chatRoomDto.expertNickname}"></b></div>
-                                    <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
+                    <section id="chatList"></section>
                 </section>
                 <!-- 채팅 내용 -->
                 <section id="chatViewSec">
@@ -121,7 +111,7 @@
                     <section id="profileSec">
                         <div id="profileImg">
                             <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화 상대의 프로필 이미지">
-                            <a href="#">oboa</a>
+                            <p id="profileNickname"></p>
                         </div>
                         <section id="category">
                             <button style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>

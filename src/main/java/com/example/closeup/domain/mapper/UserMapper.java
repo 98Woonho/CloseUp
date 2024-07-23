@@ -18,6 +18,9 @@ public interface UserMapper {
     UserDto selectUserByNameAndPhone(String name, String phone);
     /**************비밀번호 찾기***************/
     UserDto selectUserByNameAndId(String name, String id);
+
+    String selectUserNameById(String id);
+
     int updatePassword(String id, String newPassword);
     /**************회원가입***************/
     void insertUser(UserDto user);

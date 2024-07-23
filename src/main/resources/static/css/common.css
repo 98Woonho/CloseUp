@@ -120,6 +120,13 @@ footer {
     opacity: 1;
 }
 
+#chatDialog .content {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #chatDialog #chatListSec,
 #chatDialog #infoSec,
 #chatDialog #chatViewSec {
@@ -217,4 +224,22 @@ footer {
 #chatDialog #topProfileName {
     font-size: 18px;
     font-weight: 600;
+}
+
+.message-count-container {
+    position: relative;
+    width: 30px;
+}
+
+.message-count.visible {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff8888;
+    color: #fff8f8;
 }

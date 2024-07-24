@@ -57,8 +57,6 @@ public class ChatController {
                 chatRoomDtoList = chatService.getChatRoomDtoListByExpertNickname(expertDto.getNickname());
             }
 
-            chatRoomDtoList = chatService.getChatRoomDtoList(userId);
-
             for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
                 String lastChatMessage = chatService.getLastChatMessage(chatRoomDto.getId());
                 String userName = chatService.getUserName(chatRoomDto.getUserId());

@@ -3,6 +3,7 @@ package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +77,11 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(Authentication auth, Model model) {
+    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
+        ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
@@ -89,6 +91,7 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
+        model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
     }

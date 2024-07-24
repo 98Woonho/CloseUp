@@ -340,6 +340,7 @@ function clickChatLi(chat) {
     }
 
     chatInput.value = '';
+
 }
 
 
@@ -370,7 +371,6 @@ function keydownEvent(e) {
                 console.log(err);
             })
 
-
     }
 }
 
@@ -382,7 +382,15 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
+            /** TODO
+             * 전문가 등록 및 수정에서 profileImg 구현되면 profileImg 넣어야 함.
+             */
+
+            // 전문가 위치 표시하는 지도
+            getExpertLocation(`${res.data.address}`);
+
             profileImg.src = `/expert/profileImage?expertNickname=${selectedExpertNickname}`;
+
         })
         .catch(err => {
             console.log(err);
@@ -398,6 +406,7 @@ function getExpertInfo(selectedExpertNickname) {
         .catch(err => {
             console.log(err);
         })
+
 }
 
 

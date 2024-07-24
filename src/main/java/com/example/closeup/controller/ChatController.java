@@ -1,4 +1,3 @@
-
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -128,38 +127,5 @@ public class ChatController {
         chatService.createMessage(chatMessageDto);
 
         return ResponseEntity.ok().build();
-    }
-
-    @PatchMapping("room")
-    public ResponseEntity<ChatRoomDto> patchChat(@RequestBody ChatRoomDto chatRoomDto,
-                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long chatRoomId = chatRoomDto.getId();
-        String role = principalDetails.getUserDto().getRole();
-
-        ChatRoomDto newChatRoomDto = chatService.getChatRoomDto(chatRoomId);
-
-        if (chatRoomDto.getAction().equals("increment")) {
-            if (role.equals("ROLE_USER")) {
-                newChatRoomDto.setNotReadExpertMessageCount(newChatRoomDto.getNotReadExpertMessageCount() + 1);
-            }
-
-            if (role.equals("ROLE_EXPERT")) {
-                newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
-            }
-        }
-
-        if (chatRoomDto.getAction().equals("reset")) {
-            if (role.equals("ROLE_USER")) {
-                newChatRoomDto.setNotReadExpertMessageCount(0);
-            }
-
-            if (role.equals("ROLE_EXPERT")) {
-                newChatRoomDto.setNotReadUserMessageCount(0);
-            }
-        }
-
-        chatService.updateChatRoom(newChatRoomDto);
-
-        return ResponseEntity.ok(newChatRoomDto);
     }
 }

@@ -76,11 +76,9 @@ public class MyPageController {
     }
 
     @GetMapping("chats")
-    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
+    public String getChats(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
-
-        ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
 
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
@@ -91,7 +89,6 @@ public class MyPageController {
         }
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
-        model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
 
         return "user/myPage/chatRecord";
     }

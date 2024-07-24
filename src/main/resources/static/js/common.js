@@ -1,5 +1,4 @@
 const chatDialog = document.getElementById('chatDialog');
-const chatIcon = document.getElementById('chatIcon');
 const chatListSec = document.getElementById('chatListSec');
 const toggleChatListSecIcons = document.querySelectorAll('.toggle-chat-list-sec-icon');
 const infoSec = document.getElementById('infoSec');
@@ -17,7 +16,9 @@ const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
 const profileNickname = document.getElementById('profileNickname');
 const searchChat = document.getElementById('searchChat');
 const dot = document.getElementById('dot');
+const profileBtn = document.getElementById('profileBtn');
 
+let chatIcon = document.getElementById('chatIcon');
 let userId; // 현재 로그인 한 유저의 아이디
 let role; // 현재 로그인 한 유저의 역할
 let name; // 현재 로그인 한 유저의 이름
@@ -33,13 +34,21 @@ axios.get('/user')
         name = res.data.name;
     })
     .catch(err => {
-        console.log(err);
     })
 
+profileBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    location.href = `/user/expertDetail/${topProfileName.innerText}`;
+})
+
+// 경로가 /myPage/chats면 chatIcon을 숨기고 변수를 null로 초기화
 if (window.location.pathname === '/myPage/chats') {
-    // 현재 경로가 /myPage/chats인 경우 우측 하단 챗 아이콘 숨기기
     chatIcon.style.display = 'none';
-} else {
+    chatIcon = null;
+}
+
+if (chatIcon) {
     // 고정 아이콘 - 채팅 아이콘 클릭 event
     chatIcon.addEventListener('click', function () {
         chatDialog.classList.toggle('visible');
@@ -53,7 +62,6 @@ if (window.location.pathname === '/myPage/chats') {
     })
 
     // 채팅창 상단 프로필 클릭 event
-
     topProfileContainer.addEventListener('click', function (e) {
         e.preventDefault();
         if (role === 'ROLE_USER') {
@@ -68,6 +76,7 @@ if (window.location.pathname === '/myPage/chats') {
         })
     })
 }
+
 
 // 채팅 리스트 가져오기
 axios.get('/chat/list')

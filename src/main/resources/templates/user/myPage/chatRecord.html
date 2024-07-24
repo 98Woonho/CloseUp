@@ -20,12 +20,6 @@
 </head>
 <body>
 
-<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
-<th:block th:if="${selectedChatRoomDto}">
-    <input type="hidden" id="selectedChatRoomId" th:value="${selectedChatRoomDto.id}">
-    <input type="hidden" id="selectedExpertNickname" th:value="${selectedChatRoomDto.expertNickname}">
-</th:block>
-
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
     <main>

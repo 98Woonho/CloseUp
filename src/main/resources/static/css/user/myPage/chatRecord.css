@@ -190,7 +190,8 @@
 /************* 우측 프로필 **************/
 #infoSec{
     flex: 1;
-    height: 562px;
+    height: 100%;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
 }
 #profileSec{
     padding: 20px;

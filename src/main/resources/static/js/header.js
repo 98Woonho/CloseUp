@@ -15,18 +15,20 @@ const toggleSwitchInput = document.getElementById('toggleSwitch');
 let currentRole;
 // 체크박스 상태 설정
 
-toggleSwitchInput.addEventListener('change', () => {
-    const newRole = toggleSwitchInput.checked ? 'ROLE_EXPERT' : 'ROLE_USER';
+if (toggleSwitchInput) {
+    toggleSwitchInput.addEventListener('change', () => {
+        const newRole = toggleSwitchInput.checked ? 'ROLE_EXPERT' : 'ROLE_USER';
 
-    fetch('/changeRole', {
-        method: "PUT",
-        headers: { "Content-Type": "application/string" },
-        body: newRole
-    }).then(response => response.toString())
-        .then(data => {
-            currentRole = newRole;
-        });
+        fetch('/changeRole', {
+            method: "PUT",
+            headers: { "Content-Type": "application/string" },
+            body: newRole
+        }).then(response => response.toString())
+            .then(data => {
+                currentRole = newRole;
+            });
 
-    location.href = "/";
-});
+        location.href = "/";
+    });
+}
 

@@ -256,3 +256,12 @@ footer {
 .chat.user2 .time {
     left: 3px;
 }
+
+#chatDialog .side-btn-container {
+    color: unset;
+}
+
+#chatDialog #topProfileName {
+    font-size: 18px;
+    font-weight: 600;
+}

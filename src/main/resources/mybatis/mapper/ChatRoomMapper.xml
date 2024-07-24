@@ -29,6 +29,7 @@
     <insert id="insertChatRoom"
             parameterType="com.example.closeup.domain.dto.ChatRoomDto"
             useGeneratedKeys="true"
+            keyColumn="id"
             keyProperty="id">
         INSERT INTO `chat_room` (`user_id`, `expert_nickname`)
         VALUES (#{userId}, #{expertNickname})

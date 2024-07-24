@@ -46,7 +46,7 @@ function loadNaverMap(lat, lng){
     const latLng = new naver.maps.LatLng(lat, lng);
 
 
-    // // 경도,위도로 내 위치의 도로명주소 가져오기
+    // 경도,위도로 내 위치의 도로명주소 가져오기
     naver.maps.Service.reverseGeocode({
         coords: latLng,
     }, function(status, response) {

@@ -1,4 +1,3 @@
-
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;

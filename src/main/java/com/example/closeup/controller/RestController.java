@@ -1,12 +1,15 @@
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.ExpertService;
+import com.example.closeup.service.MyPageService;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

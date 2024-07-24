@@ -342,6 +342,7 @@ function clickChatLi(chat) {
     }
 
     chatInput.value = '';
+
 }
 
 
@@ -372,7 +373,6 @@ function keydownEvent(e) {
                 console.log(err);
             })
 
-
     }
 }
 
@@ -384,8 +384,13 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
-            // 프로필 이미지
+
+
+            // 전문가 위치 표시하는 지도
+            getExpertLocation(`${res.data.address}`);
+
             profileImg.src = `/expert/profileImage?expertNickname=${selectedExpertNickname}`;
+
         })
         .catch(err => {
             console.log(err);
@@ -401,6 +406,7 @@ function getExpertInfo(selectedExpertNickname) {
         .catch(err => {
             console.log(err);
         })
+
 }
 
 

@@ -39,7 +39,8 @@ public class CommunityController {
             @RequestParam(required = false) String keyword,
             Model model) {
         List<ArticleDto> articles = communityService.getArticles(boardCode, keyword);
-        List<BoardDto> boards = communityService.getAllBoards();
+//        List<BoardDto> boards = communityService.getAllBoards();
+        List<BoardDto> boards = communityService.getBoardsExceptCustomerService();
         model.addAttribute("articles", articles);
         model.addAttribute("boards", boards);
         model.addAttribute("keyword", keyword);
@@ -131,7 +132,8 @@ public class CommunityController {
     ) {
         ArticleDto article = communityService.getArticleById(articleId, request, response);
         List<CommentDto> comments = communityService.getCommentsByArticleId(articleId);
-        List<BoardDto> boards = communityService.getAllBoards();
+//        List<BoardDto> boards = communityService.getAllBoards();
+        List<BoardDto> boards = communityService.getBoardsExceptCustomerService();
         List<ArticleFileDto> files = communityService.getFilesByArticleId(articleId);  // 파일 정보를 가져옴
 
         model.addAttribute("boards", boards);

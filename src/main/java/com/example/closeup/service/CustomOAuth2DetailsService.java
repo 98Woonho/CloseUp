@@ -3,11 +3,13 @@ package com.example.closeup.service;
 
 
 
+import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.OAuth2UserDto;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.domain.mapper.UserMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.Map;
 
 @Log4j2
@@ -23,6 +26,8 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -31,15 +36,37 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         String clientName = userRequest.getClientRegistration().getClientName();
-        String phone = extractPhone(attributes, clientName);
-        String email = extractEmail(attributes, clientName);
 
-        if (phone != null) {
-            UserDto user = userMapper.selectUserByPhone(phone);
-            if (user != null) {
-                user.setAttributes(attributes);
-                return user;
+        if ("naver".equalsIgnoreCase(clientName)) {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+            String id = (String) response.get("id");
+            String name = (String) response.get("name");
+            String phone = ((String) response.get("mobile")).replaceAll("-", "");
+
+            UserDto existingUser = userService.findUserByPhone(phone);
+
+            PrincipalDetails principalDetails = new PrincipalDetails();
+            if (existingUser != null) {
+                existingUser.setAttributes(attributes);
+                principalDetails.setUserDto(existingUser);
+                return principalDetails;
             }
+
+            UserDto newUser = UserDto.builder()
+                    .id(id)
+                    .name(name)
+                    .phone(phone)
+                    .isSuspended(false)
+                    .role("ROLE_USER")
+                    .build();
+            setUserDefaultProfileImage(newUser);
+
+            userService.socialRegister(newUser);
+
+            newUser.setAttributes(attributes);
+
+            principalDetails.setUserDto(newUser);
+            return principalDetails;
         }
 
         return OAuth2UserDto.builder()
@@ -47,23 +74,15 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
                 .clientName(clientName)
                 .build();
     }
-
-    private String extractPhone(Map<String, Object> attributes, String clientName) {
-        if ("naver".equalsIgnoreCase(clientName)) {
-            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-            return response != null ? (String) response.get("mobile") : null;
+    private void setUserDefaultProfileImage(UserDto userDto){
+        try {
+            ClassPathResource resource = new ClassPathResource("static/imgs/user-profile-2.jpg");
+            InputStream in = resource.getInputStream();
+            byte[] data = in.readAllBytes();
+            userDto.setProfileImg(data);
+        }catch (Exception e){
+            System.out.println("setUserDefaultProfileImage - image 설정 중 에러..: " + e.getMessage());
         }
-        // 다른 소셜 로그인 케이스 추가
-        return null;
-    }
-
-    private String extractEmail(Map<String, Object> attributes, String clientName) {
-        if ("naver".equalsIgnoreCase(clientName)) {
-            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-            return response != null ? (String) response.get("email") : null;
-        }
-        // 다른 소셜 로그인 케이스 추가
-        return null;
     }
 }
 //    private SocialUserDTO naver_login(Map<String, Object> userProperties) {

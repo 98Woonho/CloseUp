@@ -3,6 +3,9 @@ package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.BoardDto;
+import com.example.closeup.service.CommunityService;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ public class MyPageController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CommunityService communityService;
 
   
     @GetMapping("/myPageMain")
@@ -102,7 +108,17 @@ public class MyPageController {
     }
 
     @GetMapping("/postmanage")
-    public String getPostManage(Model model) {
+    public String getPostManage(
+            Model model,
+            Authentication authentication,
+            @ModelAttribute ArticleDto articleDto) {
+//        String userId = authentication.getName();
+//        articleDto.setUserId(userId);
+//        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
+//        List<BoardDto> boards = communityService.getAllBoards();
+//        System.out.println(articles);
+//        model.addAttribute("boards", boards);
+//        model.addAttribute("articles", articles);
         return "user/myPage/postmanage";
     }
 }

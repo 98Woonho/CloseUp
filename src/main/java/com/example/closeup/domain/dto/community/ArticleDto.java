@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class ArticleDto {
     private Integer id;
     private String boardCode;
+    private String boardName;
     private BoardDto board;
     private String userId;
     private String title;

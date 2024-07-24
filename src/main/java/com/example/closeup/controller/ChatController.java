@@ -1,9 +1,9 @@
-
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatMessageDto;
 import com.example.closeup.domain.dto.ChatRoomDto;
+import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -45,14 +46,25 @@ public class ChatController {
 
         if (principalDetails != null) {
             String userId = principalDetails.getUserDto().getId();
+            String role = principalDetails.getUserDto().getRole();
 
+            if (role.equals("ROLE_USER")) {
+                chatRoomDtoList = chatService.getChatRoomDtoListByUserId(userId);
+            }
+
+            if (role.equals("ROLE_EXPERT")) {
+                ExpertDto expertDto = chatService.getExpertDto(userId);
+                chatRoomDtoList = chatService.getChatRoomDtoListByExpertNickname(expertDto.getNickname());
+            }
 
             chatRoomDtoList = chatService.getChatRoomDtoList(userId);
 
             for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
                 String lastChatMessage = chatService.getLastChatMessage(chatRoomDto.getId());
+                String userName = chatService.getUserName(chatRoomDto.getUserId());
 
                 chatRoomDto.setLastChatMessage(lastChatMessage);
+                chatRoomDto.setUserName(userName);
             }
         }
 
@@ -85,14 +97,34 @@ public class ChatController {
         model.addAttribute("chatMessageDtoList", chatMessageDtoList);
     }
 
-    @PostMapping("message")
-    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto, Authentication auth) {
-        // 현재 로그인 한 유저의 아이디
-        String userId = ((PrincipalDetails) auth.getPrincipal()).getUsername();
-        chatMessageDto.setUserId(userId);
+    @GetMapping("/room/{id}")
+    @ResponseBody
+    public ChatRoomDto getChatRoomDto(@PathVariable Long id) {
+        return chatService.getChatRoomDto(id);
+    }
 
-        LocalDateTime date = LocalDateTime.now();
-        chatMessageDto.setWrittenAt(date);
+    @PostMapping("message")
+    public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
+        ChatMessageDto lastChatMessageDto = chatService.getLastChatMessageDto(chatMessageDto.getChatRoomId());
+
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        if (lastChatMessageDto != null) {
+            LocalDateTime lastDate = lastChatMessageDto.getWrittenAt();
+
+            // 원하는 형식 지정
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+            // 형식에 맞게 시간 문자열 추출
+            String currentTime = currentDate.format(formatter);
+            String lastTime = lastDate.format(formatter);
+
+            if (chatMessageDto.getUserId().equals(lastChatMessageDto.getUserId()) && currentTime.equals(lastTime)) {
+                chatService.updateChatMessageWrittenAt(lastChatMessageDto.getId());
+            }
+        }
+
+        chatMessageDto.setWrittenAt(currentDate);
 
         chatService.createMessage(chatMessageDto);
 

@@ -20,4 +20,18 @@
         ORDER BY `id` DESC
         LIMIT 1;
     </select>
+
+    <select id="selectLastChatMessageDtoByChatRoomId">
+        SELECT *
+        FROM `chat_message`
+        WHERE `chat_room_id` = #{chatRoomId}
+        ORDER BY `id` DESC
+            LIMIT 1;
+    </select>
+
+    <update id="updateChatMessageWrittenAtById">
+        UPDATE `chat_message`
+        SET `written_at` = null
+        WHERE `id` = #{id}
+    </update>
 </mapper>

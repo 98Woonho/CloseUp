@@ -6,29 +6,22 @@ import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 
-import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.Model;
-import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -36,14 +29,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
-
     @Autowired
     private MyPageService myPageService;
-
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+  
     @GetMapping("/myPageMain")
     public String getMyPageMain(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
@@ -55,25 +49,38 @@ public class MyPageController {
     }
 
     @GetMapping("/modifyUserInfo")
-    public String modify(Model model) {
+    public String getModify(Model model) {
         return "user/myPage/modifyUserInfo";
     }
 
+    // 회원정보 수정을 위한 비밀번호 입력 페이지
     @GetMapping("/modifyConfirm")
-    public String confirm(Model model) {
+    public String getConfirm(Model model) {
         return "user/myPage/modifyConfirm";
     }
 
+    @PostMapping("/modifyConfirm")
+    public String postModifyConfirm(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam("password") String password,
+            Model model
+    ) {
+        UserDto user = userService.findUserById(principalDetails.getUsername());
+
+        if(passwordEncoder.matches(password, user.getPassword())) {
+            return "redirect:/myPage/modifyUserInfo";
+        } else {
+            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            return "/user/myPage/modifyConfirm";
+        }
+    }
+
     @GetMapping("chats")
-    public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
+    public String getChats(Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
-        ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
-
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
-
-        System.out.println(chatRoomDtoList);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
             String lastChatMessage = myPageService.getLastChatMessage(chatRoomDto.getId());
@@ -83,15 +90,7 @@ public class MyPageController {
 
         model.addAttribute("chatRoomDtoList", chatRoomDtoList);
 
-        model.addAttribute("selectedChatRoomDto", selectedChatRoomDto);
-
         return "user/myPage/chatRecord";
-    }
-
-
-    @GetMapping("/wishlist")
-    public String getWishlist(Model model) {
-        return "user/myPage/wishlist";
     }
 
     @GetMapping("/payment")

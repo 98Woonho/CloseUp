@@ -13,15 +13,12 @@
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
 
-    <script defer src="/js/user/myPage/chatRecord.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script defer src="/js/common.js"></script>
 </head>
 <body>
-
-<input type="hidden" id="userId" th:value="${#authentication.Principal.userDto.id}">
-<th:block th:if="${selectedChatRoomDto}">
-    <input type="hidden" id="selectedChatRoomId" th:value="${selectedChatRoomDto.id}">
-    <input type="hidden" id="selectedExpertNickname" th:value="${selectedChatRoomDto.expertNickname}">
-</th:block>
 
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
 
@@ -34,27 +31,15 @@
                 <section id="chatListSec">
                     <div id="searchContainer">
                         <h3>채팅 내역</h3>
-                        <label for="search">
+                        <label for="searchChat">
                             <button type="button"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
                                 <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
                             </svg>
                             </button>
-                            <input type="text" placeholder="검색" id="search">
+                            <input type="text" placeholder="검색" id="searchChat">
                         </label>
                     </div>
-                    <section id="chatList">
-                        <ul>
-
-                            <li th:class="chat-li" th:each="chatRoomDto : ${chatRoomDtoList}" th:data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-
-                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
-                                <div>
-                                    <div class="user-name"><b th:text="${chatRoomDto.expertUserName}"></b></div>
-                                    <div class="content"><p th:text="${chatRoomDto.lastChatMessage}"></p></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
+                    <section id="chatList"></section>
                 </section>
                 <!-- 채팅 내용 -->
                 <section id="chatViewSec">
@@ -70,7 +55,6 @@
                                     <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화상대의프로필이미지">
                                     <div id="topProfileInfo">
                                         <div id="topProfileName"></div>
-                                        <div id="topProfileDate"><p>채팅 일자 :<span>00/00/00</span></p></div>
                                     </div>
                                 </div>
                                 <div class="side-btn-container">
@@ -121,7 +105,7 @@
                     <section id="profileSec">
                         <div id="profileImg">
                             <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="대화 상대의 프로필 이미지">
-                            <a href="#">oboa</a>
+                            <p id="profileNickname"></p>
                         </div>
                         <section id="category">
                             <button style="background-color:#E9D2FF; color: #6941C6;">Front-End</button>

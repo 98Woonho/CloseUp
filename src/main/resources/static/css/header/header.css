@@ -9,6 +9,7 @@
     background-color: #fff;
 }
 
+
 .admin-header-sec {
     display: flex;
     width: 100vw;
@@ -42,6 +43,15 @@
     align-items: center;
     justify-content: space-between;
 }
+
+/*#navSec > div:first-child {*/
+/*    background-image: url(../../imgs/CloseUp-removebg-preview.png);*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: center center;*/
+/*    background-size: auto 100%;*/
+/*    background-color: #fff;*/
+
+/*}*/
 
 #clickedFind {
     width: 216px;

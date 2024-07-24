@@ -2,6 +2,7 @@ package com.example.closeup.service;
 
 
 import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.ArticleFileDto;
 import com.example.closeup.domain.dto.community.BoardDto;
 import com.example.closeup.domain.dto.community.CommentDto;
 import com.example.closeup.domain.mapper.CommunityMapper;
@@ -10,7 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,11 +35,11 @@ public class CommunityService {
         return communityMapper.selectAllBoards();
     }
 
-    /**************게시글 작성***************/
-    public void createArticle(ArticleDto articleDto) {
-        articleDto.setWrittenAt(LocalDateTime.now());
-        communityMapper.insertArticle(articleDto);
-    }
+//    /**************게시글 작성***************/
+//    public void createArticle(ArticleDto articleDto) {
+//        articleDto.setWrittenAt(LocalDateTime.now());
+//        communityMapper.insertArticle(articleDto);
+//    }
     /**************댓글 작성***************/
         public void createComment(CommentDto commentDto){
             commentDto.setWrittenAt(LocalDateTime.now());
@@ -75,9 +78,6 @@ public class CommunityService {
             return communityMapper.selectCommentsByArticleId(articleId);
         }
 
-//        public List<ArticleFileDto> getFilesByArticleId (Integer articleId){
-//            return communityMapper.selectFilesByArticleId(articleId);
-//        }
     /**************게시글 좋아요 토글***************/
     public boolean toggleLike (Integer articleId, String userId){
             boolean exists = communityMapper.checkLikeExists(articleId, userId);
@@ -119,5 +119,57 @@ public class CommunityService {
     public int getCommentLikeCount(Integer commentId) {
         return communityMapper.selectCommentLikeCount(commentId);
     }
+
+    public void saveFile(MultipartFile file, Integer articleId) throws IOException {
+        ArticleFileDto fileDto = new ArticleFileDto();
+        fileDto.setArticleId(articleId);
+        fileDto.setName(file.getOriginalFilename());
+        fileDto.setType(file.getContentType());
+        fileDto.setSize((int) file.getSize());
+        fileDto.setData(file.getBytes());
+        fileDto.setCreatedAt(LocalDateTime.now());
+        communityMapper.insertFile(fileDto);
+    }
+    public ArticleFileDto getFileById(Integer fileId) {
+        return communityMapper.selectFileById(fileId);
+    }
+
+
+    public List<ArticleFileDto> getFilesByArticleId(Integer articleId) {
+        return communityMapper.selectFilesByArticleId(articleId);
+    }
+    public Integer createArticle(ArticleDto articleDto) {
+        articleDto.setWrittenAt(LocalDateTime.now());
+        communityMapper.insertArticle(articleDto);
+        return articleDto.getId(); // 게시글 ID 반환
+    }
+
+
+
+
+    /***********관리자 페이지 게시글 수정*************/
+    public List<ArticleDto> getAllArticles(Integer articleId){
+        return communityMapper.selectAllArticles(articleId);
+    }
+    public void updateArticle(ArticleDto articleDto) {
+        // 기존 게시글 정보 가져오기
+        ArticleDto existingArticle = communityMapper.selectArticleById(articleDto.getId());
+
+        // 변경된 필드만 업데이트
+        if (articleDto.getBoardCode() != null) {
+            existingArticle.setBoardCode(articleDto.getBoardCode());
+        }
+        if (articleDto.getTitle() != null) {
+            existingArticle.setTitle(articleDto.getTitle());
+        }
+        if (articleDto.getContent() != null) {
+            existingArticle.setContent(articleDto.getContent());
+        }
+
+        existingArticle.setModifiedAt(LocalDateTime.now());
+
+        communityMapper.updateArticle(existingArticle);
+    }
+
 }
 

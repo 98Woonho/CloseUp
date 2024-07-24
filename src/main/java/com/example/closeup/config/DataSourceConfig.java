@@ -20,6 +20,10 @@ public class  DataSourceConfig {
         dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/close_up");
         dataSource.setUsername("root");
         dataSource.setPassword("1234");
+
+//        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/close_up");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("1234");
         return dataSource;
     }
 }

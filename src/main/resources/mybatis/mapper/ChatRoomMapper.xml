@@ -20,11 +20,24 @@
         WHERE `user_id` = #{userId} AND `expert_nickname` = #{expertNickname}
     </select>
 
+    <select id="selectChatRoomDtoListByExpertNickname">
+        SELECT *
+        FROM `chat_room`
+        WHERE `expert_nickname` = #{expertNickname}
+    </select>
+
     <insert id="insertChatRoom"
             parameterType="com.example.closeup.domain.dto.ChatRoomDto"
             useGeneratedKeys="true"
+            keyColumn="id"
             keyProperty="id">
         INSERT INTO `chat_room` (`user_id`, `expert_nickname`)
         VALUES (#{userId}, #{expertNickname})
     </insert>
+
+    <update id="updateChatRoom">
+        UPDATE `chat_room`
+        SET `not_read_user_message_count` = #{notReadUserMessageCount}, `not_read_expert_message_count` = #{notReadExpertMessageCount}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

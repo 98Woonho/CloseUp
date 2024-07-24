@@ -1,9 +1,9 @@
 @import "../../common.css";
+
 #findExpertPostSec{
     position: relative;
-    top: 150px;
     width: 1104px;
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 32px;
 }
 /************** 서비스 내용 ****************/

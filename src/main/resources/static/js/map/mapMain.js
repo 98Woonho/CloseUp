@@ -108,10 +108,13 @@ function loadNaverMap(lat, lng){
             return response.json()
         }).then(value => {
         value.forEach(item => {
-            const userId = item.userId;
+            const nickname = item.nickname;
             const introduction = item.introduction;
             const address = item.address;
             const addressDetail = item.addressDetail;
+            const profileImg = item.profileImg;
+            const base64ProfileImg = `data:/image/*;base64, ${profileImg}`;
+            console.log(item);
 
             // 주소를 좌표로 변환(지오코더 사용)
             naver.maps.Service.geocode({
@@ -131,7 +134,7 @@ function loadNaverMap(lat, lng){
                     position: new naver.maps.LatLng(addrLat, addrLng),
                     map: map,
                     icon: {
-                        content: '<img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width: 40px; height: 40px;"/>',
+                        content: '<img src="' + base64ProfileImg + '" style="width: 40px; height: 40px;"/>',
                         size: new naver.maps.Size(40, 40),
                         anchor: new naver.maps.Point(20, 30)
                     }
@@ -142,8 +145,9 @@ function loadNaverMap(lat, lng){
                     var infoWindow = new naver.maps.InfoWindow({
                         content: '<div class="info-template">\n' +
                             '    <div class="name-con">\n' +
-                            '        <p class="expert-name">' + userId + '</p>\n' +
+                            '        <p class="expert-name">' + nickname + '</p>\n' +
                             '        <p class="expert-desc">' + introduction + '</p>\n' +
+                            '        <p class="expert-addr">' + address + ' ' +  addressDetail + '</p>\n' +
                             '    </div>\n' +
                             '    <button type="button">프로필<br/>보러가기</button>\n' +
                             '</div>',
@@ -168,7 +172,7 @@ function loadNaverMap(lat, lng){
 
                 markers.push(expertMarkers);
             });
-        })
+        });
     });
 
     // 현재 위치 클릭 시 현재 위치로 이동
@@ -177,35 +181,5 @@ function loadNaverMap(lat, lng){
         map.panTo(latLng);
     });
 
-    // 보이는 지역만 마커 표시 함수
-    // naver.maps.Event.addListener(map, 'idle', function() {
-    //     updateMarkers(map, markers);
-    // });
-    //
-    // function updateMarkers(map, markers) {
-    //     var mapBounds = map.getBounds();
-    //     var marker, position;
-    //
-    //     for (var i = 0; i < markers.length; i++) {
-    //         marker = markers[i]
-    //         position = marker.getPosition();
-    //
-    //         if (mapBounds.hasLatLng(position)) {
-    //             showMarker(map, marker);
-    //         } else {
-    //             hideMarker(map, marker);
-    //         }
-    //     }
-    // }
-    //
-    // function showMarker(map, marker) {
-    //     if (marker.getMap()) return;
-    //     marker.setMap(map);
-    // }
-    //
-    // function hideMarker(map, marker) {
-    //     if (!marker.getMap()) return;
-    //     marker.setMap(null);
-    // }
 }
 

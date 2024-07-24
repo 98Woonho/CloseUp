@@ -7,6 +7,10 @@
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 작성</title>
     <script src="/js/header.js" defer></script>
+
+    <script src="/js/board/community/communityWrite.js" defer></script>
+    <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="/css/board/community/communityWrite.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -18,7 +22,7 @@
 
     <main>
         <section id="commuWriteSec">
-            <section class="header-pop">
+            <section class="top-sec">
                 <div class="title-con">
                     <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">게시물 작성하기</p>
                     <p class="commuTitle" sec:authorize="hasRole('ROLE_ADMIN')">(관리자) 게시물 수정하기</p>

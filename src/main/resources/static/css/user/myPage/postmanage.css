@@ -6,6 +6,7 @@
     height: 100vh;
 }
 #manageSection > div{
+    position: relative;
     width: 1040px;
     margin: 0 auto;
 }
@@ -37,15 +38,14 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
-.select-con button{
-    margin-left: 10px;
+.select-con button , .select-con button a {
     width: 70px;
     height: 40px;
     color: white;
     background-color: var(--color-main-navy);
     border-radius: 10px;
 }
-.select-con button:hover{
+.select-con button:hover, .select-con button:hover a{
     background-color: var(--color-light-blue);
     color: var(--color-main-navy);
 }

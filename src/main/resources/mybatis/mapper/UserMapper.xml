@@ -7,21 +7,50 @@
         VALUES (#{id}, #{password}, #{phone}, #{role}, #{name}, #{isSuspended}, #{profileImg})
     </insert>
 
+    <insert id="insertExpertInfo" parameterType="com.example.closeup.domain.dto.ExpertDto">
+        INSERT INTO `expert` (nickname, user_id, introduction, zipcode, address, address_detail, profile_img)
+        VALUES (#{nickname}, #{userId}, #{introduction}, #{zipcode}, #{address}, #{addressDetail}, #{profileImg})
+    </insert>
+
+    <insert id="insertExpertDetailInfo" parameterType="com.example.closeup.domain.dto.ExpertDetailDto">
+        INSERT INTO `expert_detail` (expert_nickname, category, information)
+        VALUES (#{nickname}, #{category}, #{information})
+    </insert>
+
     <select id="selectUserByNameAndPhone" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE name = #{name} AND phone = #{phone}
+    </select>
+
+    <select id="selectUserNameById">
+        SELECT `name`
+        FROM `user`
+        WHERE `id` = #{id}
     </select>
 
     <select id="selectUserByNameAndId" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE name = #{name} AND id = #{id}
     </select>
-
     <select id="selectUserById" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user`
         WHERE id = #{id}
     </select>
 
+    <select id="selectExpertByNickNameWithIsWished" resultType="com.example.closeup.domain.dto.ExpertDto">
+        SELECT
+            E.*, IF(W.user_id IS NOT NULL, true, false) AS 'isWished'
+        FROM `expert` E
+             LEFT OUTER JOIN `wish` W
+             ON E.`user_id` = W.`expert_id` AND W.`user_id` = #{userId}
+        WHERE nickname = #{expertNickName}
+
+    </select>
+
+    <select id="selectUserProfileImgById" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT user.profile_img FROM `user`
+        WHERE id = #{id}
+    </select>
 
     <update id="updatePassword">
         UPDATE `user`
@@ -38,6 +67,12 @@
     <update id="updateUserRoleByToggle">
         UPDATE `user`
         SET role = #{role}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserSuspendAndRoleById">
+        UPDATE `user`
+        SET role = 'ROLE_EXPERT', is_suspended = 1
         WHERE id = #{id}
     </update>
 

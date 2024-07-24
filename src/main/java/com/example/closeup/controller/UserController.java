@@ -264,9 +264,8 @@ public class UserController {
 
     @GetMapping("")
     @ResponseBody
-    public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return principalDetails.getUserDto().getId();
-
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto();
     }
 
     // 전문가 닉네임 중복 확인

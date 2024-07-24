@@ -115,14 +115,14 @@
     </section>
 </header>
 
-<!-- 회면 고정 메뉴  -->
+<!-- 화면 고정 메뉴  -->
 <div th:fragment="fixedBtns_frag" id="fixedBtns">
     <nav>
         <ul>
             <li>
                 <a href="/board/communityWrite"><i class="fa-solid fa-plus"></i></a>
             </li>
-            <li id="chatIcon">
+            <li sec:authorize="isAuthenticated()" id="chatIcon">
                 <div id="dot"></div>
                 <i class="fa-regular fa-comment"></i>
             </li>

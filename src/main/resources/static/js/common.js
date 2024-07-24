@@ -382,6 +382,7 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
+            // 프로필 이미지
             profileImg.src = `/expert/profileImage?expertNickname=${selectedExpertNickname}`;
         })
         .catch(err => {

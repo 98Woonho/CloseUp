@@ -57,6 +57,28 @@ public class ExpertService {
         expertDetailMapper.insertExpertDetails(details);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void updateExpertDetails(ExpertDto expertDto) {
+        List<ExpertDetailDto> details = new ArrayList<>();
+        String nickname = expertDto.getNickname();
+
+        for (String skill : expertDto.getSkills()) {
+            details.add(new ExpertDetailDto(nickname, "skill", skill));
+        }
+
+        for (String expertise : expertDto.getExpertises()) {
+            details.add(new ExpertDetailDto(nickname, "expertise", expertise));
+        }
+
+        for (String career : expertDto.getCareers()) {
+            details.add(new ExpertDetailDto(nickname, "career", career));
+        }
+
+        for (String ability : expertDto.getAbilities()) {
+            details.add(new ExpertDetailDto(nickname, "ability", ability));
+        }
+    }
+
     public ExpertDto selectExpertDto(String id) {
         return expertMapper.selectExpertByUserId(id);
     }
@@ -69,5 +91,14 @@ public class ExpertService {
     public void updateExpertProfileImg(String id, byte[] profileImg) {
         expertMapper.updateExpertProfileImg(id, profileImg);
 
+    }
+
+    public ExpertDto getExpertDtoById(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateExpertInfo(String id, ExpertDto expertDto) {
+        expertMapper.updateExpertInfo(id, expertDto);
     }
 }

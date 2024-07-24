@@ -5,6 +5,8 @@ import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.domain.dto.ExpertDto;
 import com.example.closeup.service.MyPageService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import com.example.closeup.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +57,18 @@ public class MyPageController {
         return "user/myPage/modifyUserInfo";
     }
 
+    @PostMapping("/modifyUserInfo")
+    public String modifyUserInfo(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam("password") String password,
+            @RequestParam("phone") String phone,
+            Model model
+    ) {
+        userService.updateUserProfileById(principalDetails.getUsername(), passwordEncoder.encode(password), phone);
+        model.addAttribute("message", "정보 변경이 완료되었습니다.");
+        return "redirect:/myPage/myPageMain";
+    }
+
     // 회원정보 수정을 위한 비밀번호 입력 페이지
     @GetMapping("/modifyConfirm")
     public String getConfirm(Model model) {
@@ -71,7 +86,7 @@ public class MyPageController {
         if(passwordEncoder.matches(password, user.getPassword())) {
             return "redirect:/myPage/modifyUserInfo";
         } else {
-            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            model.addAttribute("errorMessage", "비밀번호를 잘못 입력하셨습니다.");
             return "/user/myPage/modifyConfirm";
         }
     }

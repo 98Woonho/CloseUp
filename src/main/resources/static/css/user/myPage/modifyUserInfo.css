@@ -71,3 +71,13 @@ input{
 #btnSec > button:first-child{
     margin-right: 20px;
 }
+.error {
+    height: 56px;
+    align-content: center;
+}
+.error p {
+    display: none;
+    color: var(--color-error-red);
+    font-size: 14px;
+    text-align: center;
+}

@@ -57,11 +57,16 @@ public class UserController {
 
         return new ResponseEntity<>("사용 가능한 아이디입니다.", HttpStatus.OK);
     }
-
-    @GetMapping("/login")
-    public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
-        model.addAttribute("error", error);
-    }
+//
+//    @GetMapping("/login")
+//    public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
+//        model
+//        .addAttribute("error", error);
+//    }
+@GetMapping("/login")
+public void getLogin(@RequestParam(value = "error", required = false) Boolean error, Model model) {
+    model.addAttribute("error", error != null && error);
+}
 
 
     //아이디 찾기
@@ -129,7 +134,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegister(
-            @RequestParam(defaultValue = "false") boolean social,
+            @RequestParam(defaultValue = "false") Boolean social,
             Model model,
             HttpSession session
     ) {

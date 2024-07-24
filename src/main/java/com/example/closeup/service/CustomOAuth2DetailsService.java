@@ -38,35 +38,9 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
         String clientName = userRequest.getClientRegistration().getClientName();
 
         if ("naver".equalsIgnoreCase(clientName)) {
-            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-            String id = (String) response.get("id");
-            String name = (String) response.get("name");
-            String phone = ((String) response.get("mobile")).replaceAll("-", "");
-
-            UserDto existingUser = userService.findUserByPhone(phone);
-
-            PrincipalDetails principalDetails = new PrincipalDetails();
-            if (existingUser != null) {
-                existingUser.setAttributes(attributes);
-                principalDetails.setUserDto(existingUser);
-                return principalDetails;
-            }
-
-            UserDto newUser = UserDto.builder()
-                    .id(id)
-                    .name(name)
-                    .phone(phone)
-                    .isSuspended(false)
-                    .role("ROLE_USER")
-                    .build();
-            setUserDefaultProfileImage(newUser);
-
-            userService.socialRegister(newUser);
-
-            newUser.setAttributes(attributes);
-
-            principalDetails.setUserDto(newUser);
-            return principalDetails;
+            return handleNaverLogin(attributes);
+        } else if ("google".equalsIgnoreCase(clientName)) {
+            return handleGoogleLogin(attributes);
         }
 
         return OAuth2UserDto.builder()
@@ -74,13 +48,82 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
                 .clientName(clientName)
                 .build();
     }
-    private void setUserDefaultProfileImage(UserDto userDto){
+
+    private OAuth2User handleNaverLogin(Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+        String id = (String) response.get("id");
+        String email = (String) response.get("email");
+        String name = (String) response.get("name");
+        String phone = ((String) response.get("mobile")).replaceAll("-", "");
+
+        UserDto existingUser = userService.findUserByPhone(phone);
+
+        PrincipalDetails principalDetails = new PrincipalDetails();
+        if (existingUser != null) {
+            existingUser.setAttributes(attributes);
+            principalDetails.setUserDto(existingUser);
+            return principalDetails;
+        }
+
+        UserDto newUser = UserDto.builder()
+                .id(email)
+                .password(id)
+                .name(name)
+                .phone(phone)
+                .isSuspended(false)
+                .role("ROLE_USER")
+                .build();
+        setUserDefaultProfileImage(newUser);
+
+        userService.socialRegister(newUser);
+
+        newUser.setAttributes(attributes);
+
+        principalDetails.setUserDto(newUser);
+        return principalDetails;
+    }
+
+    private OAuth2User handleGoogleLogin(Map<String, Object> attributes) {
+        System.out.println(attributes);
+        String id = (String) attributes.get("sub");
+        String email = (String) attributes.get("email");
+        String name = (String) attributes.get("name");
+        String phone = null; // Google API는 기본적으로 전화번호를 제공하지 않음
+
+        UserDto existingUser = userService.findUserByEmail(email);
+
+        PrincipalDetails principalDetails = new PrincipalDetails();
+        if (existingUser != null) {
+            existingUser.setAttributes(attributes);
+            principalDetails.setUserDto(existingUser);
+            return principalDetails;
+        }
+
+        UserDto newUser = UserDto.builder()
+                .id(email)
+                .password(id)
+                .name(name)
+                .phone(phone)
+                .isSuspended(false)
+                .role("ROLE_USER")
+                .build();
+        setUserDefaultProfileImage(newUser);
+
+        userService.socialRegister(newUser);
+
+        newUser.setAttributes(attributes);
+
+        principalDetails.setUserDto(newUser);
+        return principalDetails;
+    }
+
+    private void setUserDefaultProfileImage(UserDto userDto) {
         try {
             ClassPathResource resource = new ClassPathResource("static/imgs/user-profile-2.jpg");
             InputStream in = resource.getInputStream();
             byte[] data = in.readAllBytes();
             userDto.setProfileImg(data);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("setUserDefaultProfileImage - image 설정 중 에러..: " + e.getMessage());
         }
     }

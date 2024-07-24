@@ -86,6 +86,10 @@
         SELECT * FROM `user`
         WHERE phone = #{phone}
     </select>
+    <select id="selectUserByEmail" resultType="com.example.closeup.domain.dto.UserDto">
+        SELECT * FROM `user`
+        WHERE id = #{email}
+    </select>
 
     <update id="updateUser" parameterType="com.example.closeup.domain.dto.UserDto">
         UPDATE `user`

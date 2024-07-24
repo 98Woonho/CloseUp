@@ -35,4 +35,5 @@ public interface UserMapper {
     void updateUserSuspendAndRoleById(String id);
 
     UserDto selectUserByPhone(String phone);
+    UserDto selectUserByEmail(String email);
 }

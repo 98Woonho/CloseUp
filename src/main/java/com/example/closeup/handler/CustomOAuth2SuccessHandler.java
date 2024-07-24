@@ -21,7 +21,7 @@
     @Log4j2
     public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
         @Override
-        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
             Object principal = authentication.getPrincipal();
 
             try {
@@ -33,7 +33,10 @@
                     OAuth2User oAuth2User = (OAuth2User) principal;
                     Map<String, Object> attributes = oAuth2User.getAttributes();
 
-                    if (attributes.containsKey("response")) {
+                    if (attributes.containsKey("sub")) {
+                        // Google login or other OAuth2 providers
+                        handleNewUser(request, response, attributes);
+                    } else if (attributes.containsKey("response")) {
                         // Naver login
                         Map<String, Object> responseMap = (Map<String, Object>) attributes.get("response");
                         if (responseMap.containsKey("id")) {

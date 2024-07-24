@@ -22,7 +22,7 @@ public class UserDto implements OAuth2User{
     private String phone;
     private String role;
     private Boolean isSuspended;
-    private Boolean isAuth;
+//    private Boolean isAuth;
     private byte[] profileImg;
     private Map<String, Object> attributes;
 

@@ -9,8 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

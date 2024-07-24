@@ -1,12 +1,10 @@
 package com.example.closeup.controller;
 
-
+import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ExpertDetailDto;
 import com.example.closeup.domain.dto.ExpertDto;
-
-import com.example.closeup.config.auth.PrincipalDetails;
-
 import com.example.closeup.domain.dto.UserDto;
+import com.example.closeup.service.ExpertService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -39,6 +37,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired private ExpertService expertService;
 
     @GetMapping("confirmIdDup")
     public ResponseEntity<String> getConfirmIdDup(@RequestParam("id") String id) {
@@ -247,6 +247,7 @@ public class UserController {
     }
 
 
+
     @GetMapping("/expertDetail/{nickname}")
     public String getExpertDetail(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
@@ -261,11 +262,41 @@ public class UserController {
         return "user/expertDetail";
     }
 
-    @GetMapping("id")
+    @GetMapping("")
     @ResponseBody
     public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return principalDetails.getUserDto().getId();
+
     }
+
+    // 전문가 닉네임 중복 확인
+    @GetMapping("confirmNicknameDup")
+    public ResponseEntity<String> getConfirmNicknameDup(@RequestParam("nickname") String nickname) {
+        ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        if (expertDto != null) {
+            return new ResponseEntity<>("이미 존재하는 닉네임니다. 다른 닉네임을 입력해 주세요.", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("사용 가능한 닉네임입니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/addExpertInfo")
+    public ResponseEntity<String> addExpertInfo(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            ExpertDto expertDto
+    ) {
+        System.out.println(expertDto);
+        expertDto.setUserId(principalDetails.getUsername());
+        expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
+
+        userService.insertExpertInfo(expertDto);
+        expertService.insertExpertDetails(expertDto);
+        userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
+
+        return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
+    }
+  
 
     @GetMapping("/addExpertInfo")
     public String getAddExpertInfo(Model model) {

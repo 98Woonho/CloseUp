@@ -7,26 +7,19 @@ import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 
-import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.Model;
-import org.springframework.util.MimeType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 import java.util.ArrayList;
@@ -39,6 +32,11 @@ import java.util.Objects;
 public class MyPageController {
     @Autowired
     private MyPageService myPageService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/myPageMain")
@@ -52,14 +50,30 @@ public class MyPageController {
     }
 
     @GetMapping("/modifyUserInfo")
-    public String modify(Model model) {
+    public String getModify(Model model) {
         return "user/myPage/modifyUserInfo";
     }
 
     // 회원정보 수정을 위한 비밀번호 입력 페이지
     @GetMapping("/modifyConfirm")
-    public String confirm(Model model) {
+    public String getConfirm(Model model) {
         return "user/myPage/modifyConfirm";
+    }
+
+    @PostMapping("/modifyConfirm")
+    public String postModifyConfirm(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam("password") String password,
+            Model model
+    ) {
+        UserDto user = userService.findUserById(principalDetails.getUsername());
+
+        if(passwordEncoder.matches(password, user.getPassword())) {
+            return "redirect:/myPage/modifyUserInfo";
+        } else {
+            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            return "/user/myPage/modifyConfirm";
+        }
     }
 
     @GetMapping("/chats")

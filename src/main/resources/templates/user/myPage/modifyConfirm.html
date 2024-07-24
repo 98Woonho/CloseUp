@@ -8,6 +8,8 @@
     <script src="/js/header.js" defer></script>
     <script src="/js/user/modifyConfirm.js" defer></script>
 
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
+
     <link rel="stylesheet" href="/css/user/myPage/modifyConfirm.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
@@ -15,22 +17,26 @@
 </head>
 <body>
 <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
-
     <main>
         <section id="modifySection">
-            <div class="modify-container">
+            <form th:action="@{/myPage/modifyConfirm}" method="POST" id="modifyConfirmForm" class="modify-container">
                 <section id="titleSec">
                     <p>회원 정보를 수정하려면</p>
                     <p>비밀번호를 입력해주세요</p>
                 </section>
-                <section class="modify-input-container">
-                    <input id="modifyPw" type="password" placeholder="비밀번호를 입력해주세요.">
-                    <button type="submit">확인</button>
-                </section>
-                <div class="error-input error">
-                    <p th:if="${error == true}" class="err-msg err-failure">입력한 비밀번호가 틀렸습니다.</p>
+                <div id="confirmContainer">
+                    <div class="modify-input-container">
+                        <label for="modifyPw"></label>
+                        <input id="modifyPw" type="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                    </div>
+                    <div class="error-message-container error">
+                        <p class="err-msg" th:if="${errorMessage != null}" th:text="${errorMessage}"></p>
+                    </div>
+                    <div class="btn-container">
+                        <button type="submit">확인</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </section>
         <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 

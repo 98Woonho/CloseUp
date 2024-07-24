@@ -21,19 +21,19 @@
                 <section id="titleSec">
                     <p>회원 정보 수정</p>
                 </section>
-                <form action="">
-                    <input id="id-input" type="text" placeholder="회원 아이디" disabled>
-                    <input type="password" placeholder="변경 후 비밀번호">
-                    <input type="password" placeholder="변경 후 비밀번호 확인">
-                    <input type="text" placeholder="이메일 주소">
-                    <input type="text" placeholder="휴대전화 번호">
-                    <div id="addr-container">
-                        <input id="addr-input" type="text" placeholder="주소">
-                        <button id="addr-btn">주소검색</button>
-                    </div>
-                    <input type="text" placeholder="상세 주소">
+                <form action="" method="POST">
+                    <label for="idInput"></label>
+                    <input id="idInput" type="text" placeholder="회원 아이디" th:value="${#authentication.principal.userDto.id}" disabled>
+                    <label for="password"></label>
+                    <input type="password" id="password" name="password" placeholder="변경 후 비밀번호">
+                    <label for="password2"></label>
+                    <input type="password" id="password2" placeholder="변경 후 비밀번호 확인">
+<!--                    <label for="emailInput"></label>-->
+<!--                    <input type="text" id="emailInput" placeholder="이메일 주소">-->
+                    <label for="phoneInput"></label>
+                    <input type="text" id="phoneInput" name="phone" placeholder="휴대전화 번호">
                     <section id="btnSec">
-                        <button type="submit">변경 취소</button>
+                        <button type="button">변경 취소</button>
                         <button type="submit">변경 완료</button>
                     </section>
                 </form>

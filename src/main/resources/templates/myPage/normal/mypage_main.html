@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../static/css/myPage/normal/mypage_main.css">
+    <link rel="stylesheet" href="../../../static/css/common.css">
+</head>
+<body>
+
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+
+    <main>
+        <section id="userMainSec">
+            <div>
+                <section id="userProfileSection">
+                    <div>
+                        <section id="titleSec">
+                            <p>(USERNAME)의 마이 페이지</p>
+                        </section>
+                        <div id="userProfileImgContainer">
+                            <!-- 유저 프로필 사진 div-->
+                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="#">
+                        </div>
+                    </div>
+                </section>
+
+                <section id="userCategorySection">
+                    <ul>
+                        <li class="user-category-list border">
+                            <a href="#"><i class="fa-solid fa-user-pen"></i></a>
+                            <p class="category-title"><a href="#">회원 정보 수정</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">회원이신 고객님의 정보를</a></p>
+                                <p><a href="#">관리하는 공간입니다.</a></p>
+                            </section>
+                        </li>
+                        <li class="user-category-list border">
+                            <a href="#"><i class="fa-solid fa-comments"></i></a>
+                            <p class="category-title"><a href="#">채팅 내역</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">전문가와 진행한 채팅</a></p>
+                                <p><a href="#">내역을 관리하는 공간입니다.</a></p>
+                            </section>
+                        </li>
+                        <li class="user-category-list border non">
+                            <a href="#"><i class="fa-solid fa-heart"></i></a>
+                            <p class="category-title"><a href="#">즐겨 찾기</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">회원님이 관심있어 하는</a></p>
+                                <p><a href="#">전문가를 한 곳에서 관리하는</a></p>
+                                <p><a href="#">공간입니다.</a></p>
+                            </section>
+                        </li>
+                        <li class="user-category-list">
+                            <a href="#"><i class="fa-solid fa-credit-card"></i></a>
+                            <p class="category-title"><a href="#">결제 내역</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">전문가의 서비스를</a></p>
+                                <p><a href="#">이용하고 결제를 진행했던 내역을</a></p>
+                                <p><a href="#">보여드립니다.</a></p>
+                            </section>
+                        </li>
+                        <li class="user-category-list">
+                            <a href="#"><i class="fa-solid fa-file-pen"></i></a>
+                            <p class="category-title"><a href="#">게시물 관리</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">회원님이 작성하신 게시물들을</a></p>
+                                <p><a href="#">관리하는 공간입니다.</a></p>
+                            </section>
+                        </li>
+                        <li class="user-category-list non">
+                            <a href="#"><i class="fa-solid fa-address-card"></i></a>
+                            <p class="category-title"><a href="#">전문가 등록</a></p>
+                            <section class="category-desc">
+                                <p><a href="#">전문가로 활동하려면</a></p>
+                                <p><a href="#">전문가 등록을 진행해야 합니다.</a></p>
+                            </section>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

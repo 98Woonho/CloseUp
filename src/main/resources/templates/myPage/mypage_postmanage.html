@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지 | 게시물 관리 페이지</title>
+    <link rel="stylesheet" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/css/myPage/normal/mypage_postmanage.css">
+</head>
+<body>
+    <main>
+        <section id="manageSection">
+            <div>
+                <section id="titleSec">
+                    <p>게시물 관리 페이지</p>
+                </section>
+                <div id="manageContainer">
+                    <div id="headerContainer">
+                        <div class="select-con">
+                            <div>
+                                <label>
+                                    <select>
+                                        <option>최신순</option>
+                                        <option>오래된순</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div>
+                                <button class="write-btn">글 작성</button>
+                                <button class="delete-btn">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="manageTable">
+                        <colgroup>
+                            <col class="check-box">
+                            <col class="title">
+                            <col class="date">
+                            <col class="category">
+                            <col class="writer">
+                        </colgroup>
+                        <thead id="manageThead">
+                        <tr id="theadRow">
+                            <th><input type="checkbox"></th>
+                            <th>게시글 제목</th>
+                            <th>게시한 날짜</th>
+                            <th>카테고리</th>
+                            <th>작성자</th>
+                        </tr>
+                        </thead>
+                        <tbody id="manageTbody">
+                        <tr class="manage-row">
+                            <td><input type="checkbox"></td>
+                            <td>글 제목 1</td>
+                            <td>Jun 21, 2024</td>
+                            <td>자유 게시판</td>
+                            <td>abc123</td>
+                        </tr>
+                        <tr class="manage-row">
+                            <td><input type="checkbox"></td>
+                            <td>글 제목 2</td>
+                            <td>Jun 21, 2024</td>
+                            <td>자유 게시판</td>
+                            <td>abc123</td>
+                        </tr>
+                        <tr class="manage-row">
+                            <td><input type="checkbox"></td>
+                            <td>글 제목 3</td>
+                            <td>Jun 21, 2024</td>
+                            <td>자유 게시판</td>
+                            <td>abc123</td>
+                        </tr>
+                        <tr class="manage-row">
+                            <td><input type="checkbox"></td>
+                            <td>글 제목 4</td>
+                            <td>Jun 21, 2024</td>
+                            <td>자유 게시판</td>
+                            <td>abc123</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

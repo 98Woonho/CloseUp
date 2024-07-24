@@ -41,8 +41,15 @@ public class BoardController {
         return "board/findExpert/findExpertWrite";
     }
 
-    @GetMapping("/cs")
-    public String getCSCenter() {
+    @GetMapping("/CSCenter/CSMain")
+    public String getCSMain() {
         return "board/CSCenter/CSMain";
     }
+
+
+    @GetMapping("/CSCenter/CSPost")
+    public String getCSPost() {
+        return "board/CSCenter/CSPost";
+    }
 }
+

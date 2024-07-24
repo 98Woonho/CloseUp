@@ -20,6 +20,11 @@ public class OAuth2UserDto implements OAuth2User {
     private String clientName;
     private UserDto userDto;
 
+    public OAuth2UserDto(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+
     @Override
     public Map<String, Object> getAttributes() {
         return attributes;

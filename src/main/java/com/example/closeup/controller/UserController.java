@@ -134,6 +134,7 @@ public class UserController {
             OAuth2UserDto oAuth2UserDto = (OAuth2UserDto) session.getAttribute("oAuth2UserInfo");
             if (oAuth2UserDto != null) {
                 model.addAttribute("socialUserInfo", oAuth2UserDto);
+
                 System.out.println(oAuth2UserDto);
             }
         }

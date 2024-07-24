@@ -26,8 +26,6 @@ prevButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollPrev, fal
 nextButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollNext, false);
 
 
-
-
 const consultBtn = document.getElementById('consultBtn');
 const expertNickname = document.getElementById('expertNickname').value;
 

@@ -12,6 +12,7 @@ const categoryBtn = document.querySelectorAll('#category > button');
 const mapAddr = document.getElementById('mapAddr');
 const chatInput = document.getElementById('chatInput');
 const topProfileContainer = document.getElementById('topProfileContainer');
+const topProfileImg = topProfileContainer.querySelector('img');
 const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
 const profileNickname = document.getElementById('profileNickname');
 const searchChat = document.getElementById('searchChat');
@@ -96,7 +97,7 @@ axios.get('/chat/list')
                 chatRoomDtoList.forEach(chatRoomDto => {
                     const li = new DOMParser().parseFromString(`
                         <li class="chat-li" data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                            <img src="/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}" alt="">
                             <div class="spring">
                                 <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                                 <div class="content">${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</div>
@@ -286,11 +287,13 @@ function getMessages(chatRoomId) {
 function clickChatLi(chat) {
     const chatLies = document.querySelectorAll('.chat-li');
     let selectedNickname = chat.querySelector('.nickname').innerText;
+    let messageCount = 0;
     selectedChatRoomId = chat.dataset.id;
 
     chatListSec.classList.toggle('visible');
 
-    let messageCount = 0;
+    // 상단 프로필 이미지
+    topProfileImg.src = `/expert/profileImage?expertNickname=${selectedNickname}`
 
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';
@@ -307,6 +310,7 @@ function clickChatLi(chat) {
         messageCount += Number(chatLi.querySelector('.message-count').innerText);
     })
 
+    // 메세지 카운트가 0이면 아이콘에 메세지 알림 dot 제거
     if (messageCount === 0) {
         dot.classList.remove('visible');
     }
@@ -318,8 +322,6 @@ function clickChatLi(chat) {
         id: chat.dataset.id,
         action: 'reset'
     })
-
-
 
     nonSelecteds.forEach(nonSelected => {
         nonSelected.style.display = 'none';
@@ -380,9 +382,7 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
-            /** TODO
-             * 전문가 등록 및 수정에서 profileImg 구현되면 profileImg 넣어야 함.
-             */
+            profileImg.src = `/expert/profileImage?expertNickname=${selectedExpertNickname}`;
         })
         .catch(err => {
             console.log(err);

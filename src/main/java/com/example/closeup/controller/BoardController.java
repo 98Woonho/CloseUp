@@ -1,15 +1,27 @@
 package com.example.closeup.controller;
 
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.PaymentDto;
+import com.example.closeup.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Slf4j
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/communityMain")
     public String getCommunityMain() {
@@ -41,6 +53,14 @@ public class BoardController {
         return "board/findExpert/findExpertWrite";
     }
 
+    @PostMapping("findExpertWrite")
+    public ResponseEntity<String> postFindExpertWrite(@RequestBody PaymentDto paymentDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println(paymentDto);
+        paymentDto.setUserId(principalDetails.getUsername());
+        boardService.payment(paymentDto);
+
+        return ResponseEntity.ok().body("결제가 완료 되었습니다. 결제 내역 페이지로 이동합니다.");
+    }
 //    // 고객 센터
 //    @GetMapping("/cs")
 //    public String getCSCenter() {

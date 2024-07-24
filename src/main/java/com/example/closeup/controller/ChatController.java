@@ -148,6 +148,7 @@ public class ChatController {
             }
         }
 
+
         if (chatRoomDto.getAction().equals("reset")) {
             if (role.equals("ROLE_USER")) {
                 newChatRoomDto.setNotReadExpertMessageCount(0);

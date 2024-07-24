@@ -96,8 +96,8 @@ axios.get('/chat/list')
             stomp.connect({}, function () {
                 chatRoomDtoList.forEach(chatRoomDto => {
                     const li = new DOMParser().parseFromString(`
-                        <li class="chat-li" data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-                            <img src="/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}" alt="">
+                        <li class="chat-li" data-id="${chatRoomDto.id}" data-userId="${chatRoomDto.userId}" onClick="clickChatLi(this)">
+                            <img src="${role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}` : `/myPage/profileImage?userId=${chatRoomDto.userId}`}" alt="">
                             <div class="spring">
                                 <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                                 <div class="content">${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</div>
@@ -215,9 +215,9 @@ searchChat.addEventListener('input', function (e) {
 
     newChatRoomDtoList.forEach(chatRoomDto => {
         const li = new DOMParser().parseFromString(`
-                    <li class="chat-li" data-id="${chatRoomDto.id}"
+                    <li class="chat-li" data-id="${chatRoomDto.id}" data-userId="${chatRoomDto.userId}"
                     onClick="clickChatLi(this)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                         <img src="${role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}` : `/myPage/profileImage?userId=${chatRoomDto.userId}`}" alt="">
                         <div class="spring">
                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
@@ -286,14 +286,16 @@ function getMessages(chatRoomId) {
 // 채팅 목록에서 채팅을 클릭 했을 때의 function
 function clickChatLi(chat) {
     const chatLies = document.querySelectorAll('.chat-li');
+    const userId = chat.dataset.userid;
     let selectedNickname = chat.querySelector('.nickname').innerText;
+
     let messageCount = 0;
     selectedChatRoomId = chat.dataset.id;
 
     chatListSec.classList.toggle('visible');
 
     // 상단 프로필 이미지
-    topProfileImg.src = `/expert/profileImage?expertNickname=${selectedNickname}`
+    topProfileImg.src = role === 'USER_ROLE' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
 
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';
@@ -382,9 +384,7 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
-            /** TODO
-             * 전문가 등록 및 수정에서 profileImg 구현되면 profileImg 넣어야 함.
-             */
+
 
             // 전문가 위치 표시하는 지도
             getExpertLocation(`${res.data.address}`);

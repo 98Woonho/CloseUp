@@ -219,3 +219,51 @@
     background-color: var(--color-lighter-bluegray);
     color: var(--color-main-navy);
 }
+
+#paymentMethodDialog {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(0.125rem);
+    background-color: #17202aa0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition-duration: 250ms;
+    transition-property: opacity;
+    transition-timing-function: ease;
+    z-index: 999;
+}
+
+#paymentMethodDialog.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#paymentMethodDialog .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 550px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+#paymentMethodDialog .pay-method-btn {
+    width: 100px;
+    height: 50px;
+    border: 0.0625rem solid #bcbcbc;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+#paymentMethodDialog .pay-method-btn img {
+    width: 70%;
+}
+
+#paymentMethodDialog .pay-method-btn.clicked {
+    background-color: #d6d6d6;
+}

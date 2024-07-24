@@ -3,6 +3,7 @@ package com.example.closeup.controller;
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.domain.dto.ExpertDto;
+import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.ExpertService;
 import com.example.closeup.service.MyPageService;
 import com.example.closeup.service.UserService;
@@ -61,9 +62,11 @@ public class RestController {
     @ResponseBody
     @GetMapping("/myPage/profileImage")
     public ResponseEntity<byte[]> getProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam(value = "userId", required = false) String userId
     ) {
-        byte[] data = principalDetails.getUserDto().getProfileImg();
+        UserDto userDto = userId != null ? userService.getUserDto(userId) : principalDetails.getUserDto();
+        byte[] data = userDto.getProfileImg();
         return ResponseEntity.ok()
                 .contentLength(data.length)
                 .body(data);

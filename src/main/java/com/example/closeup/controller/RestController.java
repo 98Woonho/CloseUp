@@ -72,9 +72,10 @@ public class RestController {
     @ResponseBody
     @GetMapping("/expert/profileImage")
     public ResponseEntity<byte[]> getExpertProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam(value = "expertNickname", required = false) String expertNickname
     ) {
-        ExpertDto expert = expertService.selectExpertDtoByUserId(principalDetails.getUsername());
+        ExpertDto expert = expertNickname != null ? expertService.getExpertDto(expertNickname) : expertService.selectExpertDtoByUserId(principalDetails.getUsername());
         byte[] data = expert.getProfileImg();
         return ResponseEntity.ok()
                 .contentLength(data.length)

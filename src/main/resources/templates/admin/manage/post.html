@@ -104,7 +104,6 @@
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><input type="radio"><b>전체 선택</b></th>
                                     <th><b>게시글 분류</b></th>
                                     <th><b>게시글 번호</b></th>
                                     <th><b>작성자</b></th>
@@ -118,7 +117,6 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="article, stat: ${articles}">
-                                    <td><input type="radio"></td>
                                     <td><span>게시글 분류</span></td>
                                     <td><span th:text="${stat.count}">게시글 번호</span></td>
                                     <td><span th:text="${article.userId}">작성자</span></td>

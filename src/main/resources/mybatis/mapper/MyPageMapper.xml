@@ -3,11 +3,18 @@
 <mapper namespace="com.example.closeup.domain.mapper.MyPageMapper">
     <!--  마이페이지 - 게시글 관리 -->
     <select id="selectArticleByUserId" resultType="com.example.closeup.domain.dto.community.ArticleDto">
-        SELECT a.title, a.written_at, b.name, a.user_id
+        SELECT a.id, a.title, a.written_at, b.name, a.user_id
         FROM article a
             INNER JOIN board b
             ON b.code = a.board_code
         WHERE user_id = #{userId}
     </select>
+    <delete id="deleteArticleById">
+        DELETE FROM `article` WHERE
+        <foreach collection="articles" item="article" separator="OR">
+            id = #{article}
+        </foreach>
+    </delete>
+
 </mapper>
 

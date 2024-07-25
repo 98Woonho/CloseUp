@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface MyPageMapper {
     List<ArticleDto> selectArticleByUserId(String userId);
+    void deleteArticleById(List<Long> articles);
 }

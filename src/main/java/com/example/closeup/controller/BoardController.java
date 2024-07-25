@@ -47,6 +47,10 @@ public class BoardController {
         return "board/CSCenter/CSMain";
     }
 
+    @GetMapping("/csWrite")
+    public String getCSCenterWrite() {
+        return "board/CSCenter/CSWrite";
+    }
     @GetMapping("/csPost")
     public String getCSCenterPost() {
         return "board/CSCenter/CSPost";

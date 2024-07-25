@@ -7,7 +7,7 @@
     <title>마이페이지 | 게시물 관리 페이지</title>
     <script src="/js/header.js" defer></script>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
-    <script src="/js/user/myPage/postmanage.js"></script>
+    <script defer src="/js/user/myPage/postmanage.js"></script>
 
     <link rel="stylesheet" href="/css/user/myPage/postmanage.css">
     <link rel="stylesheet" href="/css/header/header.css">
@@ -58,11 +58,11 @@
                         </tr>
                         </thead>
                         <tbody id="manageTbody">
-                        <tr class="manage-row" th:each="article: ${articles}">
+                        <tr class="manage-row" th:data-id="${article.id}" th:each="article: ${articles}">
                             <td><input type="checkbox"></td>
                             <td th:text="${article.title}">글 제목 1</td>
                             <td th:text="${#temporals.format(article.writtenAt, 'yy/MM/dd')}">Jun 21, 2024</td>
-                            <td>자유 게시판</td>
+                            <td th:text="${article.name}">자유 게시판</td>
                             <td th:text="${article.userId}">abc123</td>
                         </tr>
                         </tbody>

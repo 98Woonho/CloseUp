@@ -1,0 +1,83 @@
+@import "../../common.css";
+
+#reviewSec {
+    width: 1040px;
+    margin: 80px auto;
+
+}
+
+#topSec {
+    color: var(--color-dark-gray);
+    font-size: 40px;
+    font-weight: lighter;
+    margin-bottom: 20px;
+}
+
+#serviceInfoSec {
+    border-radius: 16px;
+    box-shadow: var(--box-shadow);
+
+}
+#serviceInfoLies {
+
+}
+
+#serviceInfoLies > li {
+    padding: 32px 48px;
+    margin-bottom: 32px;
+
+}
+#serviceInfoLies > li > button > a{
+    display: flex;
+}
+
+#serviceImgCon {
+    margin-right: 40px;
+}
+#serviceImgCon > img {
+    width: 240px;
+}
+
+#titleCon {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+#serviceIntroCon {
+    font-size: 16px;
+    color: var(--color-medium-gray);
+}
+
+
+/***************************************/
+.rating {
+    width: 200px;
+    display: flex;
+
+}
+
+.rating__input {
+    display: none; /* 라디오버튼 hide */
+}
+
+.rating__label {
+    width: 12px; /* 원본 사이즈/2 */
+    overflow: hidden;
+    cursor: pointer;
+}
+.rating__label .star-icon {
+    width: 12px; /* 원본 사이즈/2 */
+    height: 24px;
+    display: block;
+    position: relative;
+    left: 0;
+    background-image: url("/imgs/blankStarImg.svg");
+    background-repeat: no-repeat;
+}
+
+.rating__label--full .star-icon {
+    background-position: right;
+}
+.rating__label--half .star-icon {
+    background-position: left;
+}

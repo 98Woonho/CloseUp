@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"><head>
+<html lang="ko">
+<head>
     <meta charset="UTF-8">
-    <title>고객센터</title>
+    <title>Title</title>
     <script src="/js/header.js" defer></script>
     <script src="/js/board/CSCenter/CSMain.js" defer></script>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
 
+
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
     <link rel="stylesheet" href="/css/board/CSCenter/CSPost.css">
-
 
 </head>
 <body>
@@ -22,50 +20,63 @@
         <section class="title-sec">
             <p>고객 센터</p>
         </section>
-        <!-- 상단 고객센터 메뉴 -->
-        <section class="top-navBtn">
-            <button><a href="/board/cs/faq">FnQ</a></button>
-            <button><a href="/board/cs/one_on_one">1:1 문의</a></button>
-            <button><a href="board/cs/notice">공지사항</a></button>
-        </section>
     </section>
     <section class="faq-board-section">
-        <form action="#" method="post">
-            <section class="top-sec">
-                <div class="title-con">
-                    <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">글쓰기</p>
-                </div>
+        <div id="viewPost">
+            <section id="postTitleCon">
+                <p>제목입니다.</p>
             </section>
-            <section id="writeContainer">
-                <div class="title-con">
-                    <label for="title"></label>
-                    <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
-                    <th:block th:each="article: ${articles}">
-                        <input type="text" placeholder="제목을 입력하세요." name="title" th:value="${article.title}"  sec:authorize="hasRole('ROLE_ADMIN')">
-                    </th:block>
-                </div>
-                <div class="desc-container">
-                    <span>내용</span>
-                </div>
-                <label>
-                    <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500" sec:authorize="!hasRole('ROLE_ADMIN')"></textarea>
-                    <th:block th:each="article : ${articles}">
-                        <textarea name="content" maxlength="1500" th:text="${article.content}" sec:authorize="hasRole('ROLE_ADMIN')"></textarea>
-                    </th:block>
-                </label>
+            <section id="viewContent">
+                <p>내용입니다.</p>
             </section>
-            <section class="writeBtnSec">
-                <button type="button">취소</button>
-                <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
+        </div>
+        <div>
+            <section id="commentBtnSec">
+                <!-- 관리자로 로그인 시, 답변달기 버튼 보여지고 -->
+                <button>답변하기</button>
+                <!-- 답변하기 버튼 클릭시 댓글로 답변가능 -->
+            </section>
+                <div id="commentInputCon">
+                    <form action="" method="post">
+                        <input type="text" name="content" placeholder="댓글을 남겨보세요.">
+                    </form>
+                </div>
+            <section>
+                <div class="commentsCon">
+                    <ul class="commentList">
+                        <li class="commentCon" >
+                            <div class="commentHeaderCon">
+                                <!-- 해당 작성자의 아이디를 클릭시, 해당 user의 프로필로 이동 -->
+                                <a class="commentWriter" href="#">댓글 작성자(관리자)</a>
+                                <div class="commentWriteDate">2024. 06. 26</div>
+                                <div class="commentBtnCon">
+                                    <button class="commentLikeBtn">
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        <span>좋아요</span>
+                                        <span class="commentLikeCount" >0</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="commentContent">
+                                <p>관리자권한 | 댓글 입니다.</p>
+                            </div>
+                            <div class="comment-delete">
+                                <i class="fa-solid fa-x"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
+
+
+                <p></p>
             </section>
-        </form>
+        </div>
     </section>
 
-    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 
 </main>
-
+<th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
 
 </body>
 </html>

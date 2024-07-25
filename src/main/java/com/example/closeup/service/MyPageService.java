@@ -36,5 +36,9 @@ public class MyPageService {
     public List<ArticleDto> selectArticle(String userId) {
         return myPageMapper.selectArticleByUserId(userId);
     }
+    // 삭제
+    public void deleteArticle(List<Long> articles){
+        myPageMapper.deleteArticleById(articles);
+    }
 
 }

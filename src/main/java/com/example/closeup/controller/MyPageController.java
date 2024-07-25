@@ -7,6 +7,7 @@ import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import com.example.closeup.domain.dto.UserDto;
@@ -15,11 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
@@ -111,17 +108,27 @@ public class MyPageController {
         if (!Objects.isNull(principalDetails)) {
             articles = myPageService.selectArticle(principalDetails.getUserDto().getId());
         }
-        for (ArticleDto article : articles) {
-            System.out.println(article.getTitle());
-        }
-
         System.out.println(articles);
         model.addAttribute("articles", articles);
 
         return "user/myPage/postmanage";
     }
-    @DeleteMapping()
-    public void deletePostManage(){
 
+    @ResponseBody
+    @DeleteMapping("/postmanage")
+    public ResponseEntity<Void> deletePostManage(
+            @RequestBody List<Long> articleIds
+    ){
+        System.out.println(articleIds);
+        myPageService.deleteArticle(articleIds);
+        return ResponseEntity.ok().body(null);
     }
+
+    // 리뷰 관리
+    @GetMapping("/review")
+    public String getReview(Model model) {
+        return "user/myPage/reviewWrite";
+    }
+
+
 }

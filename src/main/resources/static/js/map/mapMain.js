@@ -180,6 +180,38 @@ function loadNaverMap(lat, lng){
         e.preventDefault();
         map.panTo(latLng);
     });
-
 }
 
+const expertContainer = document.getElementById('expertContainer');
+
+fetch('/expert/mapData')
+    .then(response => {
+        return response.json()
+    }).then(value => {
+    value.forEach(item => {
+        const nickname = item.nickname;
+        const introduction = item.introduction;
+        const profileImg = item.profileImg;
+        const base64ProfileImg = `data:/image/*;base64, ${profileImg}`;
+
+        const slideDiv = document.createElement('div');
+        slideDiv.classList.add('embla__slide');
+
+        slideDiv.innerHTML = `
+        <div class="img-container">
+            <a href="/user/expertDetail/${nickname}">
+                <img src="${base64ProfileImg}" alt="#">
+            </a>
+        </div>
+        <div class="title-container">
+            <a class="profile-title" href="#">${nickname}</a>
+            <a class="profile-desc" href="#">${introduction}</a>
+        </div>
+        <div class="rate-container">
+            <i class="fa-solid fa-star"></i>
+            <span>5.0</span>
+        </div>
+    `;
+    expertContainer.appendChild(slideDiv);
+    });
+});

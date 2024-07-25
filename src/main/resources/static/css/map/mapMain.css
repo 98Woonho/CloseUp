@@ -21,9 +21,9 @@
     color: var(--color-error-red);
 }
 /************* 지도 **************/
-#map img{
+#expertMap #map img{
     width: 1040px;
-    height: 640px;
+    height: 640px
 }
 /************* 내 근처 전문가 **************/
 .embla{

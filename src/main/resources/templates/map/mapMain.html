@@ -12,9 +12,9 @@
     <script src="/js/map/mapMain.js" defer></script>
 
 
-    <link rel="stylesheet" href="/css/map/mapMain.css">
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/map/mapMain.css">
 
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e"></script>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ijag8cdd6e&submodules=geocoder"></script>
@@ -42,21 +42,8 @@
                 <section id="expertInfoListSec">
                     <div class="embla">
                         <div class="embla__viewport">
-                            <div class="embla__container">
-                                <div class="embla__slide" th:each="info: ${expertInfo}">
-                                    <div class="img-container">
-                                        <a th:href="@{|/user/expertDetail/${info.nickname}|}"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
-                                    </div>
-                                    <div class="title-container">
-                                        <a class="profile-title" href="#" th:text="${info.userId}">전문가 프로필</a>
-                                        <a class="profile-desc" href="#" th:text="${info.introduction}">전문가 간단 소개</a>
-                                    </div>
-                                    <div class="rate-container">
-                                        <i class="fa-solid fa-star"></i>
-                                        <span>5.0</span>
-                                    </div>
-                                </div>
-
+                            <div class="embla__container" id="expertContainer">
+                                <!-- 동적 생성 -->
                             </div>
                         </div>
                         <div class="embla-btn-container">

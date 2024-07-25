@@ -242,28 +242,60 @@
 }
 
 #paymentMethodDialog .modal {
+    padding: 2rem;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 550px;
+    height: 600px;
     background-color: #f1f1f1;
     border-radius: 10px;
 }
 
+#paymentMethodDialog h1 {
+    margin-bottom: 1.5rem;
+}
+
+#paymentMethodDialog .price {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+#paymentMethodDialog .select-text {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+
 #paymentMethodDialog .pay-method-btn {
-    width: 100px;
+    width: 100%;
     height: 50px;
     border: 0.0625rem solid #bcbcbc;
     border-radius: 8px;
-    margin-right: 1rem;
+    margin: 0 1rem 1rem 0;
 }
 
 #paymentMethodDialog .pay-method-btn img {
-    width: 70%;
+    width: 75px;
 }
 
 #paymentMethodDialog .pay-method-btn.clicked {
     background-color: #d6d6d6;
+}
+
+#paymentMethodDialog #payBtn {
+    height: 50px;
+    background-color: #0C9059;
+    border-radius: 5px;
+}
+
+#paymentMethodDialog #cancelBtn {
+    height: 50px;
+    background-color: #ff7b63;
+    border-radius: 5px;
+}
+
+#paymentMethodDialog .btn-container {
+    display: flex;
 }

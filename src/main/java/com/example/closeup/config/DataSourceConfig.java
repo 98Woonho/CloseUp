@@ -18,7 +18,7 @@ public class  DataSourceConfig {
 //        dataSource.setPassword("1234");
 
         dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/close_up");
-        dataSource.setUsername("webuser");
+        dataSource.setUsername("root");
         dataSource.setPassword("1234");
 
 //        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/close_up");

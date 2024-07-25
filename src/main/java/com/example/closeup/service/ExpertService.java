@@ -58,25 +58,8 @@ public class ExpertService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateExpertDetails(ExpertDto expertDto) {
-        List<ExpertDetailDto> details = new ArrayList<>();
-        String nickname = expertDto.getNickname();
-
-        for (String skill : expertDto.getSkills()) {
-            details.add(new ExpertDetailDto(nickname, "skill", skill));
-        }
-
-        for (String expertise : expertDto.getExpertises()) {
-            details.add(new ExpertDetailDto(nickname, "expertise", expertise));
-        }
-
-        for (String career : expertDto.getCareers()) {
-            details.add(new ExpertDetailDto(nickname, "career", career));
-        }
-
-        for (String ability : expertDto.getAbilities()) {
-            details.add(new ExpertDetailDto(nickname, "ability", ability));
-        }
+    public void deleteExpertDetails(String nickname) {
+        expertDetailMapper.deleteExpertDetailsByNickname(nickname);
     }
 
     public ExpertDto selectExpertDto(String id) {

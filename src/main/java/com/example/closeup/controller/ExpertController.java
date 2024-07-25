@@ -86,6 +86,7 @@ public class ExpertController {
             ExpertDto expertDto
     ) {
         expertService.updateExpertInfo(principalDetails.getUsername(), expertDto);
+        expertService.deleteExpertDetails(expertDto.getNickname());
         expertService.insertExpertDetails(expertDto);
 
         return new ResponseEntity<>("전문가 정보 수정에 성공하셨습니다.", HttpStatus.OK);

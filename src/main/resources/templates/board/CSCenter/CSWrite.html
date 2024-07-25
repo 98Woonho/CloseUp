@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"><head>
+    <meta charset="UTF-8">
+    <title>고객센터</title>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/board/CSCenter/CSMain.js" defer></script>
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/board/CSCenter/CSWrite.css">
+
+
+</head>
+<body>
+<th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+<main>
+    <section class="total-top">
+        <section class="title-sec">
+            <p>고객 센터</p>
+        </section>
+        <!-- 상단 고객센터 메뉴 -->
+        <section class="top-navBtn">
+            <button><a href="/board/CSCenter/CSMain">FnQ</a></button>
+            <button><a href="/board/CSCenter/CSMain">1:1 문의</a></button>
+            <button><a href="/board/CSCenter/CSMain">공지사항</a></button>
+        </section>
+    </section>
+    <section class="faq-board-section">
+        <form action="/board/CSCenter/CSWrite" method="post">
+            <section class="top-sec">
+                <div class="title-con">
+                    <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">글쓰기</p>
+                </div>
+            </section>
+            <section id="writeContainer">
+                <div class="title-con">
+                    <input type="hidden" name="boardCode" value="customerService">
+                    <label for="title"></label>
+                    <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
+                    <th:block th:each="article: ${articles}">
+                        <input type="text" placeholder="제목을 입력하세요." name="title" th:value="${article.title}"  sec:authorize="hasRole('ROLE_ADMIN')">
+                    </th:block>
+                </div>
+                <div class="desc-container">
+                    <span>내용</span>
+                </div>
+                <label>
+                    <textarea name="content" placeholder="내용을 작성하세요." maxlength="1500" sec:authorize="!hasRole('ROLE_ADMIN')"></textarea>
+                    <th:block th:each="article : ${articles}">
+                        <textarea name="content" maxlength="1500" th:text="${article.content}" sec:authorize="hasRole('ROLE_ADMIN')"></textarea>
+                    </th:block>
+                </label>
+            </section>
+            <section class="writeBtnSec">
+                <button type="button" onclick="location.href='CSMain'">취소</button>
+                <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
+
+            </section>
+        </form>
+    </section>
+
+    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
+</main>
+
+
+</body>
+</html>

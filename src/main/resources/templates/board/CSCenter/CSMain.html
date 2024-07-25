@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
 >
 <head>
     <meta charset="UTF-8">
@@ -34,33 +36,37 @@
 
             <!-- 상단 고객센터 메뉴 -->
             <section class="top-navBtn">
-                <button><a href="/board/cs/faq">FnQ</a></button>
-                <button><a href="/board/cs/one_on_one">1:1 문의</a></button>
-                <button><a href="board/cs/notice">공지사항</a></button>
+                <button><a href="/board/CSCenter/CSMain">FnQ</a></button>
+                <button><a href="/board/CSCenter/CSMain">1:1 문의</a></button>
+                <button><a href="/board/CSCenter/CSMain">공지사항</a></button>
             </section>
 
             <!-- 검색창 부분 -->
+            <form method="get" action="/board/CSCenter/CSMain">
             <section class="top-input">
-                <input type="text" name="search" th:value="${keyword}" placeholder="질문 키워드를 입력해주세요.">
+                <input type="text" name="keyword" th:value="${keyword}" placeholder="질문 키워드를 입력해주세요.">
                 <div class="keyword-con">
                     <!--                <div id="keyword_title_con">-->
                     <!--                    <p>인기 키워드</p>-->
                     <!--                </div>-->
                     <div id="keywordBtns">
-                        <button value="userInfo" type="button"><span>#회원</span></button>
-                        <button value="payment" type="button"><span>#결제</span></button>
-                        <button value="review" type="button"><span>#리뷰</span></button>
-                        <button value="addExpert" type="button"><span>#전문가</span></button>
-                        <button value="chat" type="button"><span>#채팅</span></button>
-                        <button value="refund" type="button"><span>#환불</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="회원"><span>#회원</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="결제"><span>#결제</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="리뷰"><span>#리뷰</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="전문가"><span>#전문가</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="채팅"><span>#채팅</span></button>
+                        <button type="button" class="keyword-btn" data-keyword="환불"><span>#환불</span></button>
                     </div>
                 </div>
             </section>
+            </form>
         </section>
+
 
         <section class="faq-board-section">
             <div>
-                <button type="button" class="faq-write-btn">글쓰기</button>
+                <button type="button" class="faq-write-btn" sec:authorize="authenticated">글쓰기</button>
+                <button type="button" id="loginBtn" class="faq-write-btn" sec:authorize="!authenticated">글쓰기</button>
             </div>
             <table>
                 <colgroup>
@@ -83,15 +89,15 @@
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>(번호)</td>
+                <tr th:each="article, stat: ${articles}">
+                    <td th:text="${stat.count}">(번호)</td>
                     <td>
-                        <a href="#">(제목)</a>
+                        <a th:href="@{|/board/CSCenter/CSPost/${article.id}|}" th:text="${article.title}">(제목)</a>
                     </td>
-                    <td>(작성자)</td>
-                    <td>(작성날짜)</td>
-                    <td>(조회수)</td>
-                    <td>(추천수)</td>
+                    <td th:text="${article.userId}">(작성자)</td>
+                    <td th:text="${#temporals.format(article.writtenAt, 'yy/MM/dd')}">(작성날짜)</td>
+                    <td th:text="${article.view}">(조회수)</td>
+                    <td th:text="${article.likeCount}">(추천수)</td>
                 </tr>
                 </tbody>
             </table>

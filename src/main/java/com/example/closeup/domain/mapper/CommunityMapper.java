@@ -16,6 +16,8 @@ public interface CommunityMapper {
     List<ArticleDto> selectArticles(@Param("boardCode") String boardCode, @Param("keyword") String keyword);
       List<ArticleDto> selectArticlesByTitle(String title);
       List<BoardDto> selectAllBoards();
+    List<BoardDto> selectBoardsExceptCustomerService();
+    List<ArticleDto> selectMyPageArticles(String userId);
     /**************게시글 작성***************/
     void insertArticle(ArticleDto articleDto);
     /**************게시글 상세 조회***************/
@@ -51,6 +53,9 @@ public interface CommunityMapper {
     /************관리자 게시글 수정************/
     List<ArticleDto> selectAllArticles(Integer articleId);
     void updateArticle(ArticleDto articleDto);
+
+    /************고객센터************/
+    List<ArticleDto> selectArticlesByBoardCode(@Param("boardCode") String boardCode);
 
 
 }

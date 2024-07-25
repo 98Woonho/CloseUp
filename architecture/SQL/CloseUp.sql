@@ -129,7 +129,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES ('customerService','고객센터'),('expert','전문가 자유 게시판'),('expertrecommendation','전문가 추천 게시판'),('expertReview','전문가의 후기 게시판'),('free','자유 게시판'),('question','간단한 질문 게시판');
+INSERT INTO `board` VALUES ('expert','전문가 자유 게시판'),('expertrecommendation','전문가 추천 게시판'),('expertReview','전문가의 후기 게시판'),('free','자유 게시판'),('question','간단한 질문 게시판'), ('customerService','고객센터');
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 

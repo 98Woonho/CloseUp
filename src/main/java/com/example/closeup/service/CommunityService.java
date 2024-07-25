@@ -26,6 +26,9 @@ public class CommunityService {
     public List<ArticleDto> getArticles(String boardCode, String keyword) {
         return communityMapper.selectArticles(boardCode, keyword);
     }
+    public List<ArticleDto> getMyPageArticles(String userId) {
+        return communityMapper.selectMyPageArticles(userId);
+    }
 
     public List<ArticleDto> getArticlesByTitle(String keyword){
         return communityMapper.selectArticlesByTitle(keyword);
@@ -34,6 +37,10 @@ public class CommunityService {
     public List<BoardDto> getAllBoards() {
         return communityMapper.selectAllBoards();
     }
+
+    public List<BoardDto> getBoardsExceptCustomerService() {
+    return communityMapper.selectBoardsExceptCustomerService();
+}
 
 //    /**************게시글 작성***************/
 //    public void createArticle(ArticleDto articleDto) {
@@ -144,9 +151,6 @@ public class CommunityService {
         return articleDto.getId(); // 게시글 ID 반환
     }
 
-
-
-
     /***********관리자 페이지 게시글 수정*************/
     public List<ArticleDto> getAllArticles(Integer articleId){
         return communityMapper.selectAllArticles(articleId);
@@ -170,6 +174,12 @@ public class CommunityService {
 
         communityMapper.updateArticle(existingArticle);
     }
+
+    /***********고객센터*************/
+    public List<ArticleDto> getArticlesByBoardCode(String boardCode) {
+        return communityMapper.selectArticlesByBoardCode(boardCode);
+    }
+
 
 }
 

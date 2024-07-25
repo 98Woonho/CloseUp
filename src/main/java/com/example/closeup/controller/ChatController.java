@@ -118,14 +118,19 @@ public class ChatController {
             String currentTime = currentDate.format(formatter);
             String lastTime = lastDate.format(formatter);
 
+            // 채팅 하나하나마다 작성 시간이 달리면 view에서 보기가 불편하여 조건을 생성
+            // 만약 해당 채팅방의 마지막 채팅이 현재 사용자와 같고 작성시간도 동일하면
             if (chatMessageDto.getUserId().equals(lastChatMessageDto.getUserId()) && currentTime.equals(lastTime)) {
+                // 마지막 채팅의 작성시간을 null로 바꿈.
                 chatService.updateChatMessageWrittenAt(lastChatMessageDto.getId());
             }
         }
 
         chatMessageDto.setWrittenAt(currentDate);
 
-        chatService.createMessage(chatMessageDto);
+        LocalDateTime writtenAt = chatMessageDto.getWrittenAt();
+        LocalDateTime start = writtenAt.toLocalDate().atStartOfDay();
+        LocalDateTime end = start.plusDays(1).minusNanos(1);
 
         return ResponseEntity.ok().build();
     }

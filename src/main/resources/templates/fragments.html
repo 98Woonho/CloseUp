@@ -11,6 +11,8 @@
     <script src="https://kit.fontawesome.com/98fb4054a6.js" crossorigin="anonymous"></script>
 
 
+
+
     <link rel="stylesheet" href="/css/fixedBtns.css">
     <link rel="stylesheet" href="/css/header/header.css">
 </head>
@@ -73,7 +75,7 @@
                                sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">커뮤니티</a>
                         </li>
                         <li>
-                            <a href="/board/cs"
+                            <a href="/board/CSCenter/CSMain"
                                sec:authorize="${#authorization.expression(!hasRole('ROLE_ADMIN'))}">문의</a>
                         </li>
                     </ul>

@@ -135,6 +135,20 @@ public class UserService {
         userMapper.updateUserSuspendAndRoleById(id);
     }
 
+
+    //소셜 로그인
+    public UserDto findUserByPhone(String phone) {
+        return userMapper.selectUserByPhone(phone);
+    }
+
+    public void socialRegister(UserDto userDto) {
+        // 비밀번호 암호화 등 필요한 처리를 수행
+        userMapper.insertUser(userDto);
+    }
+    public UserDto findUserByEmail(String email) {
+        return userMapper.selectUserByEmail(email);
+    }
+
     public void updateUserProfileById(String id, String password, String phone) {
         userMapper.updateUserProfileById(id, password, phone);
     }

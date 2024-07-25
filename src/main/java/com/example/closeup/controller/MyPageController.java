@@ -127,13 +127,14 @@ public class MyPageController {
             Model model,
             Authentication authentication,
             @ModelAttribute ArticleDto articleDto) {
-//        String userId = authentication.getName();
+        String userId = authentication.getName();
 //        articleDto.setUserId(userId);
-//        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
-//        List<BoardDto> boards = communityService.getAllBoards();
-//        System.out.println(articles);
-//        model.addAttribute("boards", boards);
-//        model.addAttribute("articles", articles);
+        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
+        System.out.println(articles);
+        List<BoardDto> boards = communityService.getAllBoards();
+        System.out.println(articles);
+        model.addAttribute("boards", boards);
+        model.addAttribute("articles", articles);
         return "user/myPage/postmanage";
     }
 }

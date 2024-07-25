@@ -138,6 +138,7 @@ public class UserService {
 
     //소셜 로그인
     public UserDto findUserByPhone(String phone) {
+
         return userMapper.selectUserByPhone(phone);
     }
 

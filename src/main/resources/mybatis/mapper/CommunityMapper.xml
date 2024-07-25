@@ -146,10 +146,12 @@
     <update id="updateArticle" parameterType="com.example.closeup.domain.dto.community.ArticleDto">
         UPDATE `article`
         SET
-            board_code = #{boardCode},
-            title = #{title},
-            content = #{content},
-            modified_at = #{modifiedAt}
+        title = #{title},
+        content = #{content},
+        modified_at = #{modifiedAt}
+        <if test="boardCode != null">
+            , board_code = #{boardCode}
+        </if>
         WHERE id = #{id}
     </update>
     <!--    고객센터!!!-->
@@ -172,6 +174,7 @@
         SELECT a.*, b.name as board_name
         FROM article a
                  JOIN board b ON a.board_code = b.code
+        WHERE a.user_id = #{userId}
     </select>
 
 

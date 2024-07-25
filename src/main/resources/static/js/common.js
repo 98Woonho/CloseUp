@@ -265,11 +265,17 @@ function getMessages(chatRoomId) {
                     time = `${hour}:${minute}`
                 }
 
-                const message = new DOMParser().parseFromString(`
+                const message = chatMessageDto.userId !== null
+                    ? new DOMParser().parseFromString(`
                         <div class="chat ${userId === chatMessageDto.userId ? 'user1' : 'user2'}">
                             <span class="${userId === chatMessageDto.userId ? 'time' : ''}">${userId === chatMessageDto.userId ? time : ''}</span>
                             <div class="chat-msg">${chatMessageDto.content}</div>
                             <span class="${userId !== chatMessageDto.userId ? 'time' : ''}">${userId !== chatMessageDto.userId ? time : ''}</span>
+                        </div>
+                    `, 'text/html').querySelector('.chat')
+                    : new DOMParser().parseFromString(`
+                        <div class="chat date">
+                            <div class="chat-msg">${chatMessageDto.content}</div>
                         </div>
                     `, 'text/html').querySelector('.chat');
 

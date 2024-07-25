@@ -103,10 +103,38 @@ public class ChatController {
 
     @PostMapping("message")
     public ResponseEntity<Void> postMessage(@RequestBody ChatMessageDto chatMessageDto) {
+        // 마지막 채팅 가져오기
         ChatMessageDto lastChatMessageDto = chatService.getLastChatMessageDto(chatMessageDto.getChatRoomId());
 
+        // 현재 시간
         LocalDateTime currentDate = LocalDateTime.now();
 
+        // 현재 날짜의 00시 00분 00초
+        LocalDateTime start = currentDate.toLocalDate().atStartOfDay();
+
+        // 현재 날짜의 23시 59분 59초
+        LocalDateTime end = start.plusDays(1).minusNanos(1);
+
+        // 오늘 채팅방에 전송된 메세지의 개수
+        int messageCount = chatService.getMessageCount(chatMessageDto.getChatRoomId(), start, end);
+
+        // (메세지의 개수가 0 = 첫 채팅) ? 현재 날짜를 표시하는 메세지 생성
+        if (messageCount == 0) {
+            LocalDateTime nowDate = LocalDateTime.now();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+
+            String nowDateStr = nowDate.format(formatter);
+
+            ChatMessageDto dateMessage = ChatMessageDto.builder()
+                    .chatRoomId(chatMessageDto.getChatRoomId())
+                    .content(nowDateStr)
+                    .build();
+
+            chatService.createMessage(dateMessage);
+        }
+
+        //
         if (lastChatMessageDto != null) {
             LocalDateTime lastDate = lastChatMessageDto.getWrittenAt();
 
@@ -127,12 +155,7 @@ public class ChatController {
 
         chatMessageDto.setWrittenAt(currentDate);
 
-        LocalDateTime writtenAt = chatMessageDto.getWrittenAt();
-        LocalDateTime start = writtenAt.toLocalDate().atStartOfDay();
-        LocalDateTime end = start.plusDays(1).minusNanos(1);
-
-        System.out.println(start);
-        System.out.println(end);
+        chatService.createMessage(chatMessageDto);
 
         return ResponseEntity.ok().build();
     }

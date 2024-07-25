@@ -286,3 +286,39 @@
     margin: 150px 0;
     text-align: center;
 }
+
+
+.message-count-container {
+    position: relative;
+    width: 30px;
+}
+
+.message-count.visible {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff8888;
+    color: #fff8f8;
+}
+
+.chat .time {
+    position: relative;
+    top: 8px;
+}
+
+.chat.user1 .time {
+    right: 3px;
+}
+
+.chat.user2 .time {
+    left: 3px;
+}
+
+.chat.date {
+    text-align: center;
+}

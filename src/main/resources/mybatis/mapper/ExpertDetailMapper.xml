@@ -9,6 +9,11 @@
         </foreach>
     </insert>
 
+    <delete id="deleteExpertDetailsByNickname">
+        DELETE FROM `expert_detail`
+        WHERE expert_nickname = #{expertNickname}
+    </delete>
+
     <select id="selectExpertDetailListByNickname">
         SELECT *
         FROM `expert_detail`

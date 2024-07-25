@@ -28,4 +28,10 @@
         WHERE user_id = #{id}
     </update>
 
+    <update id="updateExpertInfo">
+        UPDATE `expert`
+        SET nickname = #{nickname}, introduction = #{introduction}, zipcode = #{zipcode}, address = #{address}, address_detail = #{addressDetail}
+        WHERE user_id = #{id}
+    </update>
+
 </mapper>

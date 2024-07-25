@@ -29,6 +29,9 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
     @Autowired
     UserService userService;
 
+    private final String CI = "fztTI/+lumx7dXYgxrDyitPn/s7K9EJv5+Tcu3yBnP5KU9lZJaNzm5+MigJwgfaOWCq0yTIu6l00g7tQvJTACg==";
+
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -39,8 +42,8 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
 
         if ("naver".equalsIgnoreCase(clientName)) {
             return handleNaverLogin(attributes);
-        } else if ("google".equalsIgnoreCase(clientName)) {
-            return handleGoogleLogin(attributes);
+        } else if ("kakao".equalsIgnoreCase(clientName)) {
+            return handleKakaoLogin(attributes);
         }
 
         return OAuth2UserDto.builder()
@@ -81,6 +84,22 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
 
         principalDetails.setUserDto(newUser);
         return principalDetails;
+    }
+
+    private OAuth2User handleKakaoLogin(Map<String, Object> attributes) {
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+        String nickname = (String) profile.get("nickname");
+        String profileImageUrl = (String) profile.get("profile_image_url");
+
+        UserDto tempUser = UserDto.builder()
+                .id(CI)
+                .name(nickname)
+                .profileImg(null) // 프로필 이미지는 나중에 처리
+                .build();
+        tempUser.setAttributes(attributes);
+
+        return new PrincipalDetails(tempUser);
     }
 
     private OAuth2User handleGoogleLogin(Map<String, Object> attributes) {
@@ -128,48 +147,3 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
         }
     }
 }
-//    private SocialUserDTO naver_login(Map<String, Object> userProperties) {
-//        String message = (String) userProperties.get("message");
-//        Map<String, String> response = (Map<String, String>) userProperties.get("response");
-//        String id = response.get("id");
-//        String profileImageURL = response.get("profile_image_url");
-//        String email = response.get("email");
-//        String name = response.get("name");
-//       return SocialUserDTO.builder()
-//                .id(id)
-//                .ci(CI)
-//                .profileImageUrl(profileImageURL)
-//                .email(email)
-//                .name(name)
-//                .build();
-//    }
-//
-//    private SocialUserDTO kakao_login(Map<String, Object> userProperties) {
-//            String id = userProperties.get("id").toString();
-////                String id = (String) userProperties.get("id");
-//        Map<String, String> properties = (Map<String, String>) userProperties.get("properties");
-//        String nickName = properties.get("nickname");
-//        String profileImages = properties.get("profile_image");
-//        return SocialUserDTO.builder()
-//                .id(id)
-//                .ci(CI)
-//                .profileImageUrl(profileImages)
-//                .nickName(nickName)
-//                .build();
-//
-//    }
-//
-//    private SocialUserDTO google_login(Map<String, Object> userProperties) {
-//        String id = (String) userProperties.get("sub");
-//        String name = (String) userProperties.get("name");
-//        String profileImageURL = (String) userProperties.get("picture");
-//        String email = (String) userProperties.get("email");
-//        return SocialUserDTO.builder()
-//                .id(id)
-//                .ci(CI)
-//                .name(name)
-//                .profileImageUrl(profileImageURL)
-//                .email(email)
-//                .build();
-//    }
-//}

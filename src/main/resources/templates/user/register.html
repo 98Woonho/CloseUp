@@ -71,11 +71,15 @@
                     </div>
 
                     <div class="user-input-con">
-                        <input readonly type="text" name="name" placeholder="이름">
+                        <input readonly type="text" name="name" placeholder="이름" th:if="${socialUserInfo == null}">
+                        <input  type="text" name="name" placeholder="이름" th:if="${socialUserInfo != null}">
+
                     </div>
 
                     <div class="user-input-con">
-                        <input readonly type="text" name="phone" placeholder="휴대폰 번호">
+                        <input readonly type="text" name="phone" placeholder="휴대폰 번호" th:if="${socialUserInfo == null}">
+                        <input  type="text" name="phone" placeholder="휴대폰 번호" th:if="${socialUserInfo != null}">
+
                     </div>
                     <button class="register-btn">회원가입</button>
                 </form>

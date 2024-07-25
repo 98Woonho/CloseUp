@@ -36,4 +36,7 @@ public interface UserMapper {
     /**************전문가 정보 등록 후 유저 정보 업데이트***************/
     void updateUserSuspendAndRoleById(String id);
 
+    UserDto selectUserByPhone(String phone);
+    UserDto selectUserByEmail(String email);
+
 }

@@ -7,14 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Getter
     private UserDto userDto;
@@ -61,4 +63,15 @@ public class PrincipalDetails implements UserDetails {
         return true;
     }
 
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return userDto.getAttributes();
+    }
+
+    @Override
+    public String getName() {
+        return userDto.getName();
+    }
 }
+

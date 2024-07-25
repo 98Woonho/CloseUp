@@ -265,11 +265,17 @@ function getMessages(chatRoomId) {
                     time = `${hour}:${minute}`
                 }
 
-                const message = new DOMParser().parseFromString(`
+                const message = chatMessageDto.userId !== null
+                    ? new DOMParser().parseFromString(`
                         <div class="chat ${userId === chatMessageDto.userId ? 'user1' : 'user2'}">
                             <span class="${userId === chatMessageDto.userId ? 'time' : ''}">${userId === chatMessageDto.userId ? time : ''}</span>
                             <div class="chat-msg">${chatMessageDto.content}</div>
                             <span class="${userId !== chatMessageDto.userId ? 'time' : ''}">${userId !== chatMessageDto.userId ? time : ''}</span>
+                        </div>
+                    `, 'text/html').querySelector('.chat')
+                    : new DOMParser().parseFromString(`
+                        <div class="chat date">
+                            <div class="chat-msg">${chatMessageDto.content}</div>
                         </div>
                     `, 'text/html').querySelector('.chat');
 
@@ -295,7 +301,7 @@ function clickChatLi(chat) {
     chatListSec.classList.toggle('visible');
 
     // 상단 프로필 이미지
-    topProfileImg.src = role === 'USER_ROLE' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
+    topProfileImg.src = role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
 
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';

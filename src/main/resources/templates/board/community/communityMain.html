@@ -83,7 +83,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="article,  stat: ${articles}">
+                            <tr th:each="article,  stat: ${articles}" th:unless="${article.boardCode == 'customerService'}">
                                 <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${stat.count}"></a></td>
                                 <td> <a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.title}"></a></td>
                                 <td th:text="${#temporals.format(article.writtenAt, 'yy/MM/dd')}">24/06/27</td>

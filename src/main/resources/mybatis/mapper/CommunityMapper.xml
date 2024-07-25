@@ -146,12 +146,37 @@
     <update id="updateArticle" parameterType="com.example.closeup.domain.dto.community.ArticleDto">
         UPDATE `article`
         SET
-            board_code = #{boardCode},
-            title = #{title},
-            content = #{content},
-            modified_at = #{modifiedAt}
+        title = #{title},
+        content = #{content},
+        modified_at = #{modifiedAt}
+        <if test="boardCode != null">
+            , board_code = #{boardCode}
+        </if>
         WHERE id = #{id}
     </update>
+    <!--    고객센터!!!-->
+
+    <select id="selectArticlesByBoardCode" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT a.*, COUNT(ar.user_id) as likeCount
+        FROM article a
+                 LEFT JOIN article_recommendation ar ON a.id = ar.article_id
+        WHERE a.board_code = #{boardCode}
+        GROUP BY a.id
+        ORDER BY a.written_at DESC
+
+    </select>
+    <select id="selectBoardsExceptCustomerService" resultType="com.example.closeup.domain.dto.community.BoardDto">
+        SELECT * FROM board WHERE code != 'customerService'
+
+    </select>
+
+    <select id="selectMyPageArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+        SELECT a.*, b.name as board_name
+        FROM article a
+                 JOIN board b ON a.board_code = b.code
+        WHERE a.user_id = #{userId}
+    </select>
+
 
 
 </mapper>

@@ -48,7 +48,7 @@
                                 <li ><a th:href="@{/admin/manage/post/expertReview}">전문가의 후기 게시판</a></li>
                                 <li ><a th:href="@{/admin/manage/post/free}">자유 게시판</a></li>
                                 <li ><a th:href="@{/admin/manage/post/question}">간단한 질문 게시판</a></li>
-                                <li><a href="#">문의</a></li>
+                                <li><a th:href="@{/admin/manage/post/customerService}">문의</a></li>
                                 <li><a href="#"><i class="fa-solid fa-gear"></i>설정</a></li>
                             </ul>
                         </nav>
@@ -119,7 +119,7 @@
                                 <tbody>
                                 <tr th:each="article, stat: ${articles}">
                                     <td><input type="radio"></td>
-                                    <td><span>게시글 분류</span></td>
+                                    <td><span th:text="${article.boardName}">게시글 분류</span></td>
                                     <td><span th:text="${stat.count}">게시글 번호</span></td>
                                     <td><span th:text="${article.userId}">작성자</span></td>
                                     <td><span th:text="${article.title}">제목</span></td>
@@ -129,6 +129,8 @@
 <!--                                        <input type="button" id="modifyBtn" value="수정">-->
 <!--                                        <input type="button" id="deleteBtn" value="삭제">-->
                                         <a th:href="@{/board/community/communityWrite/{id}(id=${article.id})}">수정</a>
+<!--                                        <a th:href="@{/board/community/communityWrite/{id}(id=${article.id})}" th:if="${article.boardName != '문의'}">수정</a>-->
+
                                         <a th:href="@{/admin/manage/post/delete/{id}(id=${article.id})}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 
                                     </td>

@@ -285,7 +285,6 @@ public class UserController {
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             ExpertDto expertDto
     ) {
-        System.out.println(expertDto);
         expertDto.setUserId(principalDetails.getUsername());
         expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
 

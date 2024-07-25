@@ -129,5 +129,9 @@ public class UserService {
     public void updateUserSuspendAndRoleById(String id) {
         userMapper.updateUserSuspendAndRoleById(id);
     }
+
+    public void updateUserProfileById(String id, String password, String phone) {
+        userMapper.updateUserProfileById(id, password, phone);
+    }
 }
 

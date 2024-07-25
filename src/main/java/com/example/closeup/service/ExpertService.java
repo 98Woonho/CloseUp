@@ -57,6 +57,11 @@ public class ExpertService {
         expertDetailMapper.insertExpertDetails(details);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteExpertDetails(String nickname) {
+        expertDetailMapper.deleteExpertDetailsByNickname(nickname);
+    }
+
     public ExpertDto selectExpertDto(String id) {
         return expertMapper.selectExpertByUserId(id);
     }
@@ -69,5 +74,14 @@ public class ExpertService {
     public void updateExpertProfileImg(String id, byte[] profileImg) {
         expertMapper.updateExpertProfileImg(id, profileImg);
 
+    }
+
+    public ExpertDto getExpertDtoById(String id) {
+        return expertMapper.selectExpertByUserId(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateExpertInfo(String id, ExpertDto expertDto) {
+        expertMapper.updateExpertInfo(id, expertDto);
     }
 }

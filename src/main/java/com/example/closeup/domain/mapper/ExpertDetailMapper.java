@@ -11,6 +11,7 @@ public interface ExpertDetailMapper {
 
     List<ExpertDetailDto> selectExpertDetailListByNicknameAndCategory(String nickname, String category);
 
-
     void insertExpertDetails(List<ExpertDetailDto> details);
+
+    void deleteExpertDetailsByNickname(String expertNickname);
 }

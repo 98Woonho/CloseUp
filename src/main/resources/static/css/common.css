@@ -207,8 +207,7 @@ footer {
 #chatDialog #topProfileContainer {
     cursor: pointer;
 }
-#chatDialog #map,
-#chatDialog #map img {
+#chatDialog #map {
     width: 100%;
 }
 

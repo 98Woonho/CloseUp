@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,6 +71,11 @@ public class ChatService {
     @Transactional(rollbackFor = Exception.class)
     public List<ChatMessageDto> getChatMessageDtoList(Long chatRoomId) {
         return chatMessageMapper.selectChatMessageDtoListByChatRoomId(chatRoomId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int getMessageCount(Long chatRoomId, LocalDateTime start, LocalDateTime end) {
+        return chatMessageMapper.selectChatMessageCountByTimeBetweenAndChatRoomId(chatRoomId, start, end);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -29,6 +29,13 @@
             LIMIT 1;
     </select>
 
+
+    <select id="selectChatMessageCountByTimeBetweenAndChatRoomId">
+        SELECT COUNT(*)
+        FROM `chat_message`
+        WHERE `chat_room_id` = #{chatRoomId} AND `written_at` BETWEEN #{start} AND #{end}
+    </select>
+
     <update id="updateChatMessageWrittenAtById">
         UPDATE `chat_message`
         SET `written_at` = null

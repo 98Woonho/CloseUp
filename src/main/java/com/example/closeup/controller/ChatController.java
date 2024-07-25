@@ -1,4 +1,3 @@
-
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
@@ -147,6 +146,7 @@ public class ChatController {
                 newChatRoomDto.setNotReadUserMessageCount(newChatRoomDto.getNotReadUserMessageCount() + 1);
             }
         }
+
 
         if (chatRoomDto.getAction().equals("reset")) {
             if (role.equals("ROLE_USER")) {

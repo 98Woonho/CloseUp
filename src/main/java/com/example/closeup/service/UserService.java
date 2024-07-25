@@ -94,6 +94,11 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
+    public UserDto getUserDto(String id) {
+        return userMapper.selectUserById(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public List<ExpertDetailDto> getExpertDetailDtoList(String nickname) {
         System.out.println(nickname);
         return expertDetailMapper.selectExpertDetailListByNickname(nickname);
@@ -142,6 +147,10 @@ public class UserService {
     }
     public UserDto findUserByEmail(String email) {
         return userMapper.selectUserByEmail(email);
+    }
+
+    public void updateUserProfileById(String id, String password, String phone) {
+        userMapper.updateUserProfileById(id, password, phone);
     }
 }
 

@@ -37,55 +37,55 @@
     import java.util.List;
     import java.util.Map;
 
-    @Slf4j
-    @Controller
-    @RequestMapping("user")
-    public class UserController {
+@Slf4j
+@Controller
+@RequestMapping("user")
+public class UserController {
 
-        @Autowired
-        private UserService userService;
+    @Autowired
+    private UserService userService;
 
-        @Autowired private ExpertService expertService;
+    @Autowired private ExpertService expertService;
 
-        @GetMapping("confirmIdDup")
-        public ResponseEntity<String> getConfirmIdDup(@RequestParam("id") String id) {
-            UserDto userDto = userService.findUserById(id);
+    @GetMapping("confirmIdDup")
+    public ResponseEntity<String> getConfirmIdDup(@RequestParam("id") String id) {
+        UserDto userDto = userService.findUserById(id);
 
-            if (userDto != null) {
-                return new ResponseEntity<>("이미 존재하는 아이디입니다. 다른 아이디를 입력해 주세요.", HttpStatus.CONFLICT);
-            }
-
-            return new ResponseEntity<>("사용 가능한 아이디입니다.", HttpStatus.OK);
+        if (userDto != null) {
+            return new ResponseEntity<>("이미 존재하는 아이디입니다. 다른 아이디를 입력해 주세요.", HttpStatus.CONFLICT);
         }
 
-        @GetMapping("/login")
-        public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
-            model
-            .addAttribute("error", error);
-        }
+        return new ResponseEntity<>("사용 가능한 아이디입니다.", HttpStatus.OK);
+    }
 
-        //아이디 찾기
-        @GetMapping("/findId")
-        public String getFindID() {
+    @GetMapping("/login")
+    public void getLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
+        model.addAttribute("error", error);
+    }
+
+
+    //아이디 찾기
+    @GetMapping("/findId")
+    public String getFindID() {
+        return "user/findId";
+    }
+
+    @PostMapping("/findId")
+    public String postFindID(@RequestParam("name") String name,
+                             @RequestParam("phone") String phone,
+                             Model model) {
+        UserDto user = userService.findUserByNameAndPhone(name, phone);
+
+        if (user != null) {
+            model.addAttribute("foundId", user.getId());
+            return "user/findIdSuccess";
+        } else {
+            model.addAttribute("error", "이름 또는 휴대폰번호가 틀렸습니다.");
             return "user/findId";
         }
+    }
 
-        @PostMapping("/findId")
-        public String postFindID(@RequestParam("name") String name,
-                                 @RequestParam("phone") String phone,
-                                 Model model) {
-            UserDto user = userService.findUserByNameAndPhone(name, phone);
-
-            if (user != null) {
-                model.addAttribute("foundId", user.getId());
-                return "user/findIdSuccess";
-            } else {
-                model.addAttribute("error", "이름 또는 휴대폰번호가 틀렸습니다.");
-                return "user/findId";
-            }
-        }
-
-        //비밀번호 찾기
+    //비밀번호 찾기
 
         @GetMapping("/findPW")
         public String getFindPW() {
@@ -156,22 +156,12 @@
             return ResponseEntity.ok("회원가입이 성공적으로 완료되었습니다.");
         }
 
-        private void updateUserDtoWithSocialInfo(UserDto userDto, OAuth2User oAuth2User) {
-            Map<String, Object> attributes = oAuth2User.getAttributes();
-            if (attributes.containsKey("response")) { // Naver
-                Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-                userDto.setName((String) response.get("name"));
-                userDto.setPhone((String) response.get("mobile"));
-            }
-            // 다른 소셜 로그인 케이스 추가
-        }
-
-        // portOne 엑세스 토큰 받기
-        @GetMapping("token")
-        public String AccessToken(){
-            String url = "https://api.iamport.kr/users/getToken";
-            // HEADER
-            HttpHeaders headers = new HttpHeaders();
+    // portOne 엑세스 토큰 받기
+    @GetMapping("token")
+    public String AccessToken(){
+        String url = "https://api.iamport.kr/users/getToken";
+        // HEADER
+        HttpHeaders headers = new HttpHeaders();
 
             // PARAM
             MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -204,125 +194,123 @@
             public TokenResponse response;
         }
 
-        // 포트원 통합인증
-        @GetMapping("cert/{imp_uid}")
-        public @ResponseBody ResponseEntity<Map<String, String>> postCertification(@PathVariable("imp_uid") String impUid) {
-            String accessToken = AccessToken(); // 엑세스 토큰 가져오기
+    // 포트원 통합인증
+    @GetMapping("cert/{imp_uid}")
+    public @ResponseBody ResponseEntity<Map<String, String>> postCertification(@PathVariable("imp_uid") String impUid) {
+        String accessToken = AccessToken(); // 엑세스 토큰 가져오기
 
-            String url = "https://api.iamport.kr/certifications/"+impUid;
+        String url = "https://api.iamport.kr/certifications/"+impUid;
 
-            // header
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", "application/json");
-            headers.add("Authorization","Bearer "+ accessToken);
+        // header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization","Bearer "+ accessToken);
 
-            // params
-            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        // params
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-            // Entity
-            HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+        // Entity
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
-            // request
-            RestTemplate rt = new RestTemplate();
+        // request
+        RestTemplate rt = new RestTemplate();
 
-            // response
-            ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET,entity,PortOneAuthInfoResponse.class);
+        // response
+        ResponseEntity<PortOneAuthInfoResponse> response = rt.exchange(url, HttpMethod.GET,entity,PortOneAuthInfoResponse.class);
 
-            // 통합인증 응답에서 name, phone 가져오기
-            String name = response.getBody().getResponse().name;
-            String phone = response.getBody().getResponse().phone;
+        // 통합인증 응답에서 name, phone 가져오기
+        String name = response.getBody().getResponse().name;
+        String phone = response.getBody().getResponse().phone;
 
-            // name, phone으로 가입된 유저 조회
-            UserDto user = userService.findUserByNameAndPhone(name, phone);
+        // name, phone으로 가입된 유저 조회
+        UserDto user = userService.findUserByNameAndPhone(name, phone);
 
-            Map <String, String> responseBody = new HashMap<>();
+        Map <String, String> responseBody = new HashMap<>();
 
-            // 이미 가입된 유저가 있을 때
-            if (user != null) {
-                responseBody.put("msg", "이미 해당 정보로 가입이 되어 있습니다. 로그인 화면으로 이동합니다.");
-                return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
+        // 이미 가입된 유저가 있을 때
+        if (user != null) {
+            responseBody.put("msg", "이미 해당 정보로 가입이 되어 있습니다. 로그인 화면으로 이동합니다.");
+            return new ResponseEntity<>(responseBody, HttpStatus.CONFLICT);
 
-                // 2024-07-16 ResponseEntity<String>으로 반환방법
-    //            return result == 1 ? ResponseEntity.ok("좋아요!") : ResponseEntity.status(HttpStatus.CONFLICT).body("알 수 없는 이유로 좋아요를 하지 못하였습니다. 잠시 후 다시 시도해 주세요.");
-            }
-
-            responseBody.put("name", name);
-            responseBody.put("phone", phone);
-
-            return new ResponseEntity<>(responseBody, HttpStatus.OK);
+            // 2024-07-16 ResponseEntity<String>으로 반환방법
+//            return result == 1 ? ResponseEntity.ok("좋아요!") : ResponseEntity.status(HttpStatus.CONFLICT).body("알 수 없는 이유로 좋아요를 하지 못하였습니다. 잠시 후 다시 시도해 주세요.");
         }
 
-        //인증 객체
-        @Data
-        private static class AuthInfoResponse{
-            public int birth;
-            public String birthday;
-            public boolean certified;
-            public int certified_at;
-            public boolean foreigner;
-            public Object foreigner_v2;
-            public Object gender;
-            public String imp_uid;
-            public String merchant_uid;
-            public String name;
-            public String origin;
-            public String pg_provider;
-            public String pg_tid;
-            public String phone;
-            public Object unique_in_site;
-            public String unique_key;
+        responseBody.put("name", name);
+        responseBody.put("phone", phone);
+
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+    //인증 객체
+    @Data
+    private static class AuthInfoResponse{
+        public int birth;
+        public String birthday;
+        public boolean certified;
+        public int certified_at;
+        public boolean foreigner;
+        public Object foreigner_v2;
+        public Object gender;
+        public String imp_uid;
+        public String merchant_uid;
+        public String name;
+        public String origin;
+        public String pg_provider;
+        public String pg_tid;
+        public String phone;
+        public Object unique_in_site;
+        public String unique_key;
+    }
+
+    @Data
+    private static class PortOneAuthInfoResponse{
+        public int code;
+        public Object message;
+        public AuthInfoResponse response;
+    }
+
+
+
+    @GetMapping("/expertDetail/{nickname}")
+    public String getExpertDetail(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @PathVariable("nickname") String nickname,
+            Model model
+    ) {
+        List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
+        ExpertDto expertDto = userService.findExpertByNickNameWithIsWished(principalDetails.getUsername(), nickname);
+
+        model.addAttribute("expertDetailDtoList", expertDetailDtoList);
+        model.addAttribute("expert", expertDto);
+        return "user/expertDetail";
+    }
+
+    @GetMapping("")
+    @ResponseBody
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto();
+    }
+
+    // 전문가 닉네임 중복 확인
+    @GetMapping("confirmNicknameDup")
+    public ResponseEntity<String> getConfirmNicknameDup(@RequestParam("nickname") String nickname) {
+        ExpertDto expertDto = userService.getExpertDto(nickname);
+
+        if (expertDto != null) {
+            return new ResponseEntity<>("이미 존재하는 닉네임니다. 다른 닉네임을 입력해 주세요.", HttpStatus.CONFLICT);
         }
 
-        @Data
-        private static class PortOneAuthInfoResponse{
-            public int code;
-            public Object message;
-            public AuthInfoResponse response;
-        }
+        return new ResponseEntity<>("사용 가능한 닉네임입니다.", HttpStatus.OK);
+    }
 
-
-
-        @GetMapping("/expertDetail/{nickname}")
-        public String getExpertDetail(
-                @AuthenticationPrincipal PrincipalDetails principalDetails,
-                @PathVariable("nickname") String nickname,
-                Model model
-        ) {
-            List<ExpertDetailDto> expertDetailDtoList = userService.getExpertDetailDtoList(nickname);
-            ExpertDto expertDto = userService.findExpertByNickNameWithIsWished(principalDetails.getUsername(), nickname);
-
-            model.addAttribute("expertDetailDtoList", expertDetailDtoList);
-            model.addAttribute("expert", expertDto);
-            return "user/expertDetail";
-        }
-
-        @GetMapping("")
-        @ResponseBody
-        public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-            return principalDetails.getUserDto().getId();
-
-        }
-
-        // 전문가 닉네임 중복 확인
-        @GetMapping("confirmNicknameDup")
-        public ResponseEntity<String> getConfirmNicknameDup(@RequestParam("nickname") String nickname) {
-            ExpertDto expertDto = userService.getExpertDto(nickname);
-
-            if (expertDto != null) {
-                return new ResponseEntity<>("이미 존재하는 닉네임니다. 다른 닉네임을 입력해 주세요.", HttpStatus.CONFLICT);
-            }
-
-            return new ResponseEntity<>("사용 가능한 닉네임입니다.", HttpStatus.OK);
-        }
-
-        @PostMapping("/addExpertInfo")
-        public ResponseEntity<String> addExpertInfo(
-                @AuthenticationPrincipal PrincipalDetails principalDetails,
-                ExpertDto expertDto
-        ) {
-            System.out.println(expertDto);
-            expertDto.setUserId(principalDetails.getUsername());
-            expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
+    @PostMapping("/addExpertInfo")
+    public ResponseEntity<String> addExpertInfo(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            ExpertDto expertDto
+    ) {
+        expertDto.setUserId(principalDetails.getUsername());
+        expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
 
             userService.insertExpertInfo(expertDto);
             expertService.insertExpertDetails(expertDto);

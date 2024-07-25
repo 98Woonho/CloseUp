@@ -1,5 +1,4 @@
 const chatDialog = document.getElementById('chatDialog');
-const chatIcon = document.getElementById('chatIcon');
 const chatListSec = document.getElementById('chatListSec');
 const toggleChatListSecIcons = document.querySelectorAll('.toggle-chat-list-sec-icon');
 const infoSec = document.getElementById('infoSec');
@@ -13,11 +12,14 @@ const categoryBtn = document.querySelectorAll('#category > button');
 const mapAddr = document.getElementById('mapAddr');
 const chatInput = document.getElementById('chatInput');
 const topProfileContainer = document.getElementById('topProfileContainer');
+const topProfileImg = topProfileContainer.querySelector('img');
 const closeChatDialogIcon = document.getElementById('closeChatDialogIcon');
 const profileNickname = document.getElementById('profileNickname');
 const searchChat = document.getElementById('searchChat');
 const dot = document.getElementById('dot');
+const profileBtn = document.getElementById('profileBtn');
 
+let chatIcon = document.getElementById('chatIcon');
 let userId; // 현재 로그인 한 유저의 아이디
 let role; // 현재 로그인 한 유저의 역할
 let name; // 현재 로그인 한 유저의 이름
@@ -33,13 +35,21 @@ axios.get('/user')
         name = res.data.name;
     })
     .catch(err => {
-        console.log(err);
     })
 
+profileBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    location.href = `/user/expertDetail/${topProfileName.innerText}`;
+})
+
+// 경로가 /myPage/chats면 chatIcon을 숨기고 변수를 null로 초기화
 if (window.location.pathname === '/myPage/chats') {
-    // 현재 경로가 /myPage/chats인 경우 우측 하단 챗 아이콘 숨기기
     chatIcon.style.display = 'none';
-} else {
+    chatIcon = null;
+}
+
+if (chatIcon) {
     // 고정 아이콘 - 채팅 아이콘 클릭 event
     chatIcon.addEventListener('click', function () {
         chatDialog.classList.toggle('visible');
@@ -53,7 +63,6 @@ if (window.location.pathname === '/myPage/chats') {
     })
 
     // 채팅창 상단 프로필 클릭 event
-
     topProfileContainer.addEventListener('click', function (e) {
         e.preventDefault();
         if (role === 'ROLE_USER') {
@@ -68,6 +77,7 @@ if (window.location.pathname === '/myPage/chats') {
         })
     })
 }
+
 
 // 채팅 리스트 가져오기
 axios.get('/chat/list')
@@ -86,8 +96,8 @@ axios.get('/chat/list')
             stomp.connect({}, function () {
                 chatRoomDtoList.forEach(chatRoomDto => {
                     const li = new DOMParser().parseFromString(`
-                        <li class="chat-li" data-id="${chatRoomDto.id}" onClick="clickChatLi(this)">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                        <li class="chat-li" data-id="${chatRoomDto.id}" data-userId="${chatRoomDto.userId}" onClick="clickChatLi(this)">
+                            <img src="${role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}` : `/myPage/profileImage?userId=${chatRoomDto.userId}`}" alt="">
                             <div class="spring">
                                 <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                                 <div class="content">${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</div>
@@ -205,9 +215,9 @@ searchChat.addEventListener('input', function (e) {
 
     newChatRoomDtoList.forEach(chatRoomDto => {
         const li = new DOMParser().parseFromString(`
-                    <li class="chat-li" data-id="${chatRoomDto.id}"
+                    <li class="chat-li" data-id="${chatRoomDto.id}" data-userId="${chatRoomDto.userId}"
                     onClick="clickChatLi(this)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="">
+                         <img src="${role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${chatRoomDto.expertNickname}` : `/myPage/profileImage?userId=${chatRoomDto.userId}`}" alt="">
                         <div class="spring">
                             <div class="nickname"><b>${role === 'ROLE_USER' ? chatRoomDto.expertNickname : chatRoomDto.userName}</b></div>
                             <div class="content"><p>${chatRoomDto.lastChatMessage === null ? '' : chatRoomDto.lastChatMessage}</p></div>
@@ -276,12 +286,16 @@ function getMessages(chatRoomId) {
 // 채팅 목록에서 채팅을 클릭 했을 때의 function
 function clickChatLi(chat) {
     const chatLies = document.querySelectorAll('.chat-li');
+    const userId = chat.dataset.userid;
     let selectedNickname = chat.querySelector('.nickname').innerText;
+
+    let messageCount = 0;
     selectedChatRoomId = chat.dataset.id;
 
     chatListSec.classList.toggle('visible');
 
-    let messageCount = 0;
+    // 상단 프로필 이미지
+    topProfileImg.src = role === 'USER_ROLE' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
 
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';
@@ -298,6 +312,7 @@ function clickChatLi(chat) {
         messageCount += Number(chatLi.querySelector('.message-count').innerText);
     })
 
+    // 메세지 카운트가 0이면 아이콘에 메세지 알림 dot 제거
     if (messageCount === 0) {
         dot.classList.remove('visible');
     }
@@ -309,8 +324,6 @@ function clickChatLi(chat) {
         id: chat.dataset.id,
         action: 'reset'
     })
-
-
 
     nonSelecteds.forEach(nonSelected => {
         nonSelected.style.display = 'none';
@@ -329,6 +342,7 @@ function clickChatLi(chat) {
     }
 
     chatInput.value = '';
+
 }
 
 
@@ -359,7 +373,6 @@ function keydownEvent(e) {
                 console.log(err);
             })
 
-
     }
 }
 
@@ -371,9 +384,13 @@ function getExpertInfo(selectedExpertNickname) {
             topProfileName.innerText = res.data.nickname;
             mapAddr.innerText = `(${res.data.zipcode}) ${res.data.address} ${res.data.addressDetail}`;
             profileNickname.innerText = res.data.nickname;
-            /** TODO
-             * 전문가 등록 및 수정에서 profileImg 구현되면 profileImg 넣어야 함.
-             */
+
+
+            // 전문가 위치 표시하는 지도
+            getExpertLocation(`${res.data.address}`);
+
+            profileImg.src = `/expert/profileImage?expertNickname=${selectedExpertNickname}`;
+
         })
         .catch(err => {
             console.log(err);
@@ -389,7 +406,43 @@ function getExpertInfo(selectedExpertNickname) {
         .catch(err => {
             console.log(err);
         })
+
 }
 
+function getExpertLocation(address) {
 
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+            return alert('잘못된 주소를 입력하셨습니다.');
+        }
 
+        var result = response.v2, // 검색 결과의 컨테이너
+            items = result.addresses; // 검색 결과의 배열
+
+        let addrLat = items[0].y;
+        let addrLng = items[0].x;
+
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(addrLat, addrLng),
+            zoom: 15,
+            minZoom: 14, //지도의 최소 줌 레벨
+            draggable: true,
+            pinchZoom: true,
+            scrollWheel: true,
+            disableKineticPan: false, // 관성드래깅
+            scaleControl: false, // 스케일 컨트롤러
+            logoControl: true, // 로고 컨트롤러
+            logoControlOptions: {
+                position: naver.maps.Position.TOP_RIGHT
+            },
+            mapDataControl: false
+        });
+
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(addrLat, addrLng),
+            map: map
+        });
+    });
+}

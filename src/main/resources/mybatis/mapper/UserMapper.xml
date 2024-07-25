@@ -97,6 +97,12 @@
         WHERE id = #{id}
     </update>
 
+    <update id="updateUserProfileById">
+        UPDATE `user`
+        SET password = #{password}, phone = #{phone}
+        WHERE id = #{id}
+    </update>
+
     <delete id="deleteUser">
         DELETE FROM `user` WHERE id = #{id}
     </delete>

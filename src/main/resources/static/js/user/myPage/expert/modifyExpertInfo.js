@@ -14,7 +14,6 @@ const embla = EmblaCarousel(viewportNode);
 prevButtonNode.addEventListener('click', embla.scrollPrev, false);
 nextButtonNode.addEventListener('click', embla.scrollNext, false);
 
-
 const addExpertiseBtn = document.getElementById('addExpertiseBtn');
 const addCareerBtn = document.getElementById('addCareerBtn');
 const addAbilityBtn = document.getElementById('addAbilityBtn');
@@ -25,7 +24,7 @@ const confirmNicknameDupBtn = document.getElementById('duplicateBtn');
 const addressFindBtn = document.getElementById('addressFindBtn');
 const zipcodeInput = document.getElementById('zipcodeInput');
 const addressInput = document.getElementById('addressInput');
-const expertInfoForm = document.querySelector('form');
+const modifyExpertInfoForm = document.querySelector('form');
 
 // 정규식
 const CK_nickname = /^[가-힣a-zA-Z0-9]{4,15}$/;
@@ -35,6 +34,65 @@ const expertises = [];
 const careers = [];
 const abilities = [];
 
+const expertisesTags = document.querySelectorAll('#expertiseTagsContainer .tags');
+const careersTags = document.querySelectorAll('#careerTagsContainer .tags');
+const abilitiesTags = document.querySelectorAll('#abilityTagsContainer .tags');
+
+// 각 태그의 textContent를 expertises 배열에 추가합니다.
+expertisesTags.forEach(tag => {
+    expertises.push(tag.querySelector('p').textContent);
+});
+careersTags.forEach(tag => {
+    careers.push(tag.querySelector('p').textContent);
+});
+abilitiesTags.forEach(tag => {
+    abilities.push(tag.querySelector('p').textContent);
+});
+
+console.log("Initial expertises:", expertises); // 초기 배열 출력
+console.log("Initial careers:", careers); // 초기 배열 출력
+console.log("Initial abilities:", abilities); // 초기 배열 출력
+
+// 모든 삭제 버튼을 선택합니다.
+const deleteButtons = document.querySelectorAll('.delete-btns');
+
+// 각 버튼에 클릭 이벤트 리스너를 추가합니다.
+deleteButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        // 버튼의 부모 div.tags 요소를 찾아 삭제합니다.
+        const tagElement = event.target.closest('.tags');
+        const container = tagElement.closest('.tags-container');
+
+        if (tagElement) {
+            // 삭제할 태그의 textContent를 가져옵니다.
+            const tagText = tagElement.querySelector('p').textContent;
+
+            // 해당 컨테이너에 따라 적절한 배열에서 삭제합니다.
+            if (container.id === 'expertiseTagsContainer') {
+                const index = expertises.indexOf(tagText);
+                if (index !== -1) {
+                    expertises.splice(index, 1); // 배열에서 삭제
+                    console.log("Updated expertises:", expertises); // 업데이트된 배열 출력
+                }
+            } else if (container.id === 'careerTagsContainer') {
+                const index = careers.indexOf(tagText);
+                if (index !== -1) {
+                    careers.splice(index, 1); // 배열에서 삭제
+                    console.log("Updated expertises2:", careers); // 업데이트된 배열 출력
+                }
+            } else if (container.id === 'abilityTagsContainer') {
+                const index = abilities.indexOf(tagText);
+                if (index !== -1) {
+                    abilities.splice(index, 1); // 배열에서 삭제
+                    console.log("Updated expertises2:", abilities); // 업데이트된 배열 출력
+                }
+            }
+
+            tagElement.remove(); // 해당 요소 삭제
+        }
+    });
+});
+
 // 입력 버튼 클릭 시 태그 추가
 addExpertiseBtn.addEventListener('click', function() {
     const expertiseTextarea = document.getElementById('expertiseInput').value;
@@ -42,6 +100,7 @@ addExpertiseBtn.addEventListener('click', function() {
 
     addTags(expertiseTextarea, expertiseContainer, 'expertise');
     expertises.push(expertiseTextarea);
+    console.log(expertises);
 
     document.getElementById('expertiseInput').value = '';
 
@@ -54,6 +113,7 @@ addExpertiseBtn.addEventListener('click', function() {
             expertises.splice(index, 1); // 배열에서 제거
         }
         this.parentElement.remove(); // 태그 요소 삭제
+        console.log(expertises);
     });
 });
 
@@ -110,6 +170,7 @@ expertiseInput.addEventListener('keydown', function(e){
 
         addTags(expertiseTextarea, expertiseContainer, 'expertise');
         expertises.push(expertiseTextarea);
+        console.log(expertises);
 
         document.getElementById('expertiseInput').value = '';
 
@@ -122,6 +183,7 @@ expertiseInput.addEventListener('keydown', function(e){
                 expertises.splice(index, 1); // 배열에서 제거
             }
             this.parentElement.remove(); // 태그 요소 삭제
+            console.log(expertises);
         });
     }
 });
@@ -214,19 +276,19 @@ checkboxes.forEach(checkbox => {
 confirmNicknameDupBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    if (expertInfoForm['nickname'].value === '') {
+    if (modifyExpertInfoForm['nickname'].value === '') {
         alert('닉네임을 입력해 주세요.');
         return;
     }
 
-    if (!CK_nickname.test(expertInfoForm['nickname'].value)) {
+    if (!CK_nickname.test(modifyExpertInfoForm['nickname'].value)) {
         alert('올바른 닉네임을 입력해 주세요.');
         return;
     }
 
     e.preventDefault();
 
-    axios.get(`/user/confirmNicknameDup?nickname=${expertInfoForm['nickname'].value}`)
+    axios.get(`/user/confirmNicknameDup?nickname=${modifyExpertInfoForm['nickname'].value}`)
         .then(res => {
             alert(res.data);
             confirmNicknameDupBtn.classList.add('confirmed');
@@ -257,15 +319,15 @@ addressFindBtn.onclick = () => {
 }
 
 // 폼 제출
-expertInfoForm.addEventListener('submit', (e) => {
+modifyExpertInfoForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if (expertInfoForm['nickname'].value === '') {
+    if (modifyExpertInfoForm['nickname'].value === '') {
         alert('아이디를 입력해 주세요.');
         return;
     }
 
-    if (!CK_nickname.test(expertInfoForm['nickname'].value)) {
+    if (!CK_nickname.test(modifyExpertInfoForm['nickname'].value)) {
         alert('올바른 아이디를 입력해 주세요.');
         return;
     }
@@ -275,21 +337,21 @@ expertInfoForm.addEventListener('submit', (e) => {
         return;
     }
 
-    const formData = new FormData(expertInfoForm);
-    formData.append('zipcode', expertInfoForm['zipcode'].value);
-    formData.append('address', expertInfoForm['address'].value);
+    const formData = new FormData(modifyExpertInfoForm);
+    formData.append('zipcode', modifyExpertInfoForm['zipcode'].value);
+    formData.append('address', modifyExpertInfoForm['address'].value);
     formData.append('skills', skills);
     formData.append('expertises', expertises);
     formData.append('careers', careers);
     formData.append('abilities', abilities);
 
-    axios.post('/user/addExpertInfo', formData)
+    axios.post('/expert/modifyExpertInfo', formData)
         .then(response => {
             alert(response.data);
             location.href = '/expert/myPageMain';
         })
         .catch(error => {
-           alert('전문가 정보 등록에 실패하였습니다.');
+           alert('전문가 정보 수정에 실패하였습니다.');
             console.error('Error : ', error);
         });
 })

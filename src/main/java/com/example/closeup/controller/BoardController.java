@@ -5,11 +5,17 @@ import com.example.closeup.domain.dto.community.CommentDto;
 import com.example.closeup.service.CommunityService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.PaymentDto;
+import com.example.closeup.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +23,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -128,7 +140,6 @@ public class BoardController {
             if (comment == null) {
                 return ResponseEntity.notFound().build();
             }
-
             // 현재 로그인한 사용자와 댓글 작성자가 같은지 확인
             if (!comment.getUserId().equals(authentication.getName())) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 삭제할 권한이 없습니다.");
@@ -142,4 +153,14 @@ public class BoardController {
     }
 
 }
+    @PostMapping("findExpertWrite")
+    public ResponseEntity<String> postFindExpertWrite(@RequestBody PaymentDto paymentDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println(paymentDto);
+        paymentDto.setUserId(principalDetails.getUsername());
+        boardService.payment(paymentDto);
+
+        return ResponseEntity.ok().body("결제가 완료 되었습니다. 결제 내역 페이지로 이동합니다.");
+    }
+
+
 

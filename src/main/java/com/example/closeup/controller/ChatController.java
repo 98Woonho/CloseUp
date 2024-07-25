@@ -132,6 +132,9 @@ public class ChatController {
         LocalDateTime start = writtenAt.toLocalDate().atStartOfDay();
         LocalDateTime end = start.plusDays(1).minusNanos(1);
 
+        System.out.println(start);
+        System.out.println(end);
+
         return ResponseEntity.ok().build();
     }
 

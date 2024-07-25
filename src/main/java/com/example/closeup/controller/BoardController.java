@@ -37,6 +37,9 @@ public class BoardController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private BoardService boardService;
+
     @GetMapping("/findExpertMain")
     public String getFindExpertMain() {
         return "board/findExpert/findExpertMain";
@@ -112,6 +115,7 @@ public class BoardController {
         communityService.createComment(commentDto);
         return "redirect:/board/CSCenter/CSPost/" + articleId;
     }
+
     /**************댓글 좋아요***************/
     @PostMapping("/CSCenter/comment/{commentId}/like")
     @ResponseBody
@@ -152,7 +156,6 @@ public class BoardController {
         }
     }
 
-}
     @PostMapping("findExpertWrite")
     public ResponseEntity<String> postFindExpertWrite(@RequestBody PaymentDto paymentDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println(paymentDto);
@@ -161,6 +164,6 @@ public class BoardController {
 
         return ResponseEntity.ok().body("결제가 완료 되었습니다. 결제 내역 페이지로 이동합니다.");
     }
-
+}
 
 

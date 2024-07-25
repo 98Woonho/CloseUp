@@ -11,6 +11,7 @@ public class BoardService {
     private PaymentMapper paymentMapper;
 
     public void payment(PaymentDto paymentDto) {
+
         paymentMapper.insertPayment(paymentDto);
     }
 }

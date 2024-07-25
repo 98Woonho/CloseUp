@@ -146,10 +146,6 @@ public class UserController {
 
         @PostMapping("/register")
         public ResponseEntity<String> postRegister(@ModelAttribute UserDto userDto, Authentication authentication) {
-            if (authentication != null && authentication.getPrincipal() instanceof OAuth2User) {
-                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-                updateUserDtoWithSocialInfo(userDto, oAuth2User);
-            }
 
             userService.register(userDto);
 

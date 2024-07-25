@@ -276,19 +276,19 @@ checkboxes.forEach(checkbox => {
 confirmNicknameDupBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    if (expertInfoForm['nickname'].value === '') {
+    if (modifyExpertInfoForm['nickname'].value === '') {
         alert('닉네임을 입력해 주세요.');
         return;
     }
 
-    if (!CK_nickname.test(expertInfoForm['nickname'].value)) {
+    if (!CK_nickname.test(modifyExpertInfoForm['nickname'].value)) {
         alert('올바른 닉네임을 입력해 주세요.');
         return;
     }
 
     e.preventDefault();
 
-    axios.get(`/user/confirmNicknameDup?nickname=${expertInfoForm['nickname'].value}`)
+    axios.get(`/user/confirmNicknameDup?nickname=${modifyExpertInfoForm['nickname'].value}`)
         .then(res => {
             alert(res.data);
             confirmNicknameDupBtn.classList.add('confirmed');

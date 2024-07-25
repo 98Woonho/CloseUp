@@ -295,7 +295,7 @@ function clickChatLi(chat) {
     chatListSec.classList.toggle('visible');
 
     // 상단 프로필 이미지
-    topProfileImg.src = role === 'USER_ROLE' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
+    topProfileImg.src = role === 'ROLE_USER' ? `/expert/profileImage?expertNickname=${selectedNickname}` : `/myPage/profileImage?userId=${userId}`;
 
     // 채팅방을 선택 했을 때, 읽지 않은 메세지 카운트 초기화
     chat.querySelector('.message-count').innerText = '';

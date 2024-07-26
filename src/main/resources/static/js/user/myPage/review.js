@@ -85,7 +85,6 @@ function checkedRate() {
                 prevSibling = prevSibling.previousElementSibling;
             }
             return radioSiblings;
-            console.log(re)
         }
     });
 }

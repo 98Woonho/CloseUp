@@ -35,7 +35,7 @@
                                 </label>
                             </div>
                             <div>
-                                <button class="write-btn"><a href="/board/communityWrite">글 작성</a></button>
+                                <button class="write-btn"><a href="/board/community/communityWrite">글 작성</a></button>
                                 <button class="delete-btn">삭제</button>
                             </div>
                         </div>
@@ -57,6 +57,14 @@
                             <th>작성자</th>
                         </tr>
                         </thead>
+<!--                            <tbody id="manageTbody">-->
+<!--                            <tr class="manage-row" th:each="article : ${articles}">-->
+<!--                                <td><input type="checkbox"></td>-->
+<!--                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.title}"></a></td>-->
+<!--                                <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">Jun 21, 2024</td>-->
+<!--                                <td th:text="${article.boardName}">자유 게시판</td>-->
+<!--                                <td th:text="${article.userId}">abc123</td>-->
+<!--                            </tr>-->
                         <tbody id="manageTbody">
                         <tr class="manage-row" th:data-id="${article.id}" th:each="article: ${articles}">
                             <td><input type="checkbox"></td>

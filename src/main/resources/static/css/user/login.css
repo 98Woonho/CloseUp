@@ -103,19 +103,28 @@
 
 /* 소셜 로그인 */
 .other-login-ikon {
+    display: flex;
     margin-bottom: 8px;
     width: 100%;
     height: 72px;
-    text-align: center;
-    align-content: center;
+    justify-content: center;
     border-radius: 9px;
     font-weight: bold;
     color: var(--color-main-navy);
     background-color: var(--color-light-blue);
 }
+.other-login-ikon  img {
+    align-self: center;
+    width: 45px;
+    margin-right: 10px;
+}
+.other-login-ikon span{
+    align-self: center;
+    display: inline-block;
+}
 .other-login-ikon:hover {
     border: 1px solid var(--color-light-gray);
-    color: var(--color-light-blue);
+    /*color: var(--color-light-blue);*/
 }
 
 /* 회원가입으로 이동 */

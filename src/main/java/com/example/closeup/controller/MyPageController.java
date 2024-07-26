@@ -4,7 +4,13 @@ package com.example.closeup.controller;
 import com.example.closeup.config.auth.PrincipalDetails;
 import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.domain.dto.community.ArticleDto;
+import com.example.closeup.domain.dto.community.BoardDto;
+import com.example.closeup.service.CommunityService;
+import com.example.closeup.domain.dto.ExpertDto;
+import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.service.MyPageService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +20,7 @@ import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +42,9 @@ public class MyPageController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CommunityService communityService;
+
 
     @GetMapping("/myPageMain")
     public String getMyPageMain(
@@ -49,6 +59,18 @@ public class MyPageController {
     @GetMapping("/modifyUserInfo")
     public String getModify(Model model) {
         return "user/myPage/modifyUserInfo";
+    }
+
+    @PostMapping("/modifyUserInfo")
+    public String modifyUserInfo(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam("password") String password,
+            @RequestParam("phone") String phone,
+            Model model
+    ) {
+        userService.updateUserProfileById(principalDetails.getUsername(), passwordEncoder.encode(password), phone);
+        model.addAttribute("message", "정보 변경이 완료되었습니다.");
+        return "redirect:/myPage/myPageMain";
     }
 
     // 회원정보 수정을 위한 비밀번호 입력 페이지
@@ -68,7 +90,7 @@ public class MyPageController {
         if(passwordEncoder.matches(password, user.getPassword())) {
             return "redirect:/myPage/modifyUserInfo";
         } else {
-            model.addAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            model.addAttribute("errorMessage", "비밀번호를 잘못 입력하셨습니다.");
             return "/user/myPage/modifyConfirm";
         }
     }
@@ -111,6 +133,18 @@ public class MyPageController {
         System.out.println(articles);
         model.addAttribute("articles", articles);
 
+//    public String getPostManage(
+//            Model model,
+//            Authentication authentication,
+//            @ModelAttribute ArticleDto articleDto) {
+//        String userId = authentication.getName();
+////        articleDto.setUserId(userId);
+//        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
+//        System.out.println(articles);
+//        List<BoardDto> boards = communityService.getAllBoards();
+//        System.out.println(articles);
+//        model.addAttribute("boards", boards);
+//        model.addAttribute("articles", articles);
         return "user/myPage/postmanage";
     }
 

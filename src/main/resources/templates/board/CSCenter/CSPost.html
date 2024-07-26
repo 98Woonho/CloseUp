@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/js/header.js" defer></script>
     <script src="/js/board/CSCenter/CSMain.js" defer></script>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <script src="/js/board/CSCenter/CSPost.js" defer></script>
 
 
     <link rel="stylesheet" href="/css/header/header.css">
     <link rel="stylesheet" href="/css/fixedBtns.css">
-    <link rel="stylesheet" href="/css/board/CSCenter/CSPost.css">
+    <link rel="stylesheet" href="/css/board/CSCenter/CSPost.css"  >
 
 </head>
 <body>
@@ -24,43 +28,45 @@
     <section class="faq-board-section">
         <div id="viewPost">
             <section id="postTitleCon">
-                <p>제목입니다.</p>
+                <p th:text="${article.title}">제목입니다.</p>
             </section>
             <section id="viewContent">
-                <p>내용입니다.</p>
+                <p th:text="${article.content}">내용입니다.</p>
             </section>
         </div>
         <div>
-            <section id="commentBtnSec">
+            <form th:action="@{/board/CSCenter/CSPost/{articleId}(articleId=${article.id})}" method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+            <section id="commentBtnSec" sec:authorize="hasRole('ROLE_ADMIN')">
                 <!-- 관리자로 로그인 시, 답변달기 버튼 보여지고 -->
                 <button>답변하기</button>
                 <!-- 답변하기 버튼 클릭시 댓글로 답변가능 -->
             </section>
-                <div id="commentInputCon">
-                    <form action="" method="post">
+                <div id="commentInputCon" sec:authorize="hasRole('ROLE_ADMIN')">
+
                         <input type="text" name="content" placeholder="댓글을 남겨보세요.">
-                    </form>
+                        <input type="hidden" name="articleId" th:value="${article.id}">
                 </div>
+            </form>
             <section>
                 <div class="commentsCon">
                     <ul class="commentList">
-                        <li class="commentCon" >
+                        <li class="commentCon" th:each="comment : ${comments}" >
                             <div class="commentHeaderCon">
                                 <!-- 해당 작성자의 아이디를 클릭시, 해당 user의 프로필로 이동 -->
-                                <a class="commentWriter" href="#">댓글 작성자(관리자)</a>
-                                <div class="commentWriteDate">2024. 06. 26</div>
+                                <a class="commentWriter" href="#" th:text="${comment.userId}">댓글 작성자(관리자)</a>
+                                <div class="commentWriteDate" th:text="${#temporals.format(comment.writtenAt, 'yyyy-MM-dd HH:mm')}">2024. 06. 26</div>
                                 <div class="commentBtnCon">
-                                    <button class="commentLikeBtn">
+                                    <button class="commentLikeBtn" th:data-comment-id="${comment.id}">
                                         <i class="fa-regular fa-thumbs-up"></i>
                                         <span>좋아요</span>
-                                        <span class="commentLikeCount" >0</span>
+                                        <span class="commentLikeCount" th:text="${comment.likeCount}">0</span>
                                     </button>
                                 </div>
                             </div>
                             <div class="commentContent">
-                                <p>관리자권한 | 댓글 입니다.</p>
+                                <p th:text="${comment.content}">관리자권한 | 댓글 입니다.</p>
                             </div>
-                            <div class="comment-delete">
+                            <div class="comment-delete" th:data-comment-id="${comment.id}" th:if="${#authentication.name == comment.userId}">
                                 <i class="fa-solid fa-x"></i>
                             </div>
                         </li>

@@ -218,19 +218,19 @@
     background-color: var(--color-lighter-bluegray);
     color: var(--color-main-navy);
 }
-#mapSec{
+#info #mapSec{
     padding: 20px;
 }
-#map{
+#infoSec #map{
     margin: 10px 0;
 }
-#map img{
+#infoSec #map img{
     width: 300px;
     height: 160px;
     border: 1px solid black;
     border-radius: 20px;
 }
-#mapAddr{
+#infoSec #mapAddr{
     font-size: 14px;
     color: var(--color-medium-gray);
 }

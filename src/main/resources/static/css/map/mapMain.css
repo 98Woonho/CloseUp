@@ -21,9 +21,9 @@
     color: var(--color-error-red);
 }
 /************* 지도 **************/
-#map img{
+#expertMap #map img{
     width: 1040px;
-    height: 640px;
+    height: 640px
 }
 /************* 내 근처 전문가 **************/
 .embla{
@@ -35,8 +35,8 @@
     display: flex;
 }
 .embla__slide{
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 280px;
 }
 .embla__slide{
     margin-left: 20px;
@@ -45,8 +45,8 @@
     margin-right: 20px;
 }
 .img-container img{
-    width: 240px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     border-radius: 20px;
 }
 .title-container{

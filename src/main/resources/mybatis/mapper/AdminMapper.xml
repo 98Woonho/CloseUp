@@ -23,9 +23,14 @@
     </delete>
 
     <!--관리자 페이지 게시판-->
-    <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
-        SELECT * FROM article;
-    </select>
+<!--    <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">-->
+<!--        SELECT * FROM article;-->
+<!--    </select>-->
+        <select id="selectAllArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">
+            SELECT a.*, b.name as board_name
+            FROM article a
+                     JOIN board b ON a.board_code = b.code
+        </select>
     <select id="selectUsersByRole" resultType="com.example.closeup.domain.dto.UserDto">
         SELECT * FROM `user` WHERE role = #{role}
     </select>
@@ -51,7 +56,9 @@
         </where>
     </select>
     <select id="selectArticleByUser" resultType="com.example.closeup.domain.dto.community.ArticleDto">
-        SELECT * FROM article
+        SELECT a.*, b.name as board_name
+        FROM article a
+                 JOIN board b ON a.board_code = b.code
         WHERE board_code = #{boardCode}
     </select>
     <select id="searchArticles" resultType="com.example.closeup.domain.dto.community.ArticleDto">

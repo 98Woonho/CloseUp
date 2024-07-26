@@ -11,6 +11,9 @@
     font-weight: lighter;
     text-align: center;
 }
+.title-sec > p{
+    cursor: pointer;
+}
 .faq-board-section {
     width: 1104px;
     margin: 24px auto;

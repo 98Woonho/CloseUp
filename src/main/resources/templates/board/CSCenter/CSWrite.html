@@ -24,13 +24,13 @@
         </section>
         <!-- 상단 고객센터 메뉴 -->
         <section class="top-navBtn">
-            <button><a href="/board/cs/faq">FnQ</a></button>
-            <button><a href="/board/cs/one_on_one">1:1 문의</a></button>
-            <button><a href="board/cs/notice">공지사항</a></button>
+            <button><a href="/board/CSCenter/CSMain">FnQ</a></button>
+            <button><a href="/board/CSCenter/CSMain">1:1 문의</a></button>
+            <button><a href="/board/CSCenter/CSMain">공지사항</a></button>
         </section>
     </section>
     <section class="faq-board-section">
-        <form action="#" method="post">
+        <form action="/board/CSCenter/CSWrite" method="post">
             <section class="top-sec">
                 <div class="title-con">
                     <p class="commuTitle" sec:authorize="!hasRole('ROLE_ADMIN')">글쓰기</p>
@@ -38,6 +38,7 @@
             </section>
             <section id="writeContainer">
                 <div class="title-con">
+                    <input type="hidden" name="boardCode" value="customerService">
                     <label for="title"></label>
                     <input type="text" id="title" placeholder="제목을 입력하세요." name="title"  sec:authorize="!hasRole('ROLE_ADMIN')">
                     <th:block th:each="article: ${articles}">
@@ -55,7 +56,7 @@
                 </label>
             </section>
             <section class="writeBtnSec">
-                <button type="button">취소</button>
+                <button type="button" onclick="location.href='CSMain'">취소</button>
                 <button type="submit" sec:authorize="!hasRole('ROLE_ADMIN')">확인</button>
 
             </section>

@@ -26,8 +26,6 @@ prevButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollPrev, fal
 nextButtonNodePortfolio.addEventListener('click', emblaPortfolio.scrollNext, false);
 
 
-
-
 const consultBtn = document.getElementById('consultBtn');
 const expertNickname = document.getElementById('expertNickname').value;
 
@@ -38,7 +36,7 @@ consultBtn.addEventListener('click', function(e) {
     // 채팅 방 생성
     axios.post('/chat/room', { expertNickname: expertNickname })
         .then(res => {
-            location.href = `/myPage/chats?roomId=${res.data}`;
+            location.href = `/myPage/chats`;
         })
         .catch(err => {
             console.log(err);

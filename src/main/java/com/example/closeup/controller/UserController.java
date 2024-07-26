@@ -1,34 +1,41 @@
-package com.example.closeup.controller;
+    package com.example.closeup.controller;
 
-import com.example.closeup.config.auth.PrincipalDetails;
-import com.example.closeup.domain.dto.ExpertDetailDto;
-import com.example.closeup.domain.dto.ExpertDto;
-import com.example.closeup.domain.dto.UserDto;
-import com.example.closeup.service.ExpertService;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.json.JSONObject;
-import org.springframework.http.*;
-import com.example.closeup.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+    import com.example.closeup.config.auth.PrincipalDetails;
+    import com.example.closeup.domain.dto.ExpertDetailDto;
+    import com.example.closeup.domain.dto.ExpertDto;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+    import com.example.closeup.config.auth.PrincipalDetails;
+
+    import com.example.closeup.domain.dto.OAuth2UserDto;
+    import com.example.closeup.domain.dto.UserDto;
+    import com.example.closeup.service.ExpertService;
+    import jakarta.servlet.http.HttpSession;
+    import lombok.Data;
+    import lombok.extern.slf4j.Slf4j;
+    import org.json.JSONObject;
+    import org.springframework.http.*;
+    import com.example.closeup.service.UserService;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.security.core.Authentication;
+    import org.springframework.security.core.annotation.AuthenticationPrincipal;
+    import org.springframework.security.oauth2.core.user.OAuth2User;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.util.LinkedMultiValueMap;
+    import org.springframework.util.MultiValueMap;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.client.RestTemplate;
+    import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
+
+    import java.io.IOException;
+    import java.security.Principal;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
 
 @Slf4j
 @Controller
@@ -80,57 +87,70 @@ public class UserController {
 
     //비밀번호 찾기
 
-    @GetMapping("/findPW")
-    public String getFindPW() {
-        return "user/findPW";
-    }
-
-    @PostMapping("/findPW")
-    public String postFindPW(@RequestParam String name,
-                             @RequestParam String id,
-                             Model model)
-    {
-        UserDto user = userService.findUserByNameAndId(name, id);
-        if (user != null) {
-            model.addAttribute("userId", user.getId());
-            return "user/findPwNewPw";
-        } else {
-            model.addAttribute("error", "이름 또는 아이디가 틀렸습니다.");
+        @GetMapping("/findPW")
+        public String getFindPW() {
             return "user/findPW";
         }
-    }
 
-    @PostMapping("/findPwNewPw")
-    public String resetPassword(@RequestParam("id") String id,
-                                @RequestParam("password") String newPassword,
-                                RedirectAttributes redirectAttributes)
-    {
-        boolean result = userService.resetPassword(id, newPassword);
-        if (result) {
-            redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
-            return "redirect:/user/findPwSuccess";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "비밀번호 변경에 실패했습니다.");
-            return "redirect:/user/findPW";
+        @PostMapping("/findPW")
+        public String postFindPW(@RequestParam String name,
+                                 @RequestParam String id,
+                                 Model model)
+        {
+            UserDto user = userService.findUserByNameAndId(name, id);
+            if (user != null) {
+                model.addAttribute("userId", user.getId());
+                return "user/findPwNewPw";
+            } else {
+                model.addAttribute("error", "이름 또는 아이디가 틀렸습니다.");
+                return "user/findPW";
+            }
         }
-    }
 
-    @GetMapping("/findPwSuccess")
-    public void getFindPWSuccess() {
+        @PostMapping("/findPwNewPw")
+        public String resetPassword(@RequestParam("id") String id,
+                                    @RequestParam("password") String newPassword,
+                                    RedirectAttributes redirectAttributes)
+        {
+            boolean result = userService.resetPassword(id, newPassword);
+            if (result) {
+                redirectAttributes.addFlashAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+                return "redirect:/user/findPwSuccess";
+            } else {
+                redirectAttributes.addFlashAttribute("error", "비밀번호 변경에 실패했습니다.");
+                return "redirect:/user/findPW";
+            }
+        }
 
-    }
+        @GetMapping("/findPwSuccess")
+        public void getFindPWSuccess() {
 
+        }
 
-    @GetMapping("register")
-    public void getRegister() {
-    }
+        @GetMapping("/register")
+        public String getRegister(
+                @RequestParam(defaultValue = "false") String social,
+                Model model,
+                HttpSession session
+        ) {
+            if ("kakao".equals(social)) {
+                PrincipalDetails principalDetails = (PrincipalDetails) session.getAttribute("oAuth2UserInfo");
+                if (principalDetails != null) {
+                    model.addAttribute("socialUserInfo", principalDetails.getUserDto());
+                    model.addAttribute("socialProvider", "kakao");
+                    session.removeAttribute("oAuth2UserInfo"); //
+                }
+            }
+            return "user/register";
+        }
 
-    @PostMapping("register")
-    public ResponseEntity<String> postRegister(UserDto userDto) {
-        userService.register(userDto);
+        @PostMapping("/register")
+        public ResponseEntity<String> postRegister(@ModelAttribute UserDto userDto, Authentication authentication) {
 
-        return ResponseEntity.ok("회원가입이 성공적으로 완료 되었습니다.");
-    }
+            userService.register(userDto);
+
+            return ResponseEntity.ok("회원가입이 성공적으로 완료되었습니다.");
+        }
 
     // portOne 엑세스 토큰 받기
     @GetMapping("token")
@@ -139,36 +159,36 @@ public class UserController {
         // HEADER
         HttpHeaders headers = new HttpHeaders();
 
-        // PARAM
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_key", "7582034642764268");
-        params.add("imp_secret", "JxMwheK2PKBrxFxOifDLwwZvdyzjwDERKj4TzStgSZ06Wmg3oQp7h3WjK3nOfdjXsSXF0ZNgCbBWyPrV");
+            // PARAM
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("imp_key", "7582034642764268");
+            params.add("imp_secret", "JxMwheK2PKBrxFxOifDLwwZvdyzjwDERKj4TzStgSZ06Wmg3oQp7h3WjK3nOfdjXsSXF0ZNgCbBWyPrV");
 
-        // Entity
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+            // Entity
+            HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
-        // REQUEST
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<PortOneTokenResponse> response = rt.exchange(url, HttpMethod.POST, entity, PortOneTokenResponse.class);
+            // REQUEST
+            RestTemplate rt = new RestTemplate();
+            ResponseEntity<PortOneTokenResponse> response = rt.exchange(url, HttpMethod.POST, entity, PortOneTokenResponse.class);
 
-        //RESPONSE
-        return response.getBody().getResponse().getAccess_token();
-    }
+            //RESPONSE
+            return response.getBody().getResponse().getAccess_token();
+        }
 
-    //access토큰 객체
-    @Data
-    private static class TokenResponse{
-        public String access_token;
-        public int now;
-        public int expired_at;
-    }
+        //access토큰 객체
+        @Data
+        private static class TokenResponse{
+            public String access_token;
+            public int now;
+            public int expired_at;
+        }
 
-    @Data
-    private static class PortOneTokenResponse{
-        public int code;
-        public Object message;
-        public TokenResponse response;
-    }
+        @Data
+        private static class PortOneTokenResponse{
+            public int code;
+            public Object message;
+            public TokenResponse response;
+        }
 
     // 포트원 통합인증
     @GetMapping("cert/{imp_uid}")
@@ -264,9 +284,8 @@ public class UserController {
 
     @GetMapping("")
     @ResponseBody
-    public String getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return principalDetails.getUserDto().getId();
-
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return principalDetails.getUserDto();
     }
 
     // 전문가 닉네임 중복 확인
@@ -286,20 +305,19 @@ public class UserController {
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             ExpertDto expertDto
     ) {
-        System.out.println(expertDto);
         expertDto.setUserId(principalDetails.getUsername());
         expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
 
-        userService.insertExpertInfo(expertDto);
-        expertService.insertExpertDetails(expertDto);
-        userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
+            userService.insertExpertInfo(expertDto);
+            expertService.insertExpertDetails(expertDto);
+            userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
 
-        return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
-    }
-  
+            return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
+        }
 
-    @GetMapping("/addExpertInfo")
-    public String getAddExpertInfo(Model model) {
-        return "user/addExpertInfo";
+
+        @GetMapping("/addExpertInfo")
+        public String getAddExpertInfo(Model model) {
+            return "user/addExpertInfo";
+        }
     }
-}

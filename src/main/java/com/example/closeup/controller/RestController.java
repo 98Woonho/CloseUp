@@ -1,11 +1,15 @@
 package com.example.closeup.controller;
 
 import com.example.closeup.config.auth.PrincipalDetails;
+import com.example.closeup.domain.dto.ChatRoomDto;
 import com.example.closeup.domain.dto.ExpertDto;
+import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.ExpertService;
+import com.example.closeup.service.MyPageService;
 import com.example.closeup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +62,11 @@ public class RestController {
     @ResponseBody
     @GetMapping("/myPage/profileImage")
     public ResponseEntity<byte[]> getProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam(value = "userId", required = false) String userId
     ) {
-        byte[] data = principalDetails.getUserDto().getProfileImg();
+        UserDto userDto = userId != null ? userService.getUserDto(userId) : principalDetails.getUserDto();
+        byte[] data = userDto.getProfileImg();
         return ResponseEntity.ok()
                 .contentLength(data.length)
                 .body(data);
@@ -69,9 +75,10 @@ public class RestController {
     @ResponseBody
     @GetMapping("/expert/profileImage")
     public ResponseEntity<byte[]> getExpertProfileImage(
-            @AuthenticationPrincipal PrincipalDetails principalDetails
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestParam(value = "expertNickname", required = false) String expertNickname
     ) {
-        ExpertDto expert = expertService.selectExpertDtoByUserId(principalDetails.getUsername());
+        ExpertDto expert = expertNickname != null ? expertService.getExpertDto(expertNickname) : expertService.selectExpertDtoByUserId(principalDetails.getUsername());
         byte[] data = expert.getProfileImg();
         return ResponseEntity.ok()
                 .contentLength(data.length)

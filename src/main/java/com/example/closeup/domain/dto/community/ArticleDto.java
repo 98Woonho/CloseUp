@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ArticleDto {
     private Integer id;  // 게시글 아이디
     private String boardCode;
-    private String name;  // board테이블의 분류명(게시글 카테고리)
+    private String boardName;
     private BoardDto board;
     private String userId;
     private String title;

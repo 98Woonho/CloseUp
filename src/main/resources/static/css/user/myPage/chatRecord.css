@@ -65,6 +65,7 @@
     width: 64px;
     height: 64px;
     margin-right: 16px;
+    border-radius: 50%;
 }
 .chat-li{
     cursor: pointer;
@@ -132,6 +133,7 @@
     height: 48px;
     align-self: center;
     margin-right: 16px;
+    border-radius: 50%;
 }
 /************* 채팅창 **************/
 #chatMsgSec{
@@ -190,7 +192,8 @@
 /************* 우측 프로필 **************/
 #infoSec{
     flex: 1;
-    height: 562px;
+    height: 100%;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
 }
 #profileSec{
     padding: 20px;
@@ -202,6 +205,7 @@
 #profileImg img{
     width: 104px;
     height: 104px;
+    border-radius: 50%;
 }
 #profileImg a{
     display: block;
@@ -227,19 +231,18 @@
     background-color: var(--color-lighter-bluegray);
     color: var(--color-main-navy);
 }
-#mapSec{
+#infoSec #mapSec{
     padding: 20px;
 }
-#map{
+#infoSec #map{
     margin: 10px 0;
-}
-#map img{
     width: 300px;
     height: 160px;
     border: 1px solid black;
     border-radius: 20px;
 }
-#mapAddr{
+
+#infoSec #mapAddr{
     font-size: 14px;
     color: var(--color-medium-gray);
 }
@@ -284,5 +287,41 @@
 /************* 우측 프로필 **************/
 #infoSec .non-selected > div{
     margin: 150px 0;
+    text-align: center;
+}
+
+
+.message-count-container {
+    position: relative;
+    width: 30px;
+}
+
+.message-count.visible {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff8888;
+    color: #fff8f8;
+}
+
+.chat .time {
+    position: relative;
+    top: 8px;
+}
+
+.chat.user1 .time {
+    right: 3px;
+}
+
+.chat.user2 .time {
+    left: 3px;
+}
+
+.chat.date {
     text-align: center;
 }

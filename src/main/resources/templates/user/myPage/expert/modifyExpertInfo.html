@@ -6,10 +6,13 @@
     <meta charset="UTF-8">
     <title>마이페이지 | 전문가 정보 수정 페이지</title>
     <script src="/js/header.js" defer></script>
+    <script src="/js/user/myPage/expert/modifyExpertInfo.js" defer></script>
+    <script src="/js/common.js" defer></script>
 
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <th:block th:insert="~{fragments.html :: cdns}"></th:block>
 
     <link rel="stylesheet" href="/css/user/myPage/expert/modifyExpertInfo.css">
     <link rel="stylesheet" href="/css/header/header.css">
@@ -26,189 +29,219 @@
             <section id="titleSec">
                 <p>전문가 정보 수정 페이지</p>
             </section>
-            <form action="" method="POST">
+            <form action="/expert/modifyExpertInfo" method="POST">
                 <!-- 전문가 정보 수정 섹션 -->
                 <section id="infoSection">
+                    <!-- 전문 분야 선택 -->
+                    <div class="info-container">
+                        <!-- textarea 에서 입력하고 버튼 누르면 추가되고 X 눌러서 삭제할 수 있는 방식 -->
+                        <p class="sub-title"><span>닉네임 설정</span> (최대 15자)</p>
+                        <div class="textarea-container">
+                            <label>
+                                <input type="text" maxlength="15" name="nickname">
+                            </label>
+                            <div class="input-btn-container">
+                                <button type="button" id="duplicateBtn">중복 확인</button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- 전문가 소개 -->
                     <div class="info-container">
                         <p class="sub-title"><span>전문가 소개</span></p>
                         <div id="introTextareaContainer">
                             <label>
-                                <textarea></textarea>
+                                <textarea name="introduction"></textarea>
                             </label>
                         </div>
                     </div>
                     <!-- 전문 분야 선택 -->
                     <div class="info-container">
                         <!-- textarea 에서 입력하고 버튼 누르면 추가되고 X 눌러서 삭제할 수 있는 방식 -->
+                        <!-- expertise -->
                         <p class="sub-title"><span>전문 분야</span></p>
-                        <div class="tags-container">
-                            <div class="tags"><p>웹 페이지 제작</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
+                        <div class="tags-container" id="expertiseTagsContainer">
+                            <div class="tags" th:each="expertise: ${expertises}"><p value="expertise" th:text="${expertise.information}"></p><button type="button" class="delete-btns"><i class="fa-solid fa-xmark"></i></button></div>
                         </div>
                         <div class="textarea-container">
                             <label>
-                                <textarea></textarea>
+                                <input type="text" id="expertiseInput">
                             </label>
                             <div class="input-btn-container">
-                                <button class="input-btn">입력</button>
+                                <button class="input-btn" id="addExpertiseBtn" type="button">입력</button>
                             </div>
                         </div>
                     </div>
                     <div class="info-container">
+                        <!-- skill -->
                         <p class="sub-title"><span>보유 기술</span> (최소 3항목, 최대 6항목)</p>
                         <div class="skills-container">
                             <div class="container">
-                                <input type="checkbox" id="skillJava">
+                                <input type="checkbox" id="skillJava" value="java">
                                 <label for="skillJava">Java</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillPython">
+                                <input type="checkbox" id="skillPython" value="python">
                                 <label for="skillPython">Python</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillJavaScript">
+                                <input type="checkbox" id="skillJavaScript" value="javaScript">
                                 <label for="skillJavaScript">JavaScript</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillC">
+                                <input type="checkbox" id="skillC" value="c">
                                 <label for="skillC">C</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillC++">
+                                <input type="checkbox" id="skillC++" value="c++">
                                 <label for="skillC++">C++</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillC#">
+                                <input type="checkbox" id="skillC#" value="c#">
                                 <label for="skillC#">C#</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillReact">
+                                <input type="checkbox" id="skillReact" value="react">
                                 <label for="skillReact">React</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillMySQL">
+                                <input type="checkbox" id="skillMySQL" value="mysql">
                                 <label for="skillMySQL">MySQL</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillMariaDB">
+                                <input type="checkbox" id="skillMariaDB" value="mariadb">
                                 <label for="skillMariaDB">MariaDB</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillFlutter">
+                                <input type="checkbox" id="skillFlutter" value="flutter">
                                 <label for="skillFlutter">Flutter</label>
                             </div>
                             <div class="container">
 
-                                <input type="checkbox" id="skillKotlin">
+                                <input type="checkbox" id="skillKotlin" value="kotlin">
                                 <label for="skillKotlin">Kotlin</label>
                             </div>
                             <div class="container">
 
-                                <input type="checkbox" id="skillSwift">
+                                <input type="checkbox" id="skillSwift" value="swift">
                                 <label for="skillSwift">Swift</label>
                             </div>
                             <div class="container">
 
-                                <input type="checkbox" id="skillPHP">
+                                <input type="checkbox" id="skillPHP" value="php">
                                 <label for="skillPHP">PHP</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillJSP">
+                                <input type="checkbox" id="skillJSP" value="jsp">
                                 <label for="skillJSP">JSP</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillTypeScript">
+                                <input type="checkbox" id="skillTypeScript" value="typeScript">
                                 <label for="skillTypeScript">TypeScript</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillGo">
+                                <input type="checkbox" id="skillGo" value="go">
                                 <label for="skillGo">Go</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillRuby">
+                                <input type="checkbox" id="skillRuby" value="ruby">
                                 <label for="skillRuby">Ruby</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillJquery">
+                                <input type="checkbox" id="skillJquery" value="jquery">
                                 <label for="skillJquery">Jquery</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillLinux">
+                                <input type="checkbox" id="skillLinux" value="linux">
                                 <label for="skillLinux">Linux</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillNode.JS">
+                                <input type="checkbox" id="skillNode.JS" value="nodeJs">
                                 <label for="skillNode.JS">Node.JS</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillSpring">
+                                <input type="checkbox" id="skillSpring" value="spring">
                                 <label for="skillSpring">Spring</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillSpringBoot">
+                                <input type="checkbox" id="skillSpringBoot" value="springBoot">
                                 <label for="skillSpringBoot">SpringBoot</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillDjango">
+                                <input type="checkbox" id="skillDjango" value="django">
                                 <label for="skillDjango">Django</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillHTML">
+                                <input type="checkbox" id="skillHTML" value="html">
                                 <label for="skillHTML">HTML</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillCSS">
+                                <input type="checkbox" id="skillCSS" value="css">
                                 <label for="skillCSS">CSS</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillBootStrap">
+                                <input type="checkbox" id="skillBootStrap" value="bootStrap">
                                 <label for="skillBootStrap">BootStrap</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillEmotion">
+                                <input type="checkbox" id="skillEmotion" value="emotion">
                                 <label for="skillEmotion">Emotion</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillMongoDB">
+                                <input type="checkbox" id="skillMongoDB" value="mongodb">
                                 <label for="skillMongoDB">MongoDB</label>
                             </div>
                             <div class="container">
-                                <input type="checkbox" id="skillExpress">
+                                <input type="checkbox" id="skillExpress" value="Express">
                                 <label for="skillExpress">Express</label>
                             </div>
                         </div>
                     </div>
+
                     <div class="info-container">
+                        <!-- career -->
                         <p class="sub-title"><span>경력 사항</span></p>
-                        <div class="tags-container">
-                            <div class="tags"><p>OO기업에서 6년간 근무</p><a href="#"><i class="fa-solid fa-xmark"></i></a>
-                            </div>
-                            <div class="tags"><p>OO기업에서 인턴쉽 경험</p><a href="#"><i class="fa-solid fa-xmark"></i></a>
-                            </div>
+                        <div class="tags-container" id="careerTagsContainer">
+                            <div class="tags" th:each="career: ${careers}"><p value="career" th:text="${career.information}"></p><button type="button" class="delete-btns"><i class="fa-solid fa-xmark"></i></button></div>
                         </div>
                         <div class="textarea-container">
                             <label>
-                                <textarea></textarea>
+                                <input type="text" id="careerInput">
                             </label>
                             <div class="input-btn-container">
-                                <button class="input-btn">입력</button>
+                                <button class="input-btn" id="addCareerBtn" type="button">입력</button>
                             </div>
                         </div>
                     </div>
                     <div class="info-container">
+                        <!-- ability -->
                         <p class="sub-title"><span>학력/자격증</span></p>
-                        <div class="tags-container">
-                            <div class="tags"><p>OO대학교 졸업</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
-                            <div class="tags"><p>정보처리기사</p><a href="#"><i class="fa-solid fa-xmark"></i></a></div>
-                            <div class="tags"><p>리눅스 마스터 2급</p><a href="#"><i class="fa-solid fa-xmark"></i></a>
-                            </div>
+                        <div class="tags-container" id="abilityTagsContainer">
+                            <div class="tags" th:each="ability: ${abilities}"><p value="ability" th:text="${ability.information}"></p><button type="button" class="delete-btns"><i class="fa-solid fa-xmark"></i></button></div>
                         </div>
                         <div class="textarea-container">
                             <label>
-                                <textarea></textarea>
+                                <input type="text" id="abilityInput">
                             </label>
                             <div class="input-btn-container">
-                                <button class="input-btn">입력</button>
+                                <button class="input-btn" id="addAbilityBtn" type="button">입력</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-container">
+                        <p class="sub-title"><span>주소</span></p>
+                        <div class="input-container">
+                            <div class="addr-container">
+                                <label for="zipcodeInput"></label>
+                                <input type="text" id="zipcodeInput" name="zipcode" disabled>
+                                <div class="input-btn-container">
+                                    <button id="addressFindBtn" type="button">주소 찾기</button>
+                                </div>
+                            </div>
+                            <div class="addr-container">
+                                <label for="addressInput"></label>
+                                <input type="text" id="addressInput" name="address" disabled>
+                                <label for="addressDetailInput"></label>
+                                <input type="text" id="addressDetailInput" name="addressDetail" placeholder="상세 주소를 입력해주세요.">
                             </div>
                         </div>
                     </div>
@@ -227,9 +260,7 @@
                                 <div class="embla__container">
                                     <div class="embla__slide">
                                         <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                            <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                         </div>
                                         <div class="title-container">
                                             <a class="portfolio-title" href="#">포트폴리오 제목</a>
@@ -238,9 +269,7 @@
                                     </div>
                                     <div class="embla__slide">
                                         <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                            <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                         </div>
                                         <div class="title-container">
                                             <a class="portfolio-title" href="#">포트폴리오 제목</a>
@@ -249,9 +278,7 @@
                                     </div>
                                     <div class="embla__slide">
                                         <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                            <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                         </div>
                                         <div class="title-container">
                                             <a class="portfolio-title" href="#">포트폴리오 제목</a>
@@ -260,9 +287,7 @@
                                     </div>
                                     <div class="embla__slide">
                                         <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                            <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                         </div>
                                         <div class="title-container">
                                             <a class="portfolio-title" href="#">포트폴리오 제목</a>
@@ -271,9 +296,7 @@
                                     </div>
                                     <div class="embla__slide">
                                         <div class="img-container">
-                                            <a href="#"><img
-                                                    src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718"
-                                                    alt="#"></a>
+                                            <a href="#"><img src="https://d2v80xjmx68n4w.cloudfront.net/members/portfolios/mugzP1699960704.png?w=718" alt="#"></a>
                                         </div>
                                         <div class="title-container">
                                             <a class="portfolio-title" href="#">포트폴리오 제목</a>
@@ -283,10 +306,8 @@
                                 </div>
                             </div>
                             <div class="embla-btn-container">
-                                <button type="button" class="embla__prev"><i class="fa-solid fa-chevron-left"></i>
-                                </button>
-                                <button type="button" class="embla__next"><i class="fa-solid fa-chevron-right"></i>
-                                </button>
+                                <button type="button" class="embla__prev"><i class="fa-solid fa-chevron-left"></i></button>
+                                <button type="button" class="embla__next"><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -301,25 +322,6 @@
         </div>
     </section>
     <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
-
 </main>
-
-<!-- 캐러셀 -->
-<script type="text/javascript">
-    // Grab wrapper nodes
-    const rootNode = document.querySelector('.embla');
-    const viewportNode = rootNode.querySelector('.embla__viewport');
-
-    // Grab button nodes
-    const prevButtonNode = rootNode.querySelector('.embla__prev');
-    const nextButtonNode = rootNode.querySelector('.embla__next');
-
-    // Initialize the carousel
-    const embla = EmblaCarousel(viewportNode);
-
-    // Add click listeners
-    prevButtonNode.addEventListener('click', embla.scrollPrev, false);
-    nextButtonNode.addEventListener('click', embla.scrollNext, false);
-</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.closeup.config;
 
 import com.example.closeup.handler.*;
+import com.example.closeup.service.CustomOAuth2DetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -46,12 +47,14 @@ public class SecurityConfig {
                     formLogin.successHandler(customLoginSuccessHandler());
                 });
 
-//        http.oauth2Login(oauth2Login -> {
-//            oauth2Login.loginPage("/user/login")
-//                    .defaultSuccessUrl("/")
-//                    .successHandler(new CustomOAuth2SuccessHandler())
-//                    .permitAll();
-//        });
+        http.oauth2Login(oauth2Login -> {
+            oauth2Login.loginPage("/user/login")
+                    .defaultSuccessUrl("/")
+                    .successHandler(customOAuth2SuccessHandler())
+                    .userInfoEndpoint(userInfo -> userInfo
+                            .userService(customOAuth2DetailsService()))
+                    .permitAll();
+        });
 
         http.logout(
                 logout ->{
@@ -99,5 +102,17 @@ public class SecurityConfig {
     public Oauth2JwtLoginSuccessHandler oauth2JwtLoginSuccessHandler(){
         return new Oauth2JwtLoginSuccessHandler();
     }
+
+    @Bean
+    public CustomOAuth2DetailsService customOAuth2DetailsService() {
+        return new CustomOAuth2DetailsService();
+    }
+
+    @Bean
+    public CustomOAuth2SuccessHandler customOAuth2SuccessHandler() {
+        return new CustomOAuth2SuccessHandler();
+    }
+
+
 
 }

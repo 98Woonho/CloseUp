@@ -26,6 +26,7 @@ CloseUp
 <br/>
 
 ## ▶️ ERD
+![CloseUp ERD](https://github.com/user-attachments/assets/af562524-a51e-42f9-9f0f-ef49cc8b9268)
 
 
 ## ▶️ 시연 영상

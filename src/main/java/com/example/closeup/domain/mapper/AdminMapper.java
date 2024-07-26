@@ -23,6 +23,7 @@ public interface AdminMapper {
             @Param("phone") String phone,
             @Param("expertStatus") String expertStatus);
     void deleteExpertUser(String id);
+
     /*********관리자 페이지 게시판***********/
     List<ArticleDto> selectAllArticles();
     List<ArticleDto> selectArticleByUser(String boardCode);

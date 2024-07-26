@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDto {
-    private Integer id;
+    private Integer id;  // 게시글 아이디
     private String boardCode;
     private String boardName;
     private BoardDto board;

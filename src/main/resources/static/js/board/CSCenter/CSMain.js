@@ -29,5 +29,3 @@ loginBtn.onclick = () => {
     }
 }
 
-
-

@@ -27,7 +27,7 @@
                 </section>
                 <form th:action="@{/myPage/wishlist}" method="post">
                     <section id="bodySec">
-                        <div th:if="${expertList.size() == 0}">
+                        <div th:if="${expertList.size() == 0}" class="is-null">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                             <p>즐겨찾기된 전문가의 정보가 없습니다.</p>
                         </div>
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="header-con">
                                         <div class="img-con">
-                                            <a th:href="@{|/user/expertDetail/${expert.nickname}|}"><img th:src="@{|${expert.profileImg}|}" alt="#"></a>
+                                            <a th:href="@{|/user/expertDetail/${expert.nickname}|}"><img th:src="${expert.profileImgUrl}" alt="#"></a>
                                         </div>
                                         <!-- 전문가의 카테고리 -->
                                         <div class="category-con">

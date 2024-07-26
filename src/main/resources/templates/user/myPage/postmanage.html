@@ -7,6 +7,7 @@
     <title>마이페이지 | 게시물 관리 페이지</title>
     <script src="/js/header.js" defer></script>
     <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <script defer src="/js/user/myPage/postmanage.js"></script>
 
     <link rel="stylesheet" href="/css/user/myPage/postmanage.css">
     <link rel="stylesheet" href="/css/header/header.css">
@@ -49,42 +50,29 @@
                         </colgroup>
                         <thead id="manageThead">
                         <tr id="theadRow">
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox" onclick="selectAll(this)"></th>
                             <th>게시글 제목</th>
                             <th>게시한 날짜</th>
                             <th>카테고리</th>
                             <th>작성자</th>
                         </tr>
                         </thead>
-                            <tbody id="manageTbody">
-                            <tr class="manage-row" th:each="article : ${articles}">
-                                <td><input type="checkbox"></td>
-                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.title}"></a></td>
-                                <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">Jun 21, 2024</td>
-                                <td th:text="${article.boardName}">자유 게시판</td>
-                                <td th:text="${article.userId}">abc123</td>
-                            </tr>
-<!--                        <tr class="manage-row">-->
-<!--                            <td><input type="checkbox"></td>-->
-<!--                            <td>글 제목 2</td>-->
-<!--                            <td>Jun 21, 2024</td>-->
-<!--                            <td>자유 게시판</td>-->
-<!--                            <td>abc123</td>-->
-<!--                        </tr>-->
-<!--                        <tr class="manage-row">-->
-<!--                            <td><input type="checkbox"></td>-->
-<!--                            <td>글 제목 3</td>-->
-<!--                            <td>Jun 21, 2024</td>-->
-<!--                            <td>자유 게시판</td>-->
-<!--                            <td>abc123</td>-->
-<!--                        </tr>-->
-<!--                        <tr class="manage-row">-->
-<!--                            <td><input type="checkbox"></td>-->
-<!--                            <td>글 제목 4</td>-->
-<!--                            <td>Jun 21, 2024</td>-->
-<!--                            <td>자유 게시판</td>-->
-<!--                            <td>abc123</td>-->
-<!--                        </tr>-->
+<!--                            <tbody id="manageTbody">-->
+<!--                            <tr class="manage-row" th:each="article : ${articles}">-->
+<!--                                <td><input type="checkbox"></td>-->
+<!--                                <td><a th:href="@{|/board/community/communityPost/${article.id}|}" th:text="${article.title}"></a></td>-->
+<!--                                <td th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">Jun 21, 2024</td>-->
+<!--                                <td th:text="${article.boardName}">자유 게시판</td>-->
+<!--                                <td th:text="${article.userId}">abc123</td>-->
+<!--                            </tr>-->
+                        <tbody id="manageTbody">
+                        <tr class="manage-row" th:data-id="${article.id}" th:each="article: ${articles}">
+                            <td><input type="checkbox"></td>
+                            <td th:text="${article.title}">글 제목 1</td>
+                            <td th:text="${#temporals.format(article.writtenAt, 'yy/MM/dd')}">Jun 21, 2024</td>
+                            <td th:text="${article.name}">자유 게시판</td>
+                            <td th:text="${article.userId}">abc123</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

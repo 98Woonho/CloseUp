@@ -7,30 +7,28 @@ import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.domain.dto.community.BoardDto;
 import com.example.closeup.service.CommunityService;
 import com.example.closeup.domain.dto.ExpertDto;
+import com.example.closeup.domain.dto.community.ArticleDto;
 import com.example.closeup.service.MyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import com.example.closeup.domain.dto.UserDto;
 import com.example.closeup.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -97,12 +95,13 @@ public class MyPageController {
         }
     }
 
-    @GetMapping("chats")
+    @GetMapping("/chats")
     public String getChats(@RequestParam(value="roomId", required = false) Long roomId, Authentication auth, Model model) {
         PrincipalDetails principal = (PrincipalDetails) auth.getPrincipal();
         String userId = principal.getUserDto().getId();
 
         ChatRoomDto selectedChatRoomDto = myPageService.getChatRoomDto(roomId);
+
         List<ChatRoomDto> chatRoomDtoList = myPageService.getChatRoomDtoList(userId);
 
         for (ChatRoomDto chatRoomDto : chatRoomDtoList) {
@@ -124,17 +123,46 @@ public class MyPageController {
 
     @GetMapping("/postmanage")
     public String getPostManage(
-            Model model,
-            Authentication authentication,
-            @ModelAttribute ArticleDto articleDto) {
-        String userId = authentication.getName();
-//        articleDto.setUserId(userId);
-        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            Model model
+    ) {
+        List<ArticleDto> articles = new ArrayList<>();
+        if (!Objects.isNull(principalDetails)) {
+            articles = myPageService.selectArticle(principalDetails.getUserDto().getId());
+        }
         System.out.println(articles);
-        List<BoardDto> boards = communityService.getAllBoards();
-        System.out.println(articles);
-        model.addAttribute("boards", boards);
         model.addAttribute("articles", articles);
+
+//    public String getPostManage(
+//            Model model,
+//            Authentication authentication,
+//            @ModelAttribute ArticleDto articleDto) {
+//        String userId = authentication.getName();
+////        articleDto.setUserId(userId);
+//        List<ArticleDto> articles = communityService.getMyPageArticles(userId);
+//        System.out.println(articles);
+//        List<BoardDto> boards = communityService.getAllBoards();
+//        System.out.println(articles);
+//        model.addAttribute("boards", boards);
+//        model.addAttribute("articles", articles);
         return "user/myPage/postmanage";
     }
+
+    @ResponseBody
+    @DeleteMapping("/postmanage")
+    public ResponseEntity<Void> deletePostManage(
+            @RequestBody List<Long> articleIds
+    ){
+        System.out.println(articleIds);
+        myPageService.deleteArticle(articleIds);
+        return ResponseEntity.ok().body(null);
+    }
+
+    // 리뷰 관리
+    @GetMapping("/review")
+    public String getReview(Model model) {
+        return "user/myPage/reviewWrite";
+    }
+
+
 }

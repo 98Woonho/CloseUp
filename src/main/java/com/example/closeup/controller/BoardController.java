@@ -115,6 +115,20 @@ public class BoardController {
         communityService.createComment(commentDto);
         return "redirect:/board/CSCenter/CSPost/" + articleId;
     }
+    // 고객 센터
+    @GetMapping("/cs")
+    public String getCSCenter() {
+        return "board/CSCenter/CSMain";
+    }
+
+    @GetMapping("/csWrite")
+    public String getCSCenterWrite() {
+        return "board/CSCenter/CSWrite";
+    }
+    @GetMapping("/csPost")
+    public String getCSCenterPost() {
+        return "board/CSCenter/CSPost";
+    }
 
     /**************댓글 좋아요***************/
     @PostMapping("/CSCenter/comment/{commentId}/like")
@@ -164,6 +178,5 @@ public class BoardController {
 
         return ResponseEntity.ok().body("결제가 완료 되었습니다. 결제 내역 페이지로 이동합니다.");
     }
+
 }
-
-

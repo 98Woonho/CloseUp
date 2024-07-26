@@ -31,7 +31,7 @@
         <section id="detailSection">
             <section id="expertProfileSec">
                 <div id="profileImgContainer">
-                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" alt="">
+                    <img th:src="${expert.profileImgUrl}" alt="#" src="/imgs/user-profile.png">
                 </div>
                 <div id="profileInfoContainer">
                     <div id="profileNameContainer">
@@ -74,7 +74,7 @@
                             <p class="nav-title" id="expertInfo">전문가 정보</p>
                             <div class="desc-container">
                                 <p class="sub-title">소개</p>
-                                <p class="desc">
+                                <p class="desc" th:text="${expert.introduction}">
                                     (주)오보아 입니다. nictoinc
                                     꼼꼼하게, 최선을 다해서, 친절하게, 대표가 직접 참여하겠습니다.
                                     공장처럼, 만들어 내지 않습니다.  하나하나 소통하면서 만들고 있습니다.

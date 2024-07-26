@@ -23,11 +23,9 @@
     margin-bottom: 16px;
 }
 
-
-
-
 .writeCategoryLabel > select {
     width: 360px;
+    margin-bottom: 20px;
     height: 40px;
     padding: 8px 16px;
     border: 1px solid var(--color-light-gray);

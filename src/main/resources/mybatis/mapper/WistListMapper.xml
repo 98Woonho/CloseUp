@@ -9,9 +9,11 @@
             ON W.`expert_id` = E.`user_id`
         WHERE W.`user_id` = #{userId}
     </select>
+
     <insert id="insertWishList">
         INSERT INTO `wish` (user_id, expert_id) VALUES (#{userId}, #{expertId})
     </insert>
+
     <delete id="deleteWishList">
         DELETE FROM `wish` WHERE user_id = #{userId} AND expert_id = #{expertId}
     </delete>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 작성하기</title>
+    <script src="https://kit.fontawesome.com/a8fad9cdbf.js" crossorigin="anonymous"></script>
+    <script src="/js/header.js" defer></script>
+    <script src="/js/user/myPage/review.js" defer></script>
+
+    <link rel="stylesheet" href="/css/header/header.css">
+    <link rel="stylesheet" href="/css/fixedBtns.css">
+    <link rel="stylesheet" href="/css/user/myPage/review.css">
+
+</head>
+<body>
+    <th:block th:insert="~{fragments.html :: header_fragment}"></th:block>
+    <main>
+        <section id="reviewSec">
+
+            <section id="topSec">
+                <p>리뷰 작성</p>
+            </section>
+
+            <!-- 리뷰를 작성할 서비스 게시글 정보 -->
+            <section id="serviceInfoSec">
+                <ul id="serviceInfoLies">
+                    <li>
+                        <button>
+                            <a href="">
+                                <div id="serviceImgCon">
+                                    <img src="/imgs/user-profile.png"/>
+                                </div>
+                                <section id="serviceTitleNContent">
+                                    <div id="titleCon">
+                                        <p>"<span>이용완료한 서비스 게시글의 제목입니다</span>"</p>
+                                    </div>
+                                    <div id="serviceIntroCon">
+                                        <p>서비스 게시글의 간단 설명 부분입니다.</p>
+                                    </div>
+                                </section>
+                            </a>
+                        </button>
+
+                    </li>
+                </ul>
+            </section>
+            <!-- 리뷰 작성하는 부분 -->
+            <section id="reviewFormSec">
+                <section>
+                    <span>평점</span>
+                    <div class="rating">
+                        <label class="rating__label rating__label--half" for="starhalf">
+                            <input type="radio" id="starhalf" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--full" for="star1">
+                            <input type="radio" id="star1" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--half" for="starhalf">
+                            <input type="radio" id="star1half" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--full" for="star1">
+                            <input type="radio" id="star2" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--half" for="starhalf">
+                            <input type="radio" id="star2half" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--full" for="star1">
+                            <input type="radio" id="star3" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--half" for="starhalf">
+                            <input type="radio" id="star3half" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--full" for="star1">
+                            <input type="radio" id="star4" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--half" for="starhalf">
+                            <input type="radio" id="star4half" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                        <label class="rating__label rating__label--full" for="star1">
+                            <input type="radio" id="star5" class="rating__input" name="rating" value="">
+                            <span class="star-icon"></span>
+                        </label>
+                    </div>
+
+                    <label>내용</label>
+                    <textarea></textarea>
+                </section>
+            </section>
+        </section>
+
+    </main>
+    <th:block th:insert="~{fragments.html :: fixedBtns_frag}"></th:block>
+
+</body>
+</html>

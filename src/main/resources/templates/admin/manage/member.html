@@ -103,7 +103,6 @@
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><input type="radio"><b>전체 선택</b></th>
                                     <th><b>아이디</b></th>
                                     <th><b>이름</b></th>
                                     <th><b>휴대폰 번호</b></th>
@@ -117,7 +116,6 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="user : ${users}">
-                                        <td><input type="radio" ></td>
                                         <td><span th:text="${user.id}">아이디</span></td>
                                         <td><span th:text="${user.name}">이름</span></td>
                                         <td><span th:text="${user.phone}">휴대폰 번호</span></td>

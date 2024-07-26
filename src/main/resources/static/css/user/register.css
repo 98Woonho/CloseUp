@@ -3,12 +3,10 @@
 
 main .content-container {
     margin: 80px auto;
-    height: 85vh;
 }
 
 .step-container {
     display: none;
-
     flex-direction: column;
 }
 
@@ -26,7 +24,7 @@ main[data-step="2"] .step-container[data-step="2"] {
 }
 
 .cert-container > p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 #certBtn {

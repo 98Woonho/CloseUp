@@ -104,7 +104,6 @@
                                 </colgroup>
                                 <thead>
                                 <tr>
-                                    <th><input type="radio"><b>전체 선택</b></th>
                                     <th><b>게시글 분류</b></th>
                                     <th><b>게시글 번호</b></th>
                                     <th><b>작성자</b></th>
@@ -118,12 +117,11 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="article, stat: ${articles}">
-                                    <td><input type="radio"></td>
                                     <td><span th:text="${article.boardName}">게시글 분류</span></td>
                                     <td><span th:text="${stat.count}">게시글 번호</span></td>
                                     <td><span th:text="${article.userId}">작성자</span></td>
                                     <td><span th:text="${article.title}">제목</span></td>
-                                    <td><span th:text="${#temporals.format(article.writtenAt, 'yyyy-MM-dd')}">작성 날짜</span></td>
+                                    <td><span th:text="${#temporals.format(article.writtenAt, 'yy/MM/dd')}">작성 날짜</span></td>
                                     <td><span th:text="${article.view}">조회수</span></td>
                                     <td>
 <!--                                        <input type="button" id="modifyBtn" value="수정">-->

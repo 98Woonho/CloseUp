@@ -10,6 +10,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     UserDto selectUserById(String id);
+
+    /**************즐겨찾기 여부 확인***************/
     ExpertDto selectExpertByNickNameWithIsWished(
             @Param("userId") String userId,
             @Param("expertNickName") String expertNickName

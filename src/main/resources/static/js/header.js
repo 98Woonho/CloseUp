@@ -2,7 +2,6 @@
 const findIcon = document.querySelector('#findIcon > div > svg');
 const findInputCon = document.querySelector('#clickedFind');
 const findInput = document.querySelector('#clickedFind > input');
-
 findIcon.onclick = () => {
     findIcon.style.display = 'none';
     findInputCon.style.display = 'block';

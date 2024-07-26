@@ -83,7 +83,9 @@
 .headerNav > ul > li:hover:last-child {
     font-weight: normal;
 }
-
+#adminLogout{
+    color: var(--color-lighter-bluegray);
+}
 
 /* 계정 전환 토글 스위치 */
 #accountToggleCon {

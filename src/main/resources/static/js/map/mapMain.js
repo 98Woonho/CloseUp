@@ -57,8 +57,6 @@ function loadNaverMap(lat, lng){
         var result = response.v2, // 검색 결과의 컨테이너
             items = result.results, // 검색 결과의 배열
             address = result.address; // 검색 결과로 만든 주소
-        console.log(address);
-        console.log(address.jibunAddress);
 
         if(address.roadAddress !== '') {
             currentAddress.textContent = address.roadAddress;
@@ -114,7 +112,6 @@ function loadNaverMap(lat, lng){
             const addressDetail = item.addressDetail;
             const profileImg = item.profileImg;
             const base64ProfileImg = `data:/image/*;base64, ${profileImg}`;
-            console.log(item);
 
             // 주소를 좌표로 변환(지오코더 사용)
             naver.maps.Service.geocode({
@@ -134,7 +131,7 @@ function loadNaverMap(lat, lng){
                     position: new naver.maps.LatLng(addrLat, addrLng),
                     map: map,
                     icon: {
-                        content: '<img src="' + base64ProfileImg + '" style="width: 40px; height: 40px;"/>',
+                        content: '<img src="' + base64ProfileImg + '" style="width: 40px; height: 40px; border-radius: 50%"/>',
                         size: new naver.maps.Size(40, 40),
                         anchor: new naver.maps.Point(20, 30)
                     }
@@ -149,7 +146,7 @@ function loadNaverMap(lat, lng){
                             '        <p class="expert-desc">' + introduction + '</p>\n' +
                             '        <p class="expert-addr">' + address + ' ' +  addressDetail + '</p>\n' +
                             '    </div>\n' +
-                            '    <button type="button">프로필<br/>보러가기</button>\n' +
+                            `    <button type="button" onclick="location.href='/user/expertDetail/${nickname}'">프로필<br/>보러가기</button>\n` +
                             '</div>',
                         borderWidth: 0
                     });

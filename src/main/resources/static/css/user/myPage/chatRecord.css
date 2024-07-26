@@ -65,6 +65,7 @@
     width: 64px;
     height: 64px;
     margin-right: 16px;
+    border-radius: 50%;
 }
 .chat-li{
     cursor: pointer;
@@ -132,6 +133,7 @@
     height: 48px;
     align-self: center;
     margin-right: 16px;
+    border-radius: 50%;
 }
 /************* 채팅창 **************/
 #chatMsgSec{
@@ -203,6 +205,7 @@
 #profileImg img{
     width: 104px;
     height: 104px;
+    border-radius: 50%;
 }
 #profileImg a{
     display: block;

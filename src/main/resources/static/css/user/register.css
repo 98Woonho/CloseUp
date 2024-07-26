@@ -57,6 +57,7 @@ main[data-step="2"] .step-container[data-step="2"] {
     color: var(--color-dark-gray);
     font-size: 40px;
     font-weight: lighter;
+    align-self: center;
 }
 
 #registerCon {

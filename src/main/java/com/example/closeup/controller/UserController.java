@@ -308,12 +308,12 @@ public class UserController {
         expertDto.setUserId(principalDetails.getUsername());
         expertDto.setProfileImg(principalDetails.getUserDto().getProfileImg());
 
-            userService.insertExpertInfo(expertDto);
-            expertService.insertExpertDetails(expertDto);
-            userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
+        userService.insertExpertInfo(expertDto);
+        expertService.insertExpertDetails(expertDto);
+        userService.updateUserSuspendAndRoleById(principalDetails.getUsername());
 
-            return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
-        }
+        return new ResponseEntity<>("전문가 정보 등록에 성공하셨습니다.", HttpStatus.OK);
+    }
 
 
         @GetMapping("/addExpertInfo")

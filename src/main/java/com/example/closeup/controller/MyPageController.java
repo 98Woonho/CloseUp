@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
@@ -62,15 +63,14 @@ public class MyPageController {
     }
 
     @PostMapping("/modifyUserInfo")
-    public String modifyUserInfo(
+    public ResponseEntity<String> modifyUserInfo(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @RequestParam("password") String password,
             @RequestParam("phone") String phone,
             Model model
     ) {
         userService.updateUserProfileById(principalDetails.getUsername(), passwordEncoder.encode(password), phone);
-        model.addAttribute("message", "정보 변경이 완료되었습니다.");
-        return "redirect:/myPage/myPageMain";
+        return new ResponseEntity<>("회원 정보 수정에 성공하셨습니다.", HttpStatus.OK);
     }
 
     // 회원정보 수정을 위한 비밀번호 입력 페이지

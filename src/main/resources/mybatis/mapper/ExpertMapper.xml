@@ -28,9 +28,9 @@
         WHERE user_id = #{id}
     </update>
 
-    <update id="updateExpertInfo">
+    <update id="updateExpertInfo" parameterType="com.example.closeup.domain.dto.ExpertDto">
         UPDATE `expert`
-        SET nickname = #{nickname}, introduction = #{introduction}, zipcode = #{zipcode}, address = #{address}, address_detail = #{addressDetail}
+        SET nickname = #{expertDto.nickname}, introduction = #{expertDto.introduction}, zipcode = #{expertDto.zipcode}, address = #{expertDto.address}, address_detail = #{expertDto.addressDetail}
         WHERE user_id = #{id}
     </update>
 

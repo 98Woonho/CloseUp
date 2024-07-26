@@ -61,8 +61,8 @@ public class ExpertService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void deleteExpertDetails(String nickname) {
-        expertDetailMapper.deleteExpertDetailsByNickname(nickname);
+    public void deleteExpertDetails(String expertNickname) {
+        expertDetailMapper.deleteExpertDetailsByNickname(expertNickname);
     }
 
     public ExpertDto selectExpertDto(String id) {

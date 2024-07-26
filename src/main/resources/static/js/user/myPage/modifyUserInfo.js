@@ -7,7 +7,7 @@ const CK_space = /\s/g;
 // 비밀번호 정규 표현식 공식
 const CK_pw = /^[A-Za-z\\d`~!@#$%^&*()-_=+]{8,20}$/;
 
-modifyInfoForm.onsubmit = (e) => {
+modifyInfoForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     errMsgs.forEach(errMsg => {
@@ -35,5 +35,15 @@ modifyInfoForm.onsubmit = (e) => {
         return;
     }
 
-    modifyInfoForm.submit();
-}
+    const formData = new FormData(modifyInfoForm);
+
+    axios.post('/myPage/modifyUserInfo', formData)
+        .then(response => {
+            alert(response.data);
+            location.href = '/myPage/myPageMain';
+        })
+        .catch(error => {
+            alert('회원 정보 수정에 실패하였습니다.');
+            console.error('Error : ', error);
+        });
+});

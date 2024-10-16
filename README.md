@@ -30,6 +30,7 @@ CloseUp
 
 
 ## ▶️ 시연 영상
+채팅 : https://www.youtube.com/watch?v=JxE-QOAwQuA&t=1s
 
 <br/>
 

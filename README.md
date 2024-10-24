@@ -11,26 +11,21 @@ CloseUp
 <br/>
 
 ## ▶️ 개발 일정
-#### 2024-05-25 ~ 2024-06-16(32Days) : 주제 선정 및 요구사항 분석, UI 및 DB 설계
-#### 2024-06-17 ~ 2024-07-19(33Days) : 프론트엔드 및 백엔드 개발
-#### 2024-07-20 ~ 2024-07-26(7Days) : 기능 테스트 및 문서 정리
+|PLAN|일정|DESCRIPTION|
+|---------------|----------------|------------------------|
+|주제 선정 <br/> 요구사항 분석 <br/> 기술스택 결정 <br/> 개발환경 구축 <br/> UI 및 DB 설계|2024-01-15 ~ 2024-01-16(02Days)|완료| 
+|프론트엔드 및 백엔드 개발 <br/> DB 설계|2024-06-17 ~ 2024-07-19(33Days)|진행중| 
+|기능 테스트 및 문서 정리|2024-07-20 ~ 2024-07-26(7Days)|진행중| 
+
 <br/>
 
 ## ▶️ 구성인원 
-#### [이운호(조장)](https://github.com/98Woonho) : 백엔드(회원가입, 채팅, 결제), git
-#### [길보령](https://github.com/bryeong) : 프론트엔드, 백엔드(즐겨찾기, 게시판, 리뷰), 문서 관리
-#### [박정우](https://github.com/pppooowww) : 프론트엔드, 백엔드(지도, 전문가 등록, 회원 수정), 문서 관리
-#### [이성훈](https://github.com/swLsh) : 백엔드(소셜 로그인, 게시판, 관리자 페이지, 댓글)
-
-
-<br/>
-
-## ▶️ ERD
-![CloseUp ERD](https://github.com/user-attachments/assets/0b576fbe-a6ba-4692-a224-ebb90a72b3bc)
-
-
-## ▶️ 시연 영상
-채팅 : https://www.youtube.com/watch?v=JxE-QOAwQuA&t=1s
+|조원|역할|
+|---------------|----------------|
+|이운호(조장)|백엔드(회원가입, 채팅, 결제), 문서 관리, git|
+|길보령(조원1)|프론트엔드, 백엔드(즐겨찾기, 게시판, 리뷰), 문서 관리|
+|박정우(조원2)|프론트엔드, 백엔드(지도, 전문가 등록, 회원 수정), 문서 관리|
+|이성훈(조원3)|백엔드(소셜 로그인, 게시판, 관리자 페이지, 댓글)|
 
 <br/>
 
@@ -55,6 +50,18 @@ CloseUp
 #### 네이버 지도 API
 #### 다음 주소 API
 #### OAuth2 로그인 API
+
+
+|용도|제공|API 문서|
+|---------------|----------------|------------------------|
+|결제|아임포트|[링크](https://developers.portone.io/docs/ko/readme?v=v1)|
+|인증|아임포트|[링크](https://developers.portone.io/docs/ko/readme?v=v1)|
+|주소 찾기|다음|[링크](https://postcode.map.daum.net/guide)|
+|IP 조회|IP GEOLOCATION|[링크](https://ipgeolocation.io)|
+|지도|네이버|[링크](https://www.ncloud.com/product/applicationService/maps)|
+|OAuth2 로그인|카카오|[링크](https://developers.kakao.com/docs/latest/ko/index)|
+|OAuth2 로그인|구글|[링크](https://console.cloud.google.com/)|
+|OAuth2 로그인|네이버|[링크](https://developers.naver.com/products/login/api/api.md)|
 
 <br/>
 
@@ -85,4 +92,11 @@ CloseUp
 
 <br/>
 
-## ▶️ 주요 기능
+## ▶️ ERD
+![CloseUp ERD](https://github.com/user-attachments/assets/0b576fbe-a6ba-4692-a224-ebb90a72b3bc)
+
+
+## ▶️ 시연 영상
+채팅 : https://www.youtube.com/watch?v=JxE-QOAwQuA&t=1s
+
+<br/>
